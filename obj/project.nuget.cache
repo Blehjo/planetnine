@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "nj3Nw6Vdww9nofEGxhdX0IxNZQg2SOClYej4HvLeAoB9TmEVqr0amqXDiSttxg6FOF/17mT7oTdRpO9F5GccEA==",
+  "success": true,
+  "projectFilePath": "/Users/blehjo/projects/planetnine/planetnine/planetnine.csproj",
+  "expectedPackageFiles": [
+    "/Users/blehjo/.nuget/packages/microsoft.aspnetcore.spaproxy/7.0.3/microsoft.aspnetcore.spaproxy.7.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
