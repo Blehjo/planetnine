@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44489",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "/Users/blehjo/projects/planetnine/planetnine/ClientApp/",
+"MaxTimeoutInSeconds": "120"
+}
+}
