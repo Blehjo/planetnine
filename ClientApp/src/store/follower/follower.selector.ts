@@ -1,0 +1,1 @@
+export const selectFollowerReducer = (state) => state.follower;
