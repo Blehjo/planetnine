@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/blehjo/projects/planetnine/planetnine/planetnine.csproj": {}
+    "/Users/blehjo/projects/planetninesolution/planetnine/planetnine.csproj": {}
   },
   "projects": {
-    "/Users/blehjo/projects/planetnine/planetnine/planetnine.csproj": {
+    "/Users/blehjo/projects/planetninesolution/planetnine/planetnine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/blehjo/projects/planetnine/planetnine/planetnine.csproj",
+        "projectUniqueName": "/Users/blehjo/projects/planetninesolution/planetnine/planetnine.csproj",
         "projectName": "planetnine",
-        "projectPath": "/Users/blehjo/projects/planetnine/planetnine/planetnine.csproj",
+        "projectPath": "/Users/blehjo/projects/planetninesolution/planetnine/planetnine.csproj",
         "packagesPath": "/Users/blehjo/.nuget/packages/",
-        "outputPath": "/Users/blehjo/projects/planetnine/planetnine/obj/",
+        "outputPath": "/Users/blehjo/projects/planetninesolution/planetnine/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/blehjo/.nuget/NuGet/NuGet.Config"
@@ -63,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.200/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.202/RuntimeIdentifierGraph.json"
         }
       }
     }

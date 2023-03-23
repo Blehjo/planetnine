@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nj3Nw6Vdww9nofEGxhdX0IxNZQg2SOClYej4HvLeAoB9TmEVqr0amqXDiSttxg6FOF/17mT7oTdRpO9F5GccEA==",
+  "dgSpecHash": "OiQVg7RvP5u+HbZqyRALAcUWS62TCD/lHdBm+GkR6de+U7XVTTQqK8pPUpkjXY4/BsLBGsHBAPe0k4jH+b8qvA==",
   "success": true,
-  "projectFilePath": "/Users/blehjo/projects/planetnine/planetnine/planetnine.csproj",
+  "projectFilePath": "/Users/blehjo/projects/planetninesolution/planetnine/planetnine.csproj",
   "expectedPackageFiles": [
     "/Users/blehjo/.nuget/packages/microsoft.aspnetcore.spaproxy/7.0.3/microsoft.aspnetcore.spaproxy.7.0.3.nupkg.sha512"
   ],

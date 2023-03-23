@@ -1,5 +1,5 @@
+import Authentication from "./Routes/Authentication/Authentication.component";
 import { Dashboard } from "./Routes/Dashboard/Dashboard.component";
-import { Authentication } from "./Routes/Authentication/Authentication.component";
 import { Home } from "./Routes/Home/Home.component";
 
 const AppRoutes = [
