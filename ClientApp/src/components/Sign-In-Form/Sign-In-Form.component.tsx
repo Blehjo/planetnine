@@ -5,10 +5,10 @@ import FormInput from '../Form-Input/Form-Input.component';
 import Button, { BUTTON_TYPE_CLASSES } from '../Button/Button.component';
 
 import { SignInContainer, ButtonsContainer } from './Sign-In-Form.styles';
-import {
-  googleSignInStart,
-  emailSignInStart,
-} from '../../store/user/user.action';
+// import {
+//   googleSignInStart,
+//   emailSignInStart,
+// } from '../../store/user/user.action';
 
 const defaultFormFields = {
   email: '',
@@ -25,14 +25,14 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    dispatch(googleSignInStart());
+    // dispatch(googleSignInStart());
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      dispatch(emailSignInStart(email, password));
+      // dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
       console.log('user sign in failed', error);

@@ -8,7 +8,6 @@
 /Users/blehjo/projects/planetnine/planetnine/bin/Debug/net7.0/spa.proxy.json
 /Users/blehjo/projects/planetnine/planetnine/bin/Debug/net7.0/package-lock.json
 /Users/blehjo/projects/planetnine/planetnine/bin/Debug/net7.0/package.json
-/Users/blehjo/projects/planetnine/planetnine/bin/Debug/net7.0/tsconfig.json
 /Users/blehjo/projects/planetnine/planetnine/bin/Debug/net7.0/planetnine
 /Users/blehjo/projects/planetnine/planetnine/bin/Debug/net7.0/planetnine.deps.json
 /Users/blehjo/projects/planetnine/planetnine/bin/Debug/net7.0/planetnine.runtimeconfig.json

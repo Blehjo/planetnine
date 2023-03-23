@@ -5,7 +5,7 @@ import FormInput from '../Form-Input/Form-Input.component';
 import Button from '../Button/Button.component';
 
 import { SignUpContainer } from './Sign-Up-Form.styles';
-import { signUpStart } from '../../store/user/user.action';
+// import { signUpStart } from '../../store/user/user.action';
 
 const defaultFormFields = {
   displayName: '',
@@ -31,16 +31,16 @@ const SignUpForm = () => {
       return;
     }
 
-    try {
-      dispatch(signUpStart(email, password, displayName));
-      resetFormFields();
-    } catch (error) {
-      if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
-        alert('Cannot create user, email already in use');
-      } else {
-        console.log('user creation encountered an error', error);
-      }
-    }
+    // try {
+    //   dispatch(signUpStart(email, password, displayName));
+    //   resetFormFields();
+    // } catch (error) {
+    //   if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
+    //     alert('Cannot create user, email already in use');
+    //   } else {
+    //     console.log('user creation encountered an error', error);
+    //   }
+    // }
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
