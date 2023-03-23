@@ -1,6 +1,6 @@
-import { Dashboard } from "./components/Dashboard";
-import { Authentication } from "./components/Authentication";
-import { Home } from "./components/Home";
+import { Dashboard } from "./Routes/Dashboard/Dashboard.component";
+import { Authentication } from "./Routes/Authentication/Authentication.component";
+import { Home } from "./Routes/Home/Home.component";
 
 const AppRoutes = [
   {
