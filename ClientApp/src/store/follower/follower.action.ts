@@ -1,5 +1,9 @@
 import { FOLLOWER_ACTION_TYPES } from './follower.types';
-import { createAction } from '../../utils/reducer';
+import {
+  createAction,
+  withMatcher,
+  ActionWithPayload,
+} from '../../utils/reducer/reducer.utils';
 
 export const followerCreateStart = (userId, followerId) => 
     createAction(FOLLOWER_ACTION_TYPES.CREATE_START, { userId, followerId });

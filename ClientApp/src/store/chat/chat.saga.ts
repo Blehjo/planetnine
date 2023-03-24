@@ -3,13 +3,49 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { CHAT_ACTION_TYPES } from './chat.types';
 
 import {
+    chatCreateStart,
     chatCreateSuccess,
     chatCreateFailed,
-    chatFetchAllFailed,
+    chatUpdateStart,
+    chatUpdateSuccess,
+    chatUpdateFailed,
+    chatDeleteStart,
+    chatDeleteSuccess,
+    chatDeleteFailed,
+    chatFetchSingleStart,
+    chatFetchSingleSuccess,
+    chatFetchSingleFailed,
+    chatFetchAllStart,
     chatFetchAllSuccess,
+    chatFetchAllFailed,
 } from './chat.action';
 
-import { addChat, getChats, getSingleChat } from '../../utils/api/chat';
+import { 
+    getSingleChat,
+    getAllChats,
+    getUserChats,
+    getUsersChats,
+    getChats, 
+    addChat, 
+    editChat,
+    deleteChat
+} from '../../utils/api/chat';
+
+export function* fetchCategoriesAsync() {
+    try {
+      const chats = yield* call(getAllChats);
+      yield* put(chatFetchAllSuccess(chats));
+    } catch (error) {
+      yield* put(chatFetchAllFailed(error as Error));
+    }
+}
+  
+export function* onFetchCategories() {
+    yield* takeLatest(
+      CHAT_ACTION_TYPES.FETCH_ALL_START,
+      fetchCategoriesAsync
+    );
+}
 
 export function* getSnapshotFromChat(chat, additionalDetails) {
     try {
@@ -36,7 +72,7 @@ export function* createChat({ payload: { title } }) {
     }
 }
 
-export function* getUserChats() {
+export function* getUserInfoChats() {
     try {
         const chat = yield call(getChats);
         if (!chat) return;

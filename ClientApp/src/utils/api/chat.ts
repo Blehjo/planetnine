@@ -1,8 +1,9 @@
 import axios from "axios";
+import { Chat } from "../../store/chat/chat.types";
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/chat";
 
-export async function getSingleChat(chatId) {
+export async function getSingleChat(chatId: number) {
   return await axios({
     method: 'get',
     url: `${api}/${chatId}`,
@@ -13,18 +14,20 @@ export async function getSingleChat(chatId) {
   });
 }
 
-export async function getAllChats() {
-  return await axios({
+export const getAllChats = async (): Promise<Chat[]> => {
+  const chats = await axios({
     method: 'get',
     url: api,
     headers: {
       'Content-Type': 'application/json'
     },
     withCredentials: true
-  });
+  })
+
+ 
 }
 
-export async function getUserChats(id) {
+export async function getUserChats(id: number) {
   return await axios({
     method: 'get',
     url: `${api}/user/${id}`,
@@ -57,7 +60,7 @@ export async function getChats() {
   });
 }
 
-export async function addChat(chat) {
+export async function addChat(chat: Chat) {
   const { title } = chat;
   return await axios({
     method: 'post',
@@ -72,10 +75,10 @@ export async function addChat(chat) {
   });
 }
 
-export async function editChat(chat) {
+export async function editChat(chat: Chat) {
   return await axios({
     method: 'put',
-    url: `${api}/${chat.id}`, 
+    url: `${api}/${chat.chatId}`, 
     data: chat,
     headers: {
       'Content-Type': 'application/json'
@@ -84,7 +87,7 @@ export async function editChat(chat) {
   })
 }
 
-export async function deleteChat(chatId) {
+export async function deleteChat(chatId: number) {
   return await axios({
     method: 'delete',
     url: `${api}/${chatId}`,

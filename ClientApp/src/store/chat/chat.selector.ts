@@ -1,8 +1,27 @@
 import { createSelector } from 'reselect';
 
-export const selectChatReducer = (state) => state.chat;
+import { RootState } from '../store';
 
-export const selectChatItems = createSelector(
+import { ChatState } from './chat.reducer';
+
+export const selectChatReducer = (state: RootState): ChatState => state.chat;
+
+export const selectChatId = createSelector(
+  [selectChatReducer],
+  (chat) => chat.chatId
+);
+
+export const selectSingleChat = createSelector(
+  [selectChatReducer],
+  (chat) => chat.singleChat
+);
+
+export const selectUserChats = createSelector(
+  [selectChatReducer],
+  (chat) => chat.userChats
+);
+
+export const selectAllChats = createSelector(
   [selectChatReducer],
   (chat) => chat.chats
 );

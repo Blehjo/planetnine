@@ -1,31 +1,81 @@
-import { CHAT_ACTION_TYPES } from './chat.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
+import { Chat } from './chat.types';
+
+import {
+    chatCreateStart,
+    chatCreateSuccess,
+    chatCreateFailed,
+    chatUpdateStart,
+    chatUpdateSuccess,
+    chatUpdateFailed,
+    chatDeleteStart,
+    chatDeleteSuccess,
+    chatDeleteFailed,
+    chatFetchSingleStart,
+    chatFetchSingleSuccess,
+    chatFetchSingleFailed,
+    chatFetchAllStart,
+    chatFetchAllSuccess,
+    chatFetchAllFailed,
+} from './chat.action';
+
+export type ChatState = {
+    readonly chatId: number | null
+    readonly singleChat: Chat | null;
+    readonly userChats: Chat[] | null;
+    readonly chats: Chat[] | null;
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+};
+
+const INITIAL_STATE: ChatState = {
+    chatId: null,
+    singleChat: null,
+    userChats: [],
     chats: [],
     isLoading: false,
-    error: null,
+    error: null
 };
 
-export const chatReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case CHAT_ACTION_TYPES.CREATE_START:
-        case CHAT_ACTION_TYPES.UPDATE_START:
-        case CHAT_ACTION_TYPES.DELETE_START:
-        case CHAT_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, chats: payload, isLoading: true };
-        case CHAT_ACTION_TYPES.CREATE_SUCCESS:
-        case CHAT_ACTION_TYPES.UPDATE_SUCCESS:
-        case CHAT_ACTION_TYPES.DELETE_SUCCESS:
-        case CHAT_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, chats: payload, isLoading: false };
-        case CHAT_ACTION_TYPES.CREATE_FAILED:
-        case CHAT_ACTION_TYPES.UPDATE_FAILED:
-        case CHAT_ACTION_TYPES.DELETE_FAILED:
-        case CHAT_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const chatReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): ChatState => {
+    if (
+        chatFetchAllStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
-};
+    if (
+        chatCreateStart.match(action) ||
+        chatUpdateStart.match(action) ||
+        chatDeleteStart.match(action) || 
+        chatFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: true, singleChat: action.payload };
+    }
+    if (
+        chatFetchSingleStart.match(action)
+    ) {
+        return { ...state, isLoading: true, chatId: action.payload };
+    }  
+    if (
+        chatCreateSuccess.match(action) ||
+        chatUpdateSuccess.match(action) ||
+        chatDeleteSuccess.match(action) ||
+        chatFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, chats: action.payload };
+    } 
+    if (
+        chatCreateFailed.match(action) ||
+        chatUpdateFailed.match(action) ||
+        chatDeleteFailed.match(action) ||
+        chatFetchSingleFailed.match(action) ||
+        chatFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
+  };
