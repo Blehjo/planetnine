@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { createRoot } from 'react-dom/client';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -12,18 +12,40 @@ import reportWebVitals from './reportWebVitals';
 import { store, persistor } from './store/store';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
+const container = document.getElementById('root');
+const root = createRoot(container as HTMLElement);
 
-root.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter basename={baseUrl}>
-        <App />
-      </BrowserRouter>
-    </PersistGate>
-  </Provider>
-);
+// const rootElement = document.getElementById('root');
+// const root = createRoot(rootElement);
+
+// root.render(
+//   <Fragment>
+//     <BrowserRouter basename={baseUrl}>
+//       <Provider store={store}>
+//         <PersistGate loading={null} persistor={persistor}>
+//           <App />
+//           </PersistGate>
+//         </Provider>
+//     </BrowserRouter>
+//   </Fragment>
+// );
+
+function AppRenderer() {
+
+  return (
+    <Fragment>
+    <BrowserRouter>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+          </PersistGate>
+        </Provider>
+    </BrowserRouter>
+  </Fragment>
+  );
+}
+
+root.render(<AppRenderer />);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
