@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { chatReducer } from './chat/chat.reducer';
 import { chatcommentReducer } from './chatcomment/chatcomment.reducer';
+import { commentReducer } from './comment/comment.reducer';
 import { followerReducer } from './follower/follower.reducer';
 import { messageReducer } from './message/message.reducer';
 import { messagecommentReducer } from './messagecomment/messagecomment.reducer';
@@ -23,4 +24,5 @@ export const rootReducer = combineReducers({
   follower: followerReducer,
   chat: chatReducer,
   chatcomment: chatcommentReducer,
+  comment: commentReducer
 });

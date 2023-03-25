@@ -21,7 +21,7 @@ import {
 } from './chat.action';
 
 export type ChatState = {
-    readonly chatId: number | null
+    readonly chatId: number | null;
     readonly singleChat: Chat | null;
     readonly userChats: Chat[] | null;
     readonly chats: Chat[] | null;
@@ -78,4 +78,4 @@ export const chatReducer = (
     }
   
     return state;
-  };
+};

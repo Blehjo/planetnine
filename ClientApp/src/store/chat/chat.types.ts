@@ -22,9 +22,9 @@ export enum CHAT_ACTION_TYPES  {
 };
 
 export type Chat = {
-    chatId: number | null
-    title: string,
-    dateCreated: Date | null,
-    userId: number | null,
-    chatComment: ChatComment[] | null,
+    chatId: number | null;
+    title: string;
+    dateCreated: Date | null;
+    userId: number | null;
+    chatComment: ChatComment[] | null;
 }

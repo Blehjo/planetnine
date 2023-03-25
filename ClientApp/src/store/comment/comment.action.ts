@@ -1,0 +1,186 @@
+import { COMMENT_ACTION_TYPES, Comment } from './comment.types';
+
+import {
+  createAction,
+  withMatcher,
+  Action,
+  ActionWithPayload
+} from '../../utils/reducer/reducer.utils';
+
+export type CommentCreateStart = ActionWithPayload<
+    COMMENT_ACTION_TYPES.CREATE_START, Comment
+>;
+
+export type CommentCreateSuccess = ActionWithPayload<
+    COMMENT_ACTION_TYPES.CREATE_SUCCESS, 
+    Comment[]
+>;
+
+export type CommentCreateFailed = ActionWithPayload<
+    COMMENT_ACTION_TYPES.CREATE_FAILED,
+    Error
+>;
+
+export type CommentUpdateStart = ActionWithPayload<
+    COMMENT_ACTION_TYPES.UPDATE_START,
+    Comment
+>;
+
+export type CommentUpdateSuccess = ActionWithPayload<
+    COMMENT_ACTION_TYPES.UPDATE_SUCCESS, 
+    Comment[]
+>;
+
+export type CommentUpdateFailed = ActionWithPayload<
+    COMMENT_ACTION_TYPES.UPDATE_FAILED,
+    Error
+>;
+   
+export type CommentDeleteStart = ActionWithPayload<
+    COMMENT_ACTION_TYPES.DELETE_START,
+    Comment
+>;
+
+export type CommentDeleteSuccess = ActionWithPayload<
+    COMMENT_ACTION_TYPES.DELETE_SUCCESS, 
+    Comment[]
+>;
+
+export type CommentDeleteteFailed = ActionWithPayload<
+    COMMENT_ACTION_TYPES.DELETE_FAILED,
+    Error
+>;
+   
+export type CommentFetchSingleStart = ActionWithPayload<
+    COMMENT_ACTION_TYPES.FETCH_SINGLE_START,
+    number
+>;
+
+export type CommentFetchSingleSuccess = ActionWithPayload<
+    COMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
+    Comment
+>;
+
+export type CommentFetchSingleFailed = ActionWithPayload<
+    COMMENT_ACTION_TYPES.FETCH_SINGLE_FAILED,
+    Error
+>;
+
+export type CommentFetchUserChatsStart = ActionWithPayload<
+    COMMENT_ACTION_TYPES.FETCH_USER_COMMENTS_START,
+    number
+>;
+
+export type CommentFetchUserChatsSuccess = ActionWithPayload<
+    COMMENT_ACTION_TYPES.FETCH_USER_COMMENTS_SUCCESS, 
+    Comment[]
+>;
+
+export type CommentFetchUserChatsFailed = ActionWithPayload<
+    COMMENT_ACTION_TYPES.FETCH_USER_COMMENTS_FAILED,
+    Error
+>;
+
+export type CommentFetchAllStart = Action<
+    COMMENT_ACTION_TYPES.FETCH_ALL_START
+>;
+
+export type CommentFetchAllSuccess = ActionWithPayload<
+    COMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, 
+    Comment[]
+>;
+
+export type CommentFetchAllFailed = ActionWithPayload<
+    COMMENT_ACTION_TYPES.FETCH_ALL_FAILED,
+    Error
+>;
+
+export const commentCreateStart = withMatcher(
+    (comment: Comment): CommentCreateStart => 
+    createAction(COMMENT_ACTION_TYPES.CREATE_START, comment)
+);
+
+export const commentCreateSuccess = withMatcher(
+    (comment: Comment[]): CommentCreateSuccess => 
+    createAction(COMMENT_ACTION_TYPES.CREATE_SUCCESS, comment)
+);
+
+export const commentCreateFailed = withMatcher(
+    (error: Error) => 
+    createAction(COMMENT_ACTION_TYPES.CREATE_START, error)
+);
+ 
+export const commentUpdateStart = withMatcher(
+    (comment: Comment): CommentUpdateStart => 
+    createAction(COMMENT_ACTION_TYPES.UPDATE_START, comment)
+);
+
+export const commentUpdateSuccess = withMatcher(
+    (comment: Comment[]): CommentUpdateSuccess => 
+    createAction(COMMENT_ACTION_TYPES.UPDATE_SUCCESS, comment)
+);
+
+export const commentUpdateFailed = withMatcher(
+    (error: Error): CommentUpdateFailed => 
+    createAction(COMMENT_ACTION_TYPES.UPDATE_FAILED, error)
+);
+
+export const commentDeleteStart = withMatcher(
+    (comment: Comment): CommentDeleteStart => 
+    createAction(COMMENT_ACTION_TYPES.DELETE_START, comment)
+);
+
+export const commentDeleteSuccess = withMatcher(
+    (comment: Comment[]): CommentDeleteSuccess => 
+    createAction(COMMENT_ACTION_TYPES.DELETE_SUCCESS, comment)
+);
+
+export const commentDeleteFailed = withMatcher(
+    (error: Error) => 
+    createAction(COMMENT_ACTION_TYPES.DELETE_START, error)
+);
+
+export const commentFetchSingleStart = withMatcher(
+    (commentId: number): CommentFetchSingleStart => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_SINGLE_START, commentId)
+);
+
+export const commentFetchSingleSuccess = withMatcher(
+    (comment: Comment): CommentFetchSingleSuccess => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, comment)
+);
+
+export const commentFetchSingleFailed = withMatcher(
+    (error: Error): CommentFetchSingleFailed => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
+);
+
+export const commentFetchUserChatsStart = withMatcher(
+    (commentId: number): CommentFetchUserChatsStart => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_USER_COMMENTS_START, commentId)
+);
+
+export const commentFetchUserChatsSuccess = withMatcher(
+    (comment: Comment[]): CommentFetchUserChatsSuccess => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_USER_COMMENTS_SUCCESS, comment)
+);
+
+export const commentFetchUserChatsFailed = withMatcher(
+    (error: Error): CommentFetchUserChatsFailed => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_USER_COMMENTS_FAILED, error)
+);
+
+export const commentFetchAllStart = withMatcher(
+    (comment: Comment[]): CommentFetchAllStart => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_ALL_START, comment)
+);
+
+export const commentFetchAllSuccess = withMatcher(
+    (comment: Comment[]): CommentFetchAllSuccess => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, comment)
+);
+
+export const commentFetchAllFailed = withMatcher(
+    (error: Error): CommentFetchAllFailed => 
+    createAction(COMMENT_ACTION_TYPES.FETCH_ALL_FAILED, error)
+);

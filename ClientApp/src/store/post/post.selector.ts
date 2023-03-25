@@ -1,18 +1,31 @@
 import { createSelector } from 'reselect';
 
-export const selectPostReducer = (state) => state.post;
+import { RootState } from '../store';
+import { PostState } from './post.reducer';
 
-export const selectPosts = createSelector(
+export const selectPostReducer = (state: RootState): PostState => state.post;
+
+export const selectpostItems = createSelector(
     [selectPostReducer],
     (post) => post.posts
 );
 
-export const selectSinglePost = createSelector(
+export const selectpostId = createSelector(
+    [selectPostReducer],
+    (post) => post.postId
+);
+
+export const selectSinglepost = createSelector(
     [selectPostReducer],
     (post) => post.singlePost
 );
 
-export const selectPostsIsLoading = createSelector(
+export const selectUserposts = createSelector(
     [selectPostReducer],
-    (post) => post.isLoading
+    (post) => post.userPosts
+);
+
+export const selectAllposts = createSelector(
+    [selectPostReducer],
+    (post) => post.posts
 );

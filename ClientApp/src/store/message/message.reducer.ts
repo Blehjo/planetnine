@@ -1,31 +1,81 @@
-import { MESSAGE_ACTION_TYPES } from './message.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
+import { Message } from './message.types';
+
+import {
+    messageCreateStart,
+    messageCreateSuccess,
+    messageCreateFailed,
+    messageUpdateStart,
+    messageUpdateSuccess,
+    messageUpdateFailed,
+    messageDeleteStart,
+    messageDeleteSuccess,
+    messageDeleteFailed,
+    messageFetchSingleStart,
+    messageFetchSingleSuccess,
+    messageFetchSingleFailed,
+    messageFetchAllStart,
+    messageFetchAllSuccess,
+    messageFetchAllFailed,
+} from './message.action';
+
+export type MessageState = {
+    readonly messageId: number | null;
+    readonly singleMessage: Message | null;
+    readonly userMessages: Message[] | null;
+    readonly messages: Message[] | null;
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+}
+
+const INITIAL_STATE: MessageState = {
+    messageId: null,
+    singleMessage: null,
+    userMessages: [],
     messages: [],
     isLoading: false,
     error: null,
 };
 
-export const messageReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case MESSAGE_ACTION_TYPES.CREATE_START:
-        case MESSAGE_ACTION_TYPES.UPDATE_START:
-        case MESSAGE_ACTION_TYPES.DELETE_START:
-        case MESSAGE_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, messages: payload, isLoading: true };
-        case MESSAGE_ACTION_TYPES.CREATE_SUCCESS:
-        case MESSAGE_ACTION_TYPES.UPDATE_SUCCESS:
-        case MESSAGE_ACTION_TYPES.DELETE_SUCCESS:
-        case MESSAGE_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, messages: payload, isLoading: false };
-        case MESSAGE_ACTION_TYPES.CREATE_FAILED:
-        case MESSAGE_ACTION_TYPES.UPDATE_FAILED:
-        case MESSAGE_ACTION_TYPES.DELETE_FAILED:
-        case MESSAGE_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const messageReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): MessageState => {
+    if (
+        messageFetchAllStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        messageCreateStart.match(action) ||
+        messageUpdateStart.match(action) ||
+        messageDeleteStart.match(action) || 
+        messageFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: true, singleMessage: action.payload };
+    }
+    if (
+        messageFetchSingleStart.match(action)
+    ) {
+        return { ...state, isLoading: true, messageId: action.payload };
+    }  
+    if (
+        messageCreateSuccess.match(action) ||
+        messageUpdateSuccess.match(action) ||
+        messageDeleteSuccess.match(action) ||
+        messageFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, messages: action.payload };
+    } 
+    if (
+        messageCreateFailed.match(action) ||
+        messageUpdateFailed.match(action) ||
+        messageDeleteFailed.match(action) ||
+        messageFetchSingleFailed.match(action) ||
+        messageFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };
