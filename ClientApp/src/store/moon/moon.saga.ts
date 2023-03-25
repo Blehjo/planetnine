@@ -1,35 +1,35 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-import { FOLLOWER_ACTION_TYPES } from './follower.types';
+import { CHAT_ACTION_TYPES } from './moon.types';
 
 import {
-    followerCreateStart,
-    followerCreateSuccess,
-    followerCreateFailed,
-    followerUpdateStart,
-    followerUpdateSuccess,
-    followerUpdateFailed,
-    followerDeleteStart,
-    followerDeleteSuccess,
-    followerDeleteFailed,
-    followerFetchSingleStart,
-    followerFetchSingleSuccess,
-    followerFetchSingleFailed,
-    followerFetchAllStart,
-    followerFetchAllSuccess,
-    followerFetchAllFailed,
-} from './follower.action';
+    chatCreateStart,
+    chatCreateSuccess,
+    chatCreateFailed,
+    chatUpdateStart,
+    chatUpdateSuccess,
+    chatUpdateFailed,
+    chatDeleteStart,
+    chatDeleteSuccess,
+    chatDeleteFailed,
+    chatFetchSingleStart,
+    chatFetchSingleSuccess,
+    chatFetchSingleFailed,
+    chatFetchAllStart,
+    chatFetchAllSuccess,
+    chatFetchAllFailed,
+} from './moon.action';
 
 import { 
-    getSingleFollower,
-    getAllFollowers,
-    getUserFollowers,
-    getUsersFollowers,
-    getFollowers, 
-    addFollower, 
-    editFollower,
-    deleteFollower
-} from '../../utils/api/follower';
+    getSingleChat,
+    getAllChats,
+    getUserChats,
+    getUsersChats,
+    getChats, 
+    addChat, 
+    editChat,
+    deleteChat
+} from '../../utils/api/chat';
 
 export function* fetchCategoriesAsync() {
     try {
@@ -42,7 +42,7 @@ export function* fetchCategoriesAsync() {
   
 export function* onFetchCategories() {
     yield* takeLatest(
-      FOLLOWER_ACTION_TYPES.FETCH_ALL_START,
+      CHAT_ACTION_TYPES.FETCH_ALL_START,
       fetchCategoriesAsync
     );
 }
@@ -83,11 +83,11 @@ export function* getUserInfoChats() {
 }
 
 export function* onChatStart() {
-    yield takeLatest(FOLLOWER_ACTION_TYPES.CREATE_START, createChat);
+    yield takeLatest(CHAT_ACTION_TYPES.CREATE_START, createChat);
 }
 
 export function* onFetchStart() {
-    yield takeLatest(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, getUserChats);
+    yield takeLatest(CHAT_ACTION_TYPES.FETCH_ALL_START, getUserChats);
 }
 
 export function* chatSagas() {

@@ -2,9 +2,12 @@ import { combineReducers } from 'redux';
 import { chatReducer } from './chat/chat.reducer';
 import { chatcommentReducer } from './chatcomment/chatcomment.reducer';
 import { commentReducer } from './comment/comment.reducer';
+import { favoriteReducer } from './favorite/favorite.reducer';
 import { followerReducer } from './follower/follower.reducer';
 import { messageReducer } from './message/message.reducer';
 import { messagecommentReducer } from './messagecomment/messagecomment.reducer';
+import { moonReducer } from './moon/moon.reducer';
+import { planetReducer } from './planet/planet.reducer';
 import { postReducer } from './post/post.reducer';
 import { profileReducer } from './profile/profile.reducer';
 import { toolReducer } from './tool/tool.reducer';
@@ -24,5 +27,8 @@ export const rootReducer = combineReducers({
   follower: followerReducer,
   chat: chatReducer,
   chatcomment: chatcommentReducer,
-  comment: commentReducer
+  comment: commentReducer,
+  favorite: favoriteReducer,
+  planet: planetReducer,
+  moon: moonReducer
 });

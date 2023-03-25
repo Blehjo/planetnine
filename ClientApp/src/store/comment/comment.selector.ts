@@ -5,22 +5,22 @@ import { CommentState } from './comment.reducer';
 
 export const selectCommentReducer = (state: RootState): CommentState => state.comment;
 
-export const selectChatId = createSelector(
+export const selectCommentId = createSelector(
     [selectCommentReducer],
-    (chat) => chat.commentId
+    (comment) => comment.commentId
 );
 
-export const selectSingleChat = createSelector(
+export const selectSingleComment = createSelector(
     [selectCommentReducer],
-    (chat) => chat.singleComment
+    (comment) => comment.singleComment
 );
 
-export const selectUserChats = createSelector(
+export const selectUserComments = createSelector(
     [selectCommentReducer],
-    (chat) => chat.userComments
+    (comment) => comment.userComments
 );
 
-export const selectAllChats = createSelector(
+export const selectAllComments = createSelector(
     [selectCommentReducer],
-    (chat) => chat.comments
+    (comment) => comment.comments
 );
