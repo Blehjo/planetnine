@@ -1,19 +1,25 @@
-﻿import { TOOL_ACTION_TYPES } from "./tool.types";
+﻿import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
-    isToolOpen: false,
+import { setIsToolOpen } from './tool.action';
+
+export type ToolState = {
+  readonly isToolOpen: boolean;
 };
 
-export const toolReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
+export const INITIAL_STATE: ToolState = {
+  isToolOpen: false
+};
 
-    switch (type) {
-        case TOOL_ACTION_TYPES.SET_IS_TOOL_OPEN:
-            return {
-                ...state,
-                isToolOpen: payload
-            };
-        default:
-            return state;
-    }
+export const toolReducer = (
+  state = INITIAL_STATE,
+  action: AnyAction
+): ToolState => {
+  if (setIsToolOpen.match(action)) {
+    return {
+      ...state,
+      isToolOpen: action.payload,
+    };
+  }
+
+  return state;
 };

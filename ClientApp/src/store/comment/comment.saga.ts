@@ -9,7 +9,7 @@ import {
     chatcommentFetchAllSuccess,
 } from './comment.action';
 
-import { addChatComment, getSingleChatcomment, getChatcomments } from '../../utils/api/chatcomment';
+import { addChatComment, getSingleChatcomment, getChatcomments } from '../../utils/api/chatcomment.api';
 
 export function* getSnapshotFromChatComment(chatcomment, additionalDetails) {
     try {
@@ -55,7 +55,7 @@ export function* onFetchStart() {
     yield takeLatest(CHATCOMMENT_ACTION_TYPES.FETCH_ALL_START, getUserChatComments);
 }
 
-export function* chatCommentSagas() {
+export function* commentSagas() {
     yield all([
         call(onChatCommentStart),
         call(onFetchStart)

@@ -9,7 +9,7 @@ import {
     messageFetchAllSuccess,
 } from './message.action';
 
-import { addMessage, getAllMessages, getSingleMessage } from '../../utils/api/message';
+import { addMessage, getAllMessages, getSingleMessage } from '../../utils/api/message.api';
 
 export function* getSnapshotFromMessage(message, additionalDetails) {
     try {

@@ -1,6 +1,6 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-import { POST_ACTION_TYPES } from './post.types';
+import { POST_ACTION_TYPES } from './artificialintelligence.types';
 
 import {
     postCreateSuccess,
@@ -13,7 +13,7 @@ import {
     postFetchSingleFailed,
     postFetchAllSuccess,
     postFetchAllFailed,
-} from './post.action';
+} from './artificialintelligence.action';
 
 import { 
     getSinglePost,

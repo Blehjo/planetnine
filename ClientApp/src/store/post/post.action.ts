@@ -96,13 +96,13 @@ export type PostFetchAllFailed = ActionWithPayload<
 >;
 
 export const postCreateStart = withMatcher(
-    (Post: Post): PostCreateStart => 
-    createAction(POST_ACTION_TYPES.CREATE_START, Post)
+    (post: Post): PostCreateStart => 
+    createAction(POST_ACTION_TYPES.CREATE_START, post)
 );
 
 export const postCreateSuccess = withMatcher(
-    (Post: Post[]): PostCreateSuccess => 
-    createAction(POST_ACTION_TYPES.CREATE_SUCCESS, Post)
+    (post: Post[]): PostCreateSuccess => 
+    createAction(POST_ACTION_TYPES.CREATE_SUCCESS, post)
 );
 
 export const postCreateFailed = withMatcher(
@@ -111,13 +111,13 @@ export const postCreateFailed = withMatcher(
 );
  
 export const postUpdateStart = withMatcher(
-    (Post: Post): PostUpdateStart => 
-    createAction(POST_ACTION_TYPES.UPDATE_START, Post)
+    (post: Post): PostUpdateStart => 
+    createAction(POST_ACTION_TYPES.UPDATE_START, post)
 );
 
 export const postUpdateSuccess = withMatcher(
-    (Post: Post[]): PostUpdateSuccess => 
-    createAction(POST_ACTION_TYPES.UPDATE_SUCCESS, Post)
+    (post: Post[]): PostUpdateSuccess => 
+    createAction(POST_ACTION_TYPES.UPDATE_SUCCESS, post)
 );
 
 export const postUpdateFailed = withMatcher(
@@ -126,13 +126,13 @@ export const postUpdateFailed = withMatcher(
 );
 
 export const postDeleteStart = withMatcher(
-    (Post: Post): PostDeleteStart => 
-    createAction(POST_ACTION_TYPES.DELETE_START, Post)
+    (post: Post): PostDeleteStart => 
+    createAction(POST_ACTION_TYPES.DELETE_START, post)
 );
 
 export const postDeleteSuccess = withMatcher(
-    (Post: Post[]): PostDeleteSuccess => 
-    createAction(POST_ACTION_TYPES.DELETE_SUCCESS, Post)
+    (post: Post[]): PostDeleteSuccess => 
+    createAction(POST_ACTION_TYPES.DELETE_SUCCESS, post)
 );
 
 export const postDeleteFailed = withMatcher(
@@ -141,13 +141,13 @@ export const postDeleteFailed = withMatcher(
 );
 
 export const postFetchSingleStart = withMatcher(
-    (PostId: number): PostFetchSingleStart => 
-    createAction(POST_ACTION_TYPES.FETCH_SINGLE_START, PostId)
+    (postId: number): PostFetchSingleStart => 
+    createAction(POST_ACTION_TYPES.FETCH_SINGLE_START, postId)
 );
 
 export const postFetchSingleSuccess = withMatcher(
-    (Post: Post): PostFetchSingleSuccess => 
-    createAction(POST_ACTION_TYPES.FETCH_SINGLE_SUCCESS, Post)
+    (post: Post): PostFetchSingleSuccess => 
+    createAction(POST_ACTION_TYPES.FETCH_SINGLE_SUCCESS, post)
 );
 
 export const postFetchSingleFailed = withMatcher(
@@ -156,13 +156,13 @@ export const postFetchSingleFailed = withMatcher(
 );
 
 export const postFetchUserChatsStart = withMatcher(
-    (PostId: number): PostFetchUserChatsStart => 
-    createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_START, PostId)
+    (postId: number): PostFetchUserChatsStart => 
+    createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_START, postId)
 );
 
 export const postFetchUserChatsSuccess = withMatcher(
-    (Post: Post[]): PostFetchUserChatsSuccess => 
-    createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_SUCCESS, Post)
+    (post: Post[]): PostFetchUserChatsSuccess => 
+    createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_SUCCESS, post)
 );
 
 export const postFetchUserChatsFailed = withMatcher(
@@ -171,13 +171,13 @@ export const postFetchUserChatsFailed = withMatcher(
 );
 
 export const postFetchAllStart = withMatcher(
-    (Post: Post[]): PostFetchAllStart => 
-    createAction(POST_ACTION_TYPES.FETCH_ALL_START, Post)
+    (post: Post[]): PostFetchAllStart => 
+    createAction(POST_ACTION_TYPES.FETCH_ALL_START, post)
 );
 
 export const postFetchAllSuccess = withMatcher(
-    (Post: Post[]): PostFetchAllSuccess => 
-    createAction(POST_ACTION_TYPES.FETCH_ALL_SUCCESS, Post)
+    (post: Post[]): PostFetchAllSuccess => 
+    createAction(POST_ACTION_TYPES.FETCH_ALL_SUCCESS, post)
 );
 
 export const postFetchAllFailed = withMatcher(

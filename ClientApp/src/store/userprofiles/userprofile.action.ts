@@ -1,54 +1,186 @@
-import { USERPROFILE_ACTION_TYPES } from './userprofile.types';
+import { USERPROFILE_ACTION_TYPES, Userprofile } from './userprofile.types';
+
 import {
   createAction,
   withMatcher,
-  ActionWithPayload,
+  Action,
+  ActionWithPayload
 } from '../../utils/reducer/reducer.utils';
 
-export const userprofileCreateStart = (userId, title) => 
-    createAction(USERPROFILE_ACTION_TYPES.CREATE_START, { userId, title });
+export type UserprofileCreateStart = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.CREATE_START, Userprofile
+>;
 
-export const userprofileCreateSuccess = (userprofile) => 
-    createAction(USERPROFILE_ACTION_TYPES.CREATE_SUCCESS, userprofile);
+export type UserprofileCreateSuccess = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.CREATE_SUCCESS, 
+    Userprofile
+>;
 
-export const userprofileCreateFailed = (error) => 
-    createAction(USERPROFILE_ACTION_TYPES.CREATE_START, error);
-    
-export const userprofileUpdateStart = (userId, userprofileId, title) => 
-    createAction(USERPROFILE_ACTION_TYPES.UPDATE_START, { userId, userprofileId, title });
+export type UserprofileCreateFailed = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.CREATE_FAILED,
+    Error
+>;
 
-export const userprofileUpdateSuccess = (userprofile) => 
-    createAction(USERPROFILE_ACTION_TYPES.UPDATE_SUCCESS, userprofile);
+export type UserprofileUpdateStart = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.UPDATE_START,
+    Userprofile
+>;
 
-export const userprofileUpdateFailed = (error) => 
-    createAction(USERPROFILE_ACTION_TYPES.UPDATE_START, error);
+export type UserprofileUpdateSuccess = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.UPDATE_SUCCESS, 
+    Userprofile
+>;
 
-export const userprofileDeleteStart = (userId, userprofileId) => 
-    createAction(USERPROFILE_ACTION_TYPES.DELETE_START, { userId, userprofileId });
+export type UserprofileUpdateFailed = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.UPDATE_FAILED,
+    Error
+>;
+   
+export type UserprofileDeleteStart = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.DELETE_START,
+    Userprofile
+>;
 
-export const userprofileDeleteSuccess = () => 
-    createAction(USERPROFILE_ACTION_TYPES.DELETE_SUCCESS, 'userprofile Deleted');
+export type UserprofileDeleteSuccess = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.DELETE_SUCCESS, 
+    Userprofile
+>;
 
-export const userprofileDeleteFailed = (error) => 
-    createAction(USERPROFILE_ACTION_TYPES.DELETE_START, error);
+export type UserprofileDeleteteFailed = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.DELETE_FAILED,
+    Error
+>;
+   
+export type UserprofileFetchSingleStart = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START,
+    number
+>;
 
-export const userprofileFetchSingleId = (userId) => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_ID_START, userId);
+export type UserprofileFetchSingleSuccess = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
+    Userprofile
+>;
 
-export const userprofileFetchSingleStart = (userId) => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START, userId);
+export type UserprofileFetchSingleFailed = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.FETCH_SINGLE_FAILED,
+    Error
+>;
 
-export const userprofileFetchSingleSuccess = (userprofile) => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_SUCCESS, userprofile);
+export type UserprofileFetchUserChatsStart = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_START,
+    number
+>;
 
-export const userprofileFetchSingleFailed = (error) => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START, error);
+export type UserprofileFetchUserChatsSuccess = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_SUCCESS, 
+    Userprofile
+>;
 
-export const userprofileFetchAllStart = (userId) => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_START, userId);
+export type UserprofileFetchUserChatsFailed = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_FAILED,
+    Error
+>;
 
-export const userprofileFetchAllSuccess = (userprofile) => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS, userprofile);
+export type UserprofileFetchAllStart = Action<
+    USERPROFILE_ACTION_TYPES.FETCH_ALL_START
+>;
 
-export const userprofileFetchAllFailed = (error) => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_START, error);
+export type UserprofileFetchAllSuccess = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS, 
+    Userprofile
+>;
+
+export type UserprofileFetchAllFailed = ActionWithPayload<
+    USERPROFILE_ACTION_TYPES.FETCH_ALL_FAILED,
+    Error
+>;
+
+export const userprofileCreateStart = withMatcher(
+    (userprofile: Userprofile): UserprofileCreateStart => 
+    createAction(USERPROFILE_ACTION_TYPES.CREATE_START, userprofile)
+);
+
+export const userprofileCreateSuccess = withMatcher(
+    (userprofile: Userprofile): UserprofileCreateSuccess => 
+    createAction(USERPROFILE_ACTION_TYPES.CREATE_SUCCESS, userprofile)
+);
+
+export const userprofileCreateFailed = withMatcher(
+    (error: Error) => 
+    createAction(USERPROFILE_ACTION_TYPES.CREATE_START, error)
+);
+ 
+export const userprofileUpdateStart = withMatcher(
+    (userprofile: Userprofile): UserprofileUpdateStart => 
+    createAction(USERPROFILE_ACTION_TYPES.UPDATE_START, userprofile)
+);
+
+export const userprofileUpdateSuccess = withMatcher(
+    (userprofile: Userprofile): UserprofileUpdateSuccess => 
+    createAction(USERPROFILE_ACTION_TYPES.UPDATE_SUCCESS, userprofile)
+);
+
+export const userprofileUpdateFailed = withMatcher(
+    (error: Error): UserprofileUpdateFailed => 
+    createAction(USERPROFILE_ACTION_TYPES.UPDATE_FAILED, error)
+);
+
+export const userprofileDeleteStart = withMatcher(
+    (userprofile: Userprofile): UserprofileDeleteStart => 
+    createAction(USERPROFILE_ACTION_TYPES.DELETE_START, userprofile)
+);
+
+export const userprofileDeleteSuccess = withMatcher(
+    (userprofile: Userprofile): UserprofileDeleteSuccess => 
+    createAction(USERPROFILE_ACTION_TYPES.DELETE_SUCCESS, userprofile)
+);
+
+export const userprofileDeleteFailed = withMatcher(
+    (error: Error) => 
+    createAction(USERPROFILE_ACTION_TYPES.DELETE_START, error)
+);
+
+export const userprofileFetchSingleStart = withMatcher(
+    (userprofileId: number): UserprofileFetchSingleStart => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START, userprofileId)
+);
+
+export const userprofileFetchSingleSuccess = withMatcher(
+    (userprofile: Userprofile): UserprofileFetchSingleSuccess => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_SUCCESS, userprofile)
+);
+
+export const userprofileFetchSingleFailed = withMatcher(
+    (error: Error): UserprofileFetchSingleFailed => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
+);
+
+export const userprofileFetchUserChatsStart = withMatcher(
+    (userprofileId: number): UserprofileFetchUserChatsStart => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_START, userprofileId)
+);
+
+export const userprofileFetchUserChatsSuccess = withMatcher(
+    (userprofile: Userprofile): UserprofileFetchUserChatsSuccess => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_SUCCESS, userprofile)
+);
+
+export const userprofileFetchUserChatsFailed = withMatcher(
+    (error: Error): UserprofileFetchUserChatsFailed => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_FAILED, error)
+);
+
+export const userprofileFetchAllStart = withMatcher(
+    (userprofile: Userprofile): UserprofileFetchAllStart => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_START, userprofile)
+);
+
+export const userprofileFetchAllSuccess = withMatcher(
+    (userprofile: Userprofile): UserprofileFetchAllSuccess => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS, userprofile)
+);
+
+export const userprofileFetchAllFailed = withMatcher(
+    (error: Error): UserprofileFetchAllFailed => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_FAILED, error)
+);

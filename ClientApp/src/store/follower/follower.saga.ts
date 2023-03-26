@@ -29,7 +29,7 @@ import {
     addFollower, 
     editFollower,
     deleteFollower
-} from '../../utils/api/follower';
+} from '../../utils/api/follower.api';
 
 export function* fetchCategoriesAsync() {
     try {
@@ -90,7 +90,7 @@ export function* onFetchStart() {
     yield takeLatest(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, getUserChats);
 }
 
-export function* chatSagas() {
+export function* followerSagas() {
     yield all([
         call(onChatStart),
         call(onFetchStart)

@@ -9,7 +9,7 @@ import {
     chatcommentFetchAllSuccess,
 } from './chatcomment.action';
 
-import { addChatComment, getSingleChatcomment, getChatcomments } from '../../utils/api/chatcomment';
+import { addChatComment, getSingleChatcomment, getChatcomments } from '../../utils/api/chatcomment.api';
 
 export function* getSnapshotFromChatComment(chatcomment, additionalDetails) {
     try {

@@ -9,7 +9,7 @@ import {
     messagecommentFetchAllSuccess,
 } from './messagecomment.action';
 
-import { addMessagecomment, getSingleMessagecomment, getMessagecomments } from '../../utils/api/messagecomment';
+import { addMessagecomment, getSingleMessagecomment, getMessagecomments } from '../../utils/api/messagecomment.api';
 
 export function* getSnapshotFromMessagecomment(messagecomment, additionalDetails) {
     try {

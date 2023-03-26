@@ -29,7 +29,7 @@ import {
     addChat, 
     editChat,
     deleteChat
-} from '../../utils/api/chat';
+} from '../../utils/api/chat.api';
 
 export function* fetchCategoriesAsync() {
     try {

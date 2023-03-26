@@ -1,50 +1,105 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-import { USERPROFILE_ACTION_TYPES } from './userprofile.types';
+import { POST_ACTION_TYPES } from './userprofile.types';
 
 import {
-    userprofileFetchSingleSuccess,
-    userprofileFetchSingleFailed,
-    userprofileFetchAllSuccess,
-    userprofileFetchAllFailed
+    postCreateSuccess,
+    postCreateFailed,
+    postUpdateSuccess,
+    postUpdateFailed,
+    postDeleteSuccess,
+    postDeleteFailed,
+    postFetchSingleSuccess,
+    postFetchSingleFailed,
+    postFetchAllSuccess,
+    postFetchAllFailed,
 } from './userprofile.action';
 
 import { 
-    getSingleUser,
-    getUsers,
-} from '../../utils/api/user';
+    getSinglePost,
+    getPosts,
+    addPost,
+    editPost,
+    deletePost
+} from '../../utils/api/post.api';
 
-export function* fetchAllUserprofile() {
+export function* createPost({ userId, postValue, mediaLink }) {
     try {
-        const userprofiles = yield call(getUsers);
-        if (!userprofiles) return;
-        yield call(userprofileFetchAllSuccess, userprofiles);
+        const post = call(addPost({ userId, postValue, mediaLink }));
+        yield put(postCreateSuccess(post));
     } catch (error) {
-        yield put(userprofileFetchAllFailed(error));
+        yield put(postCreateFailed(error));
     }
 }
 
-export function* fetchSingleUserprofile() {
+export function* updatePost({ payload: { userId, postId, postValue, mediaLink }}) {
     try {
-        const userprofile = yield call(getSingleUser);
-        if (!userprofile) return;
-        yield call(userprofileFetchSingleSuccess, userprofile);
+        const { post } = yield call(
+            editPost,
+            userId,
+            postId,
+            postValue,
+            mediaLink
+        );
+        yield put(postUpdateSuccess(post));
     } catch (error) {
-        yield put(userprofileFetchSingleFailed(error));
+        yield put(postUpdateFailed(error));
     }
 }
 
-export function* onuserprofileFetchSingleStart() {
-    yield takeLatest(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START, fetchSingleUserprofile);
+export function* deleteItem(userId, postId) {
+    try {
+        const { post } = yield call(deletePost, userId, postId);
+        yield put(postDeleteSuccess(post));
+    } catch (error) {
+        yield put(postDeleteFailed(error));
+    }
 }
 
-export function* onuserprofileFetchAllStart() {
-    yield takeLatest(USERPROFILE_ACTION_TYPES.FETCH_ALL_START, fetchAllUserprofile);
+export function* fetchSinglePost(userId, postId) {
+    try {
+        const { post } = yield call(getSinglePost, userId, postId);
+        yield put(postFetchSingleSuccess(post));
+    } catch (error) {
+        yield put(postFetchSingleFailed(error));
+    }
+}
+
+export function* fetchAllPost(userId) {
+    try {
+        const { post } = yield call(getPosts, userId);
+        yield put(postFetchAllSuccess(post));
+    } catch (error) {
+        yield put(postFetchAllFailed(error));
+    }
+}
+
+export function* onPostCreateStart() {
+    yield takeLatest(POST_ACTION_TYPES.CREATE_START, createPost);
+}
+
+export function* onPostUpdateStart() {
+    yield takeLatest(POST_ACTION_TYPES.UPDATE_START, updatePost);
+}
+
+export function* onPostDeleteStart() {
+    yield takeLatest(POST_ACTION_TYPES.DELETE_START, deleteItem);
+}
+
+export function* onPostFetchSingleStart() {
+    yield takeLatest(POST_ACTION_TYPES.FETCH_SINGLE_START, fetchSinglePost); 
+}
+
+export function* onPostFetchAllStart() {
+    yield takeLatest(POST_ACTION_TYPES.FETCH_ALL_START, fetchAllPost);
 }
 
 export function* userprofileSagas() {
     yield all([
-        call(onuserprofileFetchSingleStart),
-        call(onuserprofileFetchAllStart)
+        call(onPostCreateStart),
+        call(onPostUpdateStart),
+        call(onPostDeleteStart),
+        call(onPostFetchAllStart),
+        call(onPostFetchSingleStart)
     ]);
 }

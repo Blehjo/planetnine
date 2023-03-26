@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { artificialIntelligenceReducer } from './artificialintelligence/artificialintelligence.reducer';
 import { chatReducer } from './chat/chat.reducer';
 import { chatcommentReducer } from './chatcomment/chatcomment.reducer';
 import { commentReducer } from './comment/comment.reducer';
@@ -16,19 +17,20 @@ import { userReducer } from './user/user.reducer';
 import { userprofileReducer } from './userprofiles/userprofile.reducer';
 
 export const rootReducer = combineReducers({
-  user: userReducer,
-  userprofile: userprofileReducer,
-  toolbox: toolboxReducer,
-  tool: toolReducer,
-  profile: profileReducer,
-  post: postReducer,
-  message: messageReducer,
-  messagecomment: messagecommentReducer,
-  follower: followerReducer,
+  artificialIntelligence: artificialIntelligenceReducer,
   chat: chatReducer,
   chatcomment: chatcommentReducer,
   comment: commentReducer,
   favorite: favoriteReducer,
+  follower: followerReducer,
+  message: messageReducer,
+  messagecomment: messagecommentReducer,
+  moon: moonReducer,
   planet: planetReducer,
-  moon: moonReducer
+  post: postReducer,
+  profile: profileReducer,
+  tool: toolReducer,
+  toolbox: toolboxReducer,
+  user: userReducer,
+  userprofile: userprofileReducer
 });

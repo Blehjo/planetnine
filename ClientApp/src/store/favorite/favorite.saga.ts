@@ -29,7 +29,7 @@ import {
     addChat, 
     editChat,
     deleteChat
-} from '../../utils/api/chat';
+} from '../../utils/api/chat.api';
 
 export function* fetchCategoriesAsync() {
     try {
@@ -90,7 +90,7 @@ export function* onFetchStart() {
     yield takeLatest(CHAT_ACTION_TYPES.FETCH_ALL_START, getUserChats);
 }
 
-export function* chatSagas() {
+export function* favoriteSagas() {
     yield all([
         call(onChatStart),
         call(onFetchStart)
