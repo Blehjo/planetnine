@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Post } from "../../store/post/post.types";
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/post";
 
@@ -7,58 +8,58 @@ const headers = {
   'Content-Type': 'application/json' 
 }
 
-export async function getSinglePost(postId) {
+export async function getSinglePost(postId: number): Promise<Post> {
   return await axios({
     method: 'get',
     url: `${api}/${postId}`,
-    config: headers,
+    headers: headers,
     withCredentials: true
   })
 }
 
-export async function getPosts() {
+export async function getPosts(): Promise<Post[]> {
   return await axios({
     method: 'get',
     url: api,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function getUserPosts(id) {
+export async function getUserPosts(postId: number): Promise<Post[]> {
   return await axios({
     method: 'get',
-    url: `${api}/user/${id}`,
-    config: headers,
+    url: `${api}/user/${postId}`,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function addPost(post) {
+export async function addPost(post: Post): Promise<Post[]> {
   return await axios({
     method: 'post',
     url: api, 
     data: post,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function editPost(post) {
+export async function editPost(post: Post): Promise<Post> {
   return await axios({
     method: 'put',
-    url:`${api}/${post.id}`, 
+    url:`${api}/${post.postId}`, 
     data: post,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function deletePost(postId) {
+export async function deletePost(postId: number): Promise<Post[]> {
   return await axios({
     method: 'delete',
     url: `${api}/${postId}`,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }

@@ -1,64 +1,36 @@
 import axios from "axios";
+import { Planet } from "../../store/planet/planet.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/aicomment"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/planet";
 
-export async function getSingleAiComment(chatId: number) {
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json' 
+}
+
+export async function getSinglePlanet(planetId: number): Promise<Planet> {
   return await axios({
     method: 'get',
-    url: `${api}/user/${chatId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    url: `${api}/${planetId}`,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function getAiComments() {
+export async function getPlanets(): Promise<Planet[]> {
   return await axios({
     method: 'get',
-    url: api,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    url: api, 
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function addAiComment(aiComment) {
-  const { commentValue, chatId } = aiComment;
+export async function getUserPlanets(): Promise<Planet[]> {
   return await axios({
-    method: 'post',
-    url: api,
-    data: {
-      commentValue: commentValue,
-      chatId: chatId
-    },
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    method: 'get',
+    url: `${api}/users`, 
+    headers: headers,
     withCredentials: true
   });
-}
-
-export async function editAiComment(aicomment) {
-  return await axios({
-    method: 'put',
-    url: `${api}/${aicomment.id}`, 
-    data: aicomment,
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    withCredentials: true
-  })
-}
-
-export async function deleteAiComment(aicommentId) {
-  return await axios({
-    method: 'delete',
-    url: `${api}/${aicommentId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    withCredentials: true
-  })
 }

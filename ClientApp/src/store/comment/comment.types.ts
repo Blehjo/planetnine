@@ -20,9 +20,10 @@ export enum COMMENT_ACTION_TYPES {
 };
 
 export type Comment = {
-    chatCommentId: number | null;
-    chatValue: string | null;
+    commentId: number | null;
+    commentValue: string | null;
     mediaLink: string | null;
+    type: string | null;
     dateCreated: Date | null;
     userId: number | null,
 }

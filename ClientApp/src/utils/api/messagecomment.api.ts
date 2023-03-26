@@ -1,8 +1,9 @@
 import axios from "axios";
+import { MessageComment } from "../../store/messagecomment/messagecomment.types";
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/messagecomment"
 
-export async function getSingleMessagecomment(messageId) {
+export async function getSingleMessagecomment(messageId: number): Promise<MessageComment> {
   return await axios({
     method: 'get',
     url: `${api}/${messageId}`,
@@ -13,7 +14,7 @@ export async function getSingleMessagecomment(messageId) {
   });
 }
 
-export async function getMessagecomments() {
+export async function getMessagecomments(): Promise<MessageComment[]> {
   return await axios({
     method: 'get',
     url: api,
@@ -24,7 +25,7 @@ export async function getMessagecomments() {
   });
 }
 
-export async function addMessagecomment(messagecomment) {
+export async function addMessagecomment(messagecomment: MessageComment): Promise<MessageComment[]> {
   return await axios({
     method: 'post',
     url: api,
@@ -36,10 +37,10 @@ export async function addMessagecomment(messagecomment) {
   });
 }
 
-export async function editMessagecomment(messagecomment) {
+export async function editMessagecomment(messagecomment: MessageComment): Promise<MessageComment> {
   return await axios({
     method: 'put',
-    url: `${api}/${messagecomment.id}`, 
+    url: `${api}/${messagecomment.messageCommentId}`, 
     data: messagecomment,
     headers: {
         'Content-Type': 'application/json'
@@ -48,7 +49,7 @@ export async function editMessagecomment(messagecomment) {
   });
 }
 
-export async function deleteMessagecomment(messagecommentId) {
+export async function deleteMessagecomment(messagecommentId: number): Promise<MessageComment[]> {
   return await axios({ 
     method: 'delete',
     url: `${api}/${messagecommentId}`,

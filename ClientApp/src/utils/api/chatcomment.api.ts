@@ -1,11 +1,12 @@
 import axios from "axios";
+import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/chatcomment"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/chat";
 
-export async function getSingleChatcomment(chatId) {
+export async function getSingleChatComment(chatcommentId: number): Promise<ChatComment> {
   return await axios({
     method: 'get',
-    url: `${api}/user/${chatId}`,
+    url: `${api}/${chatcommentId}`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -13,7 +14,7 @@ export async function getSingleChatcomment(chatId) {
   });
 }
 
-export async function getChatcomments() {
+export async function getAllChatComments(): Promise<ChatComment[]> {
   return await axios({
     method: 'get',
     url: api,
@@ -21,18 +22,49 @@ export async function getChatcomments() {
       'Content-Type': 'application/json'
     },
     withCredentials: true
+  })
+
+ 
+}
+
+export async function getUserChatComments(id: number): Promise<ChatComment[]> {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/${id}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
   });
 }
 
-export async function addChatComment(chatComment) {
-  const { chatValue, chatId } = chatComment;
+export async function getUsersChatComments(): Promise<ChatComment[]> {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/chats`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
+}
+
+export async function getChatComments(): Promise<ChatComment[]> {
+  return await axios({
+    method: 'get',
+    url: `${api}/user`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
+}
+
+export async function addChatComment(chatcomment: ChatComment): Promise<ChatComment[]> { 
   return await axios({
     method: 'post',
     url: api,
-    data: {
-      chatValue: chatValue,
-      chatId: chatId
-    },
+    data: chatcomment,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -40,10 +72,10 @@ export async function addChatComment(chatComment) {
   });
 }
 
-export async function editChatcomment(chatcomment) {
+export async function editChatComment(chatcomment: ChatComment): Promise<ChatComment> {
   return await axios({
     method: 'put',
-    url: `${api}/${chatcomment.id}`, 
+    url: `${api}/${chatcomment.chatCommentId}`, 
     data: chatcomment,
     headers: {
       'Content-Type': 'application/json'
@@ -52,7 +84,7 @@ export async function editChatcomment(chatcomment) {
   })
 }
 
-export async function deleteChatcomment(chatcommentId) {
+export async function deleteChatComment(chatcommentId: number): Promise<ChatComment[]> {
   return await axios({
     method: 'delete',
     url: `${api}/${chatcommentId}`,
@@ -60,5 +92,5 @@ export async function deleteChatcomment(chatcommentId) {
       'Content-Type': 'application/json'
     },
     withCredentials: true
-  })
+  });
 }

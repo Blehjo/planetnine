@@ -1,8 +1,9 @@
 import axios from "axios";
+import { Message } from "../../store/message/message.types";
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/message";
 
-export async function getSingleMessage(messageId) {
+export async function getSingleMessage(messageId: number): Promise<Message> {
   return await axios({
     method: 'get',
     url: `${api}/${messageId}`,
@@ -13,7 +14,7 @@ export async function getSingleMessage(messageId) {
   });
 }
 
-export async function getAllMessages() {
+export async function getAllMessages(): Promise<Message[]> {
   return await axios({
     method: 'get',
     url: api,
@@ -24,8 +25,7 @@ export async function getAllMessages() {
   });
 }
 
-export async function addMessage(message) {
-  const { title } = message;
+export async function addMessage(message: Message): Promise<Message[]> {
   return await axios({
     method: 'post',
     url: api,
@@ -37,10 +37,10 @@ export async function addMessage(message) {
   });
 }
 
-export async function editMessage(message) {
+export async function editMessage(message: Message): Promise<Message> {
   return await axios({ 
     method: 'put',
-    url: `${api}/${message.id}`, 
+    url: `${api}/${message.messageId}`, 
     data: message,
     headers: {
       'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ export async function editMessage(message) {
   })
 }
 
-export async function deleteMessage(messageId) {
+export async function deleteMessage(messageId: number): Promise<Message[]> {
   return await axios({
     method: 'delete',
     url: `${api}/${messageId}`,

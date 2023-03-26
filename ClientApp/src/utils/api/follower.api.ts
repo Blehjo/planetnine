@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Follower } from "../../store/follower/follower.types";
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/follower";
 
@@ -7,58 +8,48 @@ const headers = {
   'Content-Type': 'application/json' 
 }
 
-export async function getSingleFollower(followerId) {
+export async function getSingleFollower(followerId: number): Promise<Follower> {
   return await axios({
     method: 'get',
     url: `${api}/${followerId}`,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function getFollowers() {
+export async function getFollowers(): Promise<Follower[]> {
   return await axios({
     method: 'get',
     url: api, 
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function getUserFollowers() {
+export async function getUserFollowers(): Promise<Follower[]> {
   return await axios({
     method: 'get',
     url: `${api}/users`, 
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function addFollower(follower) {
+export async function addFollower(follower: Follower) {
   return await axios({
     method: 'post',
     url: `${api}`,
     data: follower,
-    config: headers,
+    headers: headers,
     withCredentials: true
   })
 }
 
-export async function editFollower(follower) {
-  return await axios({
-    method: 'put',
-    url: `${api}/${follower.id}`,
-    data: follower,
-    config: headers,
-    withCredentials: true
-  });
-}
-
-export async function deleteFollower(followerId) {
+export async function deleteFollower(followerId: number): Promise<Follower[]> {
   return await axios({
     method: 'delete',
     url: `${api}/${followerId}`,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/chatgpt";
 
@@ -7,32 +8,32 @@ const headers = {
   'Content-Type': 'application/json' 
 }
 
-export async function callCompletion(request) {
+export async function callCompletion(request: string): Promise<string> {
   return await axios({
     method: 'post',
     url: `${api}/completion`,
     data: request,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function callDalle(request) {
+export async function callDalle(request: string): Promise<string> {
   return await axios({
     method: 'post',
     url: `${api}/dalle`,
     data: request,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }
 
-export async function callCode(request) {
+export async function callCode(request: string): Promise<string> {
   return await axios({
     method: 'post',
     url: `${api}/code`,
     data: request,
-    config: headers,
+    headers: headers,
     withCredentials: true
   });
 }

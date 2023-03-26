@@ -23,6 +23,7 @@ export type ChatComment = {
     chatCommentId: number | null;
     chatValue: string | null;
     mediaLink: string | null;
+    type: string | null;
     dateCreated: Date | null;
     userId: number | null,
 }

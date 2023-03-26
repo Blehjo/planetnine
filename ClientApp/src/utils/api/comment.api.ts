@@ -1,8 +1,9 @@
 import axios from "axios";
+import { Comment } from "../../store/comment/comment.types";
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/comment"
 
-export async function getSingleComment(postId) {
+export async function getSingleComment(postId: number): Promise<Comment> {
   return await axios({
     method: 'get',
     url: `${api}/post/${postId}`,
@@ -13,7 +14,7 @@ export async function getSingleComment(postId) {
   });
 }
 
-export async function getComments() {
+export async function getComments(): Promise<Comment[]> {
   return await axios({
     method: 'get',
     url: `${api}/`,
@@ -24,7 +25,7 @@ export async function getComments() {
   });
 }
 
-export async function addComment(comment) {
+export async function addComment(comment: Comment): Promise<Comment[]> {
   return await axios({
     method: 'post',
     url: api,
@@ -36,7 +37,7 @@ export async function addComment(comment) {
   });
 }
 
-export async function editcomment(comment) {
+export async function editcomment(comment: Comment): Promise<Comment> {
   return await axios({
     method: 'put',
     url: `${api}/${comment.commentId}`, 
@@ -48,7 +49,7 @@ export async function editcomment(comment) {
   })
 }
 
-export async function deletecomment(commentId) {
+export async function deletecomment(commentId: number): Promise<Comment[]> {
   return await axios({
     method: 'delete',
     url: `${api}/${commentId}`,
