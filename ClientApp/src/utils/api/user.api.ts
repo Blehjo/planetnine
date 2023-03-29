@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "../../store/user/user.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/user"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/user";
 
 const headers = {
   'Accept': 'application/json',
@@ -12,9 +12,7 @@ export async function getSingleUser(userId: number): Promise<User> {
   const response = await axios({
     method: 'get',
     url:`${api}/${userId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -25,9 +23,7 @@ export async function getUsers(): Promise<User> {
   const response = await axios({
     method: 'get',
     url: api,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -57,9 +53,7 @@ export async function addUser(
       about,
       imageLink
     },
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -91,9 +85,7 @@ export async function editUser(
       about,
       imageLink
     },
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -104,9 +96,7 @@ export async function deleteUser(userId: number): Promise<User> {
   const response = await axios({
     method: 'delete',
     url: `${api}/${userId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;

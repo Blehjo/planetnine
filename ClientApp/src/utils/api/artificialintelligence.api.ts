@@ -3,13 +3,16 @@ import { ArtificialIntelligence } from "../../store/artificialintelligence/artif
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/artificialintelligence";
 
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json' 
+}
+
 export async function getSingleArtificialIntelligence(artificialIntelligenceId: number) {
   return await axios({
     method: 'get',
     url: `${api}/${artificialIntelligenceId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
 }
@@ -18,9 +21,7 @@ export async function getAllArtificialIntelligences(): Promise<ArtificialIntelli
   return await axios({
     method: 'get',
     url: api,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
 }
@@ -29,9 +30,7 @@ export async function getUserArtificialIntelligences(artificialIntelligenceId: n
   return await axios({
     method: 'get',
     url: `${api}/user/${artificialIntelligenceId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
 }
@@ -40,9 +39,7 @@ export async function getUsersArtificialIntelligences(): Promise<ArtificialIntel
   return await axios({
     method: 'get',
     url: `${api}/user/artificialIntelligences`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
 }
@@ -52,9 +49,7 @@ export async function addArtificialIntelligence(artificialintelligence: Artifici
     method: 'post',
     url: api,
     data: artificialintelligence,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
 }
@@ -64,9 +59,7 @@ export async function editArtificialIntelligence(artificialintelligence: Artific
     method: 'put',
     url: `${api}/${artificialintelligence.artificialIntelligenceId}`, 
     data: artificialintelligence,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
 }
@@ -75,9 +68,7 @@ export async function deleteArtificialIntelligence(artificialIntelligenceId: num
   return await axios({
     method: 'delete',
     url: `${api}/${artificialIntelligenceId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
 }

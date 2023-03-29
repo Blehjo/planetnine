@@ -1,15 +1,18 @@
 import axios from "axios";
 import { Comment } from "../../store/comment/comment.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/comment"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/comment";
+
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json' 
+}
 
 export async function getSingleComment(postId: number): Promise<Comment> {
   const response = await axios({
     method: 'get',
     url: `${api}/post/${postId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -20,9 +23,7 @@ export async function getAllComments(): Promise<Comment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -33,9 +34,7 @@ export async function getUserComments(userId: number): Promise<Comment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user/${userId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -46,9 +45,7 @@ export async function getUsersComments(): Promise<Comment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user/comments`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -59,9 +56,7 @@ export async function getComments(): Promise<Comment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -77,9 +72,7 @@ export async function addComment(commentValue: string, mediaLink: string, postId
       mediaLink,
       postId
     },
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -95,9 +88,7 @@ export async function editComment(commentId: number, commentValue: string, media
       commentValue,
       mediaLink
     },
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -108,9 +99,7 @@ export async function deleteComment(commentId: number): Promise<Comment[]> {
   const response = await axios({
     method: 'delete',
     url: `${api}/${commentId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;

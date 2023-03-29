@@ -45,9 +45,7 @@ export async function getUsersPosts(): Promise<Post[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user/posts`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -58,9 +56,7 @@ export async function getPosts(): Promise<Post[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;

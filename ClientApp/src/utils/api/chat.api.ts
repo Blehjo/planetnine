@@ -3,13 +3,16 @@ import { Chat } from "../../store/chat/chat.types";
 
 const api = "https://kalanchoeai-server.azurewebsites.net/api/chat";
 
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json' 
+}
+
 export async function getSingleChat(chatId: number): Promise<Chat> {
   const response = await axios({
     method: 'get',
     url: `${api}/${chatId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -20,9 +23,7 @@ export async function getAllChats(): Promise<Chat[]> {
   const response = await axios({
     method: 'get',
     url: api,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data.json();
@@ -34,9 +35,7 @@ export async function getUserChats(id: number): Promise<Chat[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user/${id}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -48,9 +47,7 @@ export async function getUsersChats(): Promise<Chat[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user/chats`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -61,9 +58,7 @@ export async function getChats(): Promise<Chat[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -77,9 +72,7 @@ export async function addChat(title: string): Promise<Chat[]> {
     data: {
       title: title,
     },
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -95,9 +88,7 @@ export async function editChat(chatId: number, title: string, userId: number): P
       title,
       userId
     },
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -108,9 +99,7 @@ export async function deleteChat(chatId: number): Promise<Chat[]> {
   const response = await axios({
     method: 'delete',
     url: `${api}/${chatId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;

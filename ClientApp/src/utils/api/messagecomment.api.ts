@@ -1,15 +1,18 @@
 import axios from "axios";
 import { MessageComment } from "../../store/messagecomment/messagecomment.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/messagecomment"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/messagecomment";
+
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json' 
+}
 
 export async function getSingleMessageComment(messageId: number): Promise<MessageComment> {
   const response = await axios({
     method: 'get',
     url: `${api}/${messageId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -20,9 +23,7 @@ export async function getAllMessageComments(): Promise<MessageComment[]> {
   const response = await axios({
     method: 'get',
     url: api,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -33,9 +34,7 @@ export async function getUserMessageComments(userId: number): Promise<MessageCom
   const response = await axios({
     method: 'get',
     url: `${api}/user/${userId}`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -46,9 +45,7 @@ export async function getUsersMessageComments(): Promise<MessageComment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user/messages`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -59,9 +56,7 @@ export async function getMessageComments(): Promise<MessageComment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
@@ -76,9 +71,7 @@ export async function addMessageComment(messageCommentValue: string, mediaLink: 
       messageCommentValue,
       mediaLink
     },
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;
