@@ -4,7 +4,7 @@ import { Chat } from "../../store/chat/chat.types";
 const api = "https://kalanchoeai-server.azurewebsites.net/api/chat";
 
 export async function getSingleChat(chatId: number): Promise<Chat> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/${chatId}`,
     headers: {
@@ -12,6 +12,8 @@ export async function getSingleChat(chatId: number): Promise<Chat> {
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getAllChats(): Promise<Chat[]> {
@@ -29,7 +31,7 @@ export async function getAllChats(): Promise<Chat[]> {
 
 // Gets chats from another user's page
 export async function getUserChats(id: number): Promise<Chat[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/user/${id}`,
     headers: {
@@ -37,11 +39,13 @@ export async function getUserChats(id: number): Promise<Chat[]> {
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 // Gets chats from user
 export async function getUsersChats(): Promise<Chat[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/user/chats`,
     headers: {
@@ -49,10 +53,12 @@ export async function getUsersChats(): Promise<Chat[]> {
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getChats(): Promise<Chat[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/user`,
     headers: {
@@ -60,6 +66,8 @@ export async function getChats(): Promise<Chat[]> {
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function addChat(title: string): Promise<Chat[]> {

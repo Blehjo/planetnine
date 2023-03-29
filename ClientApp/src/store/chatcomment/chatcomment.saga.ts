@@ -1,63 +1,176 @@
 import { takeLatest, put, all, call } from 'typed-redux-saga';
 
-import { CHATCOMMENT_ACTION_TYPES } from './chatcomment.types';
+import { ChatComment, CHATCOMMENT_ACTION_TYPES } from './chatcomment.types';
 
 import {
+    chatcommentCreateStart,
     chatcommentCreateSuccess,
     chatcommentCreateFailed,
-    chatcommentFetchAllFailed,
+    chatcommentUpdateStart,
+    chatcommentUpdateSuccess,
+    chatcommentUpdateFailed,
+    chatcommentDeleteStart,
+    chatcommentDeleteSuccess,
+    chatcommentDeleteFailed,
+    chatcommentFetchSingleStart,
+    chatcommentFetchSingleSuccess,
+    chatcommentFetchSingleFailed,
+    chatcommentFetchAllStart,
     chatcommentFetchAllSuccess,
+    chatcommentFetchAllFailed,
+    ChatCommentCreateStart,
+    ChatCommentCreateSuccess,
+    ChatCommentFetchAllStart,
+    ChatCommentFetchSingleStart,
+    ChatCommentFetchUserChatsStart,
+    ChatCommentUpdateStart,
+    ChatCommentDeleteStart
 } from './chatcomment.action';
 
-import { addChatComment, getSingleChatcomment, getChatcomments } from '../../utils/api/chatcomment.api';
+import { 
+    getSingleChatComment,
+    getAllChatComments,
+    getUserChatComments,
+    getUsersChatComments,
+    getChatComments, 
+    addChatComment, 
+    editChatComment,
+    deleteChatComment
+} from '../../utils/api/chatcomment.api';
 
-export function* getSnapshotFromChatComment(chatcomment, additionalDetails) {
+export function* createChatComment({ payload: { chatcommentValue, mediaLink }}: ChatCommentCreateStart ) {
     try {
-        const chatcommentSnapshot = yield call(
-            getSingleChatcomment,
-            chatcomment.chatId,
-            additionalDetails
-        );
-        yield put(chatcommentCreateSuccess({ id: chatcommentSnapshot.chatId, ...chatcommentSnapshot.data }));
-    } catch (error) {
-        yield put(chatcommentCreateFailed(error));
-    }
-}
-
-export function* createChatComment({ payload: { chatId, chatValue } }) {
-    try {
-        const chat = yield call(
+        const chatcomment = yield* call(
             addChatComment,
-            chatId,
-            chatValue,
-        );
-        yield call(getSnapshotFromChatComment, chat);
+            chatcommentValue,
+            mediaLink
+        ); 
+        yield* put(chatcommentCreateSuccess(chatcomment));
     } catch (error) {
-        yield put(chatcommentCreateFailed(error));
+        yield* put(chatcommentCreateFailed(error as Error));
     }
 }
 
-export function* getUserChatComments() {
+export function* updateChatComment({ payload: { chatcommentId, chatcommentValue, userId }}: ChatCommentUpdateStart) {
     try {
-        const chat = yield call(getChatcomments);
-        if (!chat) return;
-        yield call(chatcommentFetchAllSuccess, chat);
+        const chatcomment = yield* call(
+            editChatComment,
+            chatcommentId,
+            chatcommentValue,
+            userId
+        ); 
+        yield* put(chatcommentUpdateSuccess(chatcomment));
     } catch (error) {
-        yield put(chatcommentFetchAllFailed(error));
+        yield* put(chatcommentCreateFailed(error as Error));
     }
 }
 
-export function* onChatCommentStart() {
-    yield takeLatest(CHATCOMMENT_ACTION_TYPES.CREATE_START, createChatComment);
+export function* removeChatComment({ payload: { chatcommentId }}: ChatCommentDeleteStart) {
+    try {
+        const chatcomments = yield* call(
+            deleteChatComment,
+            chatcommentId
+        ); 
+        yield* put(chatcommentDeleteSuccess(chatcomments));
+    } catch (error) {
+        yield* put(chatcommentDeleteFailed(error as Error));
+    }
 }
 
-export function* onFetchStart() {
-    yield takeLatest(CHATCOMMENT_ACTION_TYPES.FETCH_ALL_START, getUserChatComments);
+export function* fetchUserChatComments() {
+    try {
+        const chat = yield* call(getUsersChatComments);
+        if (!chat) return;
+        yield* call(chatcommentFetchAllSuccess, chat);
+    } catch (error) {
+        yield* put(chatcommentFetchAllFailed(error as Error));
+    }
+}
+
+export function* fetchOtherUsersChats({ payload: { userId } }: ChatCommentFetchUserChatsStart) {
+    try {
+        const chats = yield* call(
+            getUserChatComments,
+            userId
+        );
+        if (!chats) return;
+        yield* call(chatcommentFetchAllSuccess, chats);
+    } catch (error) {
+        yield* put(chatcommentFetchAllFailed(error as Error));
+    }
+}
+
+export function* fetchSingleChatCommentAsync({ 
+    payload: { chatcommentId } }: ChatCommentFetchSingleStart) {
+    try {
+        const chatSnapshot = yield* call(
+            getSingleChatComment,
+            chatcommentId 
+        );
+        yield* put(chatcommentFetchSingleSuccess(chatSnapshot as ChatComment));
+    } catch (error) {
+        yield* put(chatcommentFetchSingleFailed(error as Error));
+    }
+}
+
+export function* fetchAllChatCommentsAsync() {
+    try {
+        const chats = yield* call(getAllChatComments);
+        yield* put(chatcommentFetchAllSuccess(chats));
+    } catch (error) {
+        yield* put(chatcommentFetchAllFailed(error as Error));
+    }
+}
+
+export function* onCreateStart() {
+    yield* takeLatest(
+        CHATCOMMENT_ACTION_TYPES.CREATE_START, 
+        createChatComment
+    );
+}
+
+export function* onUpdateStart() {
+    yield* takeLatest(
+        CHATCOMMENT_ACTION_TYPES.UPDATE_START, 
+        updateChatComment
+    );
+}
+
+export function* onDeleteStart() {
+    yield* takeLatest(
+        CHATCOMMENT_ACTION_TYPES.DELETE_START, 
+        removeChatComment
+    );
+}
+
+export function* onFetchUserChatCommentsStart() {
+    yield* takeLatest(
+        CHATCOMMENT_ACTION_TYPES.FETCH_USER_CHATCOMMENTS_START, 
+        fetchUserChatComments
+    );
+}
+
+export function* onFetchSingleChatStart() {
+    yield* takeLatest(
+        CHATCOMMENT_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSingleChatCommentAsync
+    );
+}
+  
+export function* onFetchChatsStart() {
+    yield* takeLatest(
+        CHATCOMMENT_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllChatCommentsAsync
+    );
 }
 
 export function* chatCommentSagas() {
-    yield all([
-        call(onChatCommentStart),
-        call(onFetchStart)
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchUserChatCommentsStart),
+        call(onFetchSingleChatStart),
+        call(onFetchChatsStart)
     ]);
 }

@@ -4,7 +4,7 @@ import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 const api = "https://kalanchoeai-server.azurewebsites.net/api/chat";
 
 export async function getSingleChatComment(chatcommentId: number): Promise<ChatComment> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/${chatcommentId}`,
     headers: {
@@ -12,10 +12,12 @@ export async function getSingleChatComment(chatcommentId: number): Promise<ChatC
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getAllChatComments(): Promise<ChatComment[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: api,
     headers: {
@@ -23,23 +25,25 @@ export async function getAllChatComments(): Promise<ChatComment[]> {
     },
     withCredentials: true
   })
-
- 
+  const result = await response.data;
+  return result;
 }
 
-export async function getUserChatComments(id: number): Promise<ChatComment[]> {
-  return await axios({
+export async function getUserChatComments(userId: number): Promise<ChatComment[]> {
+  const response = await axios({
     method: 'get',
-    url: `${api}/user/${id}`,
+    url: `${api}/user/${userId}`,
     headers: {
       'Content-Type': 'application/json'
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getUsersChatComments(): Promise<ChatComment[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/user/chats`,
     headers: {
@@ -47,10 +51,12 @@ export async function getUsersChatComments(): Promise<ChatComment[]> {
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getChatComments(): Promise<ChatComment[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/user`,
     headers: {
@@ -58,34 +64,47 @@ export async function getChatComments(): Promise<ChatComment[]> {
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function addChatComment(chatcomment: ChatComment): Promise<ChatComment[]> { 
-  return await axios({
+export async function addChatComment(chatcommentValue: string, mediaLink: string): Promise<ChatComment[]> { 
+  const response = await axios({
     method: 'post',
     url: api,
-    data: chatcomment,
+    data: { 
+      chatcommentValue,
+      mediaLink
+    },
     headers: {
       'Content-Type': 'application/json'
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function editChatComment(chatcomment: ChatComment): Promise<ChatComment> {
-  return await axios({
+export async function editChatComment(chatcommentId: number, chatcommentValue: string, userId: number): Promise<ChatComment[]> {
+  const response = await axios({
     method: 'put',
-    url: `${api}/${chatcomment.chatCommentId}`, 
-    data: chatcomment,
+    url: `${api}/${chatcommentId}`, 
+    data: {
+      chatcommentId,
+      chatcommentValue,
+      userId
+    },
     headers: {
       'Content-Type': 'application/json'
     },
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
 export async function deleteChatComment(chatcommentId: number): Promise<ChatComment[]> {
-  return await axios({
+  const response = await axios({
     method: 'delete',
     url: `${api}/${chatcommentId}`,
     headers: {
@@ -93,4 +112,6 @@ export async function deleteChatComment(chatcommentId: number): Promise<ChatComm
     },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }

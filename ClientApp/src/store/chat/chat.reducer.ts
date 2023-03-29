@@ -45,19 +45,6 @@ export const chatReducer = (
         chatFetchAllStart.match(action) 
     ) {
         return { ...state, isLoading: true }
-    }
-    if (
-        chatCreateStart.match(action) ||
-        chatUpdateStart.match(action) ||
-        chatDeleteStart.match(action) || 
-        chatFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singleChat: action.payload };
-    }
-    if (
-        chatFetchSingleStart.match(action)
-    ) {
-        return { ...state, isLoading: true, chatId: action.payload };
     }  
     if (
         chatCreateSuccess.match(action) ||
