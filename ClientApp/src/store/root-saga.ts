@@ -1,4 +1,5 @@
 import { all, call } from 'typed-redux-saga/macro';
+import { artificialIntelligenceSagas } from './artificialintelligence/artificialintelligence.saga';
 
 import { chatSagas } from './chat/chat.saga';
 import { chatCommentSagas } from './chatcomment/chatcomment.saga';
@@ -16,6 +17,7 @@ import { userprofileSagas } from './userprofiles/userprofile.saga';
 
 export function* rootSaga() {
   yield* all([
+    call(artificialIntelligenceSagas),
     call(chatSagas), 
     call(chatCommentSagas), 
     call(commentSagas), 

@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'typed-redux-saga';
 
 import { FOLLOWER_ACTION_TYPES } from './follower.types';
 

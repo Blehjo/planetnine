@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'typed-redux-saga';
 
 import { POST_ACTION_TYPES } from './artificialintelligence.types';
 
@@ -94,7 +94,7 @@ export function* onPostFetchAllStart() {
     yield takeLatest(POST_ACTION_TYPES.FETCH_ALL_START, fetchAllPost);
 }
 
-export function* postSagas() {
+export function* artificialIntelligenceSagas() {
     yield all([
         call(onPostCreateStart),
         call(onPostUpdateStart),
