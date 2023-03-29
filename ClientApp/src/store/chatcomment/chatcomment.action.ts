@@ -23,7 +23,7 @@ export type ChatCommentCreateFailed = ActionWithPayload<
 
 export type ChatCommentUpdateStart = ActionWithPayload<
     CHATCOMMENT_ACTION_TYPES.UPDATE_START,
-    { chatcommentId: number, chatcommentValue: string, mediaLink: string, userId: number }
+    { chatcommentId: number, chatcommentValue: string, mediaLink: string }
 >;
 
 export type ChatCommentUpdateSuccess = ActionWithPayload<
@@ -112,7 +112,7 @@ export const chatcommentCreateFailed = withMatcher(
  
 export const chatcommentUpdateStart = withMatcher(
     (chatcommentId: number, chatcommentValue: string, mediaLink: string, userId: number): ChatCommentUpdateStart => 
-    createAction(CHATCOMMENT_ACTION_TYPES.UPDATE_START, { chatcommentId, chatcommentValue, mediaLink, userId})
+    createAction(CHATCOMMENT_ACTION_TYPES.UPDATE_START, { chatcommentId, chatcommentValue, mediaLink, userId })
 );
 
 export const chatcommentUpdateSuccess = withMatcher(

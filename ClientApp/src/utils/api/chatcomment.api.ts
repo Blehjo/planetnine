@@ -85,14 +85,13 @@ export async function addChatComment(chatcommentValue: string, mediaLink: string
   return result;
 }
 
-export async function editChatComment(chatcommentId: number, chatcommentValue: string, userId: number): Promise<ChatComment[]> {
+export async function editChatComment(chatcommentId: number, chatcommentValue: string): Promise<ChatComment[]> {
   const response = await axios({
     method: 'put',
     url: `${api}/${chatcommentId}`, 
     data: {
       chatcommentId,
-      chatcommentValue,
-      userId
+      chatcommentValue
     },
     headers: {
       'Content-Type': 'application/json'

@@ -47,19 +47,6 @@ export const commentReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        commentCreateStart.match(action) ||
-        commentUpdateStart.match(action) ||
-        commentDeleteStart.match(action) || 
-        commentFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singleComment: action.payload };
-    }
-    if (
-        commentFetchSingleStart.match(action)
-    ) {
-        return { ...state, isLoading: true, commentId: action.payload };
-    }  
-    if (
         commentCreateSuccess.match(action) ||
         commentUpdateSuccess.match(action) ||
         commentDeleteSuccess.match(action) ||

@@ -25,5 +25,6 @@ export type Comment = {
     mediaLink: string | null;
     type: string | null;
     dateCreated: Date | null;
+    postId: number | null,
     userId: number | null,
 }

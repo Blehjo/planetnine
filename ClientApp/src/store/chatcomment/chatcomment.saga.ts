@@ -51,13 +51,12 @@ export function* createChatComment({ payload: { chatcommentValue, mediaLink }}: 
     }
 }
 
-export function* updateChatComment({ payload: { chatcommentId, chatcommentValue, userId }}: ChatCommentUpdateStart) {
+export function* updateChatComment({ payload: { chatcommentId, chatcommentValue }}: ChatCommentUpdateStart) {
     try {
         const chatcomment = yield* call(
             editChatComment,
             chatcommentId,
-            chatcommentValue,
-            userId
+            chatcommentValue
         ); 
         yield* put(chatcommentUpdateSuccess(chatcomment));
     } catch (error) {
