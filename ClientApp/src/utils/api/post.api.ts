@@ -9,57 +9,102 @@ const headers = {
 }
 
 export async function getSinglePost(postId: number): Promise<Post> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/${postId}`,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
-export async function getPosts(): Promise<Post[]> {
-  return await axios({
+export async function getAllPosts(): Promise<Post[]> {
+  const response = await axios({
     method: 'get',
     url: api,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getUserPosts(postId: number): Promise<Post[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/user/${postId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function addPost(post: Post): Promise<Post[]> {
-  return await axios({
+export async function getUsersPosts(): Promise<Post[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/user/posts`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function getPosts(): Promise<Post[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/user`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function addPost(postValue: string, mediaLink: string): Promise<Post[]> {
+  const response = await axios({
     method: 'post',
     url: api, 
-    data: post,
+    data: {
+      postValue,
+      mediaLink
+    },
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function editPost(post: Post): Promise<Post> {
-  return await axios({
+export async function editPost(postId: number, postValue: string, mediaLink: string): Promise<Post[]> {
+  const response = await axios({
     method: 'put',
-    url:`${api}/${post.postId}`, 
-    data: post,
+    url:`${api}/${postId}`, 
+    data: {
+      postId,
+      postValue,
+      mediaLink
+    },
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function deletePost(postId: number): Promise<Post[]> {
-  return await axios({
+  const response = await axios({
     method: 'delete',
     url: `${api}/${postId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }

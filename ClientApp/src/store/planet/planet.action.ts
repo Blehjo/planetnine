@@ -8,7 +8,16 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type PlanetCreateStart = ActionWithPayload<
-    PLANET_ACTION_TYPES.CREATE_START, Planet
+    PLANET_ACTION_TYPES.CREATE_START, { 
+        planetMass: number, 
+        planetName: string, 
+        perihelion: number, 
+        aphelion: number, 
+        gravity: number, 
+        temperature: number, 
+        imageLink: string, 
+        planetId: number 
+    }
 >;
 
 export type PlanetCreateSuccess = ActionWithPayload<
@@ -22,8 +31,16 @@ export type PlanetCreateFailed = ActionWithPayload<
 >;
 
 export type PlanetUpdateStart = ActionWithPayload<
-    PLANET_ACTION_TYPES.UPDATE_START,
-    Planet
+    PLANET_ACTION_TYPES.UPDATE_START, { 
+        planetId: number,
+        planetMass: number, 
+        planetName: string, 
+        perihelion: number, 
+        aphelion: number, 
+        gravity: number, 
+        temperature: number, 
+        imageLink: string
+    }
 >;
 
 export type PlanetUpdateSuccess = ActionWithPayload<
@@ -38,7 +55,7 @@ export type PlanetUpdateFailed = ActionWithPayload<
    
 export type PlanetDeleteStart = ActionWithPayload<
     PLANET_ACTION_TYPES.DELETE_START,
-    Planet
+    { planetId: number }
 >;
 
 export type PlanetDeleteSuccess = ActionWithPayload<
@@ -53,7 +70,7 @@ export type PlanetDeleteteFailed = ActionWithPayload<
    
 export type PlanetFetchSingleStart = ActionWithPayload<
     PLANET_ACTION_TYPES.FETCH_SINGLE_START,
-    number
+    { planetId: number }
 >;
 
 export type PlanetFetchSingleSuccess = ActionWithPayload<
@@ -66,17 +83,17 @@ export type PlanetFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type PlanetFetchUserChatsStart = ActionWithPayload<
+export type PlanetFetchUserPlanetsStart = ActionWithPayload<
     PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START,
-    number
+    { userId: number }
 >;
 
-export type PlanetFetchUserChatsSuccess = ActionWithPayload<
+export type PlanetFetchUserPlanetsSuccess = ActionWithPayload<
     PLANET_ACTION_TYPES.FETCH_USER_PLANETS_SUCCESS, 
     Planet[]
 >;
 
-export type PlanetFetchUserChatsFailed = ActionWithPayload<
+export type PlanetFetchUserPlanetsFailed = ActionWithPayload<
     PLANET_ACTION_TYPES.FETCH_USER_PLANETS_FAILED,
     Error
 >;
@@ -96,8 +113,25 @@ export type PlanetFetchAllFailed = ActionWithPayload<
 >;
 
 export const planetCreateStart = withMatcher(
-    (planet: Planet): PlanetCreateStart => 
-    createAction(PLANET_ACTION_TYPES.CREATE_START, planet)
+    (   planetMass: number, 
+        planetName: string, 
+        perihelion: number, 
+        aphelion: number, 
+        gravity: number, 
+        temperature: number, 
+        imageLink: string, 
+        planetId: number 
+): PlanetCreateStart => 
+    createAction(PLANET_ACTION_TYPES.CREATE_START, {
+        planetMass, 
+        planetName, 
+        perihelion, 
+        aphelion, 
+        gravity, 
+        temperature, 
+        imageLink, 
+        planetId
+    })
 );
 
 export const planetCreateSuccess = withMatcher(
@@ -111,8 +145,25 @@ export const planetCreateFailed = withMatcher(
 );
  
 export const planetUpdateStart = withMatcher(
-    (planet: Planet): PlanetUpdateStart => 
-    createAction(PLANET_ACTION_TYPES.UPDATE_START, planet)
+    (   planetId: number,
+        planetMass: number, 
+        planetName: string, 
+        perihelion: number, 
+        aphelion: number, 
+        gravity: number, 
+        temperature: number, 
+        imageLink: string, 
+): PlanetUpdateStart => 
+    createAction(PLANET_ACTION_TYPES.UPDATE_START, {
+        planetId,
+        planetMass, 
+        planetName, 
+        perihelion, 
+        aphelion, 
+        gravity, 
+        temperature, 
+        imageLink, 
+    })
 );
 
 export const planetUpdateSuccess = withMatcher(
@@ -126,8 +177,8 @@ export const planetUpdateFailed = withMatcher(
 );
 
 export const planetDeleteStart = withMatcher(
-    (planet: Planet): PlanetDeleteStart => 
-    createAction(PLANET_ACTION_TYPES.DELETE_START, planet)
+    (planetId: number): PlanetDeleteStart => 
+    createAction(PLANET_ACTION_TYPES.DELETE_START, { planetId })
 );
 
 export const planetDeleteSuccess = withMatcher(
@@ -142,7 +193,7 @@ export const planetDeleteFailed = withMatcher(
 
 export const planetFetchSingleStart = withMatcher(
     (planetId: number): PlanetFetchSingleStart => 
-    createAction(PLANET_ACTION_TYPES.FETCH_SINGLE_START, planetId)
+    createAction(PLANET_ACTION_TYPES.FETCH_SINGLE_START, { planetId })
 );
 
 export const planetFetchSingleSuccess = withMatcher(
@@ -155,18 +206,18 @@ export const planetFetchSingleFailed = withMatcher(
     createAction(PLANET_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const planetFetchUserChatsStart = withMatcher(
-    (planetId: number): PlanetFetchUserChatsStart => 
-    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START, planetId)
+export const planetFetchUserPlanetsStart = withMatcher(
+    (userId: number): PlanetFetchUserPlanetsStart => 
+    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START, { userId })
 );
 
-export const planetFetchUserChatsSuccess = withMatcher(
-    (planet: Planet[]): PlanetFetchUserChatsSuccess => 
+export const planetFetchUserPlanetsSuccess = withMatcher(
+    (planet: Planet[]): PlanetFetchUserPlanetsSuccess => 
     createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_SUCCESS, planet)
 );
 
-export const planetFetchUserChatsFailed = withMatcher(
-    (error: Error): PlanetFetchUserChatsFailed => 
+export const planetFetchUserPlanetsFailed = withMatcher(
+    (error: Error): PlanetFetchUserPlanetsFailed => 
     createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_FAILED, error)
 );
 

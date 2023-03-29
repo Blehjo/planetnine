@@ -47,19 +47,6 @@ export const postReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        postCreateStart.match(action) ||
-        postUpdateStart.match(action) ||
-        postDeleteStart.match(action) || 
-        postFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singlePost: action.payload };
-    }
-    if (
-        postFetchSingleStart.match(action)
-    ) {
-        return { ...state, isLoading: true, postId: action.payload };
-    }  
-    if (
         postCreateSuccess.match(action) ||
         postUpdateSuccess.match(action) ||
         postDeleteSuccess.match(action) ||

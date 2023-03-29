@@ -1,105 +1,176 @@
 import { takeLatest, put, all, call } from 'typed-redux-saga';
 
-import { POST_ACTION_TYPES } from './post.types';
+import { Post, POST_ACTION_TYPES } from './post.types';
 
 import {
+    postCreateStart,
     postCreateSuccess,
     postCreateFailed,
+    postUpdateStart,
     postUpdateSuccess,
     postUpdateFailed,
+    postDeleteStart,
     postDeleteSuccess,
     postDeleteFailed,
+    postFetchSingleStart,
     postFetchSingleSuccess,
     postFetchSingleFailed,
+    postFetchAllStart,
     postFetchAllSuccess,
     postFetchAllFailed,
+    PostCreateStart,
+    PostCreateSuccess,
+    PostFetchAllStart,
+    PostFetchSingleStart,
+    PostFetchUserPostsStart,
+    PostUpdateStart,
+    PostDeleteStart
 } from './post.action';
 
 import { 
     getSinglePost,
-    getPosts,
-    addPost,
+    getAllPosts,
+    getUserPosts,
+    getUsersPosts,
+    getPosts, 
+    addPost, 
     editPost,
     deletePost
 } from '../../utils/api/post.api';
 
-export function* createPost({ userId, postValue, mediaLink }) {
+export function* createPost({ payload: { postValue, mediaLink }}: PostCreateStart ) {
     try {
-        const post = call(addPost({ userId, postValue, mediaLink }));
-        yield put(postCreateSuccess(post));
-    } catch (error) {
-        yield put(postCreateFailed(error));
-    }
-}
-
-export function* updatePost({ payload: { userId, postId, postValue, mediaLink }}) {
-    try {
-        const { post } = yield call(
-            editPost,
-            userId,
-            postId,
+        const post = yield* call(
+            addPost,
             postValue,
             mediaLink
+        ); 
+        yield* put(postCreateSuccess(post));
+    } catch (error) {
+        yield* put(postCreateFailed(error as Error));
+    }
+}
+
+export function* updatePost({ payload: { postId, postValue, mediaLink }}: PostUpdateStart) {
+    try {
+        const post = yield* call(
+            editPost,
+            postId,
+            postValue, 
+            mediaLink
+        ); 
+        yield* put(postUpdateSuccess(post));
+    } catch (error) {
+        yield* put(postCreateFailed(error as Error));
+    }
+}
+
+export function* removePost({ payload: { postId }}: PostDeleteStart) {
+    try {
+        const posts = yield* call(
+            deletePost,
+            postId
+        ); 
+        yield* put(postDeleteSuccess(posts));
+    } catch (error) {
+        yield* put(postDeleteFailed(error as Error));
+    }
+}
+
+export function* fetchUserPosts() {
+    try {
+        const post = yield* call(getUsersPosts);
+        if (!post) return;
+        yield* call(postFetchAllSuccess, post);
+    } catch (error) {
+        yield* put(postFetchAllFailed(error as Error));
+    }
+}
+
+export function* fetchOtherUsersPosts({ payload: { userId } }: PostFetchUserPostsStart) {
+    try {
+        const posts = yield* call(
+            getUserPosts,
+            userId
         );
-        yield put(postUpdateSuccess(post));
+        if (!posts) return;
+        yield* call(postFetchAllSuccess, posts);
     } catch (error) {
-        yield put(postUpdateFailed(error));
+        yield* put(postFetchAllFailed(error as Error));
     }
 }
 
-export function* deleteItem(userId, postId) {
+export function* fetchSinglePostAsync({ 
+    payload: { postId } }: PostFetchSingleStart) {
     try {
-        const { post } = yield call(deletePost, userId, postId);
-        yield put(postDeleteSuccess(post));
+        const postSnapshot = yield* call(
+            getSinglePost,
+            postId 
+        );
+        yield* put(postFetchSingleSuccess(postSnapshot as Post));
     } catch (error) {
-        yield put(postDeleteFailed(error));
+        yield* put(postFetchSingleFailed(error as Error));
     }
 }
 
-export function* fetchSinglePost(userId, postId) {
+export function* fetchAllPostsAsync() {
     try {
-        const { post } = yield call(getSinglePost, userId, postId);
-        yield put(postFetchSingleSuccess(post));
+        const posts = yield* call(getAllPosts);
+        yield* put(postFetchAllSuccess(posts));
     } catch (error) {
-        yield put(postFetchSingleFailed(error));
+        yield* put(postFetchAllFailed(error as Error));
     }
 }
 
-export function* fetchAllPost(userId) {
-    try {
-        const { post } = yield call(getPosts, userId);
-        yield put(postFetchAllSuccess(post));
-    } catch (error) {
-        yield put(postFetchAllFailed(error));
-    }
+export function* onCreateStart() {
+    yield* takeLatest(
+        POST_ACTION_TYPES.CREATE_START, 
+        createPost
+    );
 }
 
-export function* onPostCreateStart() {
-    yield takeLatest(POST_ACTION_TYPES.CREATE_START, createPost);
+export function* onUpdateStart() {
+    yield* takeLatest(
+        POST_ACTION_TYPES.UPDATE_START, 
+        updatePost
+    );
 }
 
-export function* onPostUpdateStart() {
-    yield takeLatest(POST_ACTION_TYPES.UPDATE_START, updatePost);
+export function* onDeleteStart() {
+    yield* takeLatest(
+        POST_ACTION_TYPES.DELETE_START, 
+        removePost
+    );
 }
 
-export function* onPostDeleteStart() {
-    yield takeLatest(POST_ACTION_TYPES.DELETE_START, deleteItem);
+export function* onFetchUserPostsStart() {
+    yield* takeLatest(
+        POST_ACTION_TYPES.FETCH_USER_POSTS_START, 
+        fetchUserPosts
+    );
 }
 
-export function* onPostFetchSingleStart() {
-    yield takeLatest(POST_ACTION_TYPES.FETCH_SINGLE_START, fetchSinglePost); 
+export function* onFetchSinglePostStart() {
+    yield* takeLatest(
+        POST_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSinglePostAsync
+    );
 }
-
-export function* onPostFetchAllStart() {
-    yield takeLatest(POST_ACTION_TYPES.FETCH_ALL_START, fetchAllPost);
+  
+export function* onFetchPostsStart() {
+    yield* takeLatest(
+        POST_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllPostsAsync
+    );
 }
 
 export function* postSagas() {
-    yield all([
-        call(onPostCreateStart),
-        call(onPostUpdateStart),
-        call(onPostDeleteStart),
-        call(onPostFetchAllStart),
-        call(onPostFetchSingleStart)
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchUserPostsStart),
+        call(onFetchSinglePostStart),
+        call(onFetchPostsStart)
     ]);
 }

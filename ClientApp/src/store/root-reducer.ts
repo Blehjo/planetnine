@@ -14,7 +14,7 @@ import { profileReducer } from './profile/profile.reducer';
 import { toolReducer } from './tool/tool.reducer';
 import { toolboxReducer } from './toolbox/toolbox.reducer';
 import { userReducer } from './user/user.reducer';
-import { userprofileReducer } from './userprofiles/userprofile.reducer';
+import { userprofileReducer } from './userprofile/userprofile.reducer';
 
 export const rootReducer = combineReducers({
   artificialIntelligence: artificialIntelligenceReducer,

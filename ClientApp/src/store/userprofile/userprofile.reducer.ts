@@ -43,23 +43,6 @@ export const userprofileReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        userprofileCreateStart.match(action) ||
-        userprofileUpdateStart.match(action) ||
-        userprofileDeleteStart.match(action) || 
-        userprofileFetchSingleSuccess.match(action) ||
-        userprofileCreateSuccess.match(action) ||
-        userprofileUpdateSuccess.match(action) ||
-        userprofileDeleteSuccess.match(action) ||
-        userprofileFetchAllSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, userprofile: action.payload };
-    }
-    if (
-        userprofileFetchSingleStart.match(action)
-    ) {
-        return { ...state, isLoading: true, userprofileId: action.payload };
-    }  
-    if (
         userprofileCreateFailed.match(action) ||
         userprofileUpdateFailed.match(action) ||
         userprofileDeleteFailed.match(action) ||

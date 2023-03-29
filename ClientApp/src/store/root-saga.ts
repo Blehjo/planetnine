@@ -13,7 +13,7 @@ import { planetSagas } from './planet/planet.saga';
 import { postSagas } from './post/post.saga';
 import { toolSagas } from './tool/tool.saga';
 import { userSagas } from './user/user.saga';
-import { userprofileSagas } from './userprofiles/userprofile.saga';
+import { userprofileSagas } from './userprofile/userprofile.saga';
 
 export function* rootSaga() {
   yield* all([

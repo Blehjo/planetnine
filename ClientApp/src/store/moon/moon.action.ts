@@ -8,7 +8,16 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type MoonCreateStart = ActionWithPayload<
-    MOON_ACTION_TYPES.CREATE_START, Moon
+    MOON_ACTION_TYPES.CREATE_START, { 
+        moonMass: number, 
+        moonName: string, 
+        perihelion: number, 
+        aphelion: number, 
+        gravity: number, 
+        temperature: number, 
+        imageLink: string, 
+        planetId: number 
+    }
 >;
 
 export type MoonCreateSuccess = ActionWithPayload<
@@ -22,8 +31,17 @@ export type MoonCreateFailed = ActionWithPayload<
 >;
 
 export type MoonUpdateStart = ActionWithPayload<
-    MOON_ACTION_TYPES.UPDATE_START,
-    Moon
+    MOON_ACTION_TYPES.UPDATE_START, { 
+        moonId: number,
+        moonMass: number, 
+        moonName: string, 
+        perihelion: number, 
+        aphelion: number, 
+        gravity: number, 
+        temperature: number, 
+        imageLink: string, 
+        planetId: number 
+    }
 >;
 
 export type MoonUpdateSuccess = ActionWithPayload<
@@ -38,7 +56,7 @@ export type MoonUpdateFailed = ActionWithPayload<
    
 export type MoonDeleteStart = ActionWithPayload<
     MOON_ACTION_TYPES.DELETE_START,
-    Moon
+    { moonId: number }
 >;
 
 export type MoonDeleteSuccess = ActionWithPayload<
@@ -53,7 +71,7 @@ export type MoonDeleteteFailed = ActionWithPayload<
    
 export type MoonFetchSingleStart = ActionWithPayload<
     MOON_ACTION_TYPES.FETCH_SINGLE_START,
-    number
+    { moonId: number }
 >;
 
 export type MoonFetchSingleSuccess = ActionWithPayload<
@@ -66,17 +84,17 @@ export type MoonFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type MoonFetchUserChatsStart = ActionWithPayload<
+export type MoonFetchUserMoonsStart = ActionWithPayload<
     MOON_ACTION_TYPES.FETCH_USER_MOONS_START,
-    number
+    { userId: number }
 >;
 
-export type MoonFetchUserChatsSuccess = ActionWithPayload<
+export type MoonFetchUserMoonsSuccess = ActionWithPayload<
     MOON_ACTION_TYPES.FETCH_USER_MOONS_SUCCESS, 
     Moon[]
 >;
 
-export type MoonFetchUserChatsFailed = ActionWithPayload<
+export type MoonFetchUserMoonsFailed = ActionWithPayload<
     MOON_ACTION_TYPES.FETCH_USER_MOONS_FAILED,
     Error
 >;
@@ -96,8 +114,25 @@ export type MoonFetchAllFailed = ActionWithPayload<
 >;
 
 export const moonCreateStart = withMatcher(
-    (moon: Moon): MoonCreateStart => 
-    createAction(MOON_ACTION_TYPES.CREATE_START, moon)
+    (   moonMass: number, 
+        moonName: string, 
+        perihelion: number, 
+        aphelion: number, 
+        gravity: number, 
+        temperature: number, 
+        imageLink: string, 
+        planetId: number 
+): MoonCreateStart => 
+    createAction(MOON_ACTION_TYPES.CREATE_START, {
+        moonMass, 
+        moonName, 
+        perihelion, 
+        aphelion, 
+        gravity, 
+        temperature, 
+        imageLink, 
+        planetId
+    })
 );
 
 export const moonCreateSuccess = withMatcher(
@@ -111,8 +146,27 @@ export const moonCreateFailed = withMatcher(
 );
  
 export const moonUpdateStart = withMatcher(
-    (moon: Moon): MoonUpdateStart => 
-    createAction(MOON_ACTION_TYPES.UPDATE_START, moon)
+    (   moonId: number,
+        moonMass: number, 
+        moonName: string, 
+        perihelion: number, 
+        aphelion: number, 
+        gravity: number, 
+        temperature: number, 
+        imageLink: string, 
+        planetId: number 
+    ): MoonUpdateStart => 
+    createAction(MOON_ACTION_TYPES.UPDATE_START, {
+        moonId,
+        moonMass, 
+        moonName, 
+        perihelion, 
+        aphelion, 
+        gravity, 
+        temperature, 
+        imageLink, 
+        planetId
+    })
 );
 
 export const moonUpdateSuccess = withMatcher(
@@ -126,8 +180,8 @@ export const moonUpdateFailed = withMatcher(
 );
 
 export const moonDeleteStart = withMatcher(
-    (moon: Moon): MoonDeleteStart => 
-    createAction(MOON_ACTION_TYPES.DELETE_START, moon)
+    (moonId: number): MoonDeleteStart => 
+    createAction(MOON_ACTION_TYPES.DELETE_START, { moonId })
 );
 
 export const moonDeleteSuccess = withMatcher(
@@ -142,7 +196,7 @@ export const moonDeleteFailed = withMatcher(
 
 export const moonFetchSingleStart = withMatcher(
     (moonId: number): MoonFetchSingleStart => 
-    createAction(MOON_ACTION_TYPES.FETCH_SINGLE_START, moonId)
+    createAction(MOON_ACTION_TYPES.FETCH_SINGLE_START, { moonId })
 );
 
 export const moonFetchSingleSuccess = withMatcher(
@@ -155,18 +209,18 @@ export const moonFetchSingleFailed = withMatcher(
     createAction(MOON_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const moonFetchUserChatsStart = withMatcher(
-    (moonId: number): MoonFetchUserChatsStart => 
-    createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_START, moonId)
+export const moonFetchUserMoonsStart = withMatcher(
+    (userId: number): MoonFetchUserMoonsStart => 
+    createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_START, { userId })
 );
 
-export const moonFetchUserChatsSuccess = withMatcher(
-    (moon: Moon[]): MoonFetchUserChatsSuccess => 
+export const moonFetchUserMoonsSuccess = withMatcher(
+    (moon: Moon[]): MoonFetchUserMoonsSuccess => 
     createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_SUCCESS, moon)
 );
 
-export const moonFetchUserChatsFailed = withMatcher(
-    (error: Error): MoonFetchUserChatsFailed => 
+export const moonFetchUserMoonsFailed = withMatcher(
+    (error: Error): MoonFetchUserMoonsFailed => 
     createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_FAILED, error)
 );
 

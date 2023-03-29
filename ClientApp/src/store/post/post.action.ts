@@ -66,17 +66,17 @@ export type PostFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type PostFetchUserChatsStart = ActionWithPayload<
+export type PostFetchUserPostsStart = ActionWithPayload<
     POST_ACTION_TYPES.FETCH_USER_POSTS_START,
     { userId: number }
 >;
 
-export type PostFetchUserChatsSuccess = ActionWithPayload<
+export type PostFetchUserPostsSuccess = ActionWithPayload<
     POST_ACTION_TYPES.FETCH_USER_POSTS_SUCCESS, 
     Post[]
 >;
 
-export type PostFetchUserChatsFailed = ActionWithPayload<
+export type PostFetchUserPostsFailed = ActionWithPayload<
     POST_ACTION_TYPES.FETCH_USER_POSTS_FAILED,
     Error
 >;
@@ -96,8 +96,8 @@ export type PostFetchAllFailed = ActionWithPayload<
 >;
 
 export const postCreateStart = withMatcher(
-    (post: Post): PostCreateStart => 
-    createAction(POST_ACTION_TYPES.CREATE_START, post)
+    (postValue: string, mediaLink: string): PostCreateStart => 
+    createAction(POST_ACTION_TYPES.CREATE_START, { postValue, mediaLink })
 );
 
 export const postCreateSuccess = withMatcher(
@@ -111,8 +111,8 @@ export const postCreateFailed = withMatcher(
 );
  
 export const postUpdateStart = withMatcher(
-    (post: Post): PostUpdateStart => 
-    createAction(POST_ACTION_TYPES.UPDATE_START, post)
+    (postId: number, postValue: string, mediaLink: string): PostUpdateStart => 
+    createAction(POST_ACTION_TYPES.UPDATE_START, { postId, postValue, mediaLink })
 );
 
 export const postUpdateSuccess = withMatcher(
@@ -126,8 +126,8 @@ export const postUpdateFailed = withMatcher(
 );
 
 export const postDeleteStart = withMatcher(
-    (post: Post): PostDeleteStart => 
-    createAction(POST_ACTION_TYPES.DELETE_START, post)
+    (postId: number): PostDeleteStart => 
+    createAction(POST_ACTION_TYPES.DELETE_START, { postId })
 );
 
 export const postDeleteSuccess = withMatcher(
@@ -142,7 +142,7 @@ export const postDeleteFailed = withMatcher(
 
 export const postFetchSingleStart = withMatcher(
     (postId: number): PostFetchSingleStart => 
-    createAction(POST_ACTION_TYPES.FETCH_SINGLE_START, postId)
+    createAction(POST_ACTION_TYPES.FETCH_SINGLE_START, { postId })
 );
 
 export const postFetchSingleSuccess = withMatcher(
@@ -155,18 +155,18 @@ export const postFetchSingleFailed = withMatcher(
     createAction(POST_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const postFetchUserChatsStart = withMatcher(
-    (postId: number): PostFetchUserChatsStart => 
-    createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_START, postId)
+export const postFetchUserPostsStart = withMatcher(
+    (userId: number): PostFetchUserPostsStart => 
+    createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_START, { userId })
 );
 
-export const postFetchUserChatsSuccess = withMatcher(
-    (post: Post[]): PostFetchUserChatsSuccess => 
+export const postFetchUserPostsSuccess = withMatcher(
+    (post: Post[]): PostFetchUserPostsSuccess => 
     createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_SUCCESS, post)
 );
 
-export const postFetchUserChatsFailed = withMatcher(
-    (error: Error): PostFetchUserChatsFailed => 
+export const postFetchUserPostsFailed = withMatcher(
+    (error: Error): PostFetchUserPostsFailed => 
     createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_FAILED, error)
 );
 

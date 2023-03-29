@@ -1,98 +1,204 @@
 import { takeLatest, put, all, call } from 'typed-redux-saga';
 
-import { CHAT_ACTION_TYPES } from './planet.types';
+import { PLANET_ACTION_TYPES, Planet } from './planet.types';
 
 import {
-    chatCreateStart,
-    chatCreateSuccess,
-    chatCreateFailed,
-    chatUpdateStart,
-    chatUpdateSuccess,
-    chatUpdateFailed,
-    chatDeleteStart,
-    chatDeleteSuccess,
-    chatDeleteFailed,
-    chatFetchSingleStart,
-    chatFetchSingleSuccess,
-    chatFetchSingleFailed,
-    chatFetchAllStart,
-    chatFetchAllSuccess,
-    chatFetchAllFailed,
+    planetCreateStart,
+    planetCreateSuccess,
+    planetCreateFailed,
+    planetUpdateStart,
+    planetUpdateSuccess,
+    planetUpdateFailed,
+    planetDeleteStart,
+    planetDeleteSuccess,
+    planetDeleteFailed,
+    planetFetchSingleStart,
+    planetFetchSingleSuccess,
+    planetFetchSingleFailed,
+    planetFetchAllStart,
+    planetFetchAllSuccess,
+    planetFetchAllFailed,
+    PlanetCreateStart,
+    PlanetUpdateStart,
+    PlanetDeleteStart,
+    PlanetFetchAllStart,
+    PlanetFetchSingleStart,
+    PlanetFetchUserPlanetsStart
 } from './planet.action';
 
 import { 
-    getSingleChat,
-    getAllChats,
-    getUserChats,
-    getUsersChats,
-    getChats, 
-    addChat, 
-    editChat,
-    deleteChat
-} from '../../utils/api/chat.api';
+    getSinglePlanet,
+    getUserPlanets,
+    getUsersPlanets,
+    getPlanets, 
+    addPlanet, 
+    editPlanet,
+    deletePlanet
+} from '../../utils/api/planet.api';
 
-export function* fetchCategoriesAsync() {
+export function* createPlanet({ payload: { 
+    planetName,
+    planetMass,
+    perihelion,
+    aphelion,
+    gravity,
+    temperature,
+    imageLink,
+    planetId
+}}: PlanetCreateStart ) {
     try {
-      const chats = yield* call(getAllChats);
-      yield* put(chatFetchAllSuccess(chats));
+        const planet = yield* call(
+            addPlanet,
+            planetName,
+            planetMass,
+            perihelion,
+            aphelion,
+            gravity,
+            temperature,
+            imageLink,
+            planetId 
+        ); 
+        yield* put(planetCreateSuccess(planet));
     } catch (error) {
-      yield* put(chatFetchAllFailed(error as Error));
+        yield* put(planetCreateFailed(error as Error));
     }
 }
-  
-export function* onFetchCategories() {
+
+export function* updatePlanet({ payload: { 
+    planetId,
+    planetName,
+    planetMass,
+    perihelion,
+    aphelion,
+    gravity,
+    temperature,
+    imageLink 
+}}: PlanetUpdateStart) {
+    try {
+        const planet = yield* call(
+            editPlanet,
+            planetId,
+            planetName,
+            planetMass,
+            perihelion,
+            aphelion,
+            gravity,
+            temperature,
+            imageLink 
+        ); 
+        yield* put(planetUpdateSuccess(planet));
+    } catch (error) {
+        yield* put(planetCreateFailed(error as Error));
+    }
+}
+
+
+export function* removePlanet({ payload: { planetId }}: PlanetDeleteStart) {
+    try {
+        const planets = yield* call(
+            deletePlanet,
+            planetId
+        ); 
+        yield* put(planetDeleteSuccess(planets));
+    } catch (error) {
+        yield* put(planetDeleteFailed(error as Error));
+    }
+}
+
+export function* fetchUserPlanets() {
+    try {
+        const Planet = yield* call(getUserPlanets);
+        if (!Planet) return;
+        yield* call(planetFetchAllSuccess, Planet);
+    } catch (error) {
+        yield* put(planetFetchAllFailed(error as Error));
+    }
+}
+
+export function* fetchOtherUsersPlanets({ payload: { userId } }: PlanetFetchUserPlanetsStart) {
+    try {
+        const planets = yield* call(
+            getUserPlanets,
+            userId
+        );
+        if (!planets) return;
+        yield* call(planetFetchAllSuccess, planets);
+    } catch (error) {
+        yield* put(planetFetchAllFailed(error as Error));
+    }
+}
+
+export function* fetchSinglePlanetAsync({ 
+    payload: { planetId } }: PlanetFetchSingleStart) {
+    try {
+        const planetSnapshot = yield* call(
+            getSinglePlanet,
+            planetId 
+        );
+        yield* put(planetFetchSingleSuccess(planetSnapshot as Planet));
+    } catch (error) {
+        yield* put(planetFetchSingleFailed(error as Error));
+    }
+}
+
+export function* fetchAllPlanetsAsync() {
+    try {
+        const planets = yield* call(getPlanets);
+        yield* put(planetFetchAllSuccess(planets));
+    } catch (error) {
+        yield* put(planetFetchAllFailed(error as Error));
+    }
+}
+
+export function* onCreateStart() {
     yield* takeLatest(
-      CHAT_ACTION_TYPES.FETCH_ALL_START,
-      fetchCategoriesAsync
+        PLANET_ACTION_TYPES.CREATE_START, 
+        createPlanet
     );
 }
 
-export function* getSnapshotFromChat(chat, additionalDetails) {
-    try {
-        const chatSnapshot = yield call(
-            getSingleChat,
-            chat.chatId,
-            additionalDetails
-        );
-        yield put(chatCreateSuccess({ id: chatSnapshot.chatId, ...chatSnapshot.data }));
-    } catch (error) {
-        yield put(chatCreateFailed(error));
-    }
+export function* onUpdateStart() {
+    yield* takeLatest(
+        PLANET_ACTION_TYPES.UPDATE_START, 
+        updatePlanet
+    );
 }
 
-export function* createChat({ payload: { title } }) {
-    try {
-        const chat = yield call(
-            addChat,
-            title,
-        );
-        yield call(getSnapshotFromChat, chat);
-    } catch (error) {
-        yield put(chatCreateFailed(error));
-    }
+export function* onDeleteStart() {
+    yield* takeLatest(
+        PLANET_ACTION_TYPES.DELETE_START, 
+        removePlanet
+    );
 }
 
-export function* getUserInfoChats() {
-    try {
-        const chat = yield call(getChats);
-        if (!chat) return;
-        yield call(chatFetchAllSuccess, chat);
-    } catch (error) {
-        yield put(chatFetchAllFailed(error));
-    }
+export function* onFetchUserPlanetsStart() {
+    yield* takeLatest(
+        PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START, 
+        fetchUserPlanets
+    );
 }
 
-export function* onChatStart() {
-    yield takeLatest(CHAT_ACTION_TYPES.CREATE_START, createChat);
+export function* onFetchSinglePlanetStart() {
+    yield* takeLatest(
+        PLANET_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSinglePlanetAsync
+    );
 }
-
-export function* onFetchStart() {
-    yield takeLatest(CHAT_ACTION_TYPES.FETCH_ALL_START, getUserChats);
+  
+export function* onFetchPlanetsStart() {
+    yield* takeLatest(
+        PLANET_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllPlanetsAsync
+    );
 }
 
 export function* planetSagas() {
-    yield all([
-        call(onChatStart),
-        call(onFetchStart)
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchUserPlanetsStart),
+        call(onFetchSinglePlanetStart),
+        call(onFetchPlanetsStart)
     ]);
 }

@@ -47,19 +47,6 @@ export const planetReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        planetCreateStart.match(action) ||
-        planetUpdateStart.match(action) ||
-        planetDeleteStart.match(action) || 
-        planetFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singlePlanet: action.payload };
-    }
-    if (
-        planetFetchSingleStart.match(action)
-    ) {
-        return { ...state, isLoading: true, planetId: action.payload };
-    }  
-    if (
         planetCreateSuccess.match(action) ||
         planetUpdateSuccess.match(action) ||
         planetDeleteSuccess.match(action) ||

@@ -1,98 +1,204 @@
 import { takeLatest, put, all, call } from 'typed-redux-saga';
 
-import { CHAT_ACTION_TYPES } from './moon.types';
+import { MOON_ACTION_TYPES, Moon } from './moon.types';
 
 import {
-    chatCreateStart,
-    chatCreateSuccess,
-    chatCreateFailed,
-    chatUpdateStart,
-    chatUpdateSuccess,
-    chatUpdateFailed,
-    chatDeleteStart,
-    chatDeleteSuccess,
-    chatDeleteFailed,
-    chatFetchSingleStart,
-    chatFetchSingleSuccess,
-    chatFetchSingleFailed,
-    chatFetchAllStart,
-    chatFetchAllSuccess,
-    chatFetchAllFailed,
+    moonCreateStart,
+    moonCreateSuccess,
+    moonCreateFailed,
+    moonUpdateStart,
+    moonUpdateSuccess,
+    moonUpdateFailed,
+    moonDeleteStart,
+    moonDeleteSuccess,
+    moonDeleteFailed,
+    moonFetchSingleStart,
+    moonFetchSingleSuccess,
+    moonFetchSingleFailed,
+    moonFetchAllStart,
+    moonFetchAllSuccess,
+    moonFetchAllFailed,
+    MoonCreateStart,
+    MoonUpdateStart,
+    MoonDeleteStart,
+    MoonFetchAllStart,
+    MoonFetchSingleStart,
+    MoonFetchUserMoonsStart
 } from './moon.action';
 
 import { 
-    getSingleChat,
-    getAllChats,
-    getUserChats,
-    getUsersChats,
-    getChats, 
-    addChat, 
-    editChat,
-    deleteChat
-} from '../../utils/api/chat.api';
+    getSingleMoon,
+    getUserMoons,
+    getUsersMoons,
+    getMoons, 
+    addMoon, 
+    editMoon,
+    deleteMoon
+} from '../../utils/api/moon.api';
 
-export function* fetchCategoriesAsync() {
+export function* createMoon({ payload: { 
+    moonName,
+    moonMass,
+    perihelion,
+    aphelion,
+    gravity,
+    temperature,
+    imageLink,
+    planetId
+}}: MoonCreateStart ) {
     try {
-      const chats = yield* call(getAllChats);
-      yield* put(chatFetchAllSuccess(chats));
+        const moon = yield* call(
+            addMoon,
+            moonName,
+            moonMass,
+            perihelion,
+            aphelion,
+            gravity,
+            temperature,
+            imageLink,
+            planetId 
+        ); 
+        yield* put(moonCreateSuccess(moon));
     } catch (error) {
-      yield* put(chatFetchAllFailed(error as Error));
+        yield* put(moonCreateFailed(error as Error));
     }
 }
-  
-export function* onFetchCategories() {
+
+export function* updateMoon({ payload: { 
+    moonId,
+    moonName,
+    moonMass,
+    perihelion,
+    aphelion,
+    gravity,
+    temperature,
+    imageLink 
+}}: MoonUpdateStart) {
+    try {
+        const moon = yield* call(
+            editMoon,
+            moonId,
+            moonName,
+            moonMass,
+            perihelion,
+            aphelion,
+            gravity,
+            temperature,
+            imageLink 
+        ); 
+        yield* put(moonUpdateSuccess(moon));
+    } catch (error) {
+        yield* put(moonCreateFailed(error as Error));
+    }
+}
+
+
+export function* removeMoon({ payload: { moonId }}: MoonDeleteStart) {
+    try {
+        const moons = yield* call(
+            deleteMoon,
+            moonId
+        ); 
+        yield* put(moonDeleteSuccess(moons));
+    } catch (error) {
+        yield* put(moonDeleteFailed(error as Error));
+    }
+}
+
+export function* fetchUserMoons() {
+    try {
+        const Moon = yield* call(getUsersMoons);
+        if (!Moon) return;
+        yield* call(moonFetchAllSuccess, Moon);
+    } catch (error) {
+        yield* put(moonFetchAllFailed(error as Error));
+    }
+}
+
+export function* fetchOtherUsersMoons({ payload: { userId } }: MoonFetchUserMoonsStart) {
+    try {
+        const Moons = yield* call(
+            getUserMoons,
+            userId
+        );
+        if (!Moons) return;
+        yield* call(moonFetchAllSuccess, Moons);
+    } catch (error) {
+        yield* put(moonFetchAllFailed(error as Error));
+    }
+}
+
+export function* fetchSingleMoonAsync({ 
+    payload: { moonId } }: MoonFetchSingleStart) {
+    try {
+        const MoonSnapshot = yield* call(
+            getSingleMoon,
+            moonId 
+        );
+        yield* put(moonFetchSingleSuccess(MoonSnapshot as Moon));
+    } catch (error) {
+        yield* put(moonFetchSingleFailed(error as Error));
+    }
+}
+
+export function* fetchAllMoonsAsync() {
+    try {
+        const Moons = yield* call(getMoons);
+        yield* put(moonFetchAllSuccess(Moons));
+    } catch (error) {
+        yield* put(moonFetchAllFailed(error as Error));
+    }
+}
+
+export function* onCreateStart() {
     yield* takeLatest(
-      CHAT_ACTION_TYPES.FETCH_ALL_START,
-      fetchCategoriesAsync
+        MOON_ACTION_TYPES.CREATE_START, 
+        createMoon
     );
 }
 
-export function* getSnapshotFromChat(chat, additionalDetails) {
-    try {
-        const chatSnapshot = yield call(
-            getSingleChat,
-            chat.chatId,
-            additionalDetails
-        );
-        yield put(chatCreateSuccess({ id: chatSnapshot.chatId, ...chatSnapshot.data }));
-    } catch (error) {
-        yield put(chatCreateFailed(error));
-    }
+export function* onUpdateStart() {
+    yield* takeLatest(
+        MOON_ACTION_TYPES.UPDATE_START, 
+        updateMoon
+    );
 }
 
-export function* createChat({ payload: { title } }) {
-    try {
-        const chat = yield call(
-            addChat,
-            title,
-        );
-        yield call(getSnapshotFromChat, chat);
-    } catch (error) {
-        yield put(chatCreateFailed(error));
-    }
+export function* onDeleteStart() {
+    yield* takeLatest(
+        MOON_ACTION_TYPES.DELETE_START, 
+        removeMoon
+    );
 }
 
-export function* getUserInfoChats() {
-    try {
-        const chat = yield call(getChats);
-        if (!chat) return;
-        yield call(chatFetchAllSuccess, chat);
-    } catch (error) {
-        yield put(chatFetchAllFailed(error));
-    }
+export function* onFetchUserMoonsStart() {
+    yield* takeLatest(
+        MOON_ACTION_TYPES.FETCH_USER_MOONS_START, 
+        fetchUserMoons
+    );
 }
 
-export function* onChatStart() {
-    yield takeLatest(CHAT_ACTION_TYPES.CREATE_START, createChat);
+export function* onFetchSingleMoonStart() {
+    yield* takeLatest(
+        MOON_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSingleMoonAsync
+    );
 }
-
-export function* onFetchStart() {
-    yield takeLatest(CHAT_ACTION_TYPES.FETCH_ALL_START, getUserChats);
+  
+export function* onFetchMoonsStart() {
+    yield* takeLatest(
+        MOON_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllMoonsAsync
+    );
 }
 
 export function* moonSagas() {
-    yield all([
-        call(onChatStart),
-        call(onFetchStart)
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchUserMoonsStart),
+        call(onFetchSingleMoonStart),
+        call(onFetchMoonsStart)
     ]);
 }

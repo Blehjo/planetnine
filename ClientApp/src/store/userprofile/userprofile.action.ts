@@ -1,4 +1,4 @@
-import { USERPROFILE_ACTION_TYPES, Userprofile } from './userprofile.types';
+import { USERPROFILE_ACTION_TYPES } from './userprofile.types';
 
 import {
   createAction,
@@ -6,14 +6,24 @@ import {
   Action,
   ActionWithPayload
 } from '../../utils/reducer/reducer.utils';
+import { User } from '../user/user.types';
 
 export type UserprofileCreateStart = ActionWithPayload<
-    USERPROFILE_ACTION_TYPES.CREATE_START, Userprofile
+    USERPROFILE_ACTION_TYPES.CREATE_START, {
+        username: string,
+        firstName: string,
+        lastName: string,
+        dateOfBirth: Date,
+        emailAddress: string,
+        password: string,
+        about: string,
+        imageLink: string 
+    }
 >;
 
 export type UserprofileCreateSuccess = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.CREATE_SUCCESS, 
-    Userprofile
+    User
 >;
 
 export type UserprofileCreateFailed = ActionWithPayload<
@@ -22,13 +32,22 @@ export type UserprofileCreateFailed = ActionWithPayload<
 >;
 
 export type UserprofileUpdateStart = ActionWithPayload<
-    USERPROFILE_ACTION_TYPES.UPDATE_START,
-    Userprofile
+    USERPROFILE_ACTION_TYPES.UPDATE_START, {
+        userId: number,
+        username: string,
+        firstName: string,
+        lastName: string,
+        dateOfBirth: Date,
+        emailAddress: string,
+        password: string,
+        about: string,
+        imageLink: string 
+    }
 >;
 
 export type UserprofileUpdateSuccess = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.UPDATE_SUCCESS, 
-    Userprofile
+    User
 >;
 
 export type UserprofileUpdateFailed = ActionWithPayload<
@@ -38,12 +57,12 @@ export type UserprofileUpdateFailed = ActionWithPayload<
    
 export type UserprofileDeleteStart = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.DELETE_START,
-    Userprofile
+    { userId: number }
 >;
 
 export type UserprofileDeleteSuccess = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.DELETE_SUCCESS, 
-    Userprofile
+    User
 >;
 
 export type UserprofileDeleteteFailed = ActionWithPayload<
@@ -53,31 +72,16 @@ export type UserprofileDeleteteFailed = ActionWithPayload<
    
 export type UserprofileFetchSingleStart = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START,
-    number
+    { userId: number }
 >;
 
 export type UserprofileFetchSingleSuccess = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
-    Userprofile
+    User
 >;
 
 export type UserprofileFetchSingleFailed = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.FETCH_SINGLE_FAILED,
-    Error
->;
-
-export type UserprofileFetchUserChatsStart = ActionWithPayload<
-    USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_START,
-    number
->;
-
-export type UserprofileFetchUserChatsSuccess = ActionWithPayload<
-    USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_SUCCESS, 
-    Userprofile
->;
-
-export type UserprofileFetchUserChatsFailed = ActionWithPayload<
-    USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_FAILED,
     Error
 >;
 
@@ -87,7 +91,7 @@ export type UserprofileFetchAllStart = Action<
 
 export type UserprofileFetchAllSuccess = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS, 
-    Userprofile
+    User
 >;
 
 export type UserprofileFetchAllFailed = ActionWithPayload<
@@ -96,12 +100,30 @@ export type UserprofileFetchAllFailed = ActionWithPayload<
 >;
 
 export const userprofileCreateStart = withMatcher(
-    (userprofile: Userprofile): UserprofileCreateStart => 
-    createAction(USERPROFILE_ACTION_TYPES.CREATE_START, userprofile)
+    (
+        username: string, 
+        firstName: string,
+        lastName: string,
+        dateOfBirth: Date,
+        emailAddress: string,
+        password: string,
+        about: string,
+        imageLink: string
+    ): UserprofileCreateStart => 
+    createAction(USERPROFILE_ACTION_TYPES.CREATE_START, {
+        username,
+        firstName,
+        lastName,
+        dateOfBirth,
+        emailAddress,
+        password,
+        about,
+        imageLink
+    })
 );
 
 export const userprofileCreateSuccess = withMatcher(
-    (userprofile: Userprofile): UserprofileCreateSuccess => 
+    (userprofile: User): UserprofileCreateSuccess => 
     createAction(USERPROFILE_ACTION_TYPES.CREATE_SUCCESS, userprofile)
 );
 
@@ -111,12 +133,32 @@ export const userprofileCreateFailed = withMatcher(
 );
  
 export const userprofileUpdateStart = withMatcher(
-    (userprofile: Userprofile): UserprofileUpdateStart => 
-    createAction(USERPROFILE_ACTION_TYPES.UPDATE_START, userprofile)
+    (
+        userId: number,
+        username: string, 
+        firstName: string,
+        lastName: string,
+        dateOfBirth: Date,
+        emailAddress: string,
+        password: string,
+        about: string,
+        imageLink: string
+    ): UserprofileUpdateStart => 
+    createAction(USERPROFILE_ACTION_TYPES.UPDATE_START, {
+        userId,
+        username,
+        firstName,
+        lastName,
+        dateOfBirth,
+        emailAddress,
+        password,
+        about,
+        imageLink
+    })
 );
 
 export const userprofileUpdateSuccess = withMatcher(
-    (userprofile: Userprofile): UserprofileUpdateSuccess => 
+    (userprofile: User): UserprofileUpdateSuccess => 
     createAction(USERPROFILE_ACTION_TYPES.UPDATE_SUCCESS, userprofile)
 );
 
@@ -126,12 +168,12 @@ export const userprofileUpdateFailed = withMatcher(
 );
 
 export const userprofileDeleteStart = withMatcher(
-    (userprofile: Userprofile): UserprofileDeleteStart => 
-    createAction(USERPROFILE_ACTION_TYPES.DELETE_START, userprofile)
+    (userId: number): UserprofileDeleteStart => 
+    createAction(USERPROFILE_ACTION_TYPES.DELETE_START, { userId })
 );
 
 export const userprofileDeleteSuccess = withMatcher(
-    (userprofile: Userprofile): UserprofileDeleteSuccess => 
+    (userprofile: User): UserprofileDeleteSuccess => 
     createAction(USERPROFILE_ACTION_TYPES.DELETE_SUCCESS, userprofile)
 );
 
@@ -141,12 +183,12 @@ export const userprofileDeleteFailed = withMatcher(
 );
 
 export const userprofileFetchSingleStart = withMatcher(
-    (userprofileId: number): UserprofileFetchSingleStart => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START, userprofileId)
+    (userId: number): UserprofileFetchSingleStart => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START, { userId })
 );
 
 export const userprofileFetchSingleSuccess = withMatcher(
-    (userprofile: Userprofile): UserprofileFetchSingleSuccess => 
+    (userprofile: User): UserprofileFetchSingleSuccess => 
     createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_SUCCESS, userprofile)
 );
 
@@ -155,28 +197,13 @@ export const userprofileFetchSingleFailed = withMatcher(
     createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const userprofileFetchUserChatsStart = withMatcher(
-    (userprofileId: number): UserprofileFetchUserChatsStart => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_START, userprofileId)
-);
-
-export const userprofileFetchUserChatsSuccess = withMatcher(
-    (userprofile: Userprofile): UserprofileFetchUserChatsSuccess => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_SUCCESS, userprofile)
-);
-
-export const userprofileFetchUserChatsFailed = withMatcher(
-    (error: Error): UserprofileFetchUserChatsFailed => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_USERPROFILE_FAILED, error)
-);
-
 export const userprofileFetchAllStart = withMatcher(
-    (userprofile: Userprofile): UserprofileFetchAllStart => 
+    (userprofile: User): UserprofileFetchAllStart => 
     createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_START, userprofile)
 );
 
 export const userprofileFetchAllSuccess = withMatcher(
-    (userprofile: Userprofile): UserprofileFetchAllSuccess => 
+    (userprofile: User): UserprofileFetchAllSuccess => 
     createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS, userprofile)
 );
 
