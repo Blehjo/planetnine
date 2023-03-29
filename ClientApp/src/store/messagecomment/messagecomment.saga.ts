@@ -1,63 +1,176 @@
 import { takeLatest, put, all, call } from 'typed-redux-saga';
 
-import { MESSAGECOMMENT_ACTION_TYPES } from './messagecomment.types';
+import { MessageComment, MESSAGECOMMENT_ACTION_TYPES } from './messagecomment.types';
 
 import {
+    messagecommentCreateStart,
     messagecommentCreateSuccess,
     messagecommentCreateFailed,
-    messagecommentFetchAllFailed,
+    messagecommentUpdateStart,
+    messagecommentUpdateSuccess,
+    messagecommentUpdateFailed,
+    messagecommentDeleteStart,
+    messagecommentDeleteSuccess,
+    messagecommentDeleteFailed,
+    messagecommentFetchSingleStart,
+    messagecommentFetchSingleSuccess,
+    messagecommentFetchSingleFailed,
+    messagecommentFetchAllStart,
     messagecommentFetchAllSuccess,
+    messagecommentFetchAllFailed,
+    MessageCommentCreateStart,
+    MessageCommentCreateSuccess,
+    MessageCommentFetchAllStart,
+    MessageCommentFetchSingleStart,
+    MessageCommentFetchUserMessagesStart,
+    MessageCommentUpdateStart,
+    MessageCommentDeleteStart
 } from './messagecomment.action';
 
-import { addMessagecomment, getSingleMessagecomment, getMessagecomments } from '../../utils/api/messagecomment.api';
+import { 
+    getSingleMessageComment,
+    getAllMessageComments,
+    getUserMessageComments,
+    getUsersMessageComments,
+    getMessageComments, 
+    addMessageComment, 
+    editMessageComment,
+    deleteMessageComment
+} from '../../utils/api/messagecomment.api';
 
-export function* getSnapshotFromMessagecomment(messagecomment, additionalDetails) {
+export function* createMessageComment({ payload: { messageCommentValue, mediaLink }}: MessageCommentCreateStart ) {
     try {
-        const messagecommentSnapshot = yield call(
-            getSingleMessagecomment,
-            messagecomment.messageId,
-            additionalDetails
+        const messagecomment = yield* call(
+            addMessageComment,
+            messageCommentValue,
+            mediaLink
+        ); 
+        yield* put(messagecommentCreateSuccess(messagecomment));
+    } catch (error) {
+        yield* put(messagecommentCreateFailed(error as Error));
+    }
+}
+
+export function* updateMessageComment({ payload: { messageCommentId, messageCommentValue, mediaLink }}: MessageCommentUpdateStart) {
+    try {
+        const messagecomment = yield* call(
+            editMessageComment,
+            messageCommentId,
+            messageCommentValue,
+            mediaLink
+        ); 
+        yield* put(messagecommentUpdateSuccess(messagecomment));
+    } catch (error) {
+        yield* put(messagecommentCreateFailed(error as Error));
+    }
+}
+
+export function* removeMessageComment({ payload: { messageCommentId }}: MessageCommentDeleteStart) {
+    try {
+        const messages = yield* call(
+            deleteMessageComment,
+            messageCommentId
+        ); 
+        yield* put(messagecommentDeleteSuccess(messages));
+    } catch (error) {
+        yield* put(messagecommentDeleteFailed(error as Error));
+    }
+}
+
+export function* fetchUserMessageComments() {
+    try {
+        const messagecomment = yield* call(getUsersMessageComments);
+        if (!messagecomment) return;
+        yield* call(messagecommentFetchAllSuccess, messagecomment);
+    } catch (error) {
+        yield* put(messagecommentFetchAllFailed(error as Error));
+    }
+}
+
+export function* fetchOtherUsersMessageComments({ payload: { userId } }: MessageCommentFetchUserMessagesStart) {
+    try {
+        const messagecomments = yield* call(
+            getUserMessageComments,
+            userId
         );
-        yield put(messagecommentCreateSuccess({ id: messagecommentSnapshot.chatId, ...messagecommentSnapshot.data }));
+        if (!messagecomments) return;
+        yield* call(messagecommentFetchAllSuccess, messagecomments);
     } catch (error) {
-        yield put(messagecommentCreateFailed(error));
+        yield* put(messagecommentFetchAllFailed(error as Error));
     }
 }
 
-export function* createMessagecomment({ payload: { messageId, messageValue } }) {
+export function* fetchSingleMessageAsync({ 
+    payload: { messageCommentId } }: MessageCommentFetchSingleStart) {
     try {
-        const message = yield call(
-            addMessagecomment,
-            messageId,
-            messageValue,
+        const messageSnapshot = yield* call(
+            getSingleMessageComment,
+            messageCommentId 
         );
-        yield call(getSnapshotFromMessagecomment, message);
+        yield* put(messagecommentFetchSingleSuccess(messageSnapshot as MessageComment));
     } catch (error) {
-        yield put(messagecommentCreateFailed(error));
+        yield* put(messagecommentFetchSingleFailed(error as Error));
     }
 }
 
-export function* getUserMessagecomments() {
+export function* fetchAllMessagesAsync() {
     try {
-        const message = yield call(getMessagecomments);
-        if (!message) return;
-        yield call(messagecommentFetchAllSuccess, message);
+        const messagecomments = yield* call(getAllMessageComments);
+        yield* put(messagecommentFetchAllSuccess(messagecomments));
     } catch (error) {
-        yield put(messagecommentFetchAllFailed(error));
+        yield* put(messagecommentFetchAllFailed(error as Error));
     }
 }
 
-export function* onMessagecommentStart() {
-    yield takeLatest(MESSAGECOMMENT_ACTION_TYPES.CREATE_START, createMessagecomment);
+export function* onCreateStart() {
+    yield* takeLatest(
+        MESSAGECOMMENT_ACTION_TYPES.CREATE_START, 
+        createMessageComment
+    );
 }
 
-export function* onFetchStart() {
-    yield takeLatest(MESSAGECOMMENT_ACTION_TYPES.FETCH_ALL_START, getUserMessagecomments);
+export function* onUpdateStart() {
+    yield* takeLatest(
+        MESSAGECOMMENT_ACTION_TYPES.UPDATE_START, 
+        updateMessageComment
+    );
 }
 
-export function* messageCommentSagas() {
-    yield all([
-        call(onMessagecommentStart),
-        call(onFetchStart)
+export function* onDeleteStart() {
+    yield* takeLatest(
+        MESSAGECOMMENT_ACTION_TYPES.DELETE_START, 
+        removeMessageComment
+    );
+}
+
+export function* onFetchUserMessagesStart() {
+    yield* takeLatest(
+        MESSAGECOMMENT_ACTION_TYPES.FETCH_USER_MESSAGECOMMENTS_START, 
+        fetchUserMessageComments
+    );
+}
+
+export function* onFetchSingleMessageStart() {
+    yield* takeLatest(
+        MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSingleMessageAsync
+    );
+}
+  
+export function* onFetchMessagesStart() {
+    yield* takeLatest(
+        MESSAGECOMMENT_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllMessagesAsync
+    );
+}
+
+export function* messageSagas() {
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchUserMessagesStart),
+        call(onFetchSingleMessageStart),
+        call(onFetchMessagesStart)
     ]);
 }

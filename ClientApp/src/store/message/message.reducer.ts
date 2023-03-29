@@ -45,20 +45,7 @@ export const messageReducer = (
         messageFetchAllStart.match(action) 
     ) {
         return { ...state, isLoading: true }
-    }
-    if (
-        messageCreateStart.match(action) ||
-        messageUpdateStart.match(action) ||
-        messageDeleteStart.match(action) || 
-        messageFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singleMessage: action.payload };
-    }
-    if (
-        messageFetchSingleStart.match(action)
-    ) {
-        return { ...state, isLoading: true, messageId: action.payload };
-    }  
+    } 
     if (
         messageCreateSuccess.match(action) ||
         messageUpdateSuccess.match(action) ||

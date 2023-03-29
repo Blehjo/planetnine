@@ -7,101 +7,101 @@ import {
   ActionWithPayload
 } from '../../utils/reducer/reducer.utils';
 
-export type MessageCreateStart = ActionWithPayload<
-    MESSAGECOMMENT_ACTION_TYPES.CREATE_START, MessageComment
+export type MessageCommentCreateStart = ActionWithPayload<
+    MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageCommentValue: string, mediaLink: string }
 >;
 
-export type MessageCreateSuccess = ActionWithPayload<
+export type MessageCommentCreateSuccess = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.CREATE_SUCCESS, 
     MessageComment[]
 >;
 
-export type MessageCreateFailed = ActionWithPayload<
+export type MessageCommentCreateFailed = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.CREATE_FAILED,
     Error
 >;
 
-export type MessageUpdateStart = ActionWithPayload<
+export type MessageCommentUpdateStart = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.UPDATE_START,
-    MessageComment
+    { messageCommentId: number, messageCommentValue: string, mediaLink: string }
 >;
 
-export type MessageUpdateSuccess = ActionWithPayload<
+export type MessageCommentUpdateSuccess = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.UPDATE_SUCCESS, 
     MessageComment[]
 >;
 
-export type MessageUpdateFailed = ActionWithPayload<
+export type MessageCommentUpdateFailed = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.UPDATE_FAILED,
     Error
 >;
    
-export type MessageDeleteStart = ActionWithPayload<
+export type MessageCommentDeleteStart = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.DELETE_START,
-    MessageComment
+    { messageCommentId: number }
 >;
 
-export type MessageDeleteSuccess = ActionWithPayload<
+export type MessageCommentDeleteSuccess = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.DELETE_SUCCESS, 
     MessageComment[]
 >;
 
-export type MessageDeleteteFailed = ActionWithPayload<
+export type MessageCommentDeleteteFailed = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.DELETE_FAILED,
     Error
 >;
    
-export type MessageFetchSingleStart = ActionWithPayload<
+export type MessageCommentFetchSingleStart = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_START,
-    number
+    { messageCommentId: number }
 >;
 
-export type MessageFetchSingleSuccess = ActionWithPayload<
+export type MessageCommentFetchSingleSuccess = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
     MessageComment
 >;
 
-export type MessageFetchSingleFailed = ActionWithPayload<
+export type MessageCommentFetchSingleFailed = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_FAILED,
     Error
 >;
 
-export type MessageFetchUserChatsStart = ActionWithPayload<
+export type MessageCommentFetchUserMessagesStart = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_USER_MESSAGECOMMENTS_START,
-    number
+    { userId: number }
 >;
 
-export type MessageFetchUserChatsSuccess = ActionWithPayload<
+export type MessageCommentFetchUserMessagesSuccess = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_USER_MESSAGECOMMENTS_SUCCESS, 
     MessageComment[]
 >;
 
-export type MessageFetchUserChatsFailed = ActionWithPayload<
+export type MessageCommentFetchUserMessagesFailed = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_USER_MESSAGECOMMENTS_FAILED,
     Error
 >;
 
-export type MessageFetchAllStart = Action<
+export type MessageCommentFetchAllStart = Action<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_ALL_START
 >;
 
-export type MessageFetchAllSuccess = ActionWithPayload<
+export type MessageCommentFetchAllSuccess = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, 
     MessageComment[]
 >;
 
-export type MessageFetchAllFailed = ActionWithPayload<
+export type MessageCommentFetchAllFailed = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_ALL_FAILED,
     Error
 >;
 
 export const messagecommentCreateStart = withMatcher(
-    (Message: MessageComment): MessageCreateStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.CREATE_START, Message)
+    (messageCommentValue: string, mediaLink: string): MessageCommentCreateStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageCommentValue, mediaLink })
 );
 
 export const messagecommentCreateSuccess = withMatcher(
-    (Message: MessageComment[]): MessageCreateSuccess => 
+    (Message: MessageComment[]): MessageCommentCreateSuccess => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.CREATE_SUCCESS, Message)
 );
 
@@ -111,27 +111,27 @@ export const messagecommentCreateFailed = withMatcher(
 );
  
 export const messagecommentUpdateStart = withMatcher(
-    (Message: MessageComment): MessageUpdateStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.UPDATE_START, Message)
+    (messageCommentId: number, messageCommentValue: string, mediaLink: string): MessageCommentUpdateStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.UPDATE_START, { messageCommentId, messageCommentValue, mediaLink })
 );
 
 export const messagecommentUpdateSuccess = withMatcher(
-    (Message: MessageComment[]): MessageUpdateSuccess => 
+    (Message: MessageComment[]): MessageCommentUpdateSuccess => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.UPDATE_SUCCESS, Message)
 );
 
 export const messagecommentUpdateFailed = withMatcher(
-    (error: Error): MessageUpdateFailed => 
+    (error: Error): MessageCommentUpdateFailed => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.UPDATE_FAILED, error)
 );
 
 export const messagecommentDeleteStart = withMatcher(
-    (Message: MessageComment): MessageDeleteStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.DELETE_START, Message)
+    (messageCommentId: number): MessageCommentDeleteStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.DELETE_START, { messageCommentId })
 );
 
 export const messagecommentDeleteSuccess = withMatcher(
-    (Message: MessageComment[]): MessageDeleteSuccess => 
+    (Message: MessageComment[]): MessageCommentDeleteSuccess => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.DELETE_SUCCESS, Message)
 );
 
@@ -141,46 +141,46 @@ export const messagecommentDeleteFailed = withMatcher(
 );
 
 export const messagecommentFetchSingleStart = withMatcher(
-    (MessageId: number): MessageFetchSingleStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_START, MessageId)
+    (messageCommentId: number): MessageCommentFetchSingleStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_START, { messageCommentId })
 );
 
 export const messagecommentFetchSingleSuccess = withMatcher(
-    (Message: MessageComment): MessageFetchSingleSuccess => 
+    (Message: MessageComment): MessageCommentFetchSingleSuccess => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, Message)
 );
 
 export const messagecommentFetchSingleFailed = withMatcher(
-    (error: Error): MessageFetchSingleFailed => 
+    (error: Error): MessageCommentFetchSingleFailed => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const messagecommentFetchUserChatsStart = withMatcher(
-    (MessageId: number): MessageFetchUserChatsStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_USER_MESSAGECOMMENTS_START, MessageId)
+export const messagecommentFetchUserMessagesStart = withMatcher(
+    (userId: number): MessageCommentFetchUserMessagesStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_USER_MESSAGECOMMENTS_START, { userId })
 );
 
-export const messagecommentFetchUserChatsSuccess = withMatcher(
-    (Message: MessageComment[]): MessageFetchUserChatsSuccess => 
+export const messagecommentFetchUserMessagesSuccess = withMatcher(
+    (Message: MessageComment[]): MessageCommentFetchUserMessagesSuccess => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_USER_MESSAGECOMMENTS_SUCCESS, Message)
 );
 
-export const messagecommentFetchUserChatsFailed = withMatcher(
-    (error: Error): MessageFetchUserChatsFailed => 
+export const messagecommentFetchUserMessagesFailed = withMatcher(
+    (error: Error): MessageCommentFetchUserMessagesFailed => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_USER_MESSAGECOMMENTS_FAILED, error)
 );
 
 export const messagecommentFetchAllStart = withMatcher(
-    (Message: MessageComment[]): MessageFetchAllStart => 
+    (Message: MessageComment[]): MessageCommentFetchAllStart => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_ALL_START, Message)
 );
 
 export const messagecommentFetchAllSuccess = withMatcher(
-    (Message: MessageComment[]): MessageFetchAllSuccess => 
+    (Message: MessageComment[]): MessageCommentFetchAllSuccess => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, Message)
 );
 
 export const messagecommentFetchAllFailed = withMatcher(
-    (error: Error): MessageFetchAllFailed => 
+    (error: Error): MessageCommentFetchAllFailed => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_ALL_FAILED, error)
 );

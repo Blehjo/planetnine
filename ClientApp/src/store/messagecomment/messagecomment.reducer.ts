@@ -47,19 +47,6 @@ export const messagecommentReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        messagecommentCreateStart.match(action) ||
-        messagecommentUpdateStart.match(action) ||
-        messagecommentDeleteStart.match(action) || 
-        messagecommentFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singleMessagecomment: action.payload };
-    }
-    if (
-        messagecommentFetchSingleStart.match(action)
-    ) {
-        return { ...state, isLoading: true, messagecommentId: action.payload };
-    }  
-    if (
         messagecommentCreateSuccess.match(action) ||
         messagecommentUpdateSuccess.match(action) ||
         messagecommentDeleteSuccess.match(action) ||

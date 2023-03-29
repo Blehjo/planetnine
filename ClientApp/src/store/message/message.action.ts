@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type MessageCreateStart = ActionWithPayload<
-    MESSAGE_ACTION_TYPES.CREATE_START, Message
+    MESSAGE_ACTION_TYPES.CREATE_START, { messageValue: string }
 >;
 
 export type MessageCreateSuccess = ActionWithPayload<
@@ -23,7 +23,7 @@ export type MessageCreateFailed = ActionWithPayload<
 
 export type MessageUpdateStart = ActionWithPayload<
     MESSAGE_ACTION_TYPES.UPDATE_START,
-    Message
+    { messageId: number, messageValue: string }
 >;
 
 export type MessageUpdateSuccess = ActionWithPayload<
@@ -38,7 +38,7 @@ export type MessageUpdateFailed = ActionWithPayload<
    
 export type MessageDeleteStart = ActionWithPayload<
     MESSAGE_ACTION_TYPES.DELETE_START,
-    Message
+    { messageId: number }
 >;
 
 export type MessageDeleteSuccess = ActionWithPayload<
@@ -53,7 +53,7 @@ export type MessageDeleteteFailed = ActionWithPayload<
    
 export type MessageFetchSingleStart = ActionWithPayload<
     MESSAGE_ACTION_TYPES.FETCH_SINGLE_START,
-    number
+    { messageId: number }
 >;
 
 export type MessageFetchSingleSuccess = ActionWithPayload<
@@ -66,17 +66,17 @@ export type MessageFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type MessageFetchUserChatsStart = ActionWithPayload<
+export type MessageFetchUserMessagesStart = ActionWithPayload<
     MESSAGE_ACTION_TYPES.FETCH_USER_MESSAGES_START,
-    number
+    { userId: number }
 >;
 
-export type MessageFetchUserChatsSuccess = ActionWithPayload<
+export type MessageFetchUserMessagesSuccess = ActionWithPayload<
     MESSAGE_ACTION_TYPES.FETCH_USER_MESSAGES_SUCCESS, 
     Message[]
 >;
 
-export type MessageFetchUserChatsFailed = ActionWithPayload<
+export type MessageFetchUserMessagesFailed = ActionWithPayload<
     MESSAGE_ACTION_TYPES.FETCH_USER_MESSAGES_FAILED,
     Error
 >;
@@ -96,8 +96,8 @@ export type MessageFetchAllFailed = ActionWithPayload<
 >;
 
 export const messageCreateStart = withMatcher(
-    (Message: Message): MessageCreateStart => 
-    createAction(MESSAGE_ACTION_TYPES.CREATE_START, Message)
+    (messageValue: string): MessageCreateStart => 
+    createAction(MESSAGE_ACTION_TYPES.CREATE_START, { messageValue })
 );
 
 export const messageCreateSuccess = withMatcher(
@@ -111,8 +111,8 @@ export const messageCreateFailed = withMatcher(
 );
  
 export const messageUpdateStart = withMatcher(
-    (Message: Message): MessageUpdateStart => 
-    createAction(MESSAGE_ACTION_TYPES.UPDATE_START, Message)
+    (messageId: number, messageValue: string): MessageUpdateStart => 
+    createAction(MESSAGE_ACTION_TYPES.UPDATE_START, { messageId, messageValue })
 );
 
 export const messageUpdateSuccess = withMatcher(
@@ -126,8 +126,8 @@ export const messageUpdateFailed = withMatcher(
 );
 
 export const messageDeleteStart = withMatcher(
-    (Message: Message): MessageDeleteStart => 
-    createAction(MESSAGE_ACTION_TYPES.DELETE_START, Message)
+    (messageId: number): MessageDeleteStart => 
+    createAction(MESSAGE_ACTION_TYPES.DELETE_START, { messageId })
 );
 
 export const messageDeleteSuccess = withMatcher(
@@ -141,8 +141,8 @@ export const messageDeleteFailed = withMatcher(
 );
 
 export const messageFetchSingleStart = withMatcher(
-    (MessageId: number): MessageFetchSingleStart => 
-    createAction(MESSAGE_ACTION_TYPES.FETCH_SINGLE_START, MessageId)
+    (messageId: number): MessageFetchSingleStart => 
+    createAction(MESSAGE_ACTION_TYPES.FETCH_SINGLE_START, { messageId })
 );
 
 export const messageFetchSingleSuccess = withMatcher(
@@ -155,18 +155,18 @@ export const messageFetchSingleFailed = withMatcher(
     createAction(MESSAGE_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const messageFetchUserChatsStart = withMatcher(
-    (MessageId: number): MessageFetchUserChatsStart => 
-    createAction(MESSAGE_ACTION_TYPES.FETCH_USER_MESSAGES_START, MessageId)
+export const messageFetchUserMessagesStart = withMatcher(
+    (userId: number): MessageFetchUserMessagesStart => 
+    createAction(MESSAGE_ACTION_TYPES.FETCH_USER_MESSAGES_START, { userId })
 );
 
-export const messageFetchUserChatsSuccess = withMatcher(
-    (Message: Message[]): MessageFetchUserChatsSuccess => 
+export const messageFetchUserMessagesSuccess = withMatcher(
+    (Message: Message[]): MessageFetchUserMessagesSuccess => 
     createAction(MESSAGE_ACTION_TYPES.FETCH_USER_MESSAGES_SUCCESS, Message)
 );
 
-export const messageFetchUserChatsFailed = withMatcher(
-    (error: Error): MessageFetchUserChatsFailed => 
+export const messageFetchUserMessagesFailed = withMatcher(
+    (error: Error): MessageFetchUserMessagesFailed => 
     createAction(MESSAGE_ACTION_TYPES.FETCH_USER_MESSAGES_FAILED, error)
 );
 

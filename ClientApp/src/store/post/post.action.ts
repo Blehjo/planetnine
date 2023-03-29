@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type PostCreateStart = ActionWithPayload<
-    POST_ACTION_TYPES.CREATE_START, Post
+    POST_ACTION_TYPES.CREATE_START, { postValue: string, mediaLink: string }
 >;
 
 export type PostCreateSuccess = ActionWithPayload<
@@ -23,7 +23,7 @@ export type PostCreateFailed = ActionWithPayload<
 
 export type PostUpdateStart = ActionWithPayload<
     POST_ACTION_TYPES.UPDATE_START,
-    Post
+    { postId: number, postValue: string, mediaLink: string }
 >;
 
 export type PostUpdateSuccess = ActionWithPayload<
@@ -38,7 +38,7 @@ export type PostUpdateFailed = ActionWithPayload<
    
 export type PostDeleteStart = ActionWithPayload<
     POST_ACTION_TYPES.DELETE_START,
-    Post
+    { postId: number }
 >;
 
 export type PostDeleteSuccess = ActionWithPayload<
@@ -53,7 +53,7 @@ export type PostDeleteteFailed = ActionWithPayload<
    
 export type PostFetchSingleStart = ActionWithPayload<
     POST_ACTION_TYPES.FETCH_SINGLE_START,
-    number
+    { postId: number }
 >;
 
 export type PostFetchSingleSuccess = ActionWithPayload<
@@ -68,7 +68,7 @@ export type PostFetchSingleFailed = ActionWithPayload<
 
 export type PostFetchUserChatsStart = ActionWithPayload<
     POST_ACTION_TYPES.FETCH_USER_POSTS_START,
-    number
+    { userId: number }
 >;
 
 export type PostFetchUserChatsSuccess = ActionWithPayload<
