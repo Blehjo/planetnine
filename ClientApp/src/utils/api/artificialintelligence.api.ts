@@ -8,67 +8,81 @@ const headers = {
   'Content-Type': 'application/json' 
 }
 
-export async function getSingleArtificialIntelligence(artificialIntelligenceId: number) {
-  return await axios({
+export async function getSingleArtificialIntelligence(artificialIntelligenceId: number): Promise<ArtificialIntelligence> {
+  const response = await axios({
     method: 'get',
     url: `${api}/${artificialIntelligenceId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getAllArtificialIntelligences(): Promise<ArtificialIntelligence[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: api,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function getUserArtificialIntelligences(artificialIntelligenceId: number): Promise<ArtificialIntelligence[]> {
-  return await axios({
+export async function getUserArtificialIntelligences(userId: number): Promise<ArtificialIntelligence[]> {
+  const response = await axios({
     method: 'get',
-    url: `${api}/user/${artificialIntelligenceId}`,
+    url: `${api}/user/${userId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getUsersArtificialIntelligences(): Promise<ArtificialIntelligence[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/user/artificialIntelligences`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function addArtificialIntelligence(artificialintelligence: ArtificialIntelligence): Promise<ArtificialIntelligence[]> {
-  return await axios({
+  const response = await axios({
     method: 'post',
     url: api,
     data: artificialintelligence,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function editArtificialIntelligence(artificialintelligence: ArtificialIntelligence): Promise<ArtificialIntelligence> {
-  return await axios({
+  const response = await axios({
     method: 'put',
     url: `${api}/${artificialintelligence.artificialIntelligenceId}`, 
     data: artificialintelligence,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function deleteArtificialIntelligence(artificialIntelligenceId: number): Promise<ArtificialIntelligence[]> {
-  return await axios({
+  const response = await axios({
     method: 'delete',
     url: `${api}/${artificialIntelligenceId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }

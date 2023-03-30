@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type FavoriteCreateStart = ActionWithPayload<
-    FAVORITE_ACTION_TYPES.CREATE_START, Favorite
+    FAVORITE_ACTION_TYPES.CREATE_START, { contentId: number, contentType: string }
 >;
 
 export type FavoriteCreateSuccess = ActionWithPayload<
@@ -37,8 +37,7 @@ export type FavoriteUpdateFailed = ActionWithPayload<
 >;
    
 export type FavoriteDeleteStart = ActionWithPayload<
-    FAVORITE_ACTION_TYPES.DELETE_START,
-    Favorite
+    FAVORITE_ACTION_TYPES.DELETE_START, { favoriteId: number }
 >;
 
 export type FavoriteDeleteSuccess = ActionWithPayload<
@@ -66,23 +65,23 @@ export type FavoriteFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type FavoriteFetchUserChatsStart = ActionWithPayload<
+export type FavoriteFetchUserFavoritesStart = ActionWithPayload<
     FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_START,
     number
 >;
 
-export type FavoriteFetchUserChatsSuccess = ActionWithPayload<
+export type FavoriteFetchUserFavoritesSuccess = ActionWithPayload<
     FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_SUCCESS, 
     Favorite[]
 >;
 
-export type FavoriteFetchUserChatsFailed = ActionWithPayload<
+export type FavoriteFetchUserFavoritesFailed = ActionWithPayload<
     FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_FAILED,
     Error
 >;
 
-export type FavoriteFetchAllStart = Action<
-    FAVORITE_ACTION_TYPES.FETCH_ALL_START
+export type FavoriteFetchAllStart = ActionWithPayload<
+    FAVORITE_ACTION_TYPES.FETCH_ALL_START, { userId: number}
 >;
 
 export type FavoriteFetchAllSuccess = ActionWithPayload<
@@ -96,8 +95,8 @@ export type FavoriteFetchAllFailed = ActionWithPayload<
 >;
 
 export const favoriteCreateStart = withMatcher(
-    (favorite: Favorite): FavoriteCreateStart => 
-    createAction(FAVORITE_ACTION_TYPES.CREATE_START, favorite)
+    (contentId: number, contentType: string): FavoriteCreateStart => 
+    createAction(FAVORITE_ACTION_TYPES.CREATE_START, { contentId, contentType })
 );
 
 export const favoriteCreateSuccess = withMatcher(
@@ -126,8 +125,8 @@ export const favoriteUpdateFailed = withMatcher(
 );
 
 export const favoriteDeleteStart = withMatcher(
-    (favorite: Favorite): FavoriteDeleteStart => 
-    createAction(FAVORITE_ACTION_TYPES.DELETE_START, favorite)
+    (favoriteId: number): FavoriteDeleteStart => 
+    createAction(FAVORITE_ACTION_TYPES.DELETE_START, { favoriteId })
 );
 
 export const favoriteDeleteSuccess = withMatcher(
@@ -155,24 +154,24 @@ export const favoriteFetchSingleFailed = withMatcher(
     createAction(FAVORITE_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const favoriteFetchUserChatsStart = withMatcher(
-    (favoriteId: number): FavoriteFetchUserChatsStart => 
+export const favoriteFetchUserFavoritesStart = withMatcher(
+    (favoriteId: number): FavoriteFetchUserFavoritesStart => 
     createAction(FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_START, favoriteId)
 );
 
-export const favoriteFetchUserChatsSuccess = withMatcher(
-    (favorite: Favorite[]): FavoriteFetchUserChatsSuccess => 
+export const favoriteFetchUserFavoritesSuccess = withMatcher(
+    (favorite: Favorite[]): FavoriteFetchUserFavoritesSuccess => 
     createAction(FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_SUCCESS, favorite)
 );
 
-export const favoriteFetchUserChatsFailed = withMatcher(
-    (error: Error): FavoriteFetchUserChatsFailed => 
+export const favoriteFetchUserFavoritesFailed = withMatcher(
+    (error: Error): FavoriteFetchUserFavoritesFailed => 
     createAction(FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_FAILED, error)
 );
 
 export const favoriteFetchAllStart = withMatcher(
-    (favorite: Favorite[]): FavoriteFetchAllStart => 
-    createAction(FAVORITE_ACTION_TYPES.FETCH_ALL_START, favorite)
+    (userId: number): FavoriteFetchAllStart => 
+    createAction(FAVORITE_ACTION_TYPES.FETCH_ALL_START, { userId })
 );
 
 export const favoriteFetchAllSuccess = withMatcher(

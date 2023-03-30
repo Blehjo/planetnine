@@ -9,47 +9,59 @@ const headers = {
 }
 
 export async function getSingleFollower(followerId: number): Promise<Follower> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/${followerId}`,
     headers: headers,
     withCredentials: true
   });
-}
-
-export async function getFollowers(): Promise<Follower[]> {
-  return await axios({
-    method: 'get',
-    url: api, 
-    headers: headers,
-    withCredentials: true
-  });
+  const result = await response.data;
+  return result;
 }
 
 export async function getUserFollowers(): Promise<Follower[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/users`, 
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function addFollower(follower: Follower) {
-  return await axios({
-    method: 'post',
-    url: `${api}`,
-    data: follower,
+export async function getFollowers(userId: number): Promise<Follower[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/users/${userId}`, 
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function addFollower(followerUser: number): Promise<Follower[]> {
+  const response = await axios({
+    method: 'post',
+    url: `${api}`,
+    data: {
+      followerUser
+    },
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
 }
 
 export async function deleteFollower(followerId: number): Promise<Follower[]> {
-  return await axios({
+  const response = await axios({
     method: 'delete',
     url: `${api}/${followerId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }

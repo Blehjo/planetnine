@@ -165,7 +165,7 @@ export function* onFetchUserprofilesStart() {
     );
 }
 
-export function* userSagas() {
+export function* userprofileSagas() {
     yield* all([
         call(onCreateStart),
         call(onUpdateStart),

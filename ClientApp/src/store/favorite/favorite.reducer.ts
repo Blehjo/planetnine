@@ -47,14 +47,6 @@ export const favoriteReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        favoriteCreateStart.match(action) ||
-        favoriteUpdateStart.match(action) ||
-        favoriteDeleteStart.match(action) || 
-        favoriteFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singleFavorite: action.payload };
-    }
-    if (
         favoriteFetchSingleStart.match(action)
     ) {
         return { ...state, isLoading: true, favoriteId: action.payload };

@@ -165,7 +165,7 @@ export function* onFetchsStart() {
     );
 }
 
-export function* CommentSagas() {
+export function* commentSagas() {
     yield* all([
         call(onCreateStart),
         call(onUpdateStart),

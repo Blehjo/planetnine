@@ -164,7 +164,7 @@ export function* onFetchMessagesStart() {
     );
 }
 
-export function* messageSagas() {
+export function* messageCommentSagas() {
     yield* all([
         call(onCreateStart),
         call(onUpdateStart),

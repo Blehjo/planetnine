@@ -9,47 +9,60 @@ const headers = {
 }
 
 export async function getSingleFavorite(favoriteId: number): Promise<Favorite> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/${favoriteId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getFavorites(): Promise<Favorite[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: api, 
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function getUserFavorites(): Promise<Favorite[]> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/users`, 
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function addFavorite(favorite: Favorite) {
-  return await axios({
+export async function addFavorite(contentId: number, contentType: string): Promise<Favorite[]> {
+  const response = await axios({
     method: 'post',
     url: `${api}`,
-    data: favorite,
+    data: {
+      contentId,
+      contentType
+    },
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
 export async function deleteFavorite(favoriteId: number): Promise<Favorite[]> {
-  return await axios({
+  const response = await axios({
     method: 'delete',
     url: `${api}/${favoriteId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }

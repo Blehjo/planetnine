@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type FollowerCreateStart = ActionWithPayload<
-    FOLLOWER_ACTION_TYPES.CREATE_START, Follower
+    FOLLOWER_ACTION_TYPES.CREATE_START, { followerUser: number }
 >;
 
 export type FollowerCreateSuccess = ActionWithPayload<
@@ -37,8 +37,7 @@ export type FollowerUpdateFailed = ActionWithPayload<
 >;
    
 export type FollowerDeleteStart = ActionWithPayload<
-    FOLLOWER_ACTION_TYPES.DELETE_START,
-    Follower
+    FOLLOWER_ACTION_TYPES.DELETE_START, { followerId: number }
 >;
 
 export type FollowerDeleteSuccess = ActionWithPayload<
@@ -81,8 +80,8 @@ export type FollowerFetchUserChatsFailed = ActionWithPayload<
     Error
 >;
 
-export type FollowerFetchAllStart = Action<
-    FOLLOWER_ACTION_TYPES.FETCH_ALL_START
+export type FollowerFetchAllStart = ActionWithPayload<
+    FOLLOWER_ACTION_TYPES.FETCH_ALL_START, { userId: number }
 >;
 
 export type FollowerFetchAllSuccess = ActionWithPayload<
@@ -96,8 +95,8 @@ export type FollowerFetchAllFailed = ActionWithPayload<
 >;
 
 export const followerCreateStart = withMatcher(
-    (follower: Follower): FollowerCreateStart => 
-    createAction(FOLLOWER_ACTION_TYPES.CREATE_START, follower)
+    (followerUser: number): FollowerCreateStart => 
+    createAction(FOLLOWER_ACTION_TYPES.CREATE_START, { followerUser })
 );
 
 export const followerCreateSuccess = withMatcher(
@@ -126,8 +125,8 @@ export const followerUpdateFailed = withMatcher(
 );
 
 export const followerDeleteStart = withMatcher(
-    (follower: Follower): FollowerDeleteStart => 
-    createAction(FOLLOWER_ACTION_TYPES.DELETE_START, follower)
+    (followerId: number): FollowerDeleteStart => 
+    createAction(FOLLOWER_ACTION_TYPES.DELETE_START, { followerId })
 );
 
 export const followerDeleteSuccess = withMatcher(
@@ -171,8 +170,8 @@ export const followerFetchUserChatsFailed = withMatcher(
 );
 
 export const followerFetchAllStart = withMatcher(
-    (follower: Follower[]): FollowerFetchAllStart => 
-    createAction(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, follower)
+    (userId: number): FollowerFetchAllStart => 
+    createAction(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, { userId })
 );
 
 export const followerFetchAllSuccess = withMatcher(

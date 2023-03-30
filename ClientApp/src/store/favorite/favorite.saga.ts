@@ -1,98 +1,91 @@
 import { takeLatest, put, all, call } from 'typed-redux-saga';
 
-import { CHAT_ACTION_TYPES } from './favorite.types';
+import { FAVORITE_ACTION_TYPES } from './favorite.types';
 
 import {
-    chatCreateStart,
-    chatCreateSuccess,
-    chatCreateFailed,
-    chatUpdateStart,
-    chatUpdateSuccess,
-    chatUpdateFailed,
-    chatDeleteStart,
-    chatDeleteSuccess,
-    chatDeleteFailed,
-    chatFetchSingleStart,
-    chatFetchSingleSuccess,
-    chatFetchSingleFailed,
-    chatFetchAllStart,
-    chatFetchAllSuccess,
-    chatFetchAllFailed,
+    favoriteCreateStart,
+    favoriteCreateSuccess,
+    favoriteCreateFailed,
+    favoriteUpdateStart,
+    favoriteUpdateSuccess,
+    favoriteUpdateFailed,
+    favoriteDeleteStart,
+    favoriteDeleteSuccess,
+    favoriteDeleteFailed,
+    favoriteFetchSingleStart,
+    favoriteFetchSingleSuccess,
+    favoriteFetchSingleFailed,
+    favoriteFetchAllStart,
+    favoriteFetchAllSuccess,
+    favoriteFetchAllFailed,
+    FavoriteCreateStart,
+    FavoriteDeleteStart,
+    FavoriteFetchAllStart,
 } from './favorite.action';
 
 import { 
-    getSingleChat,
-    getAllChats,
-    getUserChats,
-    getUsersChats,
-    getChats, 
-    addChat, 
-    editChat,
-    deleteChat
-} from '../../utils/api/chat.api';
+    getSingleFavorite,
+    getUserFavorites,
+    getFavorites, 
+    addFavorite, 
+    deleteFavorite
+} from '../../utils/api/favorite.api';
 
-export function* fetchCategoriesAsync() {
+export function* fetchFavoritesAsync({ payload: { userId }}: FavoriteFetchAllStart) {
     try {
-      const chats = yield* call(getAllChats);
-      yield* put(chatFetchAllSuccess(chats));
-    } catch (error) {
-      yield* put(chatFetchAllFailed(error as Error));
-    }
-}
-  
-export function* onFetchCategories() {
-    yield* takeLatest(
-      CHAT_ACTION_TYPES.FETCH_ALL_START,
-      fetchCategoriesAsync
-    );
-}
-
-export function* getSnapshotFromChat(chat, additionalDetails) {
-    try {
-        const chatSnapshot = yield call(
-            getSingleChat,
-            chat.chatId,
-            additionalDetails
+        const favorites = yield* call(
+            getFavorites, 
+            userId
         );
-        yield put(chatCreateSuccess({ id: chatSnapshot.chatId, ...chatSnapshot.data }));
+      yield* put(favoriteFetchAllSuccess(favorites));
     } catch (error) {
-        yield put(chatCreateFailed(error));
+      yield* put(favoriteFetchAllFailed(error as Error));
     }
 }
 
-export function* createChat({ payload: { title } }) {
+export function* createFavorite({ payload: { contentId, contentType }}: FavoriteCreateStart ) {
     try {
-        const chat = yield call(
-            addChat,
-            title,
-        );
-        yield call(getSnapshotFromChat, chat);
+        const favorite = yield* call(
+            addFavorite,
+            contentId,
+            contentType
+        )
+        if (!favorite) return;
+        yield* put(favoriteCreateSuccess(favorite));
     } catch (error) {
-        yield put(chatCreateFailed(error));
+        yield* put(favoriteCreateFailed(error as Error));
     }
 }
 
-export function* getUserInfoChats() {
+export function* removeFavorite({ payload: { favoriteId }}: FavoriteDeleteStart) {
     try {
-        const chat = yield call(getChats);
-        if (!chat) return;
-        yield call(chatFetchAllSuccess, chat);
+        const favorite = yield* call(
+            deleteFavorite,
+            favoriteId
+        )
+        if (!favorite) return;
+        yield* put(favoriteDeleteSuccess(favorite));
     } catch (error) {
-        yield put(chatFetchAllFailed(error));
+        yield* put(favoriteDeleteFailed(error as Error))
     }
 }
 
-export function* onChatStart() {
-    yield takeLatest(CHAT_ACTION_TYPES.CREATE_START, createChat);
+export function* onStart() {
+    yield takeLatest(FAVORITE_ACTION_TYPES.CREATE_START, createFavorite);
 }
 
-export function* onFetchStart() {
-    yield takeLatest(CHAT_ACTION_TYPES.FETCH_ALL_START, getUserChats);
+export function* onDelete() {
+    yield takeLatest(FAVORITE_ACTION_TYPES.CREATE_START, removeFavorite);
+}
+
+export function* onFetch() {
+    yield takeLatest(FAVORITE_ACTION_TYPES.FETCH_ALL_START, fetchFavoritesAsync);
 }
 
 export function* favoriteSagas() {
     yield all([
-        call(onChatStart),
-        call(onFetchStart)
+        call(onStart),
+        call(onDelete),
+        call(onFetch)
     ]);
 }

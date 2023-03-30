@@ -18,81 +18,73 @@ import {
     followerFetchAllStart,
     followerFetchAllSuccess,
     followerFetchAllFailed,
+    FollowerCreateStart,
+    FollowerDeleteStart,
+    FollowerFetchAllStart,
 } from './follower.action';
 
 import { 
     getSingleFollower,
-    getAllFollowers,
     getUserFollowers,
-    getUsersFollowers,
     getFollowers, 
     addFollower, 
-    editFollower,
     deleteFollower
 } from '../../utils/api/follower.api';
 
-export function* fetchCategoriesAsync() {
+export function* fetchFollowersAsync({ payload: { userId }}: FollowerFetchAllStart) {
     try {
-      const chats = yield* call(getAllChats);
-      yield* put(chatFetchAllSuccess(chats));
-    } catch (error) {
-      yield* put(chatFetchAllFailed(error as Error));
-    }
-}
-  
-export function* onFetchCategories() {
-    yield* takeLatest(
-      FOLLOWER_ACTION_TYPES.FETCH_ALL_START,
-      fetchCategoriesAsync
-    );
-}
-
-export function* getSnapshotFromChat(chat, additionalDetails) {
-    try {
-        const chatSnapshot = yield call(
-            getSingleChat,
-            chat.chatId,
-            additionalDetails
+      const followers = yield* call(
+        getFollowers, 
+        userId
         );
-        yield put(chatCreateSuccess({ id: chatSnapshot.chatId, ...chatSnapshot.data }));
+      yield* put(followerFetchAllSuccess(followers));
     } catch (error) {
-        yield put(chatCreateFailed(error));
+      yield* put(followerFetchAllFailed(error as Error));
     }
 }
 
-export function* createChat({ payload: { title } }) {
+export function* createFollower({ payload: { followerUser }}: FollowerCreateStart ) {
     try {
-        const chat = yield call(
-            addChat,
-            title,
-        );
-        yield call(getSnapshotFromChat, chat);
+        const follower = yield* call(
+            addFollower,
+            followerUser
+        )
+        if (!follower) return;
+        yield* put(followerCreateSuccess(follower));
     } catch (error) {
-        yield put(chatCreateFailed(error));
+        yield* put(followerCreateFailed(error as Error));
     }
 }
 
-export function* getUserInfoChats() {
+export function* removeFollower({ payload: { followerId }}: FollowerDeleteStart) {
     try {
-        const chat = yield call(getChats);
-        if (!chat) return;
-        yield call(chatFetchAllSuccess, chat);
+        const follower = yield* call(
+            deleteFollower,
+            followerId
+        )
+        if (!follower) return;
+        yield* put(followerDeleteSuccess(follower));
     } catch (error) {
-        yield put(chatFetchAllFailed(error));
+        yield* put(followerDeleteFailed(error as Error))
     }
 }
 
-export function* onChatStart() {
-    yield takeLatest(FOLLOWER_ACTION_TYPES.CREATE_START, createChat);
+export function* onStart() {
+    yield takeLatest(FOLLOWER_ACTION_TYPES.CREATE_START, createFollower);
 }
 
-export function* onFetchStart() {
-    yield takeLatest(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, getUserChats);
+export function* onDelete() {
+    yield takeLatest(FOLLOWER_ACTION_TYPES.CREATE_START, removeFollower);
+}
+
+export function* onFetch() {
+    yield takeLatest(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, fetchFollowersAsync);
 }
 
 export function* followerSagas() {
     yield all([
-        call(onChatStart),
-        call(onFetchStart)
+        call(onStart),
+        call(onDelete),
+        call(onFetch)
     ]);
 }

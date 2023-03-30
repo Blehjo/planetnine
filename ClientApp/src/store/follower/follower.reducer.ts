@@ -47,14 +47,6 @@ export const followerReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        followerCreateStart.match(action) ||
-        followerUpdateStart.match(action) ||
-        followerDeleteStart.match(action) || 
-        followerFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singleFollower: action.payload };
-    }
-    if (
         followerFetchSingleStart.match(action)
     ) {
         return { ...state, isLoading: true, followerId: action.payload };

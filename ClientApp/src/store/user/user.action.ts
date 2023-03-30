@@ -14,22 +14,20 @@ export type SetCurrentUser = ActionWithPayload<
 export type CheckUserSession = Action<USER_ACTION_TYPES.CHECK_USER_SESSION>;
 
 export type SignUpStart = ActionWithPayload<
-  USER_ACTION_TYPES.SIGN_UP_START,
-    { 
-        username: string | null;
-        firstName: string | null;
-        lastName: string | null;
-        dateOfBirth: Date | null;
-        emailAddress: string | null;
-        password: string | null;
-        about: string | null;
-        imageLink: string | null; 
+  USER_ACTION_TYPES.SIGN_UP_START, { 
+        username: string;
+        firstName: string;
+        lastName: string;
+        dateOfBirth: Date;
+        emailAddress: string;
+        password: string;
+        about: string;
+        imageLink: string; 
     }
 >;
 
 export type EmailSignInStart = ActionWithPayload<
-  USER_ACTION_TYPES.EMAIL_SIGN_IN_START,
-  { username: string; password: string }
+  USER_ACTION_TYPES.EMAIL_SIGN_IN_START, { username: string; password: string }
 >;
 
 export type SignInSuccess = ActionWithPayload<
@@ -44,7 +42,7 @@ export type SignInFailed = ActionWithPayload<
 
 export type SignUpSuccess = ActionWithPayload<
   USER_ACTION_TYPES.SIGN_UP_SUCCESS,
-  User
+  { user: User }
 >;
 
 export type SignUpFailed = ActionWithPayload<
@@ -76,42 +74,58 @@ export const emailSignInStart = withMatcher(
 );
 
 export const signInSuccess = withMatcher(
-    (user: User) =>
+    (user: User): SignInSuccess =>
     createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user)
 );
 
 export const signInFailed = withMatcher(
-    (error: Error) =>
+    (error: Error): SignInFailed =>
     createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error)
 );
  
 export const signUpStart = withMatcher(
-    (user: User) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_START,
-    user
+    (   username: string,
+        firstName: string,
+        lastName: string,
+        dateOfBirth: Date,
+        emailAddress: string,
+        password: string,
+        about: string,
+        imageLink: string, 
+): SignUpStart =>
+    createAction(USER_ACTION_TYPES.SIGN_UP_START, {
+        username,
+        firstName,
+        lastName,
+        dateOfBirth,
+        emailAddress,
+        password,
+        about,
+        imageLink
+    }
 ));
 
 export const signUpSuccess = withMatcher(
-    (user: User) =>
+    (user: User): SignUpSuccess =>
     createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user } )
 );
 
 export const signUpFailed = withMatcher(
-    (error: Error) =>
+    (error: Error): SignUpFailed =>
     createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error)
 );
 
 export const signOutStart = withMatcher(
-    () =>
+    (): SignOutStart =>
     createAction(USER_ACTION_TYPES.SIGN_OUT_START)
 );
 
 export const signOutSuccess = withMatcher(
-    () =>
+    (): SignOutSuccess =>
     createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS)
 );
 
 export const signOutFailed = withMatcher(
-    (error: Error) =>
+    (error: Error): SignOutFailed =>
     createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error)
 );
