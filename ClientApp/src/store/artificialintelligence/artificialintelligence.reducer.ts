@@ -47,19 +47,6 @@ export const artificialIntelligenceReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        artificialIntelligenceCreateStart.match(action) ||
-        artificialIntelligenceUpdateStart.match(action) ||
-        artificialIntelligenceDeleteStart.match(action) || 
-        artificialIntelligenceFetchSingleSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: true, singleArtificialIntelligence: action.payload };
-    }
-    if (
-        artificialIntelligenceFetchSingleStart.match(action)
-    ) {
-        return { ...state, isLoading: true, artificialIntelligenceId: action.payload };
-    }  
-    if (
         artificialIntelligenceCreateSuccess.match(action) ||
         artificialIntelligenceUpdateSuccess.match(action) ||
         artificialIntelligenceDeleteSuccess.match(action) ||

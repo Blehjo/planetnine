@@ -52,11 +52,15 @@ export async function getUsersArtificialIntelligences(): Promise<ArtificialIntel
   return result;
 }
 
-export async function addArtificialIntelligence(artificialintelligence: ArtificialIntelligence): Promise<ArtificialIntelligence[]> {
+export async function addArtificialIntelligence(name: string, role: string, imageLink: string): Promise<ArtificialIntelligence[]> {
   const response = await axios({
     method: 'post',
     url: api,
-    data: artificialintelligence,
+    data: {
+      name,
+      role,
+      imageLink
+    },
     headers: headers,
     withCredentials: true
   });
@@ -64,11 +68,16 @@ export async function addArtificialIntelligence(artificialintelligence: Artifici
   return result;
 }
 
-export async function editArtificialIntelligence(artificialintelligence: ArtificialIntelligence): Promise<ArtificialIntelligence> {
+export async function editArtificialIntelligence(artificialIntelligenceId: number, name: string, role: string, imageLink: string): Promise<ArtificialIntelligence[]> {
   const response = await axios({
     method: 'put',
-    url: `${api}/${artificialintelligence.artificialIntelligenceId}`, 
-    data: artificialintelligence,
+    url: `${api}/${artificialIntelligenceId}`, 
+    data: {
+      artificialIntelligenceId,
+      name,
+      role,
+      imageLink
+    },
     headers: headers,
     withCredentials: true
   });

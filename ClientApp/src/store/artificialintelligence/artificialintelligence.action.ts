@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type ArtificialIntelligenceCreateStart = ActionWithPayload<
-    ARTIFICIALINTELLIGENCE_ACTION_TYPES.CREATE_START, ArtificialIntelligence
+    ARTIFICIALINTELLIGENCE_ACTION_TYPES.CREATE_START, { name: string, role: string, imageLink: string }
 >;
 
 export type ArtificialIntelligenceCreateSuccess = ActionWithPayload<
@@ -22,8 +22,7 @@ export type ArtificialIntelligenceCreateFailed = ActionWithPayload<
 >;
 
 export type ArtificialIntelligenceUpdateStart = ActionWithPayload<
-    ARTIFICIALINTELLIGENCE_ACTION_TYPES.UPDATE_START,
-    ArtificialIntelligence
+    ARTIFICIALINTELLIGENCE_ACTION_TYPES.UPDATE_START, { artificialIntelligenceId: number, name: string, role: string, imageLink: string }
 >;
 
 export type ArtificialIntelligenceUpdateSuccess = ActionWithPayload<
@@ -37,8 +36,7 @@ export type ArtificialIntelligenceUpdateFailed = ActionWithPayload<
 >;
    
 export type ArtificialIntelligenceDeleteStart = ActionWithPayload<
-    ARTIFICIALINTELLIGENCE_ACTION_TYPES.DELETE_START,
-    ArtificialIntelligence
+    ARTIFICIALINTELLIGENCE_ACTION_TYPES.DELETE_START, { artificialIntelligenceId: number }
 >;
 
 export type ArtificialIntelligenceDeleteSuccess = ActionWithPayload<
@@ -52,8 +50,7 @@ export type ArtificialIntelligenceDeleteteFailed = ActionWithPayload<
 >;
    
 export type ArtificialIntelligenceFetchSingleStart = ActionWithPayload<
-    ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_SINGLE_START,
-    number
+    ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_SINGLE_START, { artificialIntelligenceId: number }
 >;
 
 export type ArtificialIntelligenceFetchSingleSuccess = ActionWithPayload<
@@ -66,17 +63,16 @@ export type ArtificialIntelligenceFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type ArtificialIntelligenceFetchUserChatsStart = ActionWithPayload<
-    ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_USER_ARTIFICIALINTELLIGENCE_START,
-    number
+export type ArtificialIntelligenceFetchUsersStart = ActionWithPayload<
+    ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_USER_ARTIFICIALINTELLIGENCE_START, { userId: number }
 >;
 
-export type ArtificialIntelligenceFetchUserChatsSuccess = ActionWithPayload<
+export type ArtificialIntelligenceFetchUsersSuccess = ActionWithPayload<
     ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_USER_ARTIFICIALINTELLIGENCE_SUCCESS, 
     ArtificialIntelligence[]
 >;
 
-export type ArtificialIntelligenceFetchUserChatsFailed = ActionWithPayload<
+export type ArtificialIntelligenceFetchUsersFailed = ActionWithPayload<
     ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_USER_ARTIFICIALINTELLIGENCE_FAILED,
     Error
 >;
@@ -96,8 +92,8 @@ export type ArtificialIntelligenceFetchAllFailed = ActionWithPayload<
 >;
 
 export const artificialIntelligenceCreateStart = withMatcher(
-    (artificialIntelligence: ArtificialIntelligence): ArtificialIntelligenceCreateStart => 
-    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.CREATE_START, artificialIntelligence)
+    (name: string, role: string, imageLink: string): ArtificialIntelligenceCreateStart => 
+    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.CREATE_START, { name, role, imageLink})
 );
 
 export const artificialIntelligenceCreateSuccess = withMatcher(
@@ -111,8 +107,8 @@ export const artificialIntelligenceCreateFailed = withMatcher(
 );
  
 export const artificialIntelligenceUpdateStart = withMatcher(
-    (artificialIntelligence: ArtificialIntelligence): ArtificialIntelligenceUpdateStart => 
-    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.UPDATE_START, artificialIntelligence)
+    (artificialIntelligenceId: number, name: string, role: string, imageLink: string): ArtificialIntelligenceUpdateStart => 
+    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.UPDATE_START, { artificialIntelligenceId, name, role, imageLink})
 );
 
 export const artificialIntelligenceUpdateSuccess = withMatcher(
@@ -126,8 +122,8 @@ export const artificialIntelligenceUpdateFailed = withMatcher(
 );
 
 export const artificialIntelligenceDeleteStart = withMatcher(
-    (artificialIntelligence: ArtificialIntelligence): ArtificialIntelligenceDeleteStart => 
-    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.DELETE_START, artificialIntelligence)
+    (artificialIntelligenceId: number): ArtificialIntelligenceDeleteStart => 
+    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.DELETE_START, { artificialIntelligenceId })
 );
 
 export const artificialIntelligenceDeleteSuccess = withMatcher(
@@ -142,7 +138,7 @@ export const artificialIntelligenceDeleteFailed = withMatcher(
 
 export const artificialIntelligenceFetchSingleStart = withMatcher(
     (artificialIntelligenceId: number): ArtificialIntelligenceFetchSingleStart => 
-    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_SINGLE_START, artificialIntelligenceId)
+    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_SINGLE_START, { artificialIntelligenceId })
 );
 
 export const artificialIntelligenceFetchSingleSuccess = withMatcher(
@@ -155,18 +151,18 @@ export const artificialIntelligenceFetchSingleFailed = withMatcher(
     createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const artificialIntelligenceFetchUserChatsStart = withMatcher(
-    (artificialIntelligenceId: number): ArtificialIntelligenceFetchUserChatsStart => 
-    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_USER_ARTIFICIALINTELLIGENCE_START, artificialIntelligenceId)
+export const artificialIntelligenceFetchUsersStart = withMatcher(
+    (userId: number): ArtificialIntelligenceFetchUsersStart => 
+    createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_USER_ARTIFICIALINTELLIGENCE_START, { userId })
 );
 
-export const artificialIntelligenceFetchUserChatsSuccess = withMatcher(
-    (artificialIntelligence: ArtificialIntelligence[]): ArtificialIntelligenceFetchUserChatsSuccess => 
+export const artificialIntelligenceFetchUsersSuccess = withMatcher(
+    (artificialIntelligence: ArtificialIntelligence[]): ArtificialIntelligenceFetchUsersSuccess => 
     createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_USER_ARTIFICIALINTELLIGENCE_SUCCESS, artificialIntelligence)
 );
 
-export const artificialIntelligenceFetchUserChatsFailed = withMatcher(
-    (error: Error): ArtificialIntelligenceFetchUserChatsFailed => 
+export const artificialIntelligenceFetchUsersFailed = withMatcher(
+    (error: Error): ArtificialIntelligenceFetchUsersFailed => 
     createAction(ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_USER_ARTIFICIALINTELLIGENCE_FAILED, error)
 );
 
