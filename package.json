@@ -4,12 +4,13 @@
     "@types/node": "^18.15.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "gsap": "^3.11.5",
+    "three": "^0.151.2",
     "typescript": "^5.0.2"
   },
   "name": "planetnine",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
