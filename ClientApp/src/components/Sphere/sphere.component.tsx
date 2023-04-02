@@ -1,54 +1,40 @@
 import { Fragment } from "react";
 import * as THREE from "three";
 
-// const scene = new THREE.Scene();
-
-// import { WEBGL } from "three/examples/jsm/WebGL";
 export const Sphere = () => {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true
+  });
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  renderer.setPixelRatio(window.devicePixelRatio)
+  document.body.appendChild( renderer.domElement );
+  
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 50, 50), 
+    new THREE.MeshBasicMaterial({ 
+      map: new THREE.TextureLoader().load('https://previews.123rf.com/images/antonshahrai/antonshahrai2007/antonshahrai200700006/151534030-world-texture-satellite-image-of-the-earth-high-resolution-texture-of-the-planet-with-relief.jpg')
+    })
+  );
+  console.log(sphere)
 
-// To create a cube, we need a BoxGeometry. This is an object that contains all the points (vertices) and fill (faces) of the cube. We'll explore this more in the future.
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+  scene.add(sphere);
 
-// In addition to the geometry, we need a material to color it.
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  camera.position.z = 15;
 
-// A mesh is an object that takes a geometry, and applies a material to it, which we then can insert to our scene, and move freely around.
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+  function animate() {
+    requestAnimationFrame( animate );
+    renderer.render( scene, camera );
+  }
 
-camera.position.z = 5;
+  animate()
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-function animate() {
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
-}
-
-  animate();
   return (
     <Fragment>
-      {animate}
+      {/* {animate} */}
     </Fragment>
   )
 }
-// if (WEBGL.isWebGLAvailable()) {
-//   // Initiate function or other initializations here
-// } else {
-//   const warning = WEBGL.getWebGLErrorMessage();
-//   document.getElementById("container").appendChild(warning);
-// }
