@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ArtificialIntelligence } from "../../store/artificialintelligence/artificialintelligence.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/artificialintelligence";
+const api = "https://localhost:7098/api/artificialintelligence";
 
 const headers = {
   'Accept': 'application/json',

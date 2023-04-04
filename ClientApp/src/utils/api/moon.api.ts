@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Moon } from "../../store/moon/moon.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/moon";
+const api = "https://localhost:7098/api/moon";
 
 const headers = {
   'Accept': 'application/json',

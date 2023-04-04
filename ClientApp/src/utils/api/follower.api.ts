@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Follower } from "../../store/follower/follower.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/follower";
+const api = "https://localhost:7098/api/follower";
 
 const headers = {
   'Accept': 'application/json',

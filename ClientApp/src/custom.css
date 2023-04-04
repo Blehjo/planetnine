@@ -17,3 +17,8 @@ code {
   border-color: #1861ac;
 }
 
+#root {
+  margin-left: 16rem;
+  max-width: 100%;
+  overflow-x: hidden;
+}

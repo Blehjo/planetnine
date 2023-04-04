@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Planet } from "../../store/planet/planet.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/planet";
+const api = "https://localhost:7098/api/planet";
 
 const headers = {
   'Accept': 'application/json',

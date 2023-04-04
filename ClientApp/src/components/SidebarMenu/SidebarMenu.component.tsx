@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { Col, Nav, Row } from "react-bootstrap";
 import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from "react-redux";
@@ -9,78 +9,78 @@ import { useDispatch, useSelector } from "react-redux";
 // import { getUser } from "../utils/userDocument";
 
 const SidebarMenu = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
     const [userId, setUserId] = useState(null);
 
     return (
-        <div style={{ color: "black", width: 200, height: '100vh', overflowY: 'auto', marginTop: '3rem', overflowX: 'hidden' }} className='sidebaroverlay fixed-top bg-light'>
+        <div style={{ color: "white", width: 250, height: '100vh', overflowY: 'auto', marginTop: '3rem', overflowX: 'hidden' }} className='hidden fixed-top bg-dark'>
             <Row 
             className="mw-100 pt-3"  
             xs={1} 
             >
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Person className='' color="black" size={20}/>
+                    <Person className='' color="white" size={20}/>
                     <Nav.Link href="/vitals" className="ms-4">
                         Vitals
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <House className='' color="black" size={20}/>
+                    <House className='' color="white" size={20}/>
                     <Nav.Link href={`/page/${userId}`} className="ms-4">
                         Profile
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Robot className='' color="black" size={20} />
+                    <Robot className='' color="white" size={20} />
                     <Nav.Link href="/crew" className="ms-4">
                         Crew
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <ChatDots className='' color="black" size={20} />
+                    <ChatDots className='' color="white" size={20} />
                     <Nav.Link href="/messages" className="ms-4">
                         Messages
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <PersonWorkspace className='' color="black" size={20}/>
+                    <PersonWorkspace className='' color="white" size={20}/>
                     <Nav.Link href="/explore" className="ms-4">
                         Explore
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Clipboard className='' color="black" size={20} />
+                    <Clipboard className='' color="white" size={20} />
                     <Nav.Link href="/planets" className="ms-4">
                         Planets
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Newspaper className='' color="black" size={20}/>
+                    <Newspaper className='' color="white" size={20}/>
                     <Nav.Link href="/moons" className="ms-4">
                         Moons
                     </Nav.Link>
                 </Nav.Item >
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Database className='' color="black" size={20}/>
+                    <Database className='' color="white" size={20}/>
                     <Nav.Link href="/pilots" className="ms-4">
                         Pilots
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Collection className='' color="black" size={20}/>
+                    <Collection className='' color="white" size={20}/>
                     <Nav.Link href="/posts" className="ms-4">
                         Posts
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Eye className='' color="black" size={20}/>
+                    <Eye className='' color="white" size={20}/>
                     <Nav.Link href="/favorites" className="ms-4">
                         Favorites
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Bookmark className='' color="black" size={20}/>
+                    <Bookmark className='' color="white" size={20}/>
                     <Nav.Link href="/resources" className="ms-4">
                         Resources
                     </Nav.Link>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MessageComment } from "../../store/messagecomment/messagecomment.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/messagecomment";
+const api = "https://localhost:7098/api/messagecomment";
 
 const headers = {
   'Accept': 'application/json',

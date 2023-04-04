@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User } from "../../store/user/user.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/user";
+const api = "https://localhost:7098/api/user";
 
 const headers = {
   'Accept': 'application/json',
