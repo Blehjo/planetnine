@@ -21,11 +21,11 @@ export const Sphere = () => {
   const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(5, 50, 50), 
     new THREE.ShaderMaterial({ 
-      // vertexShader: vertexShader,
-      // fragmentShader: fragmentShader,
+      vertexShader: vertexShader,
+      fragmentShader: fragmentShader,
       uniforms: {
         globeTexture: {
-          value: new THREE.TextureLoader().load('https://live.staticflickr.com/2521/3884071286_edb50f8137_b.jpg')
+          value: new THREE.TextureLoader().load('https://t4.ftcdn.net/jpg/02/24/14/81/360_F_224148194_xrGaLP6RZbCL7B3vOMYYr2dVrcg95RFt.jpg')
         }
       }
     })
@@ -57,10 +57,10 @@ export const Sphere = () => {
   for (let i = 0; i < 10000; i++) {
     const x = (Math.random() - 0.5) * 2000;
     const y = (Math.random() - 0.5) * 2000;
-    const z = -Math.random() * 2000;
+    const z = -Math.random() * 3000;
     starVertices.push(x,y,z);
   }
-  console.log("Star Vertices: ", starVertices)
+  // console.log("Star Vertices: ", starVertices)
   starGeometry.setAttribute('position',
   new THREE.Float32BufferAttribute(
     starVertices, 3)
@@ -68,7 +68,7 @@ export const Sphere = () => {
 
   const stars = new THREE.Points(starGeometry, starMaterial)
   scene.add(stars);
-  console.log("stars", stars)
+  // console.log("stars", stars)
 
   camera.position.z = 15;
 
