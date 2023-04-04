@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { Col, Row } from 'reactstrap';
+
+// import SignInButton from './SignInButton';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
@@ -23,25 +26,41 @@ export class NavMenu extends Component {
 
   render() {
     return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-          <NavbarBrand tag={Link} to="/">planetnine</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-            <ul className="navbar-nav flex-grow">
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-              </NavItem>
-            </ul>
-          </Collapse>
-        </Navbar>
-      </header>
+      <Row key="navbar">
+            <Navbar fixed='top' bg='light' expand="sm">
+              <Nav >
+                <Navbar.Brand href="/"
+                >
+                    <img onClick={() => {
+                        this.props.navigation.navigate('/')
+                    }} height="25rem" width="15rem" style={{ cursor: 'pointer', objectFit: 'cover', margin: '0rem .3rem 0rem 1rem' }} src='https://i.imgur.com/20LpIoh.jpg'/>
+                    Planet 9
+                </Navbar.Brand>
+              </Nav>
+              <Navbar.Toggle style={{ marginRight: '1rem' }} key="navbarToggle" aria-controls={`navBarItems}`} />
+              <Navbar.Collapse key="navbarCollapse" id="navBarItems">
+                <Col key="searchColumn" className=''>
+                  <Nav key="navForm">
+
+                  </Nav>
+                </Col>
+                <Row style={{ justifyContent: "space-between", textAlign: "center", marginRight: '.5rem' }}>
+                    <Col key="navigationIcons">
+                        <Nav.Link href="/vitals" className="text-dark">Vitals</Nav.Link>
+                    </Col>
+                    <Col>
+                        <Nav.Link href="/crew" className="text-dark">Crew</Nav.Link>
+                    </Col>
+                    <Col>
+                        <Nav.Link href="/planets" className="text-dark">Planets</Nav.Link>
+                    </Col>
+                    <Col >
+                        {/* <SignInButton/> */}
+                    </Col>
+                </Row>
+              </Navbar.Collapse>
+            </Navbar>
+          </Row>
     );
   }
 }

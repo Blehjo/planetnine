@@ -47,11 +47,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/blehjo/projects/planetninesolution/planetnine/planetnine.csproj",
+      "projectUniqueName": "/Users/blehjo/projects/planetnine/planetnine/planetnine.csproj",
       "projectName": "planetnine",
-      "projectPath": "/Users/blehjo/projects/planetninesolution/planetnine/planetnine.csproj",
+      "projectPath": "/Users/blehjo/projects/planetnine/planetnine/planetnine.csproj",
       "packagesPath": "/Users/blehjo/.nuget/packages/",
-      "outputPath": "/Users/blehjo/projects/planetninesolution/planetnine/obj/",
+      "outputPath": "/Users/blehjo/projects/planetnine/planetnine/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/blehjo/.nuget/NuGet/NuGet.Config"

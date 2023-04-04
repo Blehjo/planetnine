@@ -1,6 +1,6 @@
 import { Fragment } from "react"
 
-export const Dashboard = () => {
+export const Messages = () => {
     return (
         <Fragment/>
     )
