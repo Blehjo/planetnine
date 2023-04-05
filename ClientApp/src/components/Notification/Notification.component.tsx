@@ -6,9 +6,7 @@ export class Notification extends Component {
         return (
             <SidebarContainer className="fixed-top" >
                 <NotificationsContainer>
-                    <div className="sticky-top" >
-                        <h1>Journal Logs</h1>
-                    </div>
+                    <h1>Journal Logs</h1>
                 </NotificationsContainer>
             </SidebarContainer>
         );

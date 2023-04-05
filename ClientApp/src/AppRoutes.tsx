@@ -6,7 +6,6 @@ import { Chats } from "./routes/Chats/Chats.component";
 import { Explore } from "./routes/Explore/Explore.component";
 import { Favorites } from "./routes/Favorites/Favorites.component";
 import { Messages } from "./routes/Messages/Messages.component";
-import { Planets } from "./routes/Planets/Planets.component";
 import { Posts } from "./routes/Posts/Posts.component";
 import { Profiles } from "./routes/Profiles/Profiles.component";
 import { Resources } from "./routes/Resources/Resources.component";
@@ -14,6 +13,7 @@ import { SingleChat } from "./routes/SingleChat/SingleChat.component";
 import { SinglePlanet } from "./routes/SinglePlanet/SinglePlanet.component";
 import { SinglePost } from "./routes/SinglePost/SinglePost.component";
 import { SingleProfile } from "./routes/SingleProfile/SingleProfile.component";
+import { Space } from "./routes/Space/Space.component";
 
 const AppRoutes = [
   {
@@ -50,7 +50,7 @@ const AppRoutes = [
   },
   {
     path: '/planets',
-    element: <Planets />
+    element: <Space />
   },
   {
     path: '/posts',
