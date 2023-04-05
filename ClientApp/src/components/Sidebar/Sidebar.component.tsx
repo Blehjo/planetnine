@@ -3,6 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SidebarMenu from '../SidebarMenu/SidebarMenu.component';
+import { ContentContainer, SidebarsContainer } from './Sidebar.styles';
 // import { selectIsListOpen } from '../store/list/list.selector';
 
 function Sidebar() {
@@ -11,14 +12,12 @@ function Sidebar() {
 
     return (
         <Row style={{ marginLeft: "2rem", zIndex: 2 }}>
-            <Col xs={2} >
-                <div className="sticky-top">
-                    <SidebarMenu />
-                </div>
-            </Col>
-            <Col style={{ margin: '2rem' }} xs={10} >
+            <SidebarsContainer>
+                <SidebarMenu />
+            </SidebarsContainer>
+            <ContentContainer>
                 <Outlet />
-            </Col>
+            </ContentContainer>
         </Row>
     );
 }

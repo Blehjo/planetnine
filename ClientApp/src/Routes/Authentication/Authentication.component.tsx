@@ -3,7 +3,7 @@ import SignInForm from "../../components/Sign-In-Form/Sign-In-Form.component";
 import SignUpForm from "../../components/Sign-Up-Form/Sign-Up-Form.component"
 import { AuthenticationContainer } from "./Authentication.styles";
 import { Button, Col, Row } from "react-bootstrap";
-import Interaction from "../../components/Interaction/Interaction.component";
+import { SignInContainer } from "../../components/Sign-In-Form/Sign-In-Form.styles";
 
 interface IToggle {
     signIn: boolean;
@@ -37,11 +37,10 @@ class Authentication extends Component<{}, IToggle> {
                         {signIn ? <SignInForm/>
                         : <SignUpForm/>}
                         <div className="d-grid mt-3">
-                            <Button as="input" type="button" value={name} size="lg" onClick={this.toggleSignIn}/>
+                            <SignInContainer>
+                                <Button variant="light" as="input" type="button" value={name} size="lg" onClick={this.toggleSignIn}/>
+                            </SignInContainer>
                         </div>
-                    </Col>
-                    <Col >
-                        <Interaction/>
                     </Col>
                 </Row>
             </AuthenticationContainer>
