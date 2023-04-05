@@ -1,38 +1,56 @@
 import { Component, Fragment } from "react"
-// import { withRouter } from "react-router";
 import { IProfile } from "../../routes/Profiles/Profiles.component"
 import { IPost } from "../../routes/Posts/Posts.component"
 import { IChat } from "../../routes/Chats/Chats.component"
+import { RootState } from "../../store/store";
+import { connect } from "react-redux";
+import { PostState } from "../../store/post/post.reducer";
+import { getAllPosts } from "../../utils/api/post.api";
 
 interface IState {
     content: IProfile | IPost | IChat;
-    // match: 
 }
 
-class Interaction extends Component {
-    getContent() {
-        this.setState({
+type Props = RootState & typeof mapDispatchToProps;
 
-        })
+class Interaction extends Component<Props, PostState> {
+    constructor(props: Props) {
+        super(props);
+    } 
+    state = {
+        postId: null,
+        singlePost: null,
+        userPosts: [],
+        posts: [],
+        isLoading: false,
+        error: null,
     }
 
     componentDidMount() {
-        const id = this.props;
-        // this.fetchData(id);
-        console.log(id)
+        const posts = this.props.post;
+        console.log("Posts: ", posts)
     }
 
-    // fetchData(id: number): void {
-    //     console.log(id);
-    // };
-
     render() {
+        const { post } = this.props;
         return (
             <Fragment>
-
+                <ul>
+                    {post.posts?.map(({ postId, postValue }, index) => (
+                        <li id={postId?.toString()} key={index}>{postValue}</li>
+                    ))}
+                </ul>
             </Fragment>
         )
     }
 }
 
-// export default withRouter(Interaction);
+const mapStateToProps = (state: RootState) => {
+    return { post: state.post };
+};
+
+const mapDispatchToProps = {
+    getAllPosts
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Interaction);

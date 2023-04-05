@@ -15,21 +15,6 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const container = document.getElementById('root');
 const root = createRoot(container as HTMLElement);
 
-// const rootElement = document.getElementById('root');
-// const root = createRoot(rootElement);
-
-// root.render(
-//   <Fragment>
-//     <BrowserRouter basename={baseUrl}>
-//       <Provider store={store}>
-//         <PersistGate loading={null} persistor={persistor}>
-//           <App />
-//           </PersistGate>
-//         </Provider>
-//     </BrowserRouter>
-//   </Fragment>
-// );
-
 function AppRenderer() {
 
   return (

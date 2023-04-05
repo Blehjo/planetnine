@@ -1,35 +1,56 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent, Component } from 'react';
 import { useDispatch } from 'react-redux';
 
-import FormInput from '../Form-Input/Form-Input.component';
-import Button from '../Button/Button.component';
-
 import { SignUpContainer } from './Sign-Up-Form.styles';
+import { Form, Row, Button } from 'react-bootstrap';
 // import { signUpStart } from '../../store/user/user.action';
 
-const defaultFormFields = {
-  displayName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
+interface IDefaultFormFields {
+  username: string;
+  about?: string;
+  emailAddress: string;
+  password: string;
+  confirmPassword: string;
+  dateOfBirth: string;
+  firstName: string;
+  lastName: string;
+  imageLink?: string;
+  imageSource?: string | ArrayBuffer | null | undefined;
+  imageFile?: File | null;
 };
 
-const SignUpForm = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
-  const dispatch = useDispatch();
+class SignUpForm extends Component<{}, IDefaultFormFields> {
+  constructor(props: {}) {
+    super(props);
 
-  const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
+    this.state = {
+      username: "",
+      about: "",
+      emailAddress: "",
+      password: "",
+      confirmPassword: "",
+      dateOfBirth: "",
+      firstName: "",
+      lastName: "",
+      imageLink: "",
+      imageSource: "",
+      imageFile: undefined
+    }
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.showPreview = this.showPreview.bind(this);
+  }
+
+  async handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (this.state.password !== this.state.confirmPassword) {
       alert('passwords do not match');
       return;
     }
+
+    console.log("Form Fields: ", this.state)
 
     // try {
     //   dispatch(signUpStart(email, password, displayName));
@@ -43,56 +64,76 @@ const SignUpForm = () => {
     // }
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  handleChange(event: ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.target;
 
-    setFormFields({ ...formFields, [name]: value });
-  };
+    this.setState({ ...this.state, [name]: value });
+  }
 
-  return (
-    <SignUpContainer>
-      <h2>Don't have an account?</h2>
-      <span>Sign up with your email and password</span>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          label='Display Name'
-          type='text'
-          required
-          onChange={handleChange}
-          name='displayName'
-          value={displayName}
-        />
+  showPreview(event: ChangeEvent<HTMLInputElement>) {
+    if (event.target.files && event.target.files[0]) {
+        let imageFile = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = x => {
+          this.setState({
+            ...this.state,
+            imageFile,
+            imageSource: x.target?.result
+          });
+        }
+        reader.readAsDataURL(imageFile);
+    } else {
+      this.setState({
+          ...this.state,
+          imageFile: null,
+          imageSource: null
+      });
+    }
+  }
 
-        <FormInput
-          label='Email'
-          type='email'
-          required
-          onChange={handleChange}
-          name='email'
-          value={email}
-        />
-
-        <FormInput
-          label='Password'
-          type='password'
-          required
-          onChange={handleChange}
-          name='password'
-          value={password}
-        />
-
-        <FormInput
-          label='Confirm Password'
-          type='password'
-          required
-          onChange={handleChange}
-          name='confirmPassword'
-          value={confirmPassword}
-        />
-        <Button type='submit'>Sign Up</Button>
-      </form>
-    </SignUpContainer>
-  );
+  render() {
+    const { username, about, emailAddress, password, confirmPassword, dateOfBirth, firstName, lastName, imageLink, imageSource, imageFile} = this.state;
+    return (
+      <SignUpContainer>
+        <h2>Don't have an account?</h2>
+        <span>Sign up with your username and password</span>
+        <Form autoComplete="off" onSubmit={this.handleSubmit} style={{ marginTop: '1rem' }}>
+          <Row>
+            <Form.Group  className="col-6 mb-3" controlId="formUsername">
+                <Form.Control onChange={this.handleChange} name="username" value={username} as="input" type="input" placeholder="Username" />
+            </Form.Group>
+            <Form.Group className="col-6 mb-3" controlId="formemailAddress">
+                <Form.Control onChange={this.handleChange} name="emailAddress" value={emailAddress} as="input" type="emailAddress" placeholder="Email Address" />
+            </Form.Group>
+            <Form.Group className="col-6 mb-3" controlId="formFirstName">
+                <Form.Control onChange={this.handleChange} name="firstName" value={firstName} as="input" type="firstName" placeholder="First Name" />
+            </Form.Group>
+            <Form.Group className="col-6 mb-3" controlId="formLastName">
+                <Form.Control onChange={this.handleChange} name="lastName" value={lastName} as="input" type="lastName" placeholder="Last Name" />
+            </Form.Group>
+            <Form.Group className="col-6 mb-3" controlId="formPassword">
+                <Form.Control onChange={this.handleChange} name="password" value={password} as="input" type="password" placeholder="Password" />
+            </Form.Group>
+            <Form.Group className="col-6 mb-3" controlId="formConfirmPassword">
+                <Form.Control onChange={this.handleChange} name="confirmPassword" value={confirmPassword} as="input" type="password" placeholder="Confirm Password" />
+            </Form.Group>
+            <Form.Group className="col-6 mb-3" controlId="formDateOfBirth">
+                <Form.Control onChange={this.handleChange} name="dateOfBirth" value={dateOfBirth} type="date" placeholder="Date Of Birth" />
+            </Form.Group>
+            <Form.Group className="col-6 mb-3" controlId="formAbout">
+                <Form.Control onChange={this.handleChange} name="about" value={about} type="input" placeholder="About" />
+            </Form.Group>
+            <Form.Group className="col-12 mb-3" controlId="formMedia">
+                <Form.Control onChange={this.showPreview} name="medialink" as="input" accept="image/*" type="file" placeholder="Media" />
+            </Form.Group>
+            <div className="col-12 mb-3" style={{ justifyContent: 'center' }}>
+                <Button className="col-12 mb-3" variant="light" as="input" type="submit" value="Join" />
+            </div>
+          </Row>
+        </Form>
+      </SignUpContainer>
+    );
+  }
 };
 
 export default SignUpForm;
