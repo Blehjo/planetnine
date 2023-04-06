@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const ProfileContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  margin: .5rem;
+`;
+
+export const BadgeContainer = styled.div`
+  margin: .5rem;
 `;

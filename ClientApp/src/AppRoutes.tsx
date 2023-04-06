@@ -1,19 +1,19 @@
-import Authentication from "./routes/Authentication/Authentication.component";
-import { Vitals } from "./routes/Vitals/Vitals.component";
-import { Home } from "./routes/Home/Home.component";
-import { ArtificialIntelligence } from "./routes/ArtificialIntelligence/ArtificialIntelligence.component";
-import { Chats } from "./routes/Chats/Chats.component";
-import { Explore } from "./routes/Explore/Explore.component";
-import { Favorites } from "./routes/Favorites/Favorites.component";
-import { Messages } from "./routes/Messages/Messages.component";
-import { Posts } from "./routes/Posts/Posts.component";
-import { Profiles } from "./routes/Profiles/Profiles.component";
-import { Resources } from "./routes/Resources/Resources.component";
-import { SingleChat } from "./routes/SingleChat/SingleChat.component";
-import { SinglePlanet } from "./routes/SinglePlanet/SinglePlanet.component";
-import { SinglePost } from "./routes/SinglePost/SinglePost.component";
-import { SingleProfile } from "./routes/SingleProfile/SingleProfile.component";
-import { Space } from "./routes/Space/Space.component";
+import Authentication from "./routes/Authentication/Authentication.route";
+import { Vitals } from "./routes/Vitals/Vitals.route";
+import { Home } from "./routes/Home/Home.route";
+import { ArtificialIntelligence } from "./routes/ArtificialIntelligence/ArtificialIntelligence.route";
+import { Chats } from "./routes/Chats/Chats.route";
+import { Explore } from "./routes/Explore/Explore.route";
+import { Favorites } from "./routes/Favorites/Favorites.route";
+import { Messages } from "./routes/Messages/Messages.route";
+import { Posts } from "./routes/Posts/Posts.route";
+import { Profiles } from "./routes/Profiles/Profiles.route";
+import { Resources } from "./routes/Resources/Resources.route";
+import { SingleChat } from "./routes/SingleChat/SingleChat.route";
+import { SinglePlanet } from "./routes/SinglePlanet/SinglePlanet.route";
+import { SinglePost } from "./routes/SinglePost/SinglePost.route";
+import { SingleProfile } from "./routes/SingleProfile/SingleProfile.route";
+import { Space } from "./routes/Space/Space.route";
 
 const AppRoutes = [
   {

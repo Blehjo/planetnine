@@ -1,6 +1,7 @@
 import { Component, Fragment } from "react";
 import { getAllPosts } from "../../utils/api/post.api";
 import { Post } from "../../store/post/post.types";
+import { PostComponent } from "../../components/Post/Post.component";
 
 export interface IPost {
     postId: number;
@@ -31,8 +32,7 @@ export class Posts extends Component {
     render() {
         return (
             <Fragment>
-                <h1>Pilot Logs</h1>
-                <p>Information on the galaxy documented by your fellow pioneers</p>
+                <PostComponent/>
             </Fragment>
         )
     }

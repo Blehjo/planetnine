@@ -1,7 +1,7 @@
 import { Component, Fragment } from "react"
-import { IProfile } from "../../routes/Profiles/Profiles.component"
-import { IPost } from "../../routes/Posts/Posts.component"
-import { IChat } from "../../routes/Chats/Chats.component"
+import { IProfile } from "../../routes/Profiles/Profiles.route"
+import { IPost } from "../../routes/Posts/Posts.route"
+import { IChat } from "../../routes/Chats/Chats.route"
 import { RootState } from "../../store/store";
 import { connect } from "react-redux";
 import { PostState } from "../../store/post/post.reducer";

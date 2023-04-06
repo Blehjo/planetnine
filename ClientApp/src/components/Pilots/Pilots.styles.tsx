@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const PilotsContainer = styled.div`
-    margin: auto;
-    height: 50vh; 
-    background: red; 
-    border-radius: .3rem;
+export const PilotContainer = styled.div`
+  margin: .5rem;
+`;
+
+export const BadgeContainer = styled.div`
+  margin: .5rem;
 `;
