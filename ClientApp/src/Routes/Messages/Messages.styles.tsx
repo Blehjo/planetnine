@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 export const UserMessageContainer = styled.div`
-  margin: auto 20rem 0rem 20rem;
+  margin: auto;
   height: 100vh; 
+  width: 100%;
   background: darkgrey; 
   border-radius: .3rem;
+  position: fixed;
 `;
 
 export const MessageContainer = styled.div`

@@ -5,7 +5,7 @@ export class Message extends Component {
     render() {
         return(
             <MessageContainer>
-                <h1>Messages</h1>
+                <h1>Message</h1>
             </MessageContainer>
         );
     }
