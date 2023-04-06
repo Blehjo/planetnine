@@ -1,4 +1,5 @@
 import { Component, Fragment } from "react";
+import { ChatComponent } from "../../components/Chat/Chat.component";
 
 export interface IChat {
     chatId: number;
@@ -15,7 +16,7 @@ export class Chats extends Component {
     render() {
         return (
             <Fragment>
-
+                <ChatComponent/>
             </Fragment>
         )
     }

@@ -1,7 +1,13 @@
-import { Fragment } from "react"
+import { Component, Fragment } from "react"
+import { FavoriteComponent } from "../../components/Favorite/Favorite.component"
 
-export const Favorites = () => {
-    return (
-        <Fragment/>
-    )
+export class Favorites extends Component {
+    render() {
+
+        return (
+            <Fragment>
+                <FavoriteComponent/>
+            </Fragment>
+        )
+    }
 }

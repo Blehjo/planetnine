@@ -1,7 +1,13 @@
-import { Fragment } from "react"
+import { Component, Fragment } from "react"
+import { Profile } from "../../components/Profile/Profile.component";
 
-export const SingleProfile = () => {
-    return (
-        <Fragment/>
-    )
+export class SingleProfile extends Component {
+    render() {
+
+        return (
+            <Fragment>
+                <Profile/>
+            </Fragment>
+        );
+    }
 }

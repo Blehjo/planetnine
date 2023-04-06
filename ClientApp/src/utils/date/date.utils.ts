@@ -3,7 +3,7 @@ export function unixConverter (unixTimestamp: number): string {
     return `Released: ${convertedTimestamp}`;
 }
 
-export function utcConverter (unixTimestamp: number): string {
+export function utcConverter (unixTimestamp: Date): string {
     const date = new Date(unixTimestamp);
     const convertedTime = date.toLocaleDateString("en-US");
     return convertedTime;
