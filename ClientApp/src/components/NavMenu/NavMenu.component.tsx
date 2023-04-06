@@ -39,11 +39,11 @@ export class NavMenu extends Component<IProps, ICollapsed> {
             <Navbar fixed='top' bg='dark' expand="sm">
               <Nav >
                 <Navbar.Brand href="/"
-                style={{ color: 'white' }}
+                style={{ color: 'white', marginLeft: '.2rem' }}
                 >
                     <img onClick={() => {
                         this.props.navigation.navigate('/')
-                    }} height="25rem" width="15rem" style={{ cursor: 'pointer', objectFit: 'cover', margin: '0rem .3rem 0rem 1rem' }} src='https://i.imgur.com/20LpIoh.jpg'/>
+                    }} height="25rem" width="15rem" style={{ cursor: 'pointer', objectFit: 'cover', margin: '0rem 1.5rem 0rem 1rem' }} src='https://i.imgur.com/20LpIoh.jpg'/>
                     Planet 9
                 </Navbar.Brand>
               </Nav>

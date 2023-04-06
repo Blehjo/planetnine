@@ -8,7 +8,7 @@ export const Messages = () => {
         <Fragment>
             <MessagebarContainer className="fixed-top">
                 <MessageContainer>
-                    <h1>Communications</h1>
+                    <div>Communications</div>
                 </MessageContainer>
             </MessagebarContainer>
             <UserMessageContainer>
