@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
-export const DashboardContainer = styled.div`
+export const SinglePostContainer = styled.div`
   display: flex;
+  margin: 3rem;
   flex-direction: column;
-  width: 380px;
-  h2 {
-    margin: 10px 0;
-  }
+  padding-right: 25rem;
 `;

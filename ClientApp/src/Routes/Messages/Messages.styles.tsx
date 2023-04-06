@@ -1,10 +1,24 @@
 import styled from 'styled-components';
 
-export const DashboardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 380px;
-  h2 {
-    margin: 10px 0;
-  }
+export const UserMessageContainer = styled.div`
+  margin: auto 20rem 0rem 20rem;
+  height: 100vh; 
+  background: darkgrey; 
+  border-radius: .3rem;
+`;
+
+export const MessageContainer = styled.div`
+  height: 100vh; 
+  width: 20rem; 
+  background: black;
+  text-align: center;
+  margin-top: 3.5rem;
+  color: white;
+  float: left;
+`;
+    
+export const MessagebarContainer = styled.div`
+  padding-left: 15.5rem;
+  float: left;
+  z-index: 1;
 `;
