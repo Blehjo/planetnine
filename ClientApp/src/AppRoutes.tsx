@@ -13,7 +13,8 @@ import { SingleChat } from "./routes/SingleChat/SingleChat.route";
 import { SinglePlanet } from "./routes/SinglePlanet/SinglePlanet.route";
 import { SinglePost } from "./routes/SinglePost/SinglePost.route";
 import { SingleProfile } from "./routes/SingleProfile/SingleProfile.route";
-import { Space } from "./routes/Space/Space.route";
+import { Planets } from "./routes/Planets/Planets.route";
+import { Moons } from "./routes/Moons/Moons.route";
 
 const AppRoutes = [
   {
@@ -49,8 +50,12 @@ const AppRoutes = [
     element: <Messages />
   },
   {
+    path: '/moons',
+    element: <Moons />
+  },
+  {
     path: '/planets',
-    element: <Space />
+    element: <Planets />
   },
   {
     path: '/posts',
@@ -59,6 +64,10 @@ const AppRoutes = [
   {
     path: '/pilots',
     element: <Profiles />
+  },
+  {
+    path: '/profile',
+    element: <SingleProfile />
   },
   {
     path: '/resources',

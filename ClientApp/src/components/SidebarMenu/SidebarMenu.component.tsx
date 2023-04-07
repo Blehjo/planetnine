@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router";
 import { Col, Nav, Row } from "react-bootstrap";
-import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
+import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot, ChatLeft } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from "react-redux";
 // import { communityFetchAllStart } from "../store/community/community.action";
 // import { selectCommunities } from "../store/community/community.selector";
@@ -27,7 +27,7 @@ const SidebarMenu = () => {
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <House className='' color="white" size={20}/>
-                    <Nav.Link href={`/page/${userId}`} className="ms-4">
+                    <Nav.Link href="/profile" className="ms-4">
                         Profile
                     </Nav.Link>
                 </Nav.Item>
@@ -77,6 +77,12 @@ const SidebarMenu = () => {
                     <Eye className='' color="white" size={20}/>
                     <Nav.Link href="/favorites" className="ms-4">
                         Favorites
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
+                    <ChatLeft className='' color="white" size={20}/>
+                    <Nav.Link href="/chats" className="ms-4">
+                        Chats
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">

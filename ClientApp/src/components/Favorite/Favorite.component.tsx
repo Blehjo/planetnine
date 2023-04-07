@@ -144,7 +144,7 @@ export class FavoriteComponent extends Component {
                             return <FavoriteContainer>
                                     <Card className="bg-dark" key={index}>
                                         {/* <Card.Img src={mediaLink}/> */}
-                                        <Card.ImgOverlay>
+                                        {/* <Card.ImgOverlay> */}
                                             <Card.Text>
                                                 <BadgeContainer>
                                                     <Badge style={{ color: 'black' }} bg="light"><Person size={15}/></Badge>
@@ -165,7 +165,7 @@ export class FavoriteComponent extends Component {
                                                     </BadgeContainer>
                                                 }
                                             </Card.Text>
-                                        </Card.ImgOverlay>
+                                        {/* </Card.ImgOverlay> */}
                                         <Card.Body>
                                             <Card.Text>{postValue}</Card.Text>
                                             <Card.Text>{about}</Card.Text>

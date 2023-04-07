@@ -3,8 +3,9 @@ import { Notification } from "../../components/Notification/Notification.compone
 import { Col, Row } from "react-bootstrap"
 import { Crew } from "../../components/Crew/Crew.component"
 import { Message } from "../../components/Message/Message.component"
-import { Planets } from "../../components/Planets/Planets.component"
+
 import { PilotDash } from "../../components/PilotDash/PilotDash.component"
+import { PlanetDash } from "../../components/PlanetDash/PlanetDash.component"
 
 
 export class Vitals extends Component {
@@ -12,7 +13,7 @@ export class Vitals extends Component {
 
         return (
             <Fragment>
-                <Row xs={2} style={{ paddingRight: '25rem', marginTop: '1rem' }}>
+                <Row xs={2} style={{ paddingRight: '10rem', marginTop: '1rem' }}>
                     <Col xs={6}>
                         <PilotDash/>
                     </Col>
@@ -20,12 +21,12 @@ export class Vitals extends Component {
                         <Crew/>
                     </Col>
                 </Row>
-                <Row xs={2} style={{ paddingRight: '25rem', marginTop: '1rem' }}>
+                <Row xs={2} style={{ paddingRight: '10rem', marginTop: '1rem' }}>
                     <Col xs={6}>
                         <Message/>
                     </Col>
                     <Col xs={6}>
-                        <Planets/>
+                        <PlanetDash/>
                     </Col>
                 </Row>
                 <Notification/>

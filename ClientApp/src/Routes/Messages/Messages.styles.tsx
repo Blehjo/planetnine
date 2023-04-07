@@ -6,6 +6,7 @@ export const UserMessageContainer = styled.div`
   background: darkgrey; 
   border-radius: .3rem;
   position: fixed;
+  padding: 4rem;
   margin-left: 17rem;
   margin-right: 100rem;
 `;

@@ -10,10 +10,10 @@ export const Messages = () => {
                 <MessageContainer>
                     <div>Communications</div>
                 </MessageContainer>
+                <UserMessageContainer>
+                    <h1>Messages</h1>
+                </UserMessageContainer>
             </MessagebarContainer>
-            <UserMessageContainer>
-                <h1>Messages</h1>
-            </UserMessageContainer>
             <Notification/>
         </Fragment>
     )

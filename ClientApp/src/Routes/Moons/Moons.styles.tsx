@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const SpaceContainer = styled.div`
+export const MoonContainer = styled.div`
   margin: auto;
-  height: 50vh; 
-  background: darkgrey;
   border-radius: .3rem;
 `;
