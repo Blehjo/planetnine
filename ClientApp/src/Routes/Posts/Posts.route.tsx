@@ -2,6 +2,7 @@ import { Component, Fragment } from "react";
 import { getAllPosts } from "../../utils/api/post.api";
 import { Post } from "../../store/post/post.types";
 import { PostComponent } from "../../components/Post/Post.component";
+import InteractionComponent from "../../components/Interaction/Interaction.component";
 
 export interface IPost {
     postId: number;
@@ -33,6 +34,7 @@ export class Posts extends Component {
         return (
             <Fragment>
                 <PostComponent/>
+                <InteractionComponent/>
             </Fragment>
         )
     }

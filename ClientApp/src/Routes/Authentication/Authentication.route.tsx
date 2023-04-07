@@ -24,7 +24,7 @@ class Authentication extends Component<{}, IToggle> {
     toggleSignIn() {
         this.setState({
             signIn: !this.state.signIn,
-            name: this.state.name == "Make An Account" ? "Sign In" : "Make An Account"
+            name: this.state.name == "Make An Account" ? "Have An Account?" : "Make An Account"
         })
     }
     

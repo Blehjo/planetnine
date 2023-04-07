@@ -171,8 +171,8 @@ export const postFetchUserPostsFailed = withMatcher(
 );
 
 export const postFetchAllStart = withMatcher(
-    (post: Post[]): PostFetchAllStart => 
-    createAction(POST_ACTION_TYPES.FETCH_ALL_START, post)
+    (): PostFetchAllStart => 
+    createAction(POST_ACTION_TYPES.FETCH_ALL_START)
 );
 
 export const postFetchAllSuccess = withMatcher(

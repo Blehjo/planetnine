@@ -6,7 +6,7 @@ export const SignInContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 380px;
-  background-color: darkblue;
+  background-color: rgb(54,69,79);
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);

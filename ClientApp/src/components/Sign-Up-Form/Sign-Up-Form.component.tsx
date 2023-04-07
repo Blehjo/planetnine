@@ -1,35 +1,38 @@
-import { useState, FormEvent, ChangeEvent, Component } from 'react';
-import { useDispatch } from 'react-redux';
+import { Dispatch, FormEvent, ChangeEvent, Component } from 'react';
+import { ConnectedProps, connect } from "react-redux";
+import { Form, Row, Button } from 'react-bootstrap';
 
 import { SignUpContainer } from './Sign-Up-Form.styles';
-import { Form, Row, Button } from 'react-bootstrap';
-// import { signUpStart } from '../../store/user/user.action';
+import { SignUpStart, signUpStart } from '../../store/user/user.action';
+import { RootState } from '../../store/store';
+
 
 interface IDefaultFormFields {
   username: string;
-  about?: string;
+  about: string;
   emailAddress: string;
   password: string;
   confirmPassword: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   firstName: string;
   lastName: string;
-  imageLink?: string;
+  imageLink: string;
   imageSource?: string | ArrayBuffer | null | undefined;
   imageFile?: File | null;
 };
 
-class SignUpForm extends Component<{}, IDefaultFormFields> {
-  constructor(props: {}) {
-    super(props);
+type SignUpProp = ConnectedProps<typeof connector>;
 
+class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
+  constructor(props: SignUpProp) {
+    super(props);
     this.state = {
       username: "",
       about: "",
       emailAddress: "",
       password: "",
       confirmPassword: "",
-      dateOfBirth: "",
+      dateOfBirth: new Date(),
       firstName: "",
       lastName: "",
       imageLink: "",
@@ -44,24 +47,23 @@ class SignUpForm extends Component<{}, IDefaultFormFields> {
 
   async handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const { username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink, confirmPassword } = this.state;
 
-    if (this.state.password !== this.state.confirmPassword) {
+    if (password !== confirmPassword) {
       alert('passwords do not match');
       return;
     }
-
-    console.log("Form Fields: ", this.state)
-
-    // try {
-    //   dispatch(signUpStart(email, password, displayName));
-    //   resetFormFields();
-    // } catch (error) {
-    //   if ((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
-    //     alert('Cannot create user, email already in use');
-    //   } else {
-    //     console.log('user creation encountered an error', error);
-    //   }
-    // }
+    
+    try {
+      this.props.signUpStart(username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink);
+      // resetFormFields();
+    } catch (error) {
+      if (error) {
+        alert('Cannot create user, email already in use');
+      } else {
+        console.log('user creation encountered an error', error);
+      }
+    }
   };
 
   handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -92,7 +94,7 @@ class SignUpForm extends Component<{}, IDefaultFormFields> {
   }
 
   render() {
-    const { username, about, emailAddress, password, confirmPassword, dateOfBirth, firstName, lastName, imageLink, imageSource, imageFile} = this.state;
+    const { username, about, emailAddress, password, confirmPassword, dateOfBirth, firstName, lastName, imageLink, imageSource, imageFile } = this.state;
     return (
       <SignUpContainer>
         <h2>Don't have an account?</h2>
@@ -118,7 +120,7 @@ class SignUpForm extends Component<{}, IDefaultFormFields> {
                 <Form.Control onChange={this.handleChange} name="confirmPassword" value={confirmPassword} as="input" type="password" placeholder="Confirm Password" />
             </Form.Group>
             <Form.Group className="col-6 mb-3" controlId="formDateOfBirth">
-                <Form.Control onChange={this.handleChange} name="dateOfBirth" value={dateOfBirth} type="date" placeholder="Date Of Birth" />
+                <Form.Control onChange={this.handleChange} name="dateOfBirth" value={dateOfBirth.toString()} type="date" placeholder="Date Of Birth" />
             </Form.Group>
             <Form.Group className="col-6 mb-3" controlId="formAbout">
                 <Form.Control onChange={this.handleChange} name="about" value={about} type="input" placeholder="About" />
@@ -136,4 +138,16 @@ class SignUpForm extends Component<{}, IDefaultFormFields> {
   }
 };
 
-export default SignUpForm;
+const mapStateToProps = (state: RootState) => {
+  return { user: state.user };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<SignUpStart>) => ({
+  signUpStart: (username: string, firstName: string, lastName: string, dateOfBirth: Date, emailAddress: string, password: string, about: string, imageLink: string) => dispatch(signUpStart(
+    username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink
+  ))
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(SignUpForm);

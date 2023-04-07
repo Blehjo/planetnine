@@ -1,34 +1,27 @@
-import { Component, Fragment } from "react"
-import { IProfile } from "../../routes/Profiles/Profiles.route"
-import { IPost } from "../../routes/Posts/Posts.route"
-import { IChat } from "../../routes/Chats/Chats.route"
+import { Component, Dispatch, Fragment } from "react";
+import { ConnectedProps, connect } from "react-redux";
+
 import { RootState } from "../../store/store";
-import { connect } from "react-redux";
-import { PostState } from "../../store/post/post.reducer";
-import { getAllPosts } from "../../utils/api/post.api";
+import { PostFetchAllStart, postFetchAllStart } from "../../store/post/post.action";
 
-interface IState {
-    content: IProfile | IPost | IChat;
-}
+type InteractionProps = ConnectedProps<typeof connector>;
 
-type Props = RootState & typeof mapDispatchToProps;
-
-class Interaction extends Component<Props, PostState> {
-    constructor(props: Props) {
+class Interaction extends Component<InteractionProps> {
+    constructor(props: InteractionProps) {
         super(props);
+        this.state = {
+            postId: null,
+            singlePost: null,
+            userPosts: [],
+            posts: [],
+            isLoading: false,
+            error: null,
+        }
     } 
-    state = {
-        postId: null,
-        singlePost: null,
-        userPosts: [],
-        posts: [],
-        isLoading: false,
-        error: null,
-    }
 
     componentDidMount() {
         const posts = this.props.post;
-        console.log("Posts: ", posts)
+        console.log("Posts from interaction component: ", posts)
     }
 
     render() {
@@ -49,8 +42,10 @@ const mapStateToProps = (state: RootState) => {
     return { post: state.post };
 };
 
-const mapDispatchToProps = {
-    getAllPosts
-};
+const mapDispatchToProps = (dispatch: Dispatch<PostFetchAllStart>) => ({
+	getAllPosts: () => dispatch(postFetchAllStart())
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Interaction);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Interaction)
