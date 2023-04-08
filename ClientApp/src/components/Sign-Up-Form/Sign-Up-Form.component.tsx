@@ -17,8 +17,8 @@ interface IDefaultFormFields {
   firstName: string;
   lastName: string;
   imageLink: string;
-  imageSource?: string | ArrayBuffer | null | undefined;
-  imageFile?: File | null;
+  imageSource: string | ArrayBuffer | null | undefined;
+  imageFile: any;
 };
 
 type SignUpProp = ConnectedProps<typeof connector>;
@@ -37,7 +37,7 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
       lastName: "",
       imageLink: "",
       imageSource: "",
-      imageFile: undefined
+      imageFile: null
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -47,7 +47,7 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
 
   async handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const { username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink, confirmPassword } = this.state;
+    const { username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink, confirmPassword, imageFile } = this.state;
 
     if (password !== confirmPassword) {
       alert('passwords do not match');
@@ -55,8 +55,7 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
     }
     
     try {
-      this.props.signUpStart(username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink);
-      // resetFormFields();
+      this.props.signUpStart(username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink, imageFile);
     } catch (error) {
       if (error) {
         alert('Cannot create user, email already in use');
@@ -74,16 +73,18 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
 
   showPreview(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
-        let imageFile = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = x => {
-          this.setState({
-            ...this.state,
-            imageFile,
-            imageSource: x.target?.result
-          });
-        }
-        reader.readAsDataURL(imageFile);
+      const { files } = event.target;
+      const selectedFiles = files as FileList;
+      let imageFile = selectedFiles[0];
+      const reader = new FileReader();
+      reader.onload = x => {
+        this.setState({
+          ...this.state,
+          imageFile,
+          imageSource: x.target?.result
+        });
+      }
+      reader.readAsDataURL(imageFile);
     } else {
       this.setState({
           ...this.state,
@@ -94,7 +95,7 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
   }
 
   render() {
-    const { username, about, emailAddress, password, confirmPassword, dateOfBirth, firstName, lastName, imageLink, imageSource, imageFile } = this.state;
+    const { username, about, emailAddress, password, confirmPassword, dateOfBirth, firstName, lastName } = this.state;
     return (
       <SignUpContainer>
         <h2>Don't have an account?</h2>
@@ -143,8 +144,8 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<SignUpStart>) => ({
-  signUpStart: (username: string, firstName: string, lastName: string, dateOfBirth: Date, emailAddress: string, password: string, about: string, imageLink: string) => dispatch(signUpStart(
-    username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink
+  signUpStart: (username: string, firstName: string, lastName: string, dateOfBirth: Date, emailAddress: string, password: string, about: string, imageLink: string, imageFile: File) => dispatch(signUpStart(
+    username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink, imageFile
   ))
 });
 

@@ -59,11 +59,11 @@ export function* signUp({ payload: {
     username,
     firstName,
     lastName,
-    dateOfBirth,
     emailAddress,
     password,
     about,
-    imageLink 
+    imageLink,
+    imageFile
 }}: SignUpStart) {
    try {
         const user = yield* call(
@@ -71,13 +71,16 @@ export function* signUp({ payload: {
             username,
             firstName,
             lastName,
-            dateOfBirth,
             emailAddress,
             password,
             about,
-            imageLink
+            imageLink,
+            imageFile
         );
-        yield* put(signUpSuccess(user));
+        if (user) {
+            console.log("User Saga: ", user)
+            yield* put(signUpSuccess(user));
+        }
     } catch (error) {
         yield* put(signUpFailed(error as Error));
     }

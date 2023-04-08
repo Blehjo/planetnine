@@ -18,11 +18,11 @@ export type SignUpStart = ActionWithPayload<
         username: string;
         firstName: string;
         lastName: string;
-        dateOfBirth: Date;
         emailAddress: string;
         password: string;
         about: string;
         imageLink: string; 
+        imageFile: File;
     }
 >;
 
@@ -92,6 +92,7 @@ export const signUpStart = withMatcher(
         password: string,
         about: string,
         imageLink: string, 
+        imageFile: File,
 ): SignUpStart =>
     createAction(USER_ACTION_TYPES.SIGN_UP_START, {
         username,
@@ -101,7 +102,8 @@ export const signUpStart = withMatcher(
         emailAddress,
         password,
         about,
-        imageLink
+        imageLink,
+        imageFile
     }
 ));
 

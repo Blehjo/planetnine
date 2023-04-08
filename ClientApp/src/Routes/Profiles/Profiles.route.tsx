@@ -1,5 +1,5 @@
 import { Component, Fragment } from "react";
-import { Pilots } from "../../components/Pilots/Pilots.component";
+import PilotsComponent, { Pilots } from "../../components/Pilots/Pilots.component";
 
 export interface IProfile {
     userId: number;
@@ -16,7 +16,7 @@ export class Profiles extends Component {
     render() {
         return (
             <Fragment>
-                <Pilots/>
+                <PilotsComponent/>
             </Fragment>
         )
     }

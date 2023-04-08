@@ -28,7 +28,7 @@ export const login = async (username: string, password: string): Promise<User> =
 export const getUser = async (): Promise<User> => {
     const user = await axios({
         method: 'get',
-        url: `${api}/users/data`,
+        url: `${api}/data`,
         headers: headers,
         withCredentials: true
     });
@@ -40,25 +40,25 @@ export const signUpUser = async (
     username: string, 
     firstName: string,
     lastName: string,
-    dateOfBirth: Date,
     emailAddress: string,
     password: string,
     about: string,
-    imageLink: string
+    imageLink: string,
+    imageFile: File
 ): Promise<User> => {
+    const formData = new FormData();
+    formData.append('username', username)
+    formData.append('firstName', firstName,)
+    formData.append('lastName', lastName)
+    formData.append('emailAddress', emailAddress)
+    formData.append('password', password)
+    formData.append('about', about)
+    formData.append('imageLink', imageLink)
+    formData.append('imageFile', imageFile)
     const response = await axios({
         method: 'post',
         url: `${api}/register`,
-        data: {
-            username,
-            firstName,
-            lastName,
-            dateOfBirth,
-            emailAddress,
-            password,
-            about,
-            imageLink
-        },
+        data: formData,
         headers: headers,
         withCredentials: true
     });
@@ -69,7 +69,7 @@ export const signUpUser = async (
 export const signOutUser = async (): Promise<User> => {
     const response = await axios({
         method: 'post',
-        url: `${api}/users/logout`,
+        url: `${api}/logout`,
         headers: headers,
         withCredentials: true
     });

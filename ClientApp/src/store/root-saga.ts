@@ -9,6 +9,7 @@ import { followerSagas } from './follower/follower.saga';
 import { messageSagas } from './message/message.saga';
 import { messageCommentSagas } from './messagecomment/messagecomment.saga';
 import { moonSagas } from './moon/moon.saga';
+import { pilotSagas } from './pilot/pilot.saga';
 import { planetSagas } from './planet/planet.saga';
 import { postSagas } from './post/post.saga';
 import { toolSagas } from './tool/tool.saga';
@@ -26,6 +27,7 @@ export function* rootSaga() {
     call(messageSagas), 
     call(messageCommentSagas), 
     call(moonSagas), 
+    call(pilotSagas), 
     call(planetSagas), 
     call(postSagas), 
     call(toolSagas), 

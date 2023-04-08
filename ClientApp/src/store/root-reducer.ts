@@ -8,6 +8,7 @@ import { followerReducer } from './follower/follower.reducer';
 import { messageReducer } from './message/message.reducer';
 import { messagecommentReducer } from './messagecomment/messagecomment.reducer';
 import { moonReducer } from './moon/moon.reducer';
+import { pilotReducer } from './pilot/pilot.reducer';
 import { planetReducer } from './planet/planet.reducer';
 import { postReducer } from './post/post.reducer';
 import { profileReducer } from './profile/profile.reducer';
@@ -26,6 +27,7 @@ export const rootReducer = combineReducers({
   message: messageReducer,
   messagecomment: messagecommentReducer,
   moon: moonReducer,
+  pilot: pilotReducer,
   planet: planetReducer,
   post: postReducer,
   profile: profileReducer,

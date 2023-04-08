@@ -1,5 +1,6 @@
 import axios from "axios";
 import { User } from "../../store/user/user.types";
+import { Pilot } from "../../store/pilot/pilot.types";
 
 const api = "https://localhost:7098/api/user";
 
@@ -19,7 +20,18 @@ export async function getSingleUser(userId: number): Promise<User> {
   return result;
 }
 
-export async function getUsers(): Promise<User> {
+export async function getUsers(): Promise<User[]> {
+  const response = await axios({
+    method: 'get',
+    url: api,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function getPilots(): Promise<Pilot[]> {
   const response = await axios({
     method: 'get',
     url: api,

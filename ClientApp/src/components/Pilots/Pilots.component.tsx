@@ -1,8 +1,11 @@
-import { Component, Fragment } from "react";
+import { Component, Dispatch, Fragment } from "react";
+import { ConnectedProps, connect } from "react-redux";
 import { BadgeContainer, PilotContainer } from "./Pilots.styles";
 import { Badge, Button, Card, Row } from "react-bootstrap";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import { Globe, Person, Rocket } from 'react-bootstrap-icons';
+import { RootState } from "../../store/store";
+import { PilotFetchAllStart, pilotFetchAllStart } from "../../store/pilot/pilot.action";
 
 export interface IPilot {
     userId: number;
@@ -14,6 +17,8 @@ export interface IPilot {
     planets: number;
     followers: number;
 }
+
+type PilotProps = ConnectedProps<typeof connector>;
 
 const pilots: IPilot[] = [
     {
@@ -128,60 +133,85 @@ const pilots: IPilot[] = [
     }
 ]
 
-export class Pilots extends Component {
-    state = {
-        pilots: pilots
+export class Pilots extends Component<PilotProps> {
+    constructor(props: PilotProps) {
+        super(props);
+        // this.state = {
+        //     pilotId: null,
+        //     singlePilot: null,
+        //     pilots: [],
+        //     isLoading: false,
+        //     error: null
+        // }
     }
 
     handleClick(event:  React.ChangeEvent<HTMLInputElement>) {
         const { id } = event.target;
     }
+
+    componentDidMount() {
+        const pilots = this.props.pilots;
+        console.log("Pilots: ", pilots)
+    }
+
     render() {
-        const { pilots } = this.state;
+        // const { pilots } = this.props;
         return (
             <Fragment>
                 <h1>Pilots</h1>
                 <p>Take a look at your fellow Pilots</p>
-                    <ResponsiveMasonry
-                        columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
-                    >
-                        <Masonry>
-                        {pilots.map(({ username, about, imageLink, planets, followers }, index) => {
-                            return <PilotContainer>
-                                    <Card className="bg-dark" key={index}>
-                                        <Card.Img src={imageLink}/>
-                                        <Card.ImgOverlay>
-                                            <Card.Text>
-                                                <BadgeContainer>
-                                                    <Badge style={{ color: 'black' }} bg="light"><Person size={15}/></Badge>
-                                                </BadgeContainer>
-                                                {
-                                                    planets > 0 && <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
-                                                        <Globe size={15}/>
-                                                        {' '}{planets}
-                                                        </Badge>
-                                                    </BadgeContainer>
-                                                }
-                                                {
-                                                    followers > 0 && <BadgeContainer>
-                                                        <Badge style={{ color: 'black' }} bg="light">
-                                                        <Rocket size={15}/>
-                                                        {' '}{followers}
-                                                        </Badge>
-                                                    </BadgeContainer>
-                                                }
-                                            </Card.Text>
-                                        </Card.ImgOverlay>
-                                        <Card.Body>
-                                            <Card.Text>{username}</Card.Text>
-                                            <Card.Text>{about}</Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </PilotContainer>
-                        })}
-                        </Masonry>
-                    </ResponsiveMasonry>
+                <ResponsiveMasonry
+                    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
+                >
+                    <Masonry>
+                    {pilots.map(({ username, about, imageLink, planets, followers }, index) => {
+                        return <PilotContainer key={index}>
+                            <Card className="bg-dark" key={index}>
+                                <Card.Img src={imageLink}/>
+                                <Card.ImgOverlay>
+                                    {/* <Card.Text> */}
+                                    <BadgeContainer>
+                                        <Badge style={{ color: 'black' }} bg="light"><Person size={15}/></Badge>
+                                    </BadgeContainer>
+                                    {
+                                        planets > 0 && <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
+                                            <Globe size={15}/>
+                                            {' '}{planets}
+                                            </Badge>
+                                        </BadgeContainer>
+                                    }
+                                    {
+                                        followers > 0 && <BadgeContainer>
+                                            <Badge style={{ color: 'black' }} bg="light">
+                                            <Rocket size={15}/>
+                                            {' '}{followers}
+                                            </Badge>
+                                        </BadgeContainer>
+                                    }
+                                    {/* </Card.Text> */}
+                                </Card.ImgOverlay>
+                                <Card.Body>
+                                    <Card.Text>{username}</Card.Text>
+                                    <Card.Text>{about}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </PilotContainer>
+                    })}
+                    </Masonry>
+                </ResponsiveMasonry>
             </Fragment>
         )
     }
 }
+
+const mapStateToProps = (state: RootState) => {
+    return { pilots: state.pilot };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<PilotFetchAllStart>) => ({
+	getAllPilots: () => dispatch(pilotFetchAllStart())
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Pilots)

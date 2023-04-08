@@ -91,7 +91,7 @@ export type UserprofileFetchAllStart = Action<
 
 export type UserprofileFetchAllSuccess = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS, 
-    User
+    User[]
 >;
 
 export type UserprofileFetchAllFailed = ActionWithPayload<
@@ -203,8 +203,8 @@ export const userprofileFetchAllStart = withMatcher(
 );
 
 export const userprofileFetchAllSuccess = withMatcher(
-    (userprofile: User): UserprofileFetchAllSuccess => 
-    createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS, userprofile)
+    (userprofiles: User[]): UserprofileFetchAllSuccess => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS, userprofiles)
 );
 
 export const userprofileFetchAllFailed = withMatcher(
