@@ -111,7 +111,7 @@ export function* fetchUserprofiles() {
             getUsers
         );
         if (!users) return;
-        yield* call(userprofileFetchAllSuccess, users);
+        yield* put(userprofileFetchAllSuccess(users));
     } catch (error) {
         yield* put(userprofileFetchAllFailed(error as Error));
     }

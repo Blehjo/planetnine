@@ -22,6 +22,7 @@ export type Pilot = {
     password: string | null;
     about: string | null;
     imageLink: string | null;
+    imageSource: string | null;
     type: string | null;
     dateCreated: Date | null;
     planets: Planet[] | null;

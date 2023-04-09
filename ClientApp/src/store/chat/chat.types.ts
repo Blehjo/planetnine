@@ -1,4 +1,6 @@
 import { ChatComment } from "../chatcomment/chatcomment.types"
+import { Comment } from "../comment/comment.types";
+import { Favorite } from "../favorite/favorite.types";
 
 export enum CHAT_ACTION_TYPES  {
     CREATE_START = 'chat/CREATE_START',
@@ -24,7 +26,9 @@ export enum CHAT_ACTION_TYPES  {
 export type Chat = {
     chatId: number | null;
     title: string;
-    dateCreated: Date | null;
+    dateCreated: Date;
     userId: number | null;
-    chatComment: ChatComment[] | null;
+    chatComments: ChatComment[] | null;
+    comments: Comment[] | null;
+    favorites: Favorite[];
 }

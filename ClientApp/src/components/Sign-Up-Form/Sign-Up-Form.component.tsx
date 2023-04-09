@@ -13,7 +13,7 @@ interface IDefaultFormFields {
   emailAddress: string;
   password: string;
   confirmPassword: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   firstName: string;
   lastName: string;
   imageLink: string;
@@ -32,7 +32,7 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
       emailAddress: "",
       password: "",
       confirmPassword: "",
-      dateOfBirth: new Date(),
+      dateOfBirth: "",
       firstName: "",
       lastName: "",
       imageLink: "",
@@ -59,9 +59,7 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
     } catch (error) {
       if (error) {
         alert('Cannot create user, email already in use');
-      } else {
-        console.log('user creation encountered an error', error);
-      }
+      } 
     }
   };
 
@@ -144,7 +142,7 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<SignUpStart>) => ({
-  signUpStart: (username: string, firstName: string, lastName: string, dateOfBirth: Date, emailAddress: string, password: string, about: string, imageLink: string, imageFile: File) => dispatch(signUpStart(
+  signUpStart: (username: string, firstName: string, lastName: string, dateOfBirth: string, emailAddress: string, password: string, about: string, imageLink: string, imageFile: File) => dispatch(signUpStart(
     username, firstName, lastName, dateOfBirth, emailAddress, password, about, imageLink, imageFile
   ))
 });

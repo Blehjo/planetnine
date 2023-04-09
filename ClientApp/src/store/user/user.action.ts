@@ -42,7 +42,7 @@ export type SignInFailed = ActionWithPayload<
 
 export type SignUpSuccess = ActionWithPayload<
   USER_ACTION_TYPES.SIGN_UP_SUCCESS,
-  { user: User }
+  User
 >;
 
 export type SignUpFailed = ActionWithPayload<
@@ -87,7 +87,7 @@ export const signUpStart = withMatcher(
     (   username: string,
         firstName: string,
         lastName: string,
-        dateOfBirth: Date,
+        dateOfBirth: string,
         emailAddress: string,
         password: string,
         about: string,
@@ -109,7 +109,7 @@ export const signUpStart = withMatcher(
 
 export const signUpSuccess = withMatcher(
     (user: User): SignUpSuccess =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user } )
+    createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, user)
 );
 
 export const signUpFailed = withMatcher(

@@ -65,28 +65,29 @@ export function* signUp({ payload: {
     imageLink,
     imageFile
 }}: SignUpStart) {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('emailAddress', emailAddress);
+    formData.append('password', password);
+    formData.append('about', about);
+    formData.append('imageLink', imageLink);
+    formData.append('imageFile', imageFile);
    try {
-        const user = yield* call(
+        const userCredential = yield* call(
             signUpUser,
-            username,
-            firstName,
-            lastName,
-            emailAddress,
-            password,
-            about,
-            imageLink,
-            imageFile
+            formData
         );
-        if (user) {
-            console.log("User Saga: ", user)
-            yield* put(signUpSuccess(user));
+        if (userCredential) {
+            yield* put(signUpSuccess(userCredential));
         }
     } catch (error) {
         yield* put(signUpFailed(error as Error));
     }
 }
 
-export function* signInAfterSignUp({ payload: { user }}: SignUpSuccess) {
+export function* signInAfterSignUp({ payload: user }: SignUpSuccess) {
    yield* call(getSnapshotFromUserAuth, user );
 }
 

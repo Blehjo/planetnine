@@ -1,11 +1,12 @@
+
 import axios from "axios";
 import { User } from "../../store/user/user.types";
 
 const api = "https://localhost:7098/api/users";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded ' 
 }
 
 export const userDocument = (user: User) => user;
@@ -37,24 +38,8 @@ export const getUser = async (): Promise<User> => {
 }
 
 export const signUpUser = async (
-    username: string, 
-    firstName: string,
-    lastName: string,
-    emailAddress: string,
-    password: string,
-    about: string,
-    imageLink: string,
-    imageFile: File
-): Promise<User> => {
-    const formData = new FormData();
-    formData.append('username', username)
-    formData.append('firstName', firstName,)
-    formData.append('lastName', lastName)
-    formData.append('emailAddress', emailAddress)
-    formData.append('password', password)
-    formData.append('about', about)
-    formData.append('imageLink', imageLink)
-    formData.append('imageFile', imageFile)
+    formData: FormData
+) => {
     const response = await axios({
         method: 'post',
         url: `${api}/register`,

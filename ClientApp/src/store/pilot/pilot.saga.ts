@@ -25,7 +25,7 @@ export function* fetchPilots() {
             getPilots
         );
         if (!pilots) return;
-        yield* call(pilotFetchAllSuccess, pilots);
+        yield* put(pilotFetchAllSuccess( pilots));
     } catch (error) {
         yield* put(pilotFetchAllFailed(error as Error));
     }

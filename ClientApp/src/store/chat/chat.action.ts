@@ -171,8 +171,8 @@ export const chatFetchUserChatsFailed = withMatcher(
 );
 
 export const chatFetchAllStart = withMatcher(
-    (chat: Chat[]): ChatFetchAllStart => 
-    createAction(CHAT_ACTION_TYPES.FETCH_ALL_START, chat)
+    (): ChatFetchAllStart => 
+    createAction(CHAT_ACTION_TYPES.FETCH_ALL_START)
 );
 
 export const chatFetchAllSuccess = withMatcher(

@@ -4,8 +4,37 @@ import { Badge, Button, Card, Row } from "react-bootstrap";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import { Globe, Person, Rocket } from 'react-bootstrap-icons';
 import { BadgeContainer } from "../Pilots/Pilots.styles";
-import { IChat } from "../Chat/Chat.component";
-import { IPost } from "../Post/Post.component";
+
+export interface IChatComment {
+    chatCommentId: number;
+    chatValue: string;
+    mediaLink: string;
+    type: string;
+    dateCreated: Date;
+    chatId: number;
+}
+
+export interface IPost {
+    postId: number;
+    postValue: string;
+    about: string;
+    mediaLink: string;
+    dateCreated: Date;
+    comments: number;
+    favorites: number;
+    userId: number;
+}
+
+export interface IChat {
+    postId: number;
+    postValue: string;
+    about: string;
+    dateCreated: Date;
+    comments: number;
+    chatComments: IChatComment[];
+    favorites: number;
+    userId: number;
+}
 
 export type Favorite = IChat | IPost;
 

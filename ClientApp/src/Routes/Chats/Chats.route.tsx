@@ -1,5 +1,5 @@
 import { Component, Fragment } from "react";
-import { ChatComponent } from "../../components/Chat/Chat.component";
+import ChatComponent from "../../components/Chat/Chat.component";
 
 export interface IChat {
     chatId: number;
