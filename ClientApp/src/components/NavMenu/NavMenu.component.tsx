@@ -3,8 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Col, Row } from 'reactstrap';
 
-// import SignInButton from './SignInButton';
 import './NavMenu.styles.css';
+import SignInButtonComponent from '../SignInButton/SignInButton.component';
 
 interface IProps {
   navigation?: any;
@@ -65,7 +65,7 @@ export class NavMenu extends Component<IProps, ICollapsed> {
                         <Nav.Link href="/planets" >Planets</Nav.Link>
                     </Col>
                     <Col >
-                        {/* <SignInButton/> */}
+                        <SignInButtonComponent/>
                     </Col>
                 </Row>
               </Navbar.Collapse>

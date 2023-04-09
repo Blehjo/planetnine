@@ -79,7 +79,7 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<PilotFetchAllStart>) => ({
-	getAllPilots: () => dispatch(pilotFetchAllStart())
+	getAllPilots: () => dispatch(pilotFetchAllStart()),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

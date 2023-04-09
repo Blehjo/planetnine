@@ -124,7 +124,7 @@ export function* fetchSingleUserprofileAsync({
             getSingleUser,
             userId 
         );
-        yield* put(userprofileFetchSingleSuccess(userSnapshot as User));
+        yield* put(userprofileFetchSingleSuccess(userSnapshot));
     } catch (error) {
         yield* put(userprofileFetchSingleFailed(error as Error));
     }

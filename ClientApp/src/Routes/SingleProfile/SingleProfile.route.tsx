@@ -1,12 +1,12 @@
 import { Component, Fragment } from "react"
-import { Profile } from "../../components/Profile/Profile.component";
+import ProfileComponent from "../../components/Profile/Profile.component";
 
 export class SingleProfile extends Component {
     render() {
 
         return (
             <Fragment>
-                <Profile/>
+                <ProfileComponent/>
             </Fragment>
         );
     }
