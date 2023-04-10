@@ -26,8 +26,9 @@ export type Post = {
     postId: number | null;
     postValue: string | null;
     mediaLink: string | null;
+    imageSource: string | null;
     type: string | null;
-    dateCreated: Date | null;
+    dateCreated: Date;
     userId: number | null,
     comments: Comment[] | null;
     favorites: Favorite[] | null;

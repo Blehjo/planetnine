@@ -33,7 +33,7 @@ export class Pilots extends Component<PilotProps> {
                     columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
                 >
                     <Masonry>
-                    {pilots.pilots?.map(({ username, about, imageLink, imageSource, planets, followers }, index) => {
+                    {pilots.pilots?.map(({ username, about, imageSource, planets, followers }, index) => {
                         return <PilotContainer key={index}>
                             <Card className="bg-dark" key={index}>
                                 <Card.Img src={imageSource ? imageSource : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"}/>

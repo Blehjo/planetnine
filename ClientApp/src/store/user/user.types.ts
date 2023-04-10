@@ -2,6 +2,7 @@ import { Favorite } from "../favorite/favorite.types";
 import { Follower } from "../follower/follower.types";
 import { Moon } from "../moon/moon.types";
 import { Planet } from "../planet/planet.types";
+import { Post } from "../post/post.types";
 
 export enum USER_ACTION_TYPES {
     SET_CURRENT_USER = 'user/SET_CURRENT_USER',
@@ -19,7 +20,7 @@ export enum USER_ACTION_TYPES {
 };
 
 export type User = {
-    userId: number | null;
+    userId: number;
     username: string | null;
     firstName: string | null;
     lastName: string | null;
@@ -28,7 +29,9 @@ export type User = {
     password: string | null;
     about: string | null;
     imageLink: string | null;
+    imageSource: string | null;
     dateCreated: Date | null;
+    posts: Post[] | null
     planets: Planet[] | null;
     moons: Moon[] | null;
     followers: Follower[] | null;

@@ -1,25 +1,30 @@
-import { Component } from "react";
+import { ChangeEvent, Component, Fragment } from "react";
 import { Card, Modal, Row, Col, Form, Button } from "react-bootstrap";
+import { ProfileProps } from "../Profile/Profile.component";
+import { utcConverter } from "../../utils/date/date.utils";
 
-export class PostsTab extends Component {
+export class PostsTab extends Component<ProfileProps> {
+
 
     render() {
+        const { currentUser, userprofile } = this.props;
+        console.log("userprofile: ", userprofile)
         return (
-            <>
+        <Fragment>
         <Row style={{ marginBottom: '2rem' }} xs={1} >
                 <Col>
                     <Card style={{ color: 'white', textAlign: 'center' }} className='bg-dark'>
                         <Card.Body>
-                            {/* <Card.Title style={{ cursor: 'pointer' }} onClick={handlePostForm}>Create a post</Card.Title> */}
+                            <Card.Title style={{ cursor: 'pointer' }} >Create a post</Card.Title>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
         <Row xs={3}>
-        {/* {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated, imageSource }) => (
+        {userprofile.userprofile?.posts ? userprofile.userprofile.posts?.map(({ postId, mediaLink, postValue, dateCreated, imageSource }) => (
             <Col>
             <Card key={postId} style={{ color: 'white', marginBottom: '1rem', objectFit: 'cover', height: '30rem' }} className="bg-dark">
-                <Card.Img onClick={() => navigate(`/posts/${postId}`)} style={{ cursor: 'pointer', height: '20rem', width: 'auto', objectFit: 'cover' }} src={imageSource}/>
+                <Card.Img style={{ cursor: 'pointer', height: '20rem', width: 'auto', objectFit: 'cover' }} src={imageSource != null ? imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                 <Card.Body>
                     <Card.Title>{postValue}</Card.Title>
                 </Card.Body>
@@ -27,7 +32,7 @@ export class PostsTab extends Component {
                     {utcConverter(dateCreated)}
                 </Card.Footer>
                 <Card.Footer>
-                    <Card.Text style={{ cursor: 'pointer' }} id={postId} onClick={handleShow}>Comment</Card.Text>
+                    <Card.Text style={{ cursor: 'pointer' }} id={postId?.toString()} >Comment</Card.Text>
                 </Card.Footer>
             </Card>
             </Col>
@@ -38,7 +43,7 @@ export class PostsTab extends Component {
                 </Card>
             </Col>
         }
-            <Modal show={show} onHide={handleClose}>
+            {/* <Modal show={show} onHide={handleClose}>
                 <Card className="bg-light" key={id}>
                     <div className='card-container'>
                     <Card.Link className='card-info' href={`posts/${postId}`}>
@@ -78,20 +83,20 @@ export class PostsTab extends Component {
                         </Form>
                     </Card.Footer>
                 </Card>
-            </Modal>
-            <Modal show={postForm} onHide={handlePostForm}>
+            </Modal> */}
+            {/*  <Modal >
                 <Modal.Header closeButton>
                     <Modal.Title>Create a post</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ marginTop: '-1rem' }}>
-                    <PostForm/>
+                    <PostForm/> 
                 </Modal.Body>
                 <Modal.Footer style={{ justifyContent: 'center' }}>
                     Share your masterpiece!
                 </Modal.Footer>
             </Modal> */}
         </Row>
-        </>
+        </Fragment>
         );
     }
 }

@@ -16,6 +16,7 @@ import {
 
 import { 
     getPilots,
+    getSinglePilot,
     getSingleUser,
 } from '../../utils/api/user.api';
 
@@ -35,7 +36,7 @@ export function* fetchSinglePilotAsync({
     payload: { userId } }: PilotFetchSingleStart) {
     try {
         const pilotSnapshot = yield* call(
-            getSingleUser,
+            getSinglePilot,
             userId 
         );
         yield* put(pilotFetchSingleSuccess(pilotSnapshot as Pilot));

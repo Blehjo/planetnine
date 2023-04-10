@@ -9,21 +9,22 @@ import { RootState } from "../../store/store";
 import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
 import { ConnectedProps, connect } from "react-redux";
 
-type ProfileProps = ConnectedProps<typeof connector>;
+
+export type ProfileProps = ConnectedProps<typeof connector>;
 
 export class Profile extends Component<ProfileProps> {
-    componentDidMount(): void {
-        const { userId }: any = this.props.currentUser.currentUser;
-        this.props.getUserProfile(userId);
+    
+    componentDidMount() {
+        const userId = 1;
+        const { currentUser }: any = this.props.currentUser;
+        this.props.getUserProfile(currentUser != null && currentUser.userId);
     }
-
+    
     render() {
-        const { userprofile } = this.props;
-        console.log("User Profile: ", userprofile);
         return (
             <Row lg={2}>
                 <Col style={{ marginBottom: '2rem' }}lg={4}>
-                    <ProfileCard {...userprofile}/>
+                    <ProfileCard { ...this.props }/>
                 </Col>
                 <Col lg={8}>                
                 <Tabs
@@ -33,13 +34,13 @@ export class Profile extends Component<ProfileProps> {
                     variant='pills'
                     >
                     <Tab eventKey="posts" title="Posts">
-                        <PostsTab />
+                        <PostsTab { ...this.props } />
                     </Tab>
                     <Tab eventKey="chats" title="Chats">
-                        <ChatsTab />
+                        <ChatsTab { ...this.props } />
                     </Tab>
                     <Tab eventKey="planets" title="Planets">
-                        <PlanetsTab />
+                        <PlanetsTab { ...this.props } />
                     </Tab>
                 </Tabs>
                 </Col>

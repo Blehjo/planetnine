@@ -20,6 +20,17 @@ export async function getSingleUser(userId: number): Promise<User> {
   return result;
 }
 
+export async function getSinglePilot(userId: number): Promise<Pilot> {
+  const response = await axios({
+    method: 'get',
+    url:`${api}/${userId}`,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
 export async function getUsers(): Promise<User[]> {
   const response = await axios({
     method: 'get',

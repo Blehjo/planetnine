@@ -2,6 +2,7 @@ import { Favorite } from "../favorite/favorite.types";
 import { Follower } from "../follower/follower.types";
 import { Moon } from "../moon/moon.types";
 import { Planet } from "../planet/planet.types";
+import { Post } from "../post/post.types";
 
 export enum USERPROFILE_ACTION_TYPES {
     CREATE_START = 'userprofile/CREATE_START',
@@ -34,7 +35,9 @@ export type Userprofile = {
     password: string | null;
     about: string | null;
     imageLink: string | null;
+    imageSource: string | null;
     dateCreated: Date | null;
+    posts: Post[] | null;
     planets: Planet[] | null;
     moons: Moon[] | null;
     followers: Follower[] | null;
