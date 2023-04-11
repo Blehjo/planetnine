@@ -8,6 +8,7 @@ import { RootState } from "../../store/store";
 
 import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
 import { ConnectedProps, connect } from "react-redux";
+import { PilotFetchSingleStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
 
 
 export type ProfileProps = ConnectedProps<typeof connector>;
@@ -17,7 +18,8 @@ export class Profile extends Component<ProfileProps> {
     componentDidMount() {
         const userId = 1;
         const { currentUser }: any = this.props.currentUser;
-        this.props.getUserProfile(currentUser != null && currentUser.userId);
+        const { pilot }: any = this.props.pilot;
+        // this.props.getUserProfile(pilot.userId);
     }
     
     render() {
@@ -52,12 +54,14 @@ export class Profile extends Component<ProfileProps> {
 const mapToStateProps = (state: RootState) => {
     return { 
         userprofile: state.userprofile,
-        currentUser: state.user
+        currentUser: state.user,
+        pilot: state.pilot
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart>) => ({
-    getUserProfile: (userId: number) => dispatch(userprofileFetchSingleStart(userId))
+const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart>) => ({
+    getUserProfile: (userId: number) => dispatch(userprofileFetchSingleStart(userId)),
+    getPilot: (userId: number) => dispatch(pilotFetchSingleStart(userId))
 });
 
 const connector = connect(mapToStateProps, mapDispatchToProps);

@@ -36,6 +36,11 @@ export const pilotReducer = (
         return { ...state, isLoading: true }
     }
     if (
+        pilotFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singlePilot: action.payload };
+    } 
+    if (
         pilotFetchAllSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, pilots: action.payload };

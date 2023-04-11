@@ -47,7 +47,7 @@ export const userprofileReducer = (
     if (
         userprofileFetchSingleSuccess.match(action) 
     ) {
-        return { ...state, userprofile: action.payload, isLoading: true }
+        return { ...state, isLoading: true, userprofile: action.payload }
     }
     if (
         userprofileFetchAllSuccess.match(action) 

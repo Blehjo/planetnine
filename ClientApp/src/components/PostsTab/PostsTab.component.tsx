@@ -4,14 +4,11 @@ import { ProfileProps } from "../Profile/Profile.component";
 import { utcConverter } from "../../utils/date/date.utils";
 
 export class PostsTab extends Component<ProfileProps> {
-
-
     render() {
         const { currentUser, userprofile } = this.props;
-        console.log("userprofile: ", userprofile)
         return (
         <Fragment>
-        <Row style={{ marginBottom: '2rem' }} xs={1} >
+            <Row style={{ marginBottom: '2rem' }} xs={1} >
                 <Col>
                     <Card style={{ color: 'white', textAlign: 'center' }} className='bg-dark'>
                         <Card.Body>

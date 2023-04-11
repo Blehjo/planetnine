@@ -13,20 +13,20 @@ export enum PILOT_ACTION_TYPES  {
 };
 
 export type Pilot = {
-    userId: number | null;
-    username: string | null;
-    firstName: string | null;
-    lastName: string | null;
-    dateOfBirth: string | null;
-    emailAddress: string | null;
-    password: string | null;
-    about: string | null;
-    imageLink: string | null;
-    imageSource: string | null;
-    type: string | null;
-    dateCreated: Date | null;
-    planets: Planet[] | null;
-    moons: Moon[] | null;
-    followers: Follower[] | null;
-    favorites: Favorite[] | null;
+    userId: number;
+    username: string;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    emailAddress: string;
+    password: string;
+    about: string;
+    imageLink: string;
+    imageSource: string;
+    type: string;
+    dateCreated: Date;
+    planets: Planet[];
+    moons: Moon[];
+    followers: Follower[];
+    favorites: Favorite[];
 }
