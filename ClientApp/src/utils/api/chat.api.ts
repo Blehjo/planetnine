@@ -26,7 +26,7 @@ export async function getAllChats(): Promise<Chat[]> {
     headers: headers,
     withCredentials: true
   });
-  const result = await response.data.json();
+  const result = await response.data;
   return result;
 }
 

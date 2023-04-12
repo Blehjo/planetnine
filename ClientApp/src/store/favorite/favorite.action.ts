@@ -65,9 +65,22 @@ export type FavoriteFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type FavoriteFetchUserFavoritesStart = ActionWithPayload<
-    FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_START,
-    number
+export type FavoriteFetchSingleUserFavoritesStart = ActionWithPayload<
+    FAVORITE_ACTION_TYPES.FETCH_SINGLE_USER_FAVORITES_START, { userId: number }
+>;
+
+export type FavoriteFetchSingleUserFavoritesSuccess = ActionWithPayload<
+    FAVORITE_ACTION_TYPES.FETCH_SINGLE_USER_FAVORITES_SUCCESS, 
+    Favorite[]
+>;
+
+export type FavoriteFetchSingleUserFavoritesFailed = ActionWithPayload<
+    FAVORITE_ACTION_TYPES.FETCH_SINGLE_USER_FAVORITES_FAILED,
+    Error
+>;
+
+export type FavoriteFetchUserFavoritesStart = Action<
+    FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_START
 >;
 
 export type FavoriteFetchUserFavoritesSuccess = ActionWithPayload<
@@ -80,8 +93,8 @@ export type FavoriteFetchUserFavoritesFailed = ActionWithPayload<
     Error
 >;
 
-export type FavoriteFetchAllStart = ActionWithPayload<
-    FAVORITE_ACTION_TYPES.FETCH_ALL_START, { userId: number}
+export type FavoriteFetchAllStart = Action<
+    FAVORITE_ACTION_TYPES.FETCH_ALL_START
 >;
 
 export type FavoriteFetchAllSuccess = ActionWithPayload<
@@ -154,10 +167,25 @@ export const favoriteFetchSingleFailed = withMatcher(
     createAction(FAVORITE_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
-export const favoriteFetchUserFavoritesStart = withMatcher(
-    (favoriteId: number): FavoriteFetchUserFavoritesStart => 
-    createAction(FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_START, favoriteId)
+export const favoriteFetchSingleUserFavoritesStart = withMatcher(
+    (userId: number): FavoriteFetchSingleUserFavoritesStart => 
+    createAction(FAVORITE_ACTION_TYPES.FETCH_SINGLE_USER_FAVORITES_START, { userId }
+));
+
+export const favoriteFetchSingleUserFavoritesSuccess = withMatcher(
+    (favorite: Favorite[]): FavoriteFetchSingleUserFavoritesSuccess => 
+    createAction(FAVORITE_ACTION_TYPES.FETCH_SINGLE_USER_FAVORITES_SUCCESS, favorite)
 );
+
+export const favoriteFetchSingleUserFavoritesFailed = withMatcher(
+    (error: Error): FavoriteFetchSingleUserFavoritesFailed => 
+    createAction(FAVORITE_ACTION_TYPES.FETCH_SINGLE_USER_FAVORITES_FAILED, error)
+);
+
+export const favoriteFetchUserFavoritesStart = withMatcher(
+    (): FavoriteFetchUserFavoritesStart => 
+    createAction(FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_START
+));
 
 export const favoriteFetchUserFavoritesSuccess = withMatcher(
     (favorite: Favorite[]): FavoriteFetchUserFavoritesSuccess => 
@@ -170,8 +198,8 @@ export const favoriteFetchUserFavoritesFailed = withMatcher(
 );
 
 export const favoriteFetchAllStart = withMatcher(
-    (userId: number): FavoriteFetchAllStart => 
-    createAction(FAVORITE_ACTION_TYPES.FETCH_ALL_START, { userId })
+    (): FavoriteFetchAllStart => 
+    createAction(FAVORITE_ACTION_TYPES.FETCH_ALL_START)
 );
 
 export const favoriteFetchAllSuccess = withMatcher(

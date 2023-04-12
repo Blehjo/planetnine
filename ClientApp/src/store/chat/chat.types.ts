@@ -24,7 +24,7 @@ export enum CHAT_ACTION_TYPES  {
 };
 
 export type Chat = {
-    chatId: number | null;
+    chatId: number;
     title: string;
     dateCreated: Date;
     userId: number | null;

@@ -8,7 +8,7 @@ const headers = {
   'Content-Type': 'application/json' 
 }
 
-export async function getSingleComment(postId: number): Promise<Comment> {
+export async function getSingleComment(postId: number): Promise<Comment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/post/${postId}`,

@@ -108,7 +108,7 @@ export function* fetchSingleCommentAsync({
             getSingleComment,
             commentId 
         );
-        yield* put(commentFetchSingleSuccess(commentSnapshot as Comment));
+        yield* put(commentFetchSingleSuccess(commentSnapshot));
     } catch (error) {
         yield* put(commentFetchSingleFailed(error as Error));
     }

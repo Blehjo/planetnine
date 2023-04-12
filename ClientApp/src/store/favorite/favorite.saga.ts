@@ -21,6 +21,11 @@ import {
     FavoriteCreateStart,
     FavoriteDeleteStart,
     FavoriteFetchAllStart,
+    FavoriteFetchSingleUserFavoritesStart,
+    favoriteFetchSingleUserFavoritesSuccess,
+    favoriteFetchSingleUserFavoritesFailed,
+    favoriteFetchUserFavoritesSuccess,
+    favoriteFetchUserFavoritesFailed,
 } from './favorite.action';
 
 import { 
@@ -28,14 +33,38 @@ import {
     getUserFavorites,
     getFavorites, 
     addFavorite, 
-    deleteFavorite
+    deleteFavorite,
+    getSingleUserFavorites
 } from '../../utils/api/favorite.api';
+import { FavoriteFetchUserFavoritesStart } from './favorite.action';
 
-export function* fetchFavoritesAsync({ payload: { userId }}: FavoriteFetchAllStart) {
+export function* fetchUserFavoritesAsync({}: FavoriteFetchUserFavoritesStart) {
     try {
         const favorites = yield* call(
-            getFavorites, 
+            getUserFavorites
+        );
+      yield* put(favoriteFetchUserFavoritesSuccess(favorites));
+    } catch (error) {
+      yield* put(favoriteFetchUserFavoritesFailed(error as Error));
+    }
+}
+
+export function* fetchSingleUserFavoritesAsync({ payload: { userId }}: FavoriteFetchSingleUserFavoritesStart) {
+    try {
+        const favorites = yield* call(
+            getSingleUserFavorites,
             userId
+        );
+      yield* put(favoriteFetchSingleUserFavoritesSuccess(favorites));
+    } catch (error) {
+      yield* put(favoriteFetchSingleUserFavoritesFailed(error as Error));
+    }
+}
+
+export function* fetchFavoritesAsync({ }: FavoriteFetchAllStart) {
+    try {
+        const favorites = yield* call(
+            getFavorites
         );
       yield* put(favoriteFetchAllSuccess(favorites));
     } catch (error) {
@@ -75,7 +104,15 @@ export function* onStart() {
 }
 
 export function* onDelete() {
-    yield takeLatest(FAVORITE_ACTION_TYPES.CREATE_START, removeFavorite);
+    yield takeLatest(FAVORITE_ACTION_TYPES.DELETE_START, removeFavorite);
+}
+
+export function* onFetchUser() {
+    yield takeLatest(FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_START, fetchUserFavoritesAsync);
+}
+
+export function* onFetchSingleUser() {
+    yield takeLatest(FAVORITE_ACTION_TYPES.FETCH_SINGLE_USER_FAVORITES_START, fetchSingleUserFavoritesAsync);
 }
 
 export function* onFetch() {
@@ -86,6 +123,8 @@ export function* favoriteSagas() {
     yield all([
         call(onStart),
         call(onDelete),
+        call(onFetchUser),
+        call(onFetchSingleUser),
         call(onFetch)
     ]);
 }

@@ -23,11 +23,11 @@ export enum POST_ACTION_TYPES  {
 };
 
 export type Post = {
-    postId: number | null;
+    postId: number;
     postValue: string | null;
     mediaLink: string | null;
-    imageSource: string | null;
-    type: string | null;
+    imageSource: string;
+    type: string;
     dateCreated: Date;
     userId: number | null,
     comments: Comment[] | null;

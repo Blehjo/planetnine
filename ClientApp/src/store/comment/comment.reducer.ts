@@ -47,6 +47,11 @@ export const commentReducer = (
         return { ...state, isLoading: true }
     }
     if (
+        commentFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, comments: action.payload }
+    }
+    if (
         commentCreateSuccess.match(action) ||
         commentUpdateSuccess.match(action) ||
         commentDeleteSuccess.match(action) ||

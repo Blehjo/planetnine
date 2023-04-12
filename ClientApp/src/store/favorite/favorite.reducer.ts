@@ -18,6 +18,9 @@ import {
     favoriteFetchAllStart,
     favoriteFetchAllSuccess,
     favoriteFetchAllFailed,
+    favoriteFetchUserFavoritesSuccess,
+    favoriteFetchSingleUserFavoritesSuccess,
+    favoriteFetchUserFavoritesStart,
 } from './favorite.action';
 
 export type FavoriteState = {
@@ -42,19 +45,23 @@ export const favoriteReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): FavoriteState => {
     if (
-        favoriteFetchAllStart.match(action) 
+        favoriteFetchAllStart.match(action) ||
+        favoriteFetchSingleStart.match(action) ||
+        favoriteFetchUserFavoritesStart.match(action)
     ) {
         return { ...state, isLoading: true }
     }
     if (
-        favoriteFetchSingleStart.match(action)
+        favoriteFetchSingleSuccess.match(action) 
     ) {
-        return { ...state, isLoading: true, favoriteId: action.payload };
+        return { ...state, isLoading: false, singleFavorite: action.payload };
     }  
     if (
         favoriteCreateSuccess.match(action) ||
         favoriteUpdateSuccess.match(action) ||
         favoriteDeleteSuccess.match(action) ||
+        favoriteFetchUserFavoritesSuccess.match(action) ||
+        favoriteFetchSingleUserFavoritesSuccess.match(action) ||
         favoriteFetchAllSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, favorites: action.payload };

@@ -58,7 +58,7 @@ export type CommentFetchSingleStart = ActionWithPayload<
 
 export type CommentFetchSingleSuccess = ActionWithPayload<
     COMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
-    Comment
+    Comment[]
 >;
 
 export type CommentFetchSingleFailed = ActionWithPayload<
@@ -146,7 +146,7 @@ export const commentFetchSingleStart = withMatcher(
 );
 
 export const commentFetchSingleSuccess = withMatcher(
-    (comment: Comment): CommentFetchSingleSuccess => 
+    (comment: Comment[]): CommentFetchSingleSuccess => 
     createAction(COMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, comment)
 );
 

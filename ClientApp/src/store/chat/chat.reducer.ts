@@ -42,9 +42,15 @@ export const chatReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): ChatState => {
     if (
-        chatFetchAllStart.match(action) 
+        chatFetchAllStart.match(action) ||
+        chatFetchSingleStart.match(action)
     ) {
         return { ...state, isLoading: true }
+    }  
+    if (
+        chatFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singleChat: action.payload }
     }  
     if (
         chatCreateSuccess.match(action) ||
