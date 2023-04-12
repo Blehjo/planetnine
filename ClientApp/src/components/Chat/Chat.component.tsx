@@ -41,7 +41,7 @@ export class ChatComponent extends Component<ChatProps> {
     componentDidMount(): void {
         this.props.getAllChats();
     }
-    
+
     render() {
         const { chats, chatComments } = this.props;
         const { show } = this.state;
@@ -54,7 +54,7 @@ export class ChatComponent extends Component<ChatProps> {
                 >
                     <Masonry>
                     {chats.chats?.map(({ chatId, title, userId, comments, chatComments, favorites, dateCreated }) => {
-                    return <ChatContainer>
+                    return <ChatContainer key={chatId}>
                             <Card className="bg-dark" key={chatId}>
                                 <BadgeContainer>
                                     <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(chatId)}/></Badge>

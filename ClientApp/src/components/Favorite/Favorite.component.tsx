@@ -2,7 +2,7 @@ import { ChangeEvent, Component, Dispatch, Fragment } from "react";
 import { FavoriteContainer } from "./Favorite.styles";
 import { Badge, Button, Card, Col, Image, Modal, Row } from "react-bootstrap";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { Globe, Person, Rocket } from 'react-bootstrap-icons';
+import { ArrowsFullscreen, Globe, Person, Rocket } from 'react-bootstrap-icons';
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { CardContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
 import { RootState } from "../../store/store";
@@ -195,13 +195,13 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                         columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
                     >
                         <Masonry>
-                        {pilots.map(({ postValue, about, comments, favorites, dateCreated }, index) => {
+                        {pilots.map(({ postId, postValue, about, comments, favorites, dateCreated }, index) => {
                             return <FavoriteContainer key={index}>
                                 <Card className="bg-dark" key={index}>
                                     {/* <Card.Img src={mediaLink}/> */}
                                     {/* <Card.ImgOverlay> */}
                                         <BadgeContainer>
-                                            <Badge style={{ color: 'black' }} bg="light"><Person size={15}/></Badge>
+                                            <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(postId)}/></Badge>
                                         </BadgeContainer>
                                         {
                                             comments > 0 && <BadgeContainer><Badge style={{ color: 'black' }} bg="light">

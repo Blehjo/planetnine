@@ -6,6 +6,7 @@ import { Message } from "../../components/Message/Message.component"
 
 import { PilotDash } from "../../components/PilotDash/PilotDash.component"
 import { PlanetDash } from "../../components/PlanetDash/PlanetDash.component"
+import { VitalsContainer } from "./Vitals.styles"
 
 
 export class Vitals extends Component {
@@ -13,6 +14,7 @@ export class Vitals extends Component {
 
         return (
             <Fragment>
+                <VitalsContainer>
                 <Row xs={2} style={{ paddingRight: '10rem', marginTop: '1rem' }}>
                     <Col xs={6}>
                         <PilotDash/>
@@ -29,6 +31,7 @@ export class Vitals extends Component {
                         <PlanetDash/>
                     </Col>
                 </Row>
+                </VitalsContainer>
                 <Notification/>
             </Fragment>
         )
