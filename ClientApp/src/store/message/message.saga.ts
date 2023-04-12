@@ -24,7 +24,9 @@ import {
     MessageFetchSingleStart,
     MessageFetchUserMessagesStart,
     MessageUpdateStart,
-    MessageDeleteStart
+    MessageDeleteStart,
+    messageFetchUserMessagesSuccess,
+    messageFetchUserMessagesFailed
 } from './message.action';
 
 import { 
@@ -79,22 +81,9 @@ export function* fetchUserMessages() {
     try {
         const message = yield* call(getUsersMessages);
         if (!message) return;
-        yield* call(messageFetchAllSuccess, message);
+        yield* put(messageFetchUserMessagesSuccess(message));
     } catch (error) {
-        yield* put(messageFetchAllFailed(error as Error));
-    }
-}
-
-export function* fetchOtherUsersMessages({ payload: { userId } }: MessageFetchUserMessagesStart) {
-    try {
-        const messages = yield* call(
-            getUserMessages,
-            userId
-        );
-        if (!messages) return;
-        yield* call(messageFetchAllSuccess, messages);
-    } catch (error) {
-        yield* put(messageFetchAllFailed(error as Error));
+        yield* put(messageFetchUserMessagesFailed(error as Error));
     }
 }
 

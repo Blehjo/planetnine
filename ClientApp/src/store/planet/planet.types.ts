@@ -24,6 +24,7 @@ export enum PLANET_ACTION_TYPES  {
 
 export type Planet = {
     planetId: number | null;
+    planetName: string;
     planetMass: number;
     perihelion: number;
     aphelion: number;

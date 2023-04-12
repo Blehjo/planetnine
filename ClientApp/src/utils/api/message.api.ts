@@ -44,7 +44,7 @@ export async function getUserMessages(userId: number): Promise<Message[]> {
 export async function getUsersMessages(): Promise<Message[]> {
   const response = await axios({
     method: 'get',
-    url: `${api}/user/messages`,
+    url: api,
     headers: headers,
     withCredentials: true
   });

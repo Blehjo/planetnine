@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ExplorePanel = styled.div`
-
+  margin: 1rem 0rem 1rem 0rem;
 `;
 
 export const ExploreContainer = styled.div`
@@ -27,4 +27,8 @@ export const ImageOverlayContainer = styled.div`
 export const ExploreFontContainer = styled.div`
   font-size: 500%;
   color: white;
+  background: black;
+  padding: 1rem;
+  opacity: 0.7;
+  border-radius: .5rem;
 `;
