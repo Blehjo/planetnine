@@ -15,7 +15,7 @@ export class Vitals extends Component {
         return (
             <Fragment>
                 <VitalsContainer>
-                <Row xs={2} style={{ paddingRight: '10rem', marginTop: '1rem' }}>
+                <Row xs={2} style={{ marginTop: '1rem' }}>
                     <Col xs={6}>
                         <PilotDash/>
                     </Col>
@@ -23,7 +23,7 @@ export class Vitals extends Component {
                         <Crew/>
                     </Col>
                 </Row>
-                <Row xs={2} style={{ paddingRight: '10rem', marginTop: '1rem' }}>
+                <Row xs={2} style={{ marginTop: '1rem' }}>
                     <Col xs={6}>
                         <Message/>
                     </Col>
