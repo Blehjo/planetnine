@@ -21,6 +21,11 @@ export const selectUserChats = createSelector(
   (chat) => chat.userChats
 );
 
+export const selectSingleUserChats = createSelector(
+  [selectChatReducer],
+  (chat) => chat.singleUserChats
+);
+
 export const selectAllChats = createSelector(
   [selectChatReducer],
   (chat) => chat.chats

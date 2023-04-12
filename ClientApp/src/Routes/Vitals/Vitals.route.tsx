@@ -1,12 +1,13 @@
 import { Component, Fragment } from "react";
-import { Notification } from "../../components/Notification/Notification.component";
 import { Col, Row } from "react-bootstrap";
-import { Crew } from "../../components/Crew/Crew.component";
 
+
+import { Crew } from "../../components/Crew/Crew.component";
 import { VitalsContainer } from "./Vitals.styles";
 import { PlanetDash } from "../../components/PlanetDash/PlanetDash.component";
 import PilotDashComponent from "../../components/PilotDash/PilotDash.component";
 import MessageComponent from "../../components/Message/Message.component";
+import NotificationComponent from "../../components/Notification/Notification.component";
 
 
 export class Vitals extends Component {
@@ -32,7 +33,7 @@ export class Vitals extends Component {
                     </Col>
                 </Row>
                 </VitalsContainer>
-                <Notification/>
+                <NotificationComponent/>
             </Fragment>
         )
     }

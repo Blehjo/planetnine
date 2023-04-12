@@ -30,6 +30,7 @@ export const MoonPanelContainer = styled.div`
     
 export const FixedMoonContainer = styled.div`
   padding-left: 15.5rem;
+  padding-right: 25rem;
   float: left;
   z-index: 1;
 `;

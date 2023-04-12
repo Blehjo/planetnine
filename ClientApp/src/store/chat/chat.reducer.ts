@@ -18,12 +18,17 @@ import {
     chatFetchAllStart,
     chatFetchAllSuccess,
     chatFetchAllFailed,
+    chatFetchSingleUserChatsStart,
+    chatFetchUserChatsStart,
+    chatFetchSingleUserChatsSuccess,
+    chatFetchUserChatsSuccess,
 } from './chat.action';
 
 export type ChatState = {
     readonly chatId: number | null;
     readonly singleChat: Chat | null;
     readonly userChats: Chat[] | null;
+    readonly singleUserChats: Chat[] | null;
     readonly chats: Chat[] | null;
     readonly isLoading: boolean;
     readonly error: Error | null;
@@ -33,6 +38,7 @@ const INITIAL_STATE: ChatState = {
     chatId: null,
     singleChat: null,
     userChats: [],
+    singleUserChats: [],
     chats: [],
     isLoading: false,
     error: null
@@ -43,7 +49,9 @@ export const chatReducer = (
 ): ChatState => {
     if (
         chatFetchAllStart.match(action) ||
-        chatFetchSingleStart.match(action)
+        chatFetchSingleStart.match(action) ||
+        chatFetchSingleUserChatsStart.match(action) ||
+        chatFetchUserChatsStart.match(action)
     ) {
         return { ...state, isLoading: true }
     }  
@@ -51,6 +59,16 @@ export const chatReducer = (
         chatFetchSingleSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, singleChat: action.payload }
+    }  
+    if (
+        chatFetchUserChatsSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userChats: action.payload }
+    }  
+    if (
+        chatFetchSingleUserChatsSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, singleUserChats: action.payload }
     }  
     if (
         chatCreateSuccess.match(action) ||

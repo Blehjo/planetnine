@@ -66,9 +66,8 @@ export type ChatFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type ChatFetchUserChatsStart = ActionWithPayload<
-    CHAT_ACTION_TYPES.FETCH_USER_CHATS_START,
-    { userId: number }
+export type ChatFetchUserChatsStart = Action<
+    CHAT_ACTION_TYPES.FETCH_USER_CHATS_START
 >;
 
 export type ChatFetchUserChatsSuccess = ActionWithPayload<
@@ -78,6 +77,21 @@ export type ChatFetchUserChatsSuccess = ActionWithPayload<
 
 export type ChatFetchUserChatsFailed = ActionWithPayload<
     CHAT_ACTION_TYPES.FETCH_USER_CHATS_FAILED,
+    Error
+>;
+
+export type ChatFetchSingleUserChatsStart = ActionWithPayload<
+    CHAT_ACTION_TYPES.FETCH_SINGLE_USER_CHATS_START,
+    { userId: number }
+>;
+
+export type ChatFetchSingleUserChatsSuccess = ActionWithPayload<
+    CHAT_ACTION_TYPES.FETCH_SINGLE_USER_CHATS_SUCCESS, 
+    Chat[]
+>;
+
+export type ChatFetchSingleUserChatsFailed = ActionWithPayload<
+    CHAT_ACTION_TYPES.FETCH_SINGLE_USER_CHATS_FAILED,
     Error
 >;
 
@@ -156,8 +170,8 @@ export const chatFetchSingleFailed = withMatcher(
 );
 
 export const chatFetchUserChatsStart = withMatcher(
-    (userId: number): ChatFetchUserChatsStart => 
-    createAction(CHAT_ACTION_TYPES.FETCH_USER_CHATS_START, { userId })
+    (): ChatFetchUserChatsStart => 
+    createAction(CHAT_ACTION_TYPES.FETCH_USER_CHATS_START)
 );
 
 export const chatFetchUserChatsSuccess = withMatcher(
@@ -168,6 +182,21 @@ export const chatFetchUserChatsSuccess = withMatcher(
 export const chatFetchUserChatsFailed = withMatcher(
     (error: Error): ChatFetchUserChatsFailed => 
     createAction(CHAT_ACTION_TYPES.FETCH_USER_CHATS_FAILED, error)
+);
+
+export const chatFetchSingleUserChatsStart = withMatcher(
+    (userId: number): ChatFetchSingleUserChatsStart => 
+    createAction(CHAT_ACTION_TYPES.FETCH_SINGLE_USER_CHATS_START, { userId })
+);
+
+export const chatFetchSingleUserChatsSuccess = withMatcher(
+    (chat: Chat[]): ChatFetchSingleUserChatsSuccess => 
+    createAction(CHAT_ACTION_TYPES.FETCH_SINGLE_USER_CHATS_SUCCESS, chat)
+);
+
+export const chatFetchSingleUserChatsFailed = withMatcher(
+    (error: Error): ChatFetchSingleUserChatsFailed => 
+    createAction(CHAT_ACTION_TYPES.FETCH_SINGLE_USER_CHATS_FAILED, error)
 );
 
 export const chatFetchAllStart = withMatcher(

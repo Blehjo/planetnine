@@ -107,9 +107,9 @@ export function* removePlanet({ payload: { planetId }}: PlanetDeleteStart) {
 
 export function* fetchUserPlanets() {
     try {
-        const Planet = yield* call(getUserPlanets);
-        if (!Planet) return;
-        yield* call(planetFetchAllSuccess, Planet);
+        const planets = yield* call(getUsersPlanets);
+        if (!planets) return;
+        yield* put(planetFetchAllSuccess(planets));
     } catch (error) {
         yield* put(planetFetchAllFailed(error as Error));
     }
@@ -122,7 +122,7 @@ export function* fetchOtherUsersPlanets({ payload: { userId } }: PlanetFetchUser
             userId
         );
         if (!planets) return;
-        yield* call(planetFetchAllSuccess, planets);
+        yield* put(planetFetchAllSuccess(planets));
     } catch (error) {
         yield* put(planetFetchAllFailed(error as Error));
     }

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, Dispatch } from "react";
 import { PlanetDashPanel } from "./PlanetDash.styles";
 import { Planet } from "../../store/planet/planet.types";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
@@ -6,6 +6,9 @@ import { PostContainer } from "../Post/Post.styles";
 import { Badge, Card } from "react-bootstrap";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { ArrowsFullscreen } from "react-bootstrap-icons";
+import { RootState } from "../../store/store";
+import { PlanetFetchAllStart, planetFetchAllStart } from "../../store/planet/planet.action";
+import { ConnectedProps, connect } from "react-redux";
 
 const planets = [
     {
@@ -91,6 +94,8 @@ const planets = [
 
 ]
 
+type PlanetDashProps = ConnectedProps<typeof connector>;
+
 export class PlanetDash extends Component {
     render() {
         return(
@@ -121,3 +126,17 @@ export class PlanetDash extends Component {
         );
     }
 }
+
+const mapStateToProps = (state: RootState) => {
+    return {
+        planets: state.planet
+    }
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<PlanetFetchAllStart>) => ({
+    getPlanets: () => dispatch(planetFetchAllStart())
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(PlanetDash);

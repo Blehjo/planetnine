@@ -1,7 +1,6 @@
-import { Fragment } from "react"
-import { MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles"
-import { Col, Row } from "react-bootstrap"
-import { Notification } from "../../components/Notification/Notification.component"
+import { Fragment } from "react";
+import { MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles";
+import NotificationComponent from "../../components/Notification/Notification.component";
 
 export const Messages = () => {
     return (
@@ -14,7 +13,7 @@ export const Messages = () => {
                     <h1>Messages</h1>
                 </UserMessageContainer>
             </MessagebarContainer>
-            <Notification/>
+            <NotificationComponent/>
         </Fragment>
     )
 }

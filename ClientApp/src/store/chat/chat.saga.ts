@@ -24,7 +24,12 @@ import {
     ChatFetchSingleStart,
     ChatFetchUserChatsStart,
     ChatUpdateStart,
-    ChatDeleteStart
+    ChatDeleteStart,
+    ChatFetchSingleUserChatsStart,
+    chatFetchSingleUserChatsSuccess,
+    chatFetchSingleUserChatsFailed,
+    chatFetchUserChatsSuccess,
+    chatFetchUserChatsFailed
 } from './chat.action';
 
 import { 
@@ -80,22 +85,22 @@ export function* fetchUserChats() {
     try {
         const chat = yield* call(getUsersChats);
         if (!chat) return;
-        yield* call(chatFetchAllSuccess, chat);
+        yield* put(chatFetchUserChatsSuccess(chat));
     } catch (error) {
-        yield* put(chatFetchAllFailed(error as Error));
+        yield* put(chatFetchUserChatsFailed(error as Error));
     }
 }
 
-export function* fetchOtherUsersChats({ payload: { userId } }: ChatFetchUserChatsStart) {
+export function* fetchOtherUsersChats({ payload: { userId } }: ChatFetchSingleUserChatsStart) {
     try {
         const chats = yield* call(
             getUserChats,
             userId
         );
         if (!chats) return;
-        yield* call(chatFetchAllSuccess, chats);
+        yield* put(chatFetchSingleUserChatsSuccess(chats));
     } catch (error) {
-        yield* put(chatFetchAllFailed(error as Error));
+        yield* put(chatFetchSingleUserChatsFailed(error as Error));
     }
 }
 

@@ -222,8 +222,8 @@ export const planetFetchUserPlanetsFailed = withMatcher(
 );
 
 export const planetFetchAllStart = withMatcher(
-    (planet: Planet[]): PlanetFetchAllStart => 
-    createAction(PLANET_ACTION_TYPES.FETCH_ALL_START, planet)
+    (): PlanetFetchAllStart => 
+    createAction(PLANET_ACTION_TYPES.FETCH_ALL_START)
 );
 
 export const planetFetchAllSuccess = withMatcher(

@@ -42,9 +42,15 @@ export const planetReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): PlanetState => {
     if (
-        planetFetchAllStart.match(action) 
+        planetFetchAllStart.match(action) ||
+        planetFetchSingleStart.match(action)
     ) {
         return { ...state, isLoading: true }
+    }
+    if (
+        planetFetchSingleSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, singlePlanet: action.payload }
     }
     if (
         planetCreateSuccess.match(action) ||

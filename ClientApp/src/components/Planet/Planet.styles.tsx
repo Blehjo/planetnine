@@ -22,7 +22,6 @@ export const PlanetPanelContainer = styled.div`
     height: 100vh; 
     width: 100%;
     background: darkred;
-    text-align: center;
     margin-top: 3.5rem;
     color: white;
     float: left;
@@ -30,6 +29,7 @@ export const PlanetPanelContainer = styled.div`
     
 export const FixedContainer = styled.div`
   padding-left: 15.5rem;
+  padding-right: 25rem;
   float: left;
   z-index: 1;
 `;

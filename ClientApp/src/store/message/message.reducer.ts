@@ -42,9 +42,15 @@ export const messageReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): MessageState => {
     if (
-        messageFetchAllStart.match(action) 
+        messageFetchAllStart.match(action) ||
+        messageFetchSingleStart.match(action)
     ) {
         return { ...state, isLoading: true }
+    } 
+    if (
+        messageFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singleMessage: action.payload }
     } 
     if (
         messageCreateSuccess.match(action) ||
