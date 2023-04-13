@@ -19,17 +19,16 @@ export const PlanetBarContainer = styled.div`
 `;
 
 export const PlanetPanelContainer = styled.div`
-    height: 100vh; 
-    width: 100%;
-    background: darkred;
-    margin-top: 3.5rem;
-    color: white;
-    float: left;
+  background: darkred;
+  margin-top: 3.5rem;
+  color: white;
+  height: 100vh;
+  overflow-y: auto;
+  padding-left: 15.5rem;
 `;
     
 export const FixedContainer = styled.div`
-  padding-left: 15.5rem;
-  padding-right: 25rem;
+  margin-right: 25rem;
   float: left;
-  z-index: 1;
+  z-index: 2;
 `;

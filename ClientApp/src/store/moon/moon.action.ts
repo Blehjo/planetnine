@@ -225,8 +225,8 @@ export const moonFetchUserMoonsFailed = withMatcher(
 );
 
 export const moonFetchAllStart = withMatcher(
-    (moon: Moon[]): MoonFetchAllStart => 
-    createAction(MOON_ACTION_TYPES.FETCH_ALL_START, moon)
+    (): MoonFetchAllStart => 
+    createAction(MOON_ACTION_TYPES.FETCH_ALL_START)
 );
 
 export const moonFetchAllSuccess = withMatcher(

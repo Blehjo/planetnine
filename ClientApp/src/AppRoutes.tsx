@@ -5,7 +5,7 @@ import { ArtificialIntelligence } from "./routes/ArtificialIntelligence/Artifici
 import { Chats } from "./routes/Chats/Chats.route";
 import { Explore } from "./routes/Explore/Explore.route";
 import { Favorites } from "./routes/Favorites/Favorites.route";
-import { Messages } from "./routes/Messages/Messages.route";
+import MessagesRoute from "./routes/Messages/Messages.route";
 import { Posts } from "./routes/Posts/Posts.route";
 import { Profiles } from "./routes/Profiles/Profiles.route";
 import { Resources } from "./routes/Resources/Resources.route";
@@ -47,7 +47,7 @@ const AppRoutes = [
   },
   {
     path: '/messages',
-    element: <Messages />
+    element: <MessagesRoute/>
   },
   {
     path: '/moons',

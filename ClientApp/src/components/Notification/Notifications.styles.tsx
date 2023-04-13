@@ -11,6 +11,5 @@ export const NotificationsContainer = styled.div`
 `;
 
 export const SidebarContainer = styled.div`
-    float: right;
     z-index: 1;
 `;

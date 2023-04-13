@@ -15,7 +15,7 @@ export class Vitals extends Component {
 
         return (
             <Fragment>
-                <VitalsContainer>
+                <VitalsContainer className="fixed-top">
                 <Row xs={2} style={{ marginTop: '1rem' }}>
                     <Col xs={6}>
                         <PilotDashComponent/>
