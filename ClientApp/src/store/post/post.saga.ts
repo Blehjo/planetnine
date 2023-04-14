@@ -38,12 +38,15 @@ import {
     deletePost
 } from '../../utils/api/post.api';
 
-export function* createPost({ payload: { postValue, mediaLink }}: PostCreateStart ) {
+export function* createPost({ payload: { postValue, mediaLink, imageFile }}: PostCreateStart ) {
+    const formData = new FormData();
+    formData.append('postValue', postValue);
+    formData.append('mediaLink', mediaLink);
+    formData.append('imageFile', imageFile);
     try {
         const post = yield* call(
             addPost,
-            postValue,
-            mediaLink
+            formData
         ); 
         yield* put(postCreateSuccess(post));
     } catch (error) {
@@ -51,13 +54,16 @@ export function* createPost({ payload: { postValue, mediaLink }}: PostCreateStar
     }
 }
 
-export function* updatePost({ payload: { postId, postValue, mediaLink }}: PostUpdateStart) {
+export function* updatePost({ payload: { postId, postValue, mediaLink, imageFile }}: PostUpdateStart) {
+    const formData = new FormData();
+    formData.append('postValue', postValue);
+    formData.append('mediaLink', mediaLink);
+    formData.append('imageFile', imageFile);
     try {
         const post = yield* call(
             editPost,
             postId,
-            postValue, 
-            mediaLink
+            formData
         ); 
         yield* put(postUpdateSuccess(post));
     } catch (error) {

@@ -56,6 +56,7 @@ export const chatReducer = (
         return { ...state, isLoading: true }
     }  
     if (
+        chatCreateSuccess.match(action) ||
         chatFetchSingleSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, singleChat: action.payload }
@@ -71,7 +72,6 @@ export const chatReducer = (
         return { ...state, isLoading: false, singleUserChats: action.payload }
     }  
     if (
-        chatCreateSuccess.match(action) ||
         chatUpdateSuccess.match(action) ||
         chatDeleteSuccess.match(action) ||
         chatFetchAllSuccess.match(action) 

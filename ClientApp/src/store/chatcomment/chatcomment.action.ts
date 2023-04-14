@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type ChatCommentCreateStart = ActionWithPayload<
-    CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatcommentValue: string, mediaLink: string }
+    CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatId: number, chatcommentValue: string | null, mediaLink: File | null }
 >;
 
 export type ChatCommentCreateSuccess = ActionWithPayload<
@@ -96,8 +96,8 @@ export type ChatCommentFetchAllFailed = ActionWithPayload<
 >;
 
 export const chatcommentCreateStart = withMatcher(
-    (chatcommentId: number, chatcommentValue: string, mediaLink: string): ChatCommentCreateStart => 
-    createAction(CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatcommentId, chatcommentValue, mediaLink } )
+    (chatId: number, chatcommentValue: string | null, mediaLink: File | null): ChatCommentCreateStart => 
+    createAction(CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatId, chatcommentValue, mediaLink })
 );
 
 export const chatcommentCreateSuccess = withMatcher(

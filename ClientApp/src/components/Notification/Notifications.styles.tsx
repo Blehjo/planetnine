@@ -14,3 +14,7 @@ export const NotificationsContainer = styled.div`
 export const SidebarContainer = styled.div`
     z-index: 1;
 `;
+
+export const ActionsContainer = styled.div`
+    padding: 1rem;
+`;

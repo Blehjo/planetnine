@@ -13,7 +13,7 @@ export type ChatCreateStart = ActionWithPayload<
 
 export type ChatCreateSuccess = ActionWithPayload<
     CHAT_ACTION_TYPES.CREATE_SUCCESS, 
-    Chat[]
+    Chat
 >;
 
 export type ChatCreateFailed = ActionWithPayload<
@@ -115,8 +115,8 @@ export const chatCreateStart = withMatcher(
 );
 
 export const chatCreateSuccess = withMatcher(
-    (chats: Chat[]): ChatCreateSuccess => 
-    createAction(CHAT_ACTION_TYPES.CREATE_SUCCESS, chats)
+    (chat: Chat): ChatCreateSuccess => 
+    createAction(CHAT_ACTION_TYPES.CREATE_SUCCESS, chat)
 );
 
 export const chatCreateFailed = withMatcher(

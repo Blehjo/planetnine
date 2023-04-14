@@ -38,10 +38,11 @@ import {
     deleteChatComment
 } from '../../utils/api/chatcomment.api';
 
-export function* createChatComment({ payload: { chatcommentValue, mediaLink }}: ChatCommentCreateStart ) {
+export function* createChatComment({ payload: { chatId, chatcommentValue, mediaLink }}: ChatCommentCreateStart ) {
     try {
         const chatcomment = yield* call(
             addChatComment,
+            chatId,
             chatcommentValue,
             mediaLink
         ); 

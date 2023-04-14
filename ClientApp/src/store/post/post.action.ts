@@ -8,12 +8,12 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type PostCreateStart = ActionWithPayload<
-    POST_ACTION_TYPES.CREATE_START, { postValue: string, mediaLink: string }
+    POST_ACTION_TYPES.CREATE_START, { postValue: string, mediaLink: string, imageFile: File }
 >;
 
 export type PostCreateSuccess = ActionWithPayload<
     POST_ACTION_TYPES.CREATE_SUCCESS, 
-    Post[]
+    Post
 >;
 
 export type PostCreateFailed = ActionWithPayload<
@@ -23,12 +23,12 @@ export type PostCreateFailed = ActionWithPayload<
 
 export type PostUpdateStart = ActionWithPayload<
     POST_ACTION_TYPES.UPDATE_START,
-    { postId: number, postValue: string, mediaLink: string }
+    { postId: number, postValue: string, mediaLink: string, imageFile: File }
 >;
 
 export type PostUpdateSuccess = ActionWithPayload<
     POST_ACTION_TYPES.UPDATE_SUCCESS, 
-    Post[]
+    Post
 >;
 
 export type PostUpdateFailed = ActionWithPayload<
@@ -96,12 +96,12 @@ export type PostFetchAllFailed = ActionWithPayload<
 >;
 
 export const postCreateStart = withMatcher(
-    (postValue: string, mediaLink: string): PostCreateStart => 
-    createAction(POST_ACTION_TYPES.CREATE_START, { postValue, mediaLink })
+    (postValue: string, mediaLink: string, imageFile: File): PostCreateStart => 
+    createAction(POST_ACTION_TYPES.CREATE_START, { postValue, mediaLink, imageFile })
 );
 
 export const postCreateSuccess = withMatcher(
-    (post: Post[]): PostCreateSuccess => 
+    (post: Post): PostCreateSuccess => 
     createAction(POST_ACTION_TYPES.CREATE_SUCCESS, post)
 );
 
@@ -111,12 +111,12 @@ export const postCreateFailed = withMatcher(
 );
  
 export const postUpdateStart = withMatcher(
-    (postId: number, postValue: string, mediaLink: string): PostUpdateStart => 
-    createAction(POST_ACTION_TYPES.UPDATE_START, { postId, postValue, mediaLink })
+    (postId: number, postValue: string, mediaLink: string, imageFile: File): PostUpdateStart => 
+    createAction(POST_ACTION_TYPES.UPDATE_START, { postId, postValue, mediaLink, imageFile })
 );
 
 export const postUpdateSuccess = withMatcher(
-    (post: Post[]): PostUpdateSuccess => 
+    (post: Post): PostUpdateSuccess => 
     createAction(POST_ACTION_TYPES.UPDATE_SUCCESS, post)
 );
 

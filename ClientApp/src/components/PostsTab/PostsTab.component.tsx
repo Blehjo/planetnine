@@ -6,6 +6,7 @@ import { utcConverter } from "../../utils/date/date.utils";
 export class PostsTab extends Component<ProfileProps> {
     render() {
         const { currentUser, userprofile } = this.props;
+        console.log("User Profile: ",currentUser.currentUser?.posts);
         return (
         <Fragment>
             <Row style={{ marginBottom: '2rem' }} xs={1} >

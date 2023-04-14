@@ -6,6 +6,11 @@ import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { ConnectedProps, connect } from "react-redux";
 import { Card, Col, Row } from "react-bootstrap";
+import ModalChatComponent from "../ModalChat/ModalChat.component";
+import ModalMoonComponent from "../ModalMoon/ModalMoon.component";
+import ModalPlanetComponent from "../ModalPlanet/ModalPlanet.component";
+import ModalPostComponent from "../ModalPost/ModalPost.component";
+
 
 type NotificationProps = ConnectedProps<typeof connector>;
 
@@ -33,6 +38,20 @@ export class Notification extends Component<NotificationProps> {
                         )
                     })}
                     </Col>
+                    </Row>
+                    <Row xs={4}>
+                        <Col>
+                            <ModalMoonComponent/>
+                        </Col>
+                        <Col>
+                            <ModalChatComponent/>
+                        </Col>
+                        <Col>
+                            <ModalPlanetComponent/>
+                        </Col>
+                        <Col>
+                            <ModalPostComponent/>
+                        </Col>
                     </Row>
                 </NotificationsContainer>
             </SidebarContainer>

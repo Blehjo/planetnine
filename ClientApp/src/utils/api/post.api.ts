@@ -63,14 +63,11 @@ export async function getPosts(): Promise<Post[]> {
   return result;
 }
 
-export async function addPost(postValue: string, mediaLink: string): Promise<Post[]> {
+export async function addPost(formData: FormData): Promise<Post> {
   const response = await axios({
     method: 'post',
     url: api, 
-    data: {
-      postValue,
-      mediaLink
-    },
+    data: formData,
     headers: headers,
     withCredentials: true
   });
@@ -78,15 +75,11 @@ export async function addPost(postValue: string, mediaLink: string): Promise<Pos
   return result;
 }
 
-export async function editPost(postId: number, postValue: string, mediaLink: string): Promise<Post[]> {
+export async function editPost(postId: number, formData: FormData): Promise<Post> {
   const response = await axios({
     method: 'put',
     url:`${api}/${postId}`, 
-    data: {
-      postId,
-      postValue,
-      mediaLink
-    },
+    data: formData,
     headers: headers,
     withCredentials: true
   });

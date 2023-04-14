@@ -52,7 +52,7 @@ export async function getUsersMoons(): Promise<Moon[]> {
   return result;
 }
 
-export async function addMoon(moonName: string, moonMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: string, planetId: number): Promise<Moon[]> {
+export async function addMoon(moonName: string, moonMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: File | null, planetId: number): Promise<Moon[]> {
   const response = await axios({
     method: 'post',
     url: api, 
@@ -73,7 +73,7 @@ export async function addMoon(moonName: string, moonMass: number, perihelion: nu
   return result;
 }
 
-export async function editMoon(moonId: number, moonName: string, moonMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: string): Promise<Moon[]> {
+export async function editMoon(moonId: number, moonName: string, moonMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: File | null): Promise<Moon[]> {
   const response = await axios({
     method: 'put',
     url:`${api}/${moonId}`, 

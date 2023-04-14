@@ -15,7 +15,7 @@ export type MoonCreateStart = ActionWithPayload<
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        imageLink: string, 
+        imageLink: File | null, 
         planetId: number 
     }
 >;
@@ -39,7 +39,7 @@ export type MoonUpdateStart = ActionWithPayload<
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        imageLink: string, 
+        imageLink: File | null, 
         planetId: number 
     }
 >;
@@ -120,7 +120,7 @@ export const moonCreateStart = withMatcher(
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        imageLink: string, 
+        imageLink: File | null, 
         planetId: number 
 ): MoonCreateStart => 
     createAction(MOON_ACTION_TYPES.CREATE_START, {
@@ -153,7 +153,7 @@ export const moonUpdateStart = withMatcher(
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        imageLink: string, 
+        imageLink: File | null, 
         planetId: number 
     ): MoonUpdateStart => 
     createAction(MOON_ACTION_TYPES.UPDATE_START, {

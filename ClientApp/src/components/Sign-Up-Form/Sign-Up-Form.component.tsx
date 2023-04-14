@@ -65,7 +65,6 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
 
   handleChange(event: ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.target;
-
     this.setState({ ...this.state, [name]: value });
   }
 

@@ -65,7 +65,7 @@ export async function getChats(): Promise<Chat[]> {
   return result;
 }
 
-export async function addChat(title: string): Promise<Chat[]> {
+export async function addChat(title: string): Promise<Chat> {
   const response = await axios({
     method: 'post',
     url: api,
