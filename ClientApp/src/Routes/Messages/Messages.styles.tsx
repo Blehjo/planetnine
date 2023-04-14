@@ -2,27 +2,36 @@ import styled from 'styled-components';
 
 export const UserMessageContainer = styled.div`
   height: 100vh; 
-  width: 100%;
-  background: darkgrey; 
+  position: relative;
+  background: darkred; 
   border-radius: .3rem;
-  position: fixed;
   padding: 4rem;
-  margin-left: 17rem;
-  margin-right: 100rem;
+  margin-left: 18rem;
+  z-index: 2;
 `;
 
 export const MessageContainer = styled.div`
   height: 100vh; 
   width: 18rem; 
-  background: black;
+  background: white;
   text-align: center;
   margin-top: 3.5rem;
-  color: white;
+  color: black;
   float: left;
+  z-index: 2;
 `;
     
 export const MessagebarContainer = styled.div`
-  padding-left: 15.5rem;
+  margin-left: 15.5rem;
+  margin-right: 25rem;
   float: left;
-  z-index: 1;
+  z-index: 2;
+`;
+
+export const FormContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  margin-left: 3rem;
 `;

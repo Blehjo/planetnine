@@ -20,16 +20,20 @@ export class Notification extends Component<NotificationProps> {
             <SidebarContainer className="fixed-top" >
                 <NotificationsContainer>
                     <h1>Journal Logs</h1>
+                    <Row>
+                    <Col>
                     {
-                    chats.chats?.map(({ chatId, title, chatComments }) => {
-                        return (
-                            <Row key={chatId}>
+                        chats.chats?.map(({ chatId, title, chatComments }) => {
+                            return (
+                                <Row key={chatId}>
                                 <Card>
                                     {title}
                                 </Card>
                             </Row>
                         )
                     })}
+                    </Col>
+                    </Row>
                 </NotificationsContainer>
             </SidebarContainer>
         );

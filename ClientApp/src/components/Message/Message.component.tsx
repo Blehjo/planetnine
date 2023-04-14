@@ -21,13 +21,13 @@ export class Message extends Component<MessageProps> {
             <MessageContainer>
                 <h1>Message</h1>
                 {
-                    messages.messages?.map(({ messageId, messageValue, userId, messageComments }) => {
+                    messages.messages?.map(({ messageId, messageValue, userId, messageComments, user }) => {
                         return (
                             <PilotContainer key={messageId}>
                             <Card>
-                            <Row xs={2}>
+                            <Row key={userId} xs={2}>
                                 <Col xs={2}>
-                                    {/* <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={imageLink ? imageSource : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} /> */}
+                                    <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://localhost:7098/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                 </Col>
                                 <Col xs={8}>
                                     {messageValue}

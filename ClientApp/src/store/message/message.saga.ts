@@ -79,9 +79,8 @@ export function* removeMessage({ payload: { messageId }}: MessageDeleteStart) {
 
 export function* fetchUserMessages() {
     try {
-        const message = yield* call(getUsersMessages);
-        if (!message) return;
-        yield* put(messageFetchUserMessagesSuccess(message));
+        const messages = yield* call(getUsersMessages);
+        yield* put(messageFetchUserMessagesSuccess(messages));
     } catch (error) {
         yield* put(messageFetchUserMessagesFailed(error as Error));
     }

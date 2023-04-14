@@ -1,5 +1,5 @@
 import { Component, Dispatch, Fragment } from "react";
-import { MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles";
+import { FormContainer, MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles";
 import NotificationComponent from "../../components/Notification/Notification.component";
 import { RootState } from "../../store/store";
 import { MessageFetchAllStart, MessageFetchSingleStart, messageFetchAllStart } from "../../store/message/message.action";
@@ -9,6 +9,8 @@ import { messageFetchUserMessagesStart } from "../../store/message/message.actio
 import { MessageFetchUserMessagesStart } from "../../store/message/message.action";
 import { messageFetchSingleStart } from "../../store/message/message.action";
 import { ConnectedProps, connect } from "react-redux";
+import { PilotContainer } from "../../components/Pilots/Pilots.styles";
+import { Button, Card, Col, Form, Image, Row } from "react-bootstrap";
 
 type MessagesProps = ConnectedProps<typeof connector>;
 
@@ -29,11 +31,56 @@ export class Messages extends Component<MessagesProps> {
             <MessagebarContainer className="fixed-top">
                 <MessageContainer>
                     <div>Communications</div>
-                    {}
+                    {
+                        messages.messages?.map(({ messageId, messageValue, userId, messageComments, user }) => {
+                            return (
+                                <Card key={messageId}>
+                                <Row key={userId} xs={2}>
+                                    <Col xs={2}>
+                                        <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://localhost:7098/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                    </Col>
+                                    <Col xs={8}>
+                                        {messageValue}
+                                    </Col>
+                                </Row>        
+                                </Card>
+                            )
+                        })
+                    }
                 </MessageContainer>
-                <UserMessageContainer>
-                    <h1>Messages</h1>
-                    {}
+                <UserMessageContainer className="">
+                    {
+                        messagecomments.messagecomments?.map(({ messageCommentId, mediaLink, messageValue, userId, user }) => {
+                            return (
+                                <Card key={messageCommentId}>
+                                <Row key={userId} xs={2}>
+                                    <Col xs={2}>
+                                        <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://localhost:7098/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                    </Col>
+                                    <Col xs={8}>
+                                        {messageValue}
+                                    </Col>
+                                </Row>        
+                                </Card>
+                            )
+                        })
+                    }
+                    <FormContainer>
+                        <Row xs={2}>
+                        <Col xs={8}>
+                        <Form>
+                            <Form.Group className="mb-3" controlId="messageInput">
+                                <Form.Control as="textarea" rows={2} />
+                            </Form.Group>
+                        </Form>
+                        </Col>
+                        <Col xs={4}>
+                        <Button style={{ height: '3.8rem' }} variant="dark" type="submit">
+                            Send
+                        </Button>
+                        </Col>
+                        </Row>
+                    </FormContainer>
                 </UserMessageContainer>
             </MessagebarContainer>
             <NotificationComponent/>

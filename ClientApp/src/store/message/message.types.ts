@@ -1,4 +1,5 @@
 import { MessageComment } from "../messagecomment/messagecomment.types";
+import { User } from "../user/user.types";
 
 export enum MESSAGE_ACTION_TYPES  {
     CREATE_START = 'message/CREATE_START',
@@ -26,5 +27,6 @@ export type Message = {
     messageValue: string | null;
     dateCreated: Date | null;
     userId: number | null,
+    user: User,
     messageComments: MessageComment[] | null;
 }

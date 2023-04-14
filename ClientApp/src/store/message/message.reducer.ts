@@ -18,6 +18,8 @@ import {
     messageFetchAllStart,
     messageFetchAllSuccess,
     messageFetchAllFailed,
+    messageFetchUserMessagesSuccess,
+    messageFetchUserMessagesStart,
 } from './message.action';
 
 export type MessageState = {
@@ -43,7 +45,8 @@ export const messageReducer = (
 ): MessageState => {
     if (
         messageFetchAllStart.match(action) ||
-        messageFetchSingleStart.match(action)
+        messageFetchSingleStart.match(action) ||
+        messageFetchUserMessagesStart.match(action) 
     ) {
         return { ...state, isLoading: true }
     } 
@@ -51,6 +54,11 @@ export const messageReducer = (
         messageFetchSingleSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, singleMessage: action.payload }
+    } 
+    if (
+        messageFetchUserMessagesSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, userMessages: action.payload }
     } 
     if (
         messageCreateSuccess.match(action) ||

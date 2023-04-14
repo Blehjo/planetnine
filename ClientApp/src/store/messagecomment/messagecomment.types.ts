@@ -1,4 +1,5 @@
 import { Favorite } from "../favorite/favorite.types";
+import { User } from "../user/user.types";
 export enum MESSAGECOMMENT_ACTION_TYPES  {
     CREATE_START = 'message/CREATE_START',
     CREATE_SUCCESS = 'message/CREATE_SUCCESS',
@@ -28,5 +29,6 @@ export type MessageComment = {
     dateCreated: Date;
     messageId: number | null;
     userId: number | null;
+    user: User | null;
     favorites: Favorite[] | null;
 }

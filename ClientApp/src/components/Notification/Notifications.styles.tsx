@@ -8,6 +8,7 @@ export const NotificationsContainer = styled.div`
     color: white;
     margin-top: 3.5rem;
     float: right;
+    position: relative;
 `;
 
 export const SidebarContainer = styled.div`

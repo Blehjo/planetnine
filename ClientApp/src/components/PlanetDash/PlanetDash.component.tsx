@@ -110,9 +110,7 @@ export class PlanetDash extends Component {
                             <Card className="bg-dark" key={index}>
                                 <Card.Img src={imageLink ? imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                                 <Card.ImgOverlay>
-                                    <BadgeContainer>
-                                        <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15}/></Badge>
-                                    </BadgeContainer>
+                                    <ArrowsFullscreen style={{ cursor: 'pointer' }} size={15}/>
                                 </Card.ImgOverlay>
                                 <Card.Body>
                                     <Card.Text>{planetName}</Card.Text>
