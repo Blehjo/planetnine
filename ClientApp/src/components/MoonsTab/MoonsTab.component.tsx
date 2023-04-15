@@ -176,7 +176,7 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
             </ResponsiveMasonry> : 
             <Col xs={12}>
                 <Card style={{ color: 'white', textAlign: 'center' }} className="bg-dark">
-                    <Card.Title>"Stay tuned. Currently no posts..."</Card.Title>
+                    <Card.Title>"Stay tuned. Currently no moons..."</Card.Title>
                 </Card>
             </Col>
         }

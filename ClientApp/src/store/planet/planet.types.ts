@@ -23,7 +23,7 @@ export enum PLANET_ACTION_TYPES  {
 };
 
 export type Planet = {
-    planetId: number | null;
+    planetId: number;
     planetName: string;
     planetMass: number;
     perihelion: number;
@@ -31,7 +31,8 @@ export type Planet = {
     gravity: number;
     temperature: number;
     type: string;
-    imageLink: string;
+    imageSource: string;
+    imageLink: File | null;
     moons: Moon[];
     favorites: Favorite[];
 }

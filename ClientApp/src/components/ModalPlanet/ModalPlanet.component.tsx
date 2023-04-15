@@ -5,8 +5,6 @@ import { Globe } from 'react-bootstrap-icons';
 
 import { BoxPlanetContainer, ModalPlanetContainer } from "./ModalPlanet.styles";
 import { RootState } from "../../store/store";
-import { Moon } from "../../store/moon/moon.types";
-import { MoonCreateStart, moonCreateStart } from "../../store/moon/moon.action";
 import { PlanetCreateStart, planetCreateStart } from "../../store/planet/planet.action";
 
 type ModalPlanetProps = ConnectedProps<typeof connector>;
@@ -14,8 +12,8 @@ type ModalPlanetProps = ConnectedProps<typeof connector>;
 export class ModalPlanet extends Component<ModalPlanetProps> {
     state = {
         show: false,
-        moonMass: 0, 
-        moonName: "", 
+        planetMass: 0, 
+        planetName: "", 
         perihelion: 0, 
         aphelion: 0, 
         gravity: 0, 
@@ -38,8 +36,8 @@ export class ModalPlanet extends Component<ModalPlanetProps> {
     }
 
     handleSubmit() {
-        const { moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile} = this.state;
-        this.props.createMoon(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile);
+        const { planetMass, planetName, perihelion, aphelion, gravity, temperature, imageLink, imageFile} = this.state;
+        this.props.createPlanet(planetMass, planetName, perihelion, aphelion, gravity, temperature, imageLink, imageFile);
     }
 
     render() {
@@ -92,22 +90,20 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<PlanetCreateStart>) => ({
-    createMoon: (moonMass: number, 
-        moonName: string, 
+    createPlanet: (planetMass: number, 
+        planetName: string, 
         perihelion: number, 
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        planetId: number,
         imageLink: string, 
         imageFile: File | null
-    ) => dispatch(planetCreateStart(moonMass, 
-        moonName, 
+    ) => dispatch(planetCreateStart(planetMass, 
+        planetName, 
         perihelion, 
         aphelion, 
         gravity, 
         temperature, 
-        planetId,
         imageLink,
         imageFile 
 ))});

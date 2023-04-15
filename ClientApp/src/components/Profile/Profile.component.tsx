@@ -15,6 +15,7 @@ import { CommentFetchSingleStart, commentFetchSingleStart } from "../../store/co
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { MoonsTab } from "../MoonsTab/MoonsTab.component";
 import { MoonCreateStart, moonCreateStart } from "../../store/moon/moon.action";
+import { PlanetCreateStart, planetCreateStart } from "../../store/planet/planet.action";
 
 
 export type ProfileProps = ConnectedProps<typeof connector>;
@@ -67,11 +68,12 @@ const mapToStateProps = (state: RootState) => {
         pilot: state.pilot,
         posts: state.post,
         comments: state.comment,
-        moons: state.moon
+        moons: state.moon,
+        planets: state.planet
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart | PostFetchAllStart | PostFetchUserPostsStart | PostCreateStart | PostFetchSingleStart | CommentFetchSingleStart | FavoriteCreateStart | MoonCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart | PostFetchAllStart | PostFetchUserPostsStart | PostCreateStart | PostFetchSingleStart | CommentFetchSingleStart | FavoriteCreateStart | MoonCreateStart | PlanetCreateStart>) => ({
     getUserProfile: (userId: number) => dispatch(userprofileFetchSingleStart(userId)),
     getPilot: (userId: number) => dispatch(pilotFetchSingleStart(userId)),
     getAllPosts: () => dispatch(postFetchAllStart()),
@@ -79,6 +81,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | Pil
     getPost: (postId: number) => dispatch(postFetchSingleStart(postId)),
     createPost: (postValue: string, mediaLink: string, imageFile: File) => dispatch(postCreateStart(postValue, mediaLink, imageFile)),
     createMoon: (moonMass: number, moonName: string, perihelion: number, aphelion: number, gravity: number, temperature: number, planetId: number | null, imageLink: string | null, imageFile: File | null ) => dispatch(moonCreateStart(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile)),
+    createPlanet: (planetMass: number, planetName: string, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: string, imageFile: File | null ) => dispatch(planetCreateStart(planetMass, planetName, perihelion, aphelion, gravity, temperature, imageLink, imageFile)),
     getComments: (postId: number) => dispatch(commentFetchSingleStart(postId)),
     likePost: (postId: number, contentType: string) => dispatch(favoriteCreateStart(postId, contentType))
 });

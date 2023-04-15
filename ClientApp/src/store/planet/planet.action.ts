@@ -15,7 +15,6 @@ export type PlanetCreateStart = ActionWithPayload<
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        planetId: number,
         imageLink: string,
         imageFile: File | null 
     }
@@ -120,7 +119,6 @@ export const planetCreateStart = withMatcher(
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        planetId: number, 
         imageLink: string,
         imageFile: File | null
 ): PlanetCreateStart => 
@@ -131,7 +129,6 @@ export const planetCreateStart = withMatcher(
         aphelion, 
         gravity, 
         temperature, 
-        planetId,
         imageLink,
         imageFile 
     })

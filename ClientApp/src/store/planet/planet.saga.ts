@@ -44,7 +44,7 @@ export function* createPlanet({ payload: {
     gravity,
     temperature,
     imageLink,
-    planetId
+    imageFile
 }}: PlanetCreateStart ) {
     try {
         const planet = yield* call(
@@ -56,7 +56,7 @@ export function* createPlanet({ payload: {
             gravity,
             temperature,
             imageLink,
-            planetId 
+            imageFile
         ); 
         yield* put(planetCreateSuccess(planet));
     } catch (error) {
