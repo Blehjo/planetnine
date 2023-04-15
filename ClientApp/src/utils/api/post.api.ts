@@ -4,8 +4,8 @@ import { Post } from "../../store/post/post.types";
 const api = "https://localhost:7098/api/post";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded' 
 }
 
 export async function getSinglePost(postId: number): Promise<Post> {
@@ -30,10 +30,10 @@ export async function getAllPosts(): Promise<Post[]> {
   return result;
 }
 
-export async function getUserPosts(postId: number): Promise<Post[]> {
+export async function getUserPosts(userId: number | undefined): Promise<Post[]> {
   const response = await axios({
     method: 'get',
-    url: `${api}/user/${postId}`,
+    url: `${api}/user/${userId}`,
     headers: headers,
     withCredentials: true
   });

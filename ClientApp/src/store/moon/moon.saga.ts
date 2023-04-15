@@ -43,20 +43,24 @@ export function* createMoon({ payload: {
     aphelion,
     gravity,
     temperature,
+    planetId,
     imageLink,
-    planetId
+    imageFile
 }}: MoonCreateStart ) {
+    const formData = new FormData();
+    formData.append('moonName', moonName);
+    formData.append('moonMass', moonMass as unknown as Blob);
+    formData.append('perihelion', perihelion as unknown as Blob);
+    formData.append('aphelion', aphelion as unknown as Blob);
+    formData.append('gravity', gravity as unknown as Blob);
+    formData.append('temperature', temperature as unknown as Blob);
+    formData.append('planetId', planetId as unknown as Blob);
+    formData.append('imageLink', imageLink as unknown as Blob);
+    formData.append('imageFile', imageFile as unknown as Blob);
     try {
         const moon = yield* call(
             addMoon,
-            moonName,
-            moonMass,
-            perihelion,
-            aphelion,
-            gravity,
-            temperature,
-            imageLink,
-            planetId 
+            formData
         ); 
         yield* put(moonCreateSuccess(moon));
     } catch (error) {
@@ -72,7 +76,9 @@ export function* updateMoon({ payload: {
     aphelion,
     gravity,
     temperature,
-    imageLink 
+    planetId,
+    imageLink,
+    imageFile 
 }}: MoonUpdateStart) {
     try {
         const moon = yield* call(
@@ -84,7 +90,9 @@ export function* updateMoon({ payload: {
             aphelion,
             gravity,
             temperature,
-            imageLink 
+            planetId,
+            imageLink,
+            imageFile
         ); 
         yield* put(moonUpdateSuccess(moon));
     } catch (error) {

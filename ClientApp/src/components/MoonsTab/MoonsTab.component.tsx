@@ -1,34 +1,45 @@
-import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import { Card, Modal, Row, Col, Form, Button, Image, Badge } from "react-bootstrap";
-import { ProfileProps } from "../Profile/Profile.component";
-import { utcConverter } from "../../utils/date/date.utils";
-import { CardContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
-import { ModalPostContainer } from "../ModalPost/ModalPost.styles";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { BadgeContainer } from "../Pilots/Pilots.styles";
-import { ArrowsFullscreen, Chat, Rocket } from "react-bootstrap-icons";
+import { ChangeEvent, Component, FormEvent, Fragment } from 'react';
+import { Card, Row, Col, Modal, Form, Button, Image, Badge } from 'react-bootstrap';
+import { ProfileProps } from '../Profile/Profile.component';
+import { ModalPostContainer } from '../ModalPost/ModalPost.styles';
+import { CardContainer, ModalContainer, PostContainer, TextContainer } from '../Post/Post.styles';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { BadgeContainer } from '../Pilots/Pilots.styles';
+import { ArrowsFullscreen, Chat, Rocket } from 'react-bootstrap-icons';
+import { utcConverter } from '../../utils/date/date.utils';
 
-interface IDefaultFormFields {
-    postValue: string;
-    mediaLink: string;
+interface IMoonFields {
+    moonName: string;
+    moonMass: number;
+    perihelion: number;
+    aphelion: number;
+    gravity: number;
+    temperature: number;
+    imageLink: string;
     imageSource: string | ArrayBuffer | null | undefined;
     imageFile: any;
-    show: boolean;
+    planetId: number | null;
     showCreate: boolean;
-};
+    show: boolean;
+}
 
-export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
+export class MoonsTab extends Component<ProfileProps, IMoonFields> {
     constructor(props: ProfileProps) {
         super(props);
         this.state = {
-            postValue: "",
-            mediaLink: "",
+            moonName: "",
+            moonMass: 0,
+            perihelion: 0,
+            aphelion: 0,
+            gravity: 0,
+            temperature: 0,
+            imageLink: "",
             imageSource: "",
             imageFile: null,
+            planetId: 0,
+            showCreate: false,
             show: false,
-            showCreate: false
         }
-
         this.handleLike = this.handleLike.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -38,7 +49,7 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
         this.handleChange = this.handleChange.bind(this);
         this.showPreview = this.showPreview.bind(this);
     }
-
+    
     handleLike(postId: number, type: string): void {
         this.props.likePost(postId, type);
     }
@@ -71,9 +82,9 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
 
     handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const { postValue, mediaLink, imageFile } = this.state;
+        const { moonName, moonMass, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile } = this.state;
         try {
-            this.props.createPost(postValue, mediaLink, imageFile);
+            this.props.createMoon(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile);
         } catch (error) {
             if (error) {
                 alert('Try again, please');
@@ -111,38 +122,33 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
         }
     }
 
-    componentDidMount(): void {
-        this.props.getUserPosts(this.props.currentUser.currentUser?.userId)
-    }
-
     render() {
-        const { currentUser, userprofile, posts, comments } = this.props;
-        const { show, showCreate, postValue } = this.state;
-        console.log("User Profile: ",currentUser.currentUser?.posts);
+        const { show, showCreate, moonName, moonMass, perihelion, aphelion, gravity, temperature, planetId } = this.state;
+        const { moons, comments } = this.props;
         return (
-        <Fragment>
+            <Fragment>
             <Row style={{ marginBottom: '2rem' }} xs={1} >
                 <Col>
                     <Card style={{ color: 'white', textAlign: 'center' }} className='bg-dark'>
                         <Card.Body>
-                            <Card.Title style={{ cursor: 'pointer' }} onClick={this.handleCreate} >Create a post</Card.Title>
+                            <Card.Title style={{ cursor: 'pointer' }} onClick={this.handleCreate} >Create a moon</Card.Title>
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
             {
-                posts.userPosts?.length ?
+                moons.userMoons?.length ?
                 <ResponsiveMasonry
                     columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
                 >
                 <Masonry>
-                {posts.userPosts?.map(({ postId, postValue, mediaLink, comments, favorites, type, imageSource }, index) => {
+                {moons.userMoons?.map(({ moonId, moonName, moonMass, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageSource, favorites, type }, index) => {
                     return <PostContainer key={index}>
                         <Card className="bg-dark" key={index}>
-                            <Card.Img src={mediaLink ? imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                            <Card.Img src={imageLink ? imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                             <Card.ImgOverlay>
                                 <BadgeContainer>
-                                    <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(postId)} size={15}/></Badge>
+                                    <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(moonId)} size={15}/></Badge>
                                 </BadgeContainer>
                                 {
                                     <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
@@ -154,14 +160,14 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                                 {
                                     <BadgeContainer>
                                         <Badge style={{ color: 'black' }} bg="light">
-                                        <Rocket style={{ cursor: 'pointer' }} onClick={() => this.handleLike(postId, type)} size={15}/>
+                                        <Rocket style={{ cursor: 'pointer' }} onClick={() => this.handleLike(moonId, type)} size={15}/>
                                         {` ${favorites != null ? favorites : ""}`}
                                         </Badge>
                                     </BadgeContainer>
                                 }
                             </Card.ImgOverlay>
                             <Card.Body>
-                                <Card.Text>{postValue}</Card.Text>
+                                <Card.Text>{moonName}</Card.Text>
                             </Card.Body>
                         </Card>
                     </PostContainer>
@@ -188,9 +194,9 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                     <Col md={8}>
                     <Image
                         fluid
-                        src={posts.singlePost?.mediaLink ? posts.singlePost?.imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
+                        src={moons.singleMoon?.imageLink ? moons.singleMoon?.imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                     />
-                    {posts.singlePost?.postValue}
+                    {moons.singleMoon?.moonName}
                     </Col>
                     <Col>
                     <div>Comments</div>
@@ -230,7 +236,7 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                 <Form.Control
                     onChange={this.handleChange}
                     name="postValue"
-                    value={postValue}
+                    value={moonName}
                     type="postValue"
                     as="input"
                     placeholder="Post"
@@ -266,5 +272,3 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
         );
     }
 }
-
-export default PostsTab;

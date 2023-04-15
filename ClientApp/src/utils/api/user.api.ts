@@ -9,7 +9,7 @@ const headers = {
   'Content-Type': 'application/json' 
 }
 
-export async function getSingleUser(userId: number): Promise<User> {
+export async function getSingleUser(userId: number | undefined): Promise<User> {
   const response = await axios({
     method: 'get',
     url:`${api}/${userId}`,

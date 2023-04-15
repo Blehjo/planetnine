@@ -68,7 +68,7 @@ export type PostFetchSingleFailed = ActionWithPayload<
 
 export type PostFetchUserPostsStart = ActionWithPayload<
     POST_ACTION_TYPES.FETCH_USER_POSTS_START,
-    { userId: number }
+    { userId: number | undefined}
 >;
 
 export type PostFetchUserPostsSuccess = ActionWithPayload<
@@ -156,7 +156,7 @@ export const postFetchSingleFailed = withMatcher(
 );
 
 export const postFetchUserPostsStart = withMatcher(
-    (userId: number): PostFetchUserPostsStart => 
+    (userId: number | undefined): PostFetchUserPostsStart => 
     createAction(POST_ACTION_TYPES.FETCH_USER_POSTS_START, { userId })
 );
 

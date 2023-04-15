@@ -22,7 +22,8 @@ export enum MOON_ACTION_TYPES  {
 };
 
 export type Moon = {
-    moonId: number | null;
+    moonId: number;
+    moonName: string;
     moonMass: number;
     perihelion: number;
     aphelion: number;
@@ -30,6 +31,7 @@ export type Moon = {
     temperature: number;
     type: string;
     imageLink: string;
+    imageSource: string;
     planetId: number;
     favorites: Favorite[];
 }

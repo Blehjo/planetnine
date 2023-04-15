@@ -53,10 +53,10 @@ export class PostComponent extends Component<PostProps> {
                     columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
                 >
                     <Masonry>
-                    {posts.posts?.map(({ postId, postValue, mediaLink, comments, favorites, type }, index) => {
+                    {posts.posts?.map(({ postId, postValue, mediaLink, comments, favorites, type, imageSource }, index) => {
                         return <PostContainer key={index}>
                             <Card className="bg-dark" key={index}>
-                                <Card.Img src={mediaLink ? mediaLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                                <Card.Img src={mediaLink ? imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                                 <Card.ImgOverlay>
                                     <BadgeContainer>
                                         <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(postId)} size={15}/></Badge>

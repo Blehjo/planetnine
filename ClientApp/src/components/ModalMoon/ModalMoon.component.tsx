@@ -20,6 +20,7 @@ export class ModalMoon extends Component<ModalMoonProps> {
         gravity: 0, 
         temperature: 0, 
         imageLink: null, 
+        imageFile: null,
         planetId: 0
     }
 
@@ -36,8 +37,8 @@ export class ModalMoon extends Component<ModalMoonProps> {
     }
 
     handleSubmit() {
-        const { moonMass, moonName, perihelion, aphelion, gravity, temperature, imageLink, planetId } = this.state;
-        this.props.createMoon(moonMass, moonName, perihelion, aphelion, gravity, temperature, imageLink, planetId);
+        const { moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile } = this.state;
+        this.props.createMoon(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile);
     }
 
     render() {
@@ -90,23 +91,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<MoonCreateStart>) => ({
-    createMoon: (moonMass: number, 
-        moonName: string, 
-        perihelion: number, 
-        aphelion: number, 
-        gravity: number, 
-        temperature: number, 
-        imageLink: File | null, 
-        planetId: number 
-    ) => dispatch(moonCreateStart(moonMass, 
-        moonName, 
-        perihelion, 
-        aphelion, 
-        gravity, 
-        temperature, 
-        imageLink, 
-        planetId
-))});
+    createMoon: (moonMass: number, moonName: string, perihelion: number, aphelion: number, gravity: number, temperature: number, planetId: number | null, imageLink: string | null, imageFile: File | null ) => dispatch(moonCreateStart(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile))
+});
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

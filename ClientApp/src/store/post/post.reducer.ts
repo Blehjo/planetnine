@@ -18,6 +18,8 @@ import {
     postFetchAllStart,
     postFetchAllSuccess,
     postFetchAllFailed,
+    postFetchUserPostsStart,
+    postFetchUserPostsSuccess,
 } from './post.action';
 
 export type PostState = {
@@ -42,7 +44,8 @@ export const postReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): PostState => {
     if (
-        postFetchAllStart.match(action) 
+        postFetchAllStart.match(action) || 
+        postFetchUserPostsStart.match(action)
     ) {
         return { ...state, isLoading: true }
     }
@@ -52,6 +55,11 @@ export const postReducer = (
         postFetchSingleSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, singlePost: action.payload }
+    }
+    if (
+        postFetchUserPostsSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userPosts: action.payload }
     }
     if (
         postDeleteSuccess.match(action) ||

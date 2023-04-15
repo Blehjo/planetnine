@@ -27,6 +27,7 @@ export type Post = {
     postValue: string | null;
     mediaLink: string | null;
     imageSource: string;
+    imageFile: File;
     type: string;
     dateCreated: Date;
     userId: number | null,

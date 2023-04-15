@@ -72,7 +72,7 @@ export type UserprofileDeleteteFailed = ActionWithPayload<
    
 export type UserprofileFetchSingleStart = ActionWithPayload<
     USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START,
-    { userId: number }
+    { userId: number | undefined }
 >;
 
 export type UserprofileFetchSingleSuccess = ActionWithPayload<
@@ -183,7 +183,7 @@ export const userprofileDeleteFailed = withMatcher(
 );
 
 export const userprofileFetchSingleStart = withMatcher(
-    (userId: number): UserprofileFetchSingleStart => 
+    (userId: number | undefined): UserprofileFetchSingleStart => 
     createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START, { userId })
 );
 

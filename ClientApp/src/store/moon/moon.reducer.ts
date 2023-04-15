@@ -48,7 +48,11 @@ export const moonReducer = (
     }
     if (
         moonCreateSuccess.match(action) ||
-        moonUpdateSuccess.match(action) ||
+        moonUpdateSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singleMoon: action.payload };
+    }
+    if (
         moonDeleteSuccess.match(action) ||
         moonFetchAllSuccess.match(action) 
     ) {

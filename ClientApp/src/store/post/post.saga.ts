@@ -24,7 +24,10 @@ import {
     PostFetchSingleStart,
     PostFetchUserPostsStart,
     PostUpdateStart,
-    PostDeleteStart
+    PostDeleteStart,
+    postFetchUserPostsStart,
+    postFetchUserPostsSuccess,
+    postFetchUserPostsFailed
 } from './post.action';
 
 import { 
@@ -100,9 +103,9 @@ export function* fetchOtherUsersPosts({ payload: { userId } }: PostFetchUserPost
             userId
         );
         if (!posts) return;
-        yield* call(postFetchAllSuccess, posts);
+        yield* put(postFetchUserPostsSuccess(posts));
     } catch (error) {
-        yield* put(postFetchAllFailed(error as Error));
+        yield* put(postFetchUserPostsFailed(error as Error));
     }
 }
 
@@ -156,6 +159,13 @@ export function* onFetchUserPostsStart() {
     );
 }
 
+export function* onFetchOtherUsersPostsStart() {
+    yield* takeLatest(
+        POST_ACTION_TYPES.FETCH_USER_POSTS_START, 
+        fetchOtherUsersPosts
+    );
+}
+
 export function* onFetchSinglePostStart() {
     yield* takeLatest(
         POST_ACTION_TYPES.FETCH_SINGLE_START, 
@@ -176,6 +186,7 @@ export function* postSagas() {
         call(onUpdateStart),
         call(onDeleteStart),
         call(onFetchUserPostsStart),
+        call(onFetchOtherUsersPostsStart),
         call(onFetchSinglePostStart),
         call(onFetchPostsStart)
     ]);

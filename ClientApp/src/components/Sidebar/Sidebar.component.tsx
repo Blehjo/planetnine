@@ -1,25 +1,23 @@
+import { Component } from 'react';
 import { Outlet } from 'react-router';
-import { Row, Col } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { Row } from 'react-bootstrap';
 
-import SidebarMenu from '../SidebarMenu/SidebarMenu.component';
 import { ContentContainer, SidebarsContainer } from './Sidebar.styles';
-// import { selectIsListOpen } from '../store/list/list.selector';
+import SidebarMenuComponent from '../SidebarMenu/SidebarMenu.component';
 
-function Sidebar() {
-    const dispatch = useDispatch();
-    // const isListOpen = useSelector(selectIsListOpen);
-
-    return (
-        <Row style={{ marginLeft: "2rem", zIndex: 2 }}>
-            <SidebarsContainer>
-                <SidebarMenu />
-            </SidebarsContainer>
-            <ContentContainer>
-                <Outlet />
-            </ContentContainer>
-        </Row>
-    );
+class Sidebar extends Component {    
+    render() {
+        return (
+            <Row style={{ marginLeft: "2rem", zIndex: 2 }}>
+                <SidebarsContainer>
+                    <SidebarMenuComponent />
+                </SidebarsContainer>
+                <ContentContainer>
+                    <Outlet />
+                </ContentContainer>
+            </Row>
+        );
+    }
 }
 
 export default Sidebar;

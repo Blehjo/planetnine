@@ -19,7 +19,10 @@ export const login = async (username: string, password: string): Promise<User> =
             username,
             password
         },
-        headers: headers,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json' 
+        },
         withCredentials: true
     });
     const result = await response.data;

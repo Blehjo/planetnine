@@ -4,8 +4,8 @@ import { Moon } from "../../store/moon/moon.types";
 const api = "https://localhost:7098/api/moon";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded' 
 }
 
 export async function getSingleMoon(moonId: number): Promise<Moon> {
@@ -52,20 +52,11 @@ export async function getUsersMoons(): Promise<Moon[]> {
   return result;
 }
 
-export async function addMoon(moonName: string, moonMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: File | null, planetId: number): Promise<Moon[]> {
+export async function addMoon(formData: FormData): Promise<Moon> {
   const response = await axios({
     method: 'post',
     url: api, 
-    data: {
-      moonName,
-      moonMass,
-      perihelion,
-      aphelion,
-      gravity,
-      temperature,
-      imageLink, 
-      planetId
-    },
+    data: formData,
     headers: headers,
     withCredentials: true
   });
@@ -73,7 +64,7 @@ export async function addMoon(moonName: string, moonMass: number, perihelion: nu
   return result;
 }
 
-export async function editMoon(moonId: number, moonName: string, moonMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: File | null): Promise<Moon[]> {
+export async function editMoon(moonId: number, moonName: string, moonMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, planetId: number | null, imageLink: string | null, imageFile: File | null): Promise<Moon> {
   const response = await axios({
     method: 'put',
     url:`${api}/${moonId}`, 
@@ -85,7 +76,9 @@ export async function editMoon(moonId: number, moonName: string, moonMass: numbe
       aphelion,
       gravity,
       temperature,
-      imageLink 
+      planetId,
+      imageLink,
+      imageFile
     },
     headers: headers,
     withCredentials: true

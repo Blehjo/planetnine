@@ -7,6 +7,7 @@ import { BoxPlanetContainer, ModalPlanetContainer } from "./ModalPlanet.styles";
 import { RootState } from "../../store/store";
 import { Moon } from "../../store/moon/moon.types";
 import { MoonCreateStart, moonCreateStart } from "../../store/moon/moon.action";
+import { PlanetCreateStart, planetCreateStart } from "../../store/planet/planet.action";
 
 type ModalPlanetProps = ConnectedProps<typeof connector>;
 
@@ -19,8 +20,9 @@ export class ModalPlanet extends Component<ModalPlanetProps> {
         aphelion: 0, 
         gravity: 0, 
         temperature: 0, 
-        imageLink: null, 
-        planetId: 0
+        imageLink: "", 
+        planetId: 0,
+        imageFile: null,
     }
 
     handleClick() {
@@ -36,8 +38,8 @@ export class ModalPlanet extends Component<ModalPlanetProps> {
     }
 
     handleSubmit() {
-        const { moonMass, moonName, perihelion, aphelion, gravity, temperature, imageLink, planetId } = this.state;
-        this.props.createMoon(moonMass, moonName, perihelion, aphelion, gravity, temperature, imageLink, planetId);
+        const { moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile} = this.state;
+        this.props.createMoon(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile);
     }
 
     render() {
@@ -89,23 +91,25 @@ const mapStateToProps = (state: RootState) => ({
     planets: state.planet
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<MoonCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<PlanetCreateStart>) => ({
     createMoon: (moonMass: number, 
         moonName: string, 
         perihelion: number, 
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        imageLink: File | null, 
-        planetId: number 
-    ) => dispatch(moonCreateStart(moonMass, 
+        planetId: number,
+        imageLink: string, 
+        imageFile: File | null
+    ) => dispatch(planetCreateStart(moonMass, 
         moonName, 
         perihelion, 
         aphelion, 
         gravity, 
         temperature, 
-        imageLink, 
-        planetId
+        planetId,
+        imageLink,
+        imageFile 
 ))});
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -15,14 +15,15 @@ export type MoonCreateStart = ActionWithPayload<
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        imageLink: File | null, 
-        planetId: number 
+        planetId: number | null,
+        imageLink: string | null, 
+        imageFile: File | null,
     }
 >;
 
 export type MoonCreateSuccess = ActionWithPayload<
     MOON_ACTION_TYPES.CREATE_SUCCESS, 
-    Moon[]
+    Moon
 >;
 
 export type MoonCreateFailed = ActionWithPayload<
@@ -39,14 +40,15 @@ export type MoonUpdateStart = ActionWithPayload<
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        imageLink: File | null, 
         planetId: number 
+        imageLink: string | null, 
+        imageFile: File | null, 
     }
 >;
 
 export type MoonUpdateSuccess = ActionWithPayload<
     MOON_ACTION_TYPES.UPDATE_SUCCESS, 
-    Moon[]
+    Moon
 >;
 
 export type MoonUpdateFailed = ActionWithPayload<
@@ -120,8 +122,9 @@ export const moonCreateStart = withMatcher(
         aphelion: number, 
         gravity: number, 
         temperature: number, 
-        imageLink: File | null, 
-        planetId: number 
+        planetId: number | null,
+        imageLink: string | null, 
+        imageFile: File | null,
 ): MoonCreateStart => 
     createAction(MOON_ACTION_TYPES.CREATE_START, {
         moonMass, 
@@ -130,13 +133,14 @@ export const moonCreateStart = withMatcher(
         aphelion, 
         gravity, 
         temperature, 
+        planetId,
         imageLink, 
-        planetId
+        imageFile,
     })
 );
 
 export const moonCreateSuccess = withMatcher(
-    (moon: Moon[]): MoonCreateSuccess => 
+    (moon: Moon): MoonCreateSuccess => 
     createAction(MOON_ACTION_TYPES.CREATE_SUCCESS, moon)
 );
 
@@ -152,9 +156,10 @@ export const moonUpdateStart = withMatcher(
         perihelion: number, 
         aphelion: number, 
         gravity: number, 
+        planetId: number,
         temperature: number, 
-        imageLink: File | null, 
-        planetId: number 
+        imageLink: string | null, 
+        imageFile: File | null
     ): MoonUpdateStart => 
     createAction(MOON_ACTION_TYPES.UPDATE_START, {
         moonId,
@@ -164,13 +169,14 @@ export const moonUpdateStart = withMatcher(
         aphelion, 
         gravity, 
         temperature, 
-        imageLink, 
-        planetId
+        planetId,
+        imageLink,
+        imageFile 
     })
 );
 
 export const moonUpdateSuccess = withMatcher(
-    (moon: Moon[]): MoonUpdateSuccess => 
+    (moon: Moon): MoonUpdateSuccess => 
     createAction(MOON_ACTION_TYPES.UPDATE_SUCCESS, moon)
 );
 
