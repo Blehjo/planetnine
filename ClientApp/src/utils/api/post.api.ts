@@ -44,7 +44,7 @@ export async function getUserPosts(userId: number | undefined): Promise<Post[]> 
 export async function getUsersPosts(): Promise<Post[]> {
   const response = await axios({
     method: 'get',
-    url: `${api}/user/posts`,
+    url: `${api}/user`,
     headers: headers,
     withCredentials: true
   });

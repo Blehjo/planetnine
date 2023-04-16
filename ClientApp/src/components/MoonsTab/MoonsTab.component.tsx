@@ -228,35 +228,110 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         <Modal show={showCreate} onHide={() => this.handleClose()}>
             <ModalPostContainer>
             <Modal.Header closeButton>
-            <Modal.Title>Inquiry</Modal.Title>
+            <Modal.Title>Document Moon</Modal.Title>
             </Modal.Header>
             <Form autoComplete="off" onSubmit={this.handleSubmit}>
-            <Modal.Body>
-                <Form.Group className="mb-3" controlId="formPostValue">
-                <Form.Control
-                    onChange={this.handleChange}
-                    name="postValue"
-                    value={moonName}
-                    type="postValue"
-                    as="input"
-                    placeholder="Post"
-                    autoFocus
-                    />
-                </Form.Group>
-                <Form.Group
-                className="mb-3"
-                controlId="formFile"
-                >
-                <Form.Control 
-                    as="input"
-                    name="mediaLink"
-                    onChange={this.showPreview}
-                    accept="image/*"
-                    type="file" 
-                    placeholder="Media"
-                />
-                </Form.Group>
-            </Modal.Body>
+                    <Modal.Body>
+                        <Row xs={2}>
+                        <Col>
+                        <Form.Group className="mb-3" controlId="formPlanetName">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="moonName"
+                            value={moonName}
+                            type="moonName"
+                            as="input"
+                            placeholder="Moon Name"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        <Col>
+                        <Form.Group className="mb-3" controlId="formMoonMass">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="moonMass"
+                            value={moonMass}
+                            type="moonMass"
+                            as="input"
+                            placeholder="Moon Mass"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        </Row>
+                        <Row xs={2}>
+                            <Col>
+                        <Form.Group className="mb-3" controlId="formPerihelion">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="perihelion"
+                            value={perihelion}
+                            type="perihelion"
+                            as="input"
+                            placeholder="Perihelion"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        <Col>
+                        <Form.Group className="mb-3" controlId="formAphelion">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="aphelion"
+                            value={aphelion}
+                            type="aphelion"
+                            as="input"
+                            placeholder="Aphelion"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        </Row>
+                        <Row xs={2}>
+                            <Col>
+                        <Form.Group className="mb-3" controlId="formGravity">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="gravity"
+                            value={gravity}
+                            type="gravity"
+                            as="input"
+                            placeholder="Gravity"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        <Col>
+                        <Form.Group className="mb-3" controlId="formTemperature">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="Temperature"
+                            value={temperature}
+                            type="Temperature"
+                            as="input"
+                            placeholder="Temperature"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        </Row>
+                        <Row>
+                        <Form.Group
+                        className="mb-3"
+                        controlId="formFile"
+                        >
+                        <Form.Control 
+                            as="input"
+                            name="mediaLink"
+                            onChange={this.showPreview}
+                            accept="image/*"
+                            type="file" 
+                            placeholder="Media"
+                        />
+                        </Form.Group>
+                        </Row>
+                    </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={() => this.handleCloseCreate()}>
                 Close

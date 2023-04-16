@@ -4,8 +4,8 @@ import { Planet } from "../../store/planet/planet.types";
 const api = "https://localhost:7098/api/planet";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded' 
 }
 
 export async function getSinglePlanet(planetId: number): Promise<Planet> {
@@ -52,19 +52,11 @@ export async function getUsersPlanets(): Promise<Planet[]> {
   return result;
 }
 
-export async function addPlanet(planetName: string, planetMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: string): Promise<Planet[]> {
+export async function addPlanet(formData: FormData): Promise<Planet> {
   const response = await axios({
     method: 'post',
     url: api, 
-    data: {
-      planetName,
-      planetMass,
-      perihelion,
-      aphelion,
-      gravity,
-      temperature,
-      imageLink 
-    },
+    data: formData,
     headers: headers,
     withCredentials: true
   });
@@ -72,20 +64,11 @@ export async function addPlanet(planetName: string, planetMass: number, periheli
   return result;
 }
 
-export async function editPlanet(planetId: number, planetName: string, planetMass: number, perihelion: number, aphelion: number, gravity: number, temperature: number, imageLink: string): Promise<Planet[]> {
+export async function editPlanet(planetId: number, formData: FormData): Promise<Planet> {
   const response = await axios({
     method: 'put',
     url:`${api}/${planetId}`, 
-    data: {
-      planetId,
-      planetName,
-      planetMass,
-      perihelion,
-      aphelion,
-      gravity,
-      temperature,
-      imageLink 
-    },
+    data: formData,
     headers: headers,
     withCredentials: true
   });

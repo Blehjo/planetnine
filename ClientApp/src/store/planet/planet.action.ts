@@ -9,20 +9,20 @@ import {
 
 export type PlanetCreateStart = ActionWithPayload<
     PLANET_ACTION_TYPES.CREATE_START, { 
-        planetMass: number, 
+        planetMass: string, 
         planetName: string, 
-        perihelion: number, 
-        aphelion: number, 
-        gravity: number, 
-        temperature: number, 
+        perihelion: string, 
+        aphelion: string, 
+        gravity: string, 
+        temperature: string, 
         imageLink: string,
-        imageFile: File | null 
+        imageFile: File  
     }
 >;
 
 export type PlanetCreateSuccess = ActionWithPayload<
     PLANET_ACTION_TYPES.CREATE_SUCCESS, 
-    Planet[]
+    Planet
 >;
 
 export type PlanetCreateFailed = ActionWithPayload<
@@ -33,19 +33,20 @@ export type PlanetCreateFailed = ActionWithPayload<
 export type PlanetUpdateStart = ActionWithPayload<
     PLANET_ACTION_TYPES.UPDATE_START, { 
         planetId: number,
-        planetMass: number, 
+        planetMass: string, 
         planetName: string, 
-        perihelion: number, 
-        aphelion: number, 
-        gravity: number, 
-        temperature: number, 
-        imageLink: string
+        perihelion: string, 
+        aphelion: string, 
+        gravity: string, 
+        temperature: string, 
+        imageLink: string,
+        imageFile: File
     }
 >;
 
 export type PlanetUpdateSuccess = ActionWithPayload<
     PLANET_ACTION_TYPES.UPDATE_SUCCESS, 
-    Planet[]
+    Planet
 >;
 
 export type PlanetUpdateFailed = ActionWithPayload<
@@ -113,14 +114,14 @@ export type PlanetFetchAllFailed = ActionWithPayload<
 >;
 
 export const planetCreateStart = withMatcher(
-    (   planetMass: number, 
+    (   planetMass: string, 
         planetName: string, 
-        perihelion: number, 
-        aphelion: number, 
-        gravity: number, 
-        temperature: number, 
+        perihelion: string, 
+        aphelion: string, 
+        gravity: string, 
+        temperature: string, 
         imageLink: string,
-        imageFile: File | null
+        imageFile: File 
 ): PlanetCreateStart => 
     createAction(PLANET_ACTION_TYPES.CREATE_START, {
         planetMass, 
@@ -135,7 +136,7 @@ export const planetCreateStart = withMatcher(
 );
 
 export const planetCreateSuccess = withMatcher(
-    (planet: Planet[]): PlanetCreateSuccess => 
+    (planet: Planet): PlanetCreateSuccess => 
     createAction(PLANET_ACTION_TYPES.CREATE_SUCCESS, planet)
 );
 
@@ -146,13 +147,14 @@ export const planetCreateFailed = withMatcher(
  
 export const planetUpdateStart = withMatcher(
     (   planetId: number,
-        planetMass: number, 
+        planetMass: string, 
         planetName: string, 
-        perihelion: number, 
-        aphelion: number, 
-        gravity: number, 
-        temperature: number, 
+        perihelion: string, 
+        aphelion: string, 
+        gravity: string, 
+        temperature: string, 
         imageLink: string, 
+        imageFile: File
 ): PlanetUpdateStart => 
     createAction(PLANET_ACTION_TYPES.UPDATE_START, {
         planetId,
@@ -163,11 +165,12 @@ export const planetUpdateStart = withMatcher(
         gravity, 
         temperature, 
         imageLink, 
+        imageFile
     })
 );
 
 export const planetUpdateSuccess = withMatcher(
-    (planet: Planet[]): PlanetUpdateSuccess => 
+    (planet: Planet): PlanetUpdateSuccess => 
     createAction(PLANET_ACTION_TYPES.UPDATE_SUCCESS, planet)
 );
 

@@ -25,14 +25,14 @@ export enum PLANET_ACTION_TYPES  {
 export type Planet = {
     planetId: number;
     planetName: string;
-    planetMass: number;
-    perihelion: number;
-    aphelion: number;
-    gravity: number;
-    temperature: number;
+    planetMass: string;
+    perihelion: string;
+    aphelion: string;
+    gravity: string;
+    temperature: string;
     type: string;
     imageSource: string;
-    imageLink: File | null;
+    imageLink: string | null;
     moons: Moon[];
     favorites: Favorite[];
 }

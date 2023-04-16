@@ -10,11 +10,11 @@ import { utcConverter } from '../../utils/date/date.utils';
 
 interface IPlanetFields {
     planetName: string;
-    planetMass: number;
-    perihelion: number;
-    aphelion: number;
-    gravity: number;
-    temperature: number;
+    planetMass: string;
+    perihelion: string;
+    aphelion: string;
+    gravity: string;
+    temperature: string;
     imageLink: string;
     imageSource: string | ArrayBuffer | null | undefined;
     imageFile: any;
@@ -27,11 +27,11 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
         super(props);
         this.state = {
             planetName: "",
-            planetMass: 0,
-            perihelion: 0,
-            aphelion: 0,
-            gravity: 0,
-            temperature: 0,
+            planetMass: "",
+            perihelion: "",
+            aphelion: "",
+            gravity: "",
+            temperature: "",
             imageLink: "",
             imageSource: "",
             imageFile: null,
@@ -82,7 +82,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
         event.preventDefault();
         const { planetName, planetMass, perihelion, aphelion, gravity, temperature, imageLink, imageFile } = this.state;
         try {
-            this.props.createPlanet(planetMass, planetName, perihelion, aphelion, gravity, temperature, imageLink, imageFile);
+            this.props.createPlanet(planetName, planetMass, perihelion, aphelion, gravity, temperature, imageLink, imageFile);
         } catch (error) {
             if (error) {
                 alert('Try again, please');
@@ -119,6 +119,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
           });
         }
     }
+
     render() {
         const { show, showCreate, planetName, planetMass, perihelion, aphelion, gravity, temperature } = this.state;
         const { planets, comments } = this.props;
@@ -225,21 +226,95 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
         <Modal show={showCreate} onHide={() => this.handleClose()}>
             <ModalPostContainer>
             <Modal.Header closeButton>
-            <Modal.Title>Inquiry</Modal.Title>
+            <Modal.Title>Document Planet</Modal.Title>
             </Modal.Header>
             <Form autoComplete="off" onSubmit={this.handleSubmit}>
             <Modal.Body>
-                <Form.Group className="mb-3" controlId="formPostValue">
+                <Row xs={2}>
+                <Col>
+                <Form.Group className="mb-3" controlId="formPlanetName">
                 <Form.Control
                     onChange={this.handleChange}
-                    name="postValue"
+                    name="planetName"
                     value={planetName}
-                    type="postValue"
+                    type="planetName"
                     as="input"
-                    placeholder="Post"
+                    placeholder="Planet Name"
                     autoFocus
                     />
                 </Form.Group>
+                </Col>
+                <Col>
+                <Form.Group className="mb-3" controlId="formPlanetMass">
+                <Form.Control
+                    onChange={this.handleChange}
+                    name="planetMass"
+                    value={planetMass}
+                    type="planetMass"
+                    as="input"
+                    placeholder="Planet Mass"
+                    autoFocus
+                    />
+                </Form.Group>
+                </Col>
+                </Row>
+                <Row xs={2}>
+                    <Col>
+                <Form.Group className="mb-3" controlId="formPerihelion">
+                <Form.Control
+                    onChange={this.handleChange}
+                    name="perihelion"
+                    value={perihelion}
+                    type="perihelion"
+                    as="input"
+                    placeholder="Perihelion"
+                    autoFocus
+                    />
+                </Form.Group>
+                </Col>
+                <Col>
+                <Form.Group className="mb-3" controlId="formAphelion">
+                <Form.Control
+                    onChange={this.handleChange}
+                    name="aphelion"
+                    value={aphelion}
+                    type="aphelion"
+                    as="input"
+                    placeholder="Aphelion"
+                    autoFocus
+                    />
+                </Form.Group>
+                </Col>
+                </Row>
+                <Row xs={2}>
+                    <Col>
+                <Form.Group className="mb-3" controlId="formGravity">
+                <Form.Control
+                    onChange={this.handleChange}
+                    name="gravity"
+                    value={gravity}
+                    type="gravity"
+                    as="input"
+                    placeholder="Gravity"
+                    autoFocus
+                    />
+                </Form.Group>
+                </Col>
+                <Col>
+                <Form.Group className="mb-3" controlId="formTemperature">
+                <Form.Control
+                    onChange={this.handleChange}
+                    name="temperature"
+                    value={temperature}
+                    type="Temperature"
+                    as="input"
+                    placeholder="Temperature"
+                    autoFocus
+                    />
+                </Form.Group>
+                </Col>
+                </Row>
+                <Row>
                 <Form.Group
                 className="mb-3"
                 controlId="formFile"
@@ -253,6 +328,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
                     placeholder="Media"
                 />
                 </Form.Group>
+                </Row>
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={() => this.handleCloseCreate()}>

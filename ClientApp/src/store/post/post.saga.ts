@@ -41,7 +41,7 @@ import {
     deletePost
 } from '../../utils/api/post.api';
 
-export function* createPost({ payload: { postValue, mediaLink, imageFile }}: PostCreateStart ) {
+export function* createPost({ payload: { postValue, mediaLink, imageFile }}: PostCreateStart) {
     const formData = new FormData();
     formData.append('postValue', postValue);
     formData.append('mediaLink', mediaLink);
@@ -90,9 +90,9 @@ export function* fetchUserPosts() {
     try {
         const post = yield* call(getUsersPosts);
         if (!post) return;
-        yield* call(postFetchAllSuccess, post);
+        yield* put(postFetchUserPostsSuccess(post));
     } catch (error) {
-        yield* put(postFetchAllFailed(error as Error));
+        yield* put(postFetchUserPostsFailed(error as Error));
     }
 }
 

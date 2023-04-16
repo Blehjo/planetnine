@@ -61,7 +61,6 @@ export class ModalPost extends Component<ModalPostProps, IDefaultFormFields> {
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
         const { name, value } = event.target;
         this.setState({ ...this.state, [name]: value });
-        console.log("State: ", this.state)
     }
 
     showPreview(event: ChangeEvent<HTMLInputElement>) {
@@ -97,7 +96,7 @@ export class ModalPost extends Component<ModalPostProps, IDefaultFormFields> {
                 <Modal show={show} onHide={() => this.handleClose()}>
                     <ModalPostContainer>
                     <Modal.Header closeButton>
-                    <Modal.Title>Inquiry</Modal.Title>
+                    <Modal.Title>Data log</Modal.Title>
                     </Modal.Header>
                     <Form autoComplete="off" onSubmit={this.handleSubmit}>
                     <Modal.Body>

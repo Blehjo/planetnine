@@ -1,5 +1,5 @@
-import { Component, Dispatch, Fragment } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { ConnectedProps, connect } from "react-redux";
 import { Globe } from 'react-bootstrap-icons';
 
@@ -9,39 +9,96 @@ import { PlanetCreateStart, planetCreateStart } from "../../store/planet/planet.
 
 type ModalPlanetProps = ConnectedProps<typeof connector>;
 
-export class ModalPlanet extends Component<ModalPlanetProps> {
-    state = {
-        show: false,
-        planetMass: 0, 
-        planetName: "", 
-        perihelion: 0, 
-        aphelion: 0, 
-        gravity: 0, 
-        temperature: 0, 
-        imageLink: "", 
-        planetId: 0,
-        imageFile: null,
+interface IPlanetFields {
+    planetName: string;
+    planetMass: string;
+    perihelion: string;
+    aphelion: string;
+    gravity: string;
+    temperature: string;
+    imageLink: string;
+    imageSource: string | ArrayBuffer | null | undefined;
+    imageFile: any;
+    show: boolean;
+}
+
+export class ModalPlanet extends Component<ModalPlanetProps, IPlanetFields> {
+    constructor(props: ModalPlanetProps) {
+        super(props);
+        this.state = {
+            planetName: "",
+            planetMass: "",
+            perihelion: "",
+            aphelion: "",
+            gravity: "",
+            temperature: "",
+            imageLink: "",
+            imageSource: "",
+            imageFile: null,
+            show: false,
+        }
+        this.handleClose = this.handleClose.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.showPreview = this.showPreview.bind(this);
     }
 
-    handleClick() {
+    handleClose(): void {
         this.setState({
             show: !this.state.show
-        })
+        });
     }
 
-    handleClose() {
+    handleClick(): void {;
         this.setState({
             show: !this.state.show
-        })
+        });
     }
 
-    handleSubmit() {
-        const { planetMass, planetName, perihelion, aphelion, gravity, temperature, imageLink, imageFile} = this.state;
-        this.props.createPlanet(planetMass, planetName, perihelion, aphelion, gravity, temperature, imageLink, imageFile);
+    handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const { planetName, planetMass, perihelion, aphelion, gravity, temperature, imageLink, imageFile } = this.state;
+        try {
+            this.props.createPlanet(planetName, planetMass, perihelion, aphelion, gravity, temperature, imageLink, imageFile);
+        } catch (error) {
+            if (error) {
+                alert('Try again, please');
+            } 
+        }
+        this.handleClose();
+    }
+
+    handleChange(event: ChangeEvent<HTMLInputElement>): void {
+        const { name, value } = event.target;
+        this.setState({ ...this.state, [name]: value });
+    }
+
+    showPreview(event: ChangeEvent<HTMLInputElement>) {
+        if (event.target.files && event.target.files[0]) {
+          const { files } = event.target;
+          const selectedFiles = files as FileList;
+          let imageFile = selectedFiles[0];
+          const reader = new FileReader();
+          reader.onload = x => {
+            this.setState({
+              ...this.state,
+              imageFile,
+              imageSource: x.target?.result
+            });
+          }
+          reader.readAsDataURL(imageFile);
+        } else {
+          this.setState({
+              ...this.state,
+              imageFile: null,
+              imageSource: null
+          });
+        }
     }
 
     render() {
-        const { show } = this.state;
+        const { show, planetName, planetMass, perihelion, aphelion, gravity, temperature } = this.state;
         return(
             <Fragment>
                 <BoxPlanetContainer>
@@ -50,35 +107,120 @@ export class ModalPlanet extends Component<ModalPlanetProps> {
                 <Modal show={show} onHide={() => this.handleClose()}>
                     <ModalPlanetContainer>
                     <Modal.Header closeButton>
-                    <Modal.Title>Inquiry</Modal.Title>
+                    <Modal.Title>Document Planet</Modal.Title>
                     </Modal.Header>
+                    <Form autoComplete="off" onSubmit={this.handleSubmit}>
                     <Modal.Body>
-                    <Form>
-                        <Form.Group className="mb-3" controlId="formMember">
+                        <Row xs={2}>
+                        <Col>
+                        <Form.Group className="mb-3" controlId="formPlanetName">
                         <Form.Control
-                            type="text"
-                            placeholder="new crew member"
+                            onChange={this.handleChange}
+                            name="planetName"
+                            value={planetName}
+                            type="planetName"
+                            as="input"
+                            placeholder="Planet Name"
                             autoFocus
                             />
                         </Form.Group>
+                        </Col>
+                        <Col>
+                        <Form.Group className="mb-3" controlId="formPlanetMass">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="planetMass"
+                            value={planetMass}
+                            type="planetMass"
+                            as="input"
+                            placeholder="Planet Mass"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        </Row>
+                        <Row xs={2}>
+                            <Col>
+                        <Form.Group className="mb-3" controlId="formPerihelion">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="perihelion"
+                            value={perihelion}
+                            type="perihelion"
+                            as="input"
+                            placeholder="Perihelion"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        <Col>
+                        <Form.Group className="mb-3" controlId="formAphelion">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="aphelion"
+                            value={aphelion}
+                            type="aphelion"
+                            as="input"
+                            placeholder="Aphelion"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        </Row>
+                        <Row xs={2}>
+                            <Col>
+                        <Form.Group className="mb-3" controlId="formGravity">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="gravity"
+                            value={gravity}
+                            type="gravity"
+                            as="input"
+                            placeholder="Gravity"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        <Col>
+                        <Form.Group className="mb-3" controlId="formTemperature">
+                        <Form.Control
+                            onChange={this.handleChange}
+                            name="temperature"
+                            value={temperature}
+                            type="Temperature"
+                            as="input"
+                            placeholder="Temperature"
+                            autoFocus
+                            />
+                        </Form.Group>
+                        </Col>
+                        </Row>
+                        <Row>
                         <Form.Group
                         className="mb-3"
-                        controlId="formInquiry"
-                        placeholder="inquire with your crew"
+                        controlId="formFile"
                         >
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control 
+                            as="input"
+                            name="mediaLink"
+                            onChange={this.showPreview}
+                            accept="image/*"
+                            type="file" 
+                            placeholder="Media"
+                        />
                         </Form.Group>
-                    </Form>
+                        </Row>
                     </Modal.Body>
-                    <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.handleClose()}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={() => this.handleSubmit()}>
-                        Log
-                    </Button>
-                    </Modal.Footer>
-                    </ModalPlanetContainer>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={() => this.handleClose()}>
+                Close
+            </Button>
+            <Button type="submit" variant="primary">
+                Log
+            </Button>
+            </Modal.Footer>
+            </Form>
+            </ModalPlanetContainer>
                 </Modal>
             </Fragment>
         );
@@ -86,18 +228,19 @@ export class ModalPlanet extends Component<ModalPlanetProps> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-    planets: state.planet
+    planets: state.planet,
+    comments: state.comment
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<PlanetCreateStart>) => ({
-    createPlanet: (planetMass: number, 
+    createPlanet: (planetMass: string, 
         planetName: string, 
-        perihelion: number, 
-        aphelion: number, 
-        gravity: number, 
-        temperature: number, 
+        perihelion: string, 
+        aphelion: string, 
+        gravity: string, 
+        temperature: string, 
         imageLink: string, 
-        imageFile: File | null
+        imageFile: File
     ) => dispatch(planetCreateStart(planetMass, 
         planetName, 
         perihelion, 

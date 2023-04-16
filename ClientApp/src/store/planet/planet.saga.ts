@@ -45,18 +45,20 @@ export function* createPlanet({ payload: {
     temperature,
     imageLink,
     imageFile
-}}: PlanetCreateStart ) {
+}}: PlanetCreateStart) {
+    const formData = new FormData();
+    formData.append("planetName", planetName);
+    formData.append("planetMass", planetMass);
+    formData.append("perihelion", perihelion);
+    formData.append("aphelion", aphelion);
+    formData.append("gravity", gravity);
+    formData.append("temperature", temperature);
+    formData.append("imageLink", imageLink);
+    formData.append("imageFile", imageFile);
     try {
         const planet = yield* call(
             addPlanet,
-            planetName,
-            planetMass,
-            perihelion,
-            aphelion,
-            gravity,
-            temperature,
-            imageLink,
-            imageFile
+            formData
         ); 
         yield* put(planetCreateSuccess(planet));
     } catch (error) {
@@ -72,23 +74,27 @@ export function* updatePlanet({ payload: {
     aphelion,
     gravity,
     temperature,
-    imageLink 
+    imageLink,
+    imageFile
 }}: PlanetUpdateStart) {
+    const formData = new FormData();
+    formData.append("planetName", planetName);
+    formData.append("planetMass", planetMass);
+    formData.append("perihelion", perihelion);
+    formData.append("aphelion", aphelion);
+    formData.append("gravity", gravity);
+    formData.append("temperature", temperature);
+    formData.append("imageLink", imageLink);
+    formData.append("imageFile", imageFile);
     try {
         const planet = yield* call(
             editPlanet,
             planetId,
-            planetName,
-            planetMass,
-            perihelion,
-            aphelion,
-            gravity,
-            temperature,
-            imageLink 
+            formData
         ); 
         yield* put(planetUpdateSuccess(planet));
     } catch (error) {
-        yield* put(planetCreateFailed(error as Error));
+        yield* put(planetUpdateFailed(error as Error));
     }
 }
 
