@@ -21,7 +21,7 @@ export class SignInButton extends Component<SignInButtonProps> {
             {
                 currentUser ?
                 <NavLink><Person style={{ cursor: 'pointer' }} color="white" size={20} /></NavLink> : 
-                <NavLink style={{ cursor: 'pointer' }}>Sign In</NavLink>
+                <NavLink href="/authentication" style={{ cursor: 'pointer' }}>Sign In</NavLink>
             }
             </Fragment>
         );

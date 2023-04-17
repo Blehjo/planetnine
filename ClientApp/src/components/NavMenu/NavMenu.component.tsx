@@ -54,17 +54,17 @@ export class NavMenu extends Component<IProps, ICollapsed> {
 
                   </Nav>
                 </Col>
-                <Row style={{ justifyContent: "space-between", textAlign: "center", marginRight: '.5rem' }}>
-                    <Col key="navigationIcons">
+                <Row xs={4} style={{ justifyContent: "space-between", textAlign: "center", marginRight: '.5rem' }}>
+                    <Col xs={2} key="navigationIcons">
                         <Nav.Link href="/vitals">Vitals</Nav.Link>
                     </Col>
-                    <Col>
+                    <Col xs={2}>
                         <Nav.Link href="/crew" >Crew</Nav.Link>
                     </Col>
-                    <Col>
+                    <Col xs={2}>
                         <Nav.Link href="/planets" >Planets</Nav.Link>
                     </Col>
-                    <Col >
+                    <Col xs={4}>
                         <SignInButtonComponent/>
                     </Col>
                 </Row>

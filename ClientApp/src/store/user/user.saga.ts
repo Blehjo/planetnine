@@ -79,9 +79,7 @@ export function* signUp({ payload: {
             signUpUser,
             formData
         );
-        if (userCredential) {
-            yield* put(signUpSuccess(userCredential));
-        }
+        yield* put(signUpSuccess(userCredential));
     } catch (error) {
         yield* put(signUpFailed(error as Error));
     }

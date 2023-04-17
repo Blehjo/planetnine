@@ -88,7 +88,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
                 alert('Try again, please');
             } 
         }
-        this.handleClose();
+        this.handleCloseCreate();
     }
 
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -223,7 +223,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
             </Modal.Footer>
             </ModalContainer>
         </Modal>
-        <Modal show={showCreate} onHide={() => this.handleClose()}>
+        <Modal show={showCreate} onHide={() => this.handleCloseCreate()}>
             <ModalPostContainer>
             <Modal.Header closeButton>
             <Modal.Title>Document Planet</Modal.Title>
