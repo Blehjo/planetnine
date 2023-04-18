@@ -6,10 +6,9 @@ export const ModalPlanetContainer = styled.div`
 
 export const BoxPlanetContainer = styled.div`
     display: block;
-    width: 50%
+    width: auto;
     height: auto;
     margin: auto;
-    padding: 1rem;
     background: white;
     border-radius: .5rem;
     cursor: pointer;

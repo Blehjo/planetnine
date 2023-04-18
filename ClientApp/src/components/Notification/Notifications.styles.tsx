@@ -18,3 +18,7 @@ export const SidebarContainer = styled.div`
 export const ActionsContainer = styled.div`
     padding: 1rem;
 `;
+
+export const IconContainer = styled.div`
+    margin: 1rem;
+`;

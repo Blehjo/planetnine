@@ -6,10 +6,9 @@ export const ModalMoonContainer = styled.div`
 
 export const BoxMoonContainer = styled.div`
     display: block;
-    width: 50%
+    width: auto;
     height: auto;
     margin: auto;
-    padding: 1rem;
     background: orange;
     border-radius: .5rem;
     cursor: pointer;

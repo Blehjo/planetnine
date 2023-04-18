@@ -6,10 +6,9 @@ export const ModalPostContainer = styled.div`
 
 export const BoxPostContainer = styled.div`
     display: block;
-    width: 50%
+    width: auto;
     height: auto;
     margin: auto;
-    padding: 1rem;
     background: darkblue;
     border-radius: .5rem;
     cursor: pointer;

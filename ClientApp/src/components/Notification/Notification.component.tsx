@@ -1,5 +1,5 @@
 import { Component, Dispatch } from "react";
-import { NotificationsContainer, SidebarContainer } from "./Notifications.styles";
+import { IconContainer, NotificationsContainer, SidebarContainer } from "./Notifications.styles";
 import { RootState } from "../../store/store";
 import { ChatFetchSingleStart, ChatFetchUserChatsStart, chatFetchSingleStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
 import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
@@ -39,6 +39,7 @@ export class Notification extends Component<NotificationProps> {
                     })}
                     </Col>
                     </Row>
+                    <IconContainer>
                     <Row xs={4}>
                         <Col>
                             <ModalMoonComponent/>
@@ -53,6 +54,7 @@ export class Notification extends Component<NotificationProps> {
                             <ModalPostComponent/>
                         </Col>
                     </Row>
+                    </IconContainer>
                 </NotificationsContainer>
             </SidebarContainer>
         );

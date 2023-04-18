@@ -6,12 +6,11 @@ export const ModalChatContainer = styled.div`
 
 export const BoxChatContainer = styled.div`
     display: block;
-    width: 50%
+    width: auto;
     height: auto;
     margin: auto;
-    padding: 1rem;
     background: darkred;
     border-radius: .5rem;
     cursor: pointer;
-    justify-content: center;
+    align-items: center;
 `;
