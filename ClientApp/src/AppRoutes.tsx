@@ -1,7 +1,7 @@
 import Authentication from "./routes/Authentication/Authentication.route";
 import { Vitals } from "./routes/Vitals/Vitals.route";
 import { Home } from "./routes/Home/Home.route";
-import { ArtificialIntelligence } from "./routes/ArtificialIntelligence/ArtificialIntelligence.route";
+import ArtificialIntelligenceRoute from "./routes/ArtificialIntelligence/ArtificialIntelligence.route";
 import { Chats } from "./routes/Chats/Chats.route";
 import { Explore } from "./routes/Explore/Explore.route";
 import { Favorites } from "./routes/Favorites/Favorites.route";
@@ -35,7 +35,7 @@ const AppRoutes = [
   },
   {
     path: '/crew',
-    element: <ArtificialIntelligence />
+    element: <ArtificialIntelligenceRoute/>
   },
   {
     path: '/explore',

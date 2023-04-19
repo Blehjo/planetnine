@@ -55,7 +55,7 @@ export class ModalChat extends Component<ModalChatProps> {
                         <Form.Group className="mb-3" controlId="formMember">
                         <Form.Control
                             type="text"
-                            placeholder="new crew member"
+                            placeholder="Inquiry request subject"
                             autoFocus
                             />
                         </Form.Group>

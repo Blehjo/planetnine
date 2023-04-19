@@ -25,7 +25,7 @@ export class PilotDash extends Component<PilotDashProps> {
                             <PilotContainer key={userId}>
                             <Row xs={2}>
                                 <Col xs={2}>
-                                    <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={imageLink ? imageSource : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                    <Image style={{ borderRadius: '.5rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={imageLink ? imageSource : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                 </Col>
                                 <Col xs={8}>
                                     {username}

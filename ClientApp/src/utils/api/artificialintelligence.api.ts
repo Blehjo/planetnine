@@ -30,7 +30,7 @@ export async function getAllArtificialIntelligences(): Promise<ArtificialIntelli
   return result;
 }
 
-export async function getUserArtificialIntelligences(userId: number): Promise<ArtificialIntelligence[]> {
+export async function getOtherUserArtificialIntelligences(userId: number): Promise<ArtificialIntelligence[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/user/${userId}`,
@@ -44,7 +44,7 @@ export async function getUserArtificialIntelligences(userId: number): Promise<Ar
 export async function getUsersArtificialIntelligences(): Promise<ArtificialIntelligence[]> {
   const response = await axios({
     method: 'get',
-    url: `${api}/user/artificialIntelligences`,
+    url: `${api}/user`,
     headers: headers,
     withCredentials: true
   });
@@ -52,14 +52,14 @@ export async function getUsersArtificialIntelligences(): Promise<ArtificialIntel
   return result;
 }
 
-export async function addArtificialIntelligence(name: string, role: string, imageLink: string): Promise<ArtificialIntelligence[]> {
+export async function addArtificialIntelligence(name: string, role: string, imageFile: File): Promise<ArtificialIntelligence[]> {
   const response = await axios({
     method: 'post',
     url: api,
     data: {
       name,
       role,
-      imageLink
+      imageFile
     },
     headers: headers,
     withCredentials: true
@@ -68,7 +68,7 @@ export async function addArtificialIntelligence(name: string, role: string, imag
   return result;
 }
 
-export async function editArtificialIntelligence(artificialIntelligenceId: number, name: string, role: string, imageLink: string): Promise<ArtificialIntelligence[]> {
+export async function editArtificialIntelligence(artificialIntelligenceId: number, name: string, role: string, imageFile: File): Promise<ArtificialIntelligence[]> {
   const response = await axios({
     method: 'put',
     url: `${api}/${artificialIntelligenceId}`, 
@@ -76,7 +76,7 @@ export async function editArtificialIntelligence(artificialIntelligenceId: numbe
       artificialIntelligenceId,
       name,
       role,
-      imageLink
+      imageFile
     },
     headers: headers,
     withCredentials: true

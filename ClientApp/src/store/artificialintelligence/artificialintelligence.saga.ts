@@ -18,26 +18,31 @@ import {
     ArtificialIntelligenceDeleteStart,
     ArtificialIntelligenceFetchSingleStart,
     ArtificialIntelligenceFetchAllStart,
-    ArtificialIntelligenceFetchUsersStart
+    ArtificialIntelligenceFetchUsersStart,
+    artificialIntelligenceFetchOtherUsersSuccess,
+    artificialIntelligenceFetchOtherUsersFailed,
+    ArtificialIntelligenceFetchOtherUsersStart,
+    artificialIntelligenceFetchUsersStart,
+    artificialIntelligenceFetchUsersSuccess
 } from './artificialintelligence.action';
 
 import { 
     getSingleArtificialIntelligence,
-    getUserArtificialIntelligences,
     getUsersArtificialIntelligences,
     getAllArtificialIntelligences,
     addArtificialIntelligence,
     editArtificialIntelligence,
-    deleteArtificialIntelligence
+    deleteArtificialIntelligence,
+    getOtherUserArtificialIntelligences
 } from '../../utils/api/artificialintelligence.api';
 
-export function* createArtificialIntelligence({ payload: { name, role, imageLink }}: ArtificialIntelligenceCreateStart ) {
+export function* createArtificialIntelligence({ payload: { name, role, imageFile }}: ArtificialIntelligenceCreateStart ) {
     try {
         const artificialIntelligence = yield* call(
             addArtificialIntelligence,
             name,
             role,
-            imageLink
+            imageFile
         ); 
         yield* put(artificialIntelligenceCreateSuccess(artificialIntelligence));
     } catch (error) {
@@ -45,14 +50,14 @@ export function* createArtificialIntelligence({ payload: { name, role, imageLink
     }
 }
 
-export function* updateChat({ payload: { artificialIntelligenceId, name, role, imageLink }}: ArtificialIntelligenceUpdateStart) {
+export function* updateChat({ payload: { artificialIntelligenceId, name, role, imageFile }}: ArtificialIntelligenceUpdateStart) {
     try {
         const artificialIntelligence = yield* call(
             editArtificialIntelligence,
             artificialIntelligenceId,
             name,
             role,
-            imageLink
+            imageFile
         ); 
         yield* put(artificialIntelligenceUpdateSuccess(artificialIntelligence));
     } catch (error) {
@@ -76,22 +81,22 @@ export function* fetchUserArtificialIntelligences() {
     try {
         const artificialIntelligence = yield* call(getUsersArtificialIntelligences);
         if (!artificialIntelligence) return;
-        yield* call(artificialIntelligenceFetchAllSuccess, artificialIntelligence);
+        yield* put(artificialIntelligenceFetchUsersSuccess(artificialIntelligence));
     } catch (error) {
         yield* put(artificialIntelligenceFetchAllFailed(error as Error));
     }
 }
 
-export function* fetchOtherUsersChats({ payload: { userId } }: ArtificialIntelligenceFetchUsersStart) {
+export function* fetchOtherUsersChats({ payload: { userId } }: ArtificialIntelligenceFetchOtherUsersStart) {
     try {
         const artificialIntelligences = yield* call(
-            getUserArtificialIntelligences,
+            getOtherUserArtificialIntelligences,
             userId
         );
         if (!artificialIntelligences) return;
-        yield* call(artificialIntelligenceFetchAllSuccess, artificialIntelligences);
+        yield* put(artificialIntelligenceFetchOtherUsersSuccess(artificialIntelligences));
     } catch (error) {
-        yield* put(artificialIntelligenceFetchAllFailed(error as Error));
+        yield* put(artificialIntelligenceFetchOtherUsersFailed(error as Error));
     }
 }
 
