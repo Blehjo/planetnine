@@ -4,8 +4,8 @@ import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 const api = "https://localhost:7098/api/chatgpt";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded'
 }
 
 export async function callCompletion(request: string): Promise<string> {

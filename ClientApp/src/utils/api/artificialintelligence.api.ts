@@ -4,8 +4,8 @@ import { ArtificialIntelligence } from "../../store/artificialintelligence/artif
 const api = "https://localhost:7098/api/artificialintelligence";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded' 
 }
 
 export async function getSingleArtificialIntelligence(artificialIntelligenceId: number): Promise<ArtificialIntelligence> {

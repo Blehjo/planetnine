@@ -5,8 +5,8 @@ import { Pilot } from "../../store/pilot/pilot.types";
 const api = "https://localhost:7098/api/user";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded'
 }
 
 export async function getSingleUser(userId: number | undefined): Promise<User> {

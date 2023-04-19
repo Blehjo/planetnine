@@ -4,8 +4,8 @@ import { MessageComment } from "../../store/messagecomment/messagecomment.types"
 const api = "https://localhost:7098/api/messagecomment";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded'
 }
 
 export async function getSingleMessageComment(messageId: number): Promise<MessageComment> {

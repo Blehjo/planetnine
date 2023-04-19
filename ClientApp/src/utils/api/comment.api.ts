@@ -4,8 +4,8 @@ import { Comment } from "../../store/comment/comment.types";
 const api = "https://localhost:7098/api/comment";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded'
 }
 
 export async function getSingleComment(postId: number): Promise<Comment[]> {
