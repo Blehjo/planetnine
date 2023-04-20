@@ -21,7 +21,7 @@ export enum CHATCOMMENT_ACTION_TYPES {
 
 export type ChatComment = {
     chatCommentId: number | null;
-    chatValue: string | null;
+    chatValue: string;
     mediaLink: string | null;
     type: string | null;
     dateCreated: Date;
