@@ -18,6 +18,9 @@ import {
     artificialIntelligenceFetchAllStart,
     artificialIntelligenceFetchAllSuccess,
     artificialIntelligenceFetchAllFailed,
+    artificialIntelligenceFetchUsersStart,
+    artificialIntelligenceFetchOtherUsersStart,
+    artificialIntelligenceFetchUsersSuccess,
 } from './artificialintelligence.action';
 
 export type ArtificialIntelligenceState = {
@@ -42,7 +45,10 @@ export const artificialIntelligenceReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): ArtificialIntelligenceState => {
     if (
-        artificialIntelligenceFetchAllStart.match(action) 
+        artificialIntelligenceFetchAllStart.match(action) ||
+        artificialIntelligenceFetchSingleStart.match(action) ||
+        artificialIntelligenceFetchUsersStart.match(action) ||
+        artificialIntelligenceFetchOtherUsersStart.match(action) 
     ) {
         return { ...state, isLoading: true }
     }
@@ -53,6 +59,16 @@ export const artificialIntelligenceReducer = (
         artificialIntelligenceFetchAllSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, artificialIntelligences: action.payload };
+    } 
+    if (
+        artificialIntelligenceFetchUsersSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userArtificialIntelligences: action.payload };
+    } 
+    if (
+        artificialIntelligenceFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singleArtificialIntelligence: action.payload };
     } 
     if (
         artificialIntelligenceCreateFailed.match(action) ||

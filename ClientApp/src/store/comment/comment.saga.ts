@@ -38,13 +38,15 @@ import {
     deleteComment
 } from '../../utils/api/comment.api';
 
-export function* createComment({ payload: { commentValue, mediaLink, postId }}: CommentCreateStart ) {
+export function* createComment({ payload: { commentValue, imageFile, postId }}: CommentCreateStart ) {
+    const formData = new FormData();
+    formData.append('commentValue', commentValue);
+    formData.append('imageFile', imageFile);
+    formData.append('postId', postId?.toString());
     try {
         const comments = yield* call(
             addComment,
-            commentValue,
-            mediaLink,
-            postId
+            formData
         ); 
         yield* put(commentCreateSuccess(comments));
     } catch (error) {

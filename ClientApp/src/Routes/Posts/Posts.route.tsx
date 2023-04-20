@@ -18,7 +18,6 @@ export class Posts extends Component {
         return (
             <Fragment>
                 <PostComponent/>
-                <InteractionComponent/>
             </Fragment>
         )
     }

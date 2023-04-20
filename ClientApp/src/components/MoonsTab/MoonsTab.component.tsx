@@ -96,7 +96,6 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
         const { name, value } = event.target;
         this.setState({ ...this.state, [name]: value });
-        console.log("State: ", this.state)
     }
 
     showPreview(event: ChangeEvent<HTMLInputElement>) {

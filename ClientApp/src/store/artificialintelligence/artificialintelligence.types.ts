@@ -30,6 +30,7 @@ export type ArtificialIntelligence = {
     name: string | null;
     role: string | null;
     imageLink: string | null;
+    imageSource: string;
     dateCreated: Date | null;
     userId: number | null,
     chats: Chat[] | null;

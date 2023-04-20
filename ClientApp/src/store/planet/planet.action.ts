@@ -84,9 +84,8 @@ export type PlanetFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type PlanetFetchUserPlanetsStart = ActionWithPayload<
-    PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START,
-    { userId: number }
+export type PlanetFetchUserPlanetsStart = Action<
+    PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START
 >;
 
 export type PlanetFetchUserPlanetsSuccess = ActionWithPayload<
@@ -96,6 +95,21 @@ export type PlanetFetchUserPlanetsSuccess = ActionWithPayload<
 
 export type PlanetFetchUserPlanetsFailed = ActionWithPayload<
     PLANET_ACTION_TYPES.FETCH_USER_PLANETS_FAILED,
+    Error
+>;
+
+export type PlanetFetchOtherUserPlanetsStart = ActionWithPayload<
+    PLANET_ACTION_TYPES.FETCH_OTHER_USER_PLANETS_START,
+    { userId: number }
+>;
+
+export type PlanetFetchOtherUserPlanetsSuccess = ActionWithPayload<
+    PLANET_ACTION_TYPES.FETCH_OTHER_USER_PLANETS_SUCCESS, 
+    Planet[]
+>;
+
+export type PlanetFetchOtherUserPlanetsFailed = ActionWithPayload<
+    PLANET_ACTION_TYPES.FETCH_OTHER_USER_PLANETS_FAILED,
     Error
 >;
 
@@ -210,8 +224,8 @@ export const planetFetchSingleFailed = withMatcher(
 );
 
 export const planetFetchUserPlanetsStart = withMatcher(
-    (userId: number): PlanetFetchUserPlanetsStart => 
-    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START, { userId })
+    (): PlanetFetchUserPlanetsStart => 
+    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START)
 );
 
 export const planetFetchUserPlanetsSuccess = withMatcher(
@@ -220,6 +234,21 @@ export const planetFetchUserPlanetsSuccess = withMatcher(
 );
 
 export const planetFetchUserPlanetsFailed = withMatcher(
+    (error: Error): PlanetFetchUserPlanetsFailed => 
+    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_FAILED, error)
+);
+
+export const planetFetchOtherUserPlanetsStart = withMatcher(
+    (userId: number): PlanetFetchUserPlanetsStart => 
+    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START, { userId })
+);
+
+export const planetFetchOtherUserPlanetsSuccess = withMatcher(
+    (planet: Planet[]): PlanetFetchUserPlanetsSuccess => 
+    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_SUCCESS, planet)
+);
+
+export const planetFetchOtherUserPlanetsFailed = withMatcher(
     (error: Error): PlanetFetchUserPlanetsFailed => 
     createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_FAILED, error)
 );

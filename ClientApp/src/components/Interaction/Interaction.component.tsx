@@ -21,7 +21,6 @@ class Interaction extends Component<InteractionProps> {
 
     componentDidMount() {
         const posts = this.props.post;
-        console.log("Posts from interaction component: ", posts)
     }
 
     render() {

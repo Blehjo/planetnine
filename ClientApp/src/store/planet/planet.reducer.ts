@@ -18,6 +18,10 @@ import {
     planetFetchAllStart,
     planetFetchAllSuccess,
     planetFetchAllFailed,
+    planetFetchUserPlanetsSuccess,
+    planetFetchOtherUserPlanetsSuccess,
+    planetFetchUserPlanetsStart,
+    planetFetchOtherUserPlanetsStart,
 } from './planet.action';
 
 export type PlanetState = {
@@ -44,9 +48,16 @@ export const planetReducer = (
     if (
         planetFetchAllStart.match(action) ||
         planetFetchSingleStart.match(action) ||
+        planetFetchUserPlanetsStart.match(action) ||
+        planetFetchOtherUserPlanetsStart.match(action) ||
         planetCreateStart.match(action)
     ) {
         return { ...state, isLoading: true }
+    }
+    if (
+        planetFetchUserPlanetsSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, userPlanets: action.payload }
     }
     if (
         planetCreateSuccess.match(action) ||
@@ -57,7 +68,8 @@ export const planetReducer = (
     }
     if (
         planetDeleteSuccess.match(action) ||
-        planetFetchAllSuccess.match(action) 
+        planetFetchAllSuccess.match(action) || 
+        planetFetchOtherUserPlanetsSuccess.match(action)
     ) {
         return { ...state, isLoading: false, planets: action.payload };
     } 

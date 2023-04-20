@@ -7,3 +7,8 @@ export const CrewContainer = styled.div`
     color: black; 
     border-radius: .3rem;
 `;
+
+export const FontContainer = styled.div`
+    margin: .5rem;
+    color: white;
+`;

@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type CommentCreateStart = ActionWithPayload<
-    COMMENT_ACTION_TYPES.CREATE_START, { commentId: number, commentValue: string, mediaLink: string, postId: number }
+    COMMENT_ACTION_TYPES.CREATE_START, { commentValue: string, imageFile: File, postId: number }
 >;
 
 export type CommentCreateSuccess = ActionWithPayload<
@@ -96,8 +96,8 @@ export type CommentFetchAllFailed = ActionWithPayload<
 >;
 
 export const commentCreateStart = withMatcher(
-    (commentId: number, commentValue: string, mediaLink: string, postId: number): CommentCreateStart => 
-    createAction(COMMENT_ACTION_TYPES.CREATE_START, { commentId, commentValue, mediaLink, postId })
+    (commentValue: string, imageFile: File, postId: number ): CommentCreateStart => 
+    createAction(COMMENT_ACTION_TYPES.CREATE_START, { commentValue, imageFile, postId })
 );
 
 export const commentCreateSuccess = withMatcher(

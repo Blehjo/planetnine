@@ -5,6 +5,7 @@ import { RootState } from "../../store/store";
 import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceCreateStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
 import { ConnectedProps, connect } from "react-redux";
 import { ModalPostContainer } from "../../components/ModalPost/ModalPost.styles";
+import CrewPanelComponent from "../../components/CrewPanel/CrewPanel.component";
 
 type ArtificialIntelligenceProps = ConnectedProps<typeof connector>;
 
@@ -103,6 +104,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     <Plus size={40} style={{ cursor: 'pointer' }} onClick={this.handleClick}/>
                 </Col>
             </Row>
+            <CrewPanelComponent/>
             <Row>
                 
             </Row>

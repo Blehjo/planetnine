@@ -94,7 +94,6 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
         const { name, value } = event.target;
         this.setState({ ...this.state, [name]: value });
-        console.log("State: ", this.state)
     }
 
     showPreview(event: ChangeEvent<HTMLInputElement>) {
@@ -118,6 +117,10 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
               imageSource: null
           });
         }
+    }
+
+    componentDidMount(): void {
+        this.props.getPlanets();
     }
 
     render() {

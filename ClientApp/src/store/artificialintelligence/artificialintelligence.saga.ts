@@ -23,7 +23,8 @@ import {
     artificialIntelligenceFetchOtherUsersFailed,
     ArtificialIntelligenceFetchOtherUsersStart,
     artificialIntelligenceFetchUsersStart,
-    artificialIntelligenceFetchUsersSuccess
+    artificialIntelligenceFetchUsersSuccess,
+    artificialIntelligenceFetchUsersFailed
 } from './artificialintelligence.action';
 
 import { 
@@ -37,12 +38,14 @@ import {
 } from '../../utils/api/artificialintelligence.api';
 
 export function* createArtificialIntelligence({ payload: { name, role, imageFile }}: ArtificialIntelligenceCreateStart ) {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('role', role);
+    formData.append('imageFile', imageFile);
     try {
         const artificialIntelligence = yield* call(
             addArtificialIntelligence,
-            name,
-            role,
-            imageFile
+            formData
         ); 
         yield* put(artificialIntelligenceCreateSuccess(artificialIntelligence));
     } catch (error) {
@@ -83,11 +86,11 @@ export function* fetchUserArtificialIntelligences() {
         if (!artificialIntelligence) return;
         yield* put(artificialIntelligenceFetchUsersSuccess(artificialIntelligence));
     } catch (error) {
-        yield* put(artificialIntelligenceFetchAllFailed(error as Error));
+        yield* put(artificialIntelligenceFetchUsersFailed(error as Error));
     }
 }
 
-export function* fetchOtherUsersChats({ payload: { userId } }: ArtificialIntelligenceFetchOtherUsersStart) {
+export function* fetchOtherUsersArtificialIntelligences({ payload: { userId } }: ArtificialIntelligenceFetchOtherUsersStart) {
     try {
         const artificialIntelligences = yield* call(
             getOtherUserArtificialIntelligences,
@@ -150,6 +153,13 @@ export function* onFetchUserChatsStart() {
     );
 }
 
+export function* onFetchOtherUserChatsStart() {
+    yield* takeLatest(
+        ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_OTHER_USER_ARTIFICIALINTELLIGENCE_START, 
+        fetchOtherUsersArtificialIntelligences
+    );
+}
+
 export function* onFetchSingleChatStart() {
     yield* takeLatest(
         ARTIFICIALINTELLIGENCE_ACTION_TYPES.FETCH_SINGLE_START, 
@@ -170,6 +180,7 @@ export function* artificialIntelligenceSagas() {
         call(onUpdateStart),
         call(onDeleteStart),
         call(onFetchUserChatsStart),
+        call(onFetchOtherUserChatsStart),
         call(onFetchSingleChatStart),
         call(onFetchChatsStart)
     ]);

@@ -85,7 +85,6 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
         const { name, value } = event.target;
         this.setState({ ...this.state, [name]: value });
-        console.log("State: ", this.state)
     }
 
     showPreview(event: ChangeEvent<HTMLInputElement>) {
@@ -118,7 +117,6 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
     render() {
         const { currentUser, userprofile, posts, comments } = this.props;
         const { show, showCreate, postValue } = this.state;
-        console.log("User Profile: ",currentUser.currentUser?.posts);
         return (
         <Fragment>
             <Row style={{ marginBottom: '2rem' }} xs={1} >

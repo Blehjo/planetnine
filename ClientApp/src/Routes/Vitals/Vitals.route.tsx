@@ -1,13 +1,12 @@
 import { Component, Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
 
-
-import { Crew } from "../../components/Crew/Crew.component";
 import { VitalsContainer } from "./Vitals.styles";
 import { PlanetDash } from "../../components/PlanetDash/PlanetDash.component";
 import PilotDashComponent from "../../components/PilotDash/PilotDash.component";
 import MessageComponent from "../../components/Message/Message.component";
 import NotificationComponent from "../../components/Notification/Notification.component";
+import CrewComponent from "../../components/Crew/Crew.component";
 
 
 export class Vitals extends Component {
@@ -21,7 +20,7 @@ export class Vitals extends Component {
                         <PilotDashComponent/>
                     </Col>
                     <Col xs={6}>
-                        <Crew/>
+                        <CrewComponent/>
                     </Col>
                 </Row>
                 <Row xs={2} style={{ marginTop: '1rem' }}>

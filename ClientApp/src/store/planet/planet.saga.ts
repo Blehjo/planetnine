@@ -23,7 +23,12 @@ import {
     PlanetDeleteStart,
     PlanetFetchAllStart,
     PlanetFetchSingleStart,
-    PlanetFetchUserPlanetsStart
+    PlanetFetchUserPlanetsStart,
+    PlanetFetchOtherUserPlanetsStart,
+    planetFetchUserPlanetsSuccess,
+    planetFetchUserPlanetsFailed,
+    planetFetchOtherUserPlanetsSuccess,
+    planetFetchOtherUserPlanetsFailed
 } from './planet.action';
 
 import { 
@@ -115,22 +120,22 @@ export function* fetchUserPlanets() {
     try {
         const planets = yield* call(getUsersPlanets);
         if (!planets) return;
-        yield* put(planetFetchAllSuccess(planets));
+        yield* put(planetFetchUserPlanetsSuccess(planets));
     } catch (error) {
-        yield* put(planetFetchAllFailed(error as Error));
+        yield* put(planetFetchUserPlanetsFailed(error as Error));
     }
 }
 
-export function* fetchOtherUsersPlanets({ payload: { userId } }: PlanetFetchUserPlanetsStart) {
+export function* fetchOtherUsersPlanets({ payload: { userId } }: PlanetFetchOtherUserPlanetsStart) {
     try {
         const planets = yield* call(
             getUserPlanets,
             userId
         );
         if (!planets) return;
-        yield* put(planetFetchAllSuccess(planets));
+        yield* put(planetFetchOtherUserPlanetsSuccess(planets));
     } catch (error) {
-        yield* put(planetFetchAllFailed(error as Error));
+        yield* put(planetFetchOtherUserPlanetsFailed(error as Error));
     }
 }
 
@@ -184,6 +189,13 @@ export function* onFetchUserPlanetsStart() {
     );
 }
 
+export function* onFetchOtherUserPlanetsStart() {
+    yield* takeLatest(
+        PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START, 
+        fetchOtherUsersPlanets
+    );
+}
+
 export function* onFetchSinglePlanetStart() {
     yield* takeLatest(
         PLANET_ACTION_TYPES.FETCH_SINGLE_START, 
@@ -204,6 +216,7 @@ export function* planetSagas() {
         call(onUpdateStart),
         call(onDeleteStart),
         call(onFetchUserPlanetsStart),
+        call(onFetchOtherUserPlanetsStart),
         call(onFetchSinglePlanetStart),
         call(onFetchPlanetsStart)
     ]);

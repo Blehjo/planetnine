@@ -63,15 +63,11 @@ export async function getComments(): Promise<Comment[]> {
   return result;
 }
 
-export async function addComment(commentValue: string, mediaLink: string, postId: number): Promise<Comment[]> {
+export async function addComment(formData: FormData): Promise<Comment[]> {
   const response = await axios({
     method: 'post',
     url: api,
-    data: {
-      commentValue,
-      mediaLink,
-      postId
-    },
+    data: formData,
     headers: headers,
     withCredentials: true
   });

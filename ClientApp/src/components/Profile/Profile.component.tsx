@@ -15,7 +15,7 @@ import { CommentFetchSingleStart, commentFetchSingleStart } from "../../store/co
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { MoonsTab } from "../MoonsTab/MoonsTab.component";
 import { MoonCreateStart, moonCreateStart } from "../../store/moon/moon.action";
-import { PlanetCreateStart, planetCreateStart } from "../../store/planet/planet.action";
+import { PlanetCreateStart, PlanetFetchUserPlanetsStart, planetCreateStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
 
 
 export type ProfileProps = ConnectedProps<typeof connector>;
@@ -23,9 +23,8 @@ export type ProfileProps = ConnectedProps<typeof connector>;
 export class Profile extends Component<ProfileProps> {
     
     componentDidMount() {
-        const userId = 1;
-        const { currentUser }: any = this.props.currentUser;
-        const { pilot }: any = this.props.pilot;
+        // const { currentUser }: any = this.props.currentUser;
+        // const { pilot }: any = this.props.pilot;
         // this.props.getUserProfile(pilot.userId);
     }
     
@@ -73,7 +72,7 @@ const mapToStateProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart | PostFetchAllStart | PostFetchUserPostsStart | PostCreateStart | PostFetchSingleStart | CommentFetchSingleStart | FavoriteCreateStart | MoonCreateStart | PlanetCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart | PostFetchAllStart | PostFetchUserPostsStart | PostCreateStart | PostFetchSingleStart | CommentFetchSingleStart | FavoriteCreateStart | MoonCreateStart | PlanetCreateStart | PlanetFetchUserPlanetsStart>) => ({
     getUserProfile: (userId: number) => dispatch(userprofileFetchSingleStart(userId)),
     getPilot: (userId: number) => dispatch(pilotFetchSingleStart(userId)),
     getAllPosts: () => dispatch(postFetchAllStart()),
@@ -83,7 +82,8 @@ const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | Pil
     createPlanet: (planetMass: string, planetName: string, perihelion: string, aphelion: string, gravity: string, temperature: string, imageLink: string, imageFile: File  ) => dispatch(planetCreateStart(planetMass, planetName, perihelion, aphelion, gravity, temperature, imageLink, imageFile)),
     createMoon: (moonMass: number, moonName: string, perihelion: number, aphelion: number, gravity: number, temperature: number, planetId: number | null, imageLink: string | null, imageFile: File  ) => dispatch(moonCreateStart(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile)),
     getComments: (postId: number) => dispatch(commentFetchSingleStart(postId)),
-    likePost: (postId: number, contentType: string) => dispatch(favoriteCreateStart(postId, contentType))
+    likePost: (postId: number, contentType: string) => dispatch(favoriteCreateStart(postId, contentType)),
+    getPlanets: () => dispatch(planetFetchUserPlanetsStart())
 });
 
 const connector = connect(mapToStateProps, mapDispatchToProps);

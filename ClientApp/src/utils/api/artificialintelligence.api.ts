@@ -52,15 +52,11 @@ export async function getUsersArtificialIntelligences(): Promise<ArtificialIntel
   return result;
 }
 
-export async function addArtificialIntelligence(name: string, role: string, imageFile: File): Promise<ArtificialIntelligence[]> {
+export async function addArtificialIntelligence(formData: FormData): Promise<ArtificialIntelligence[]> {
   const response = await axios({
     method: 'post',
     url: api,
-    data: {
-      name,
-      role,
-      imageFile
-    },
+    data: formData,
     headers: headers,
     withCredentials: true
   });
