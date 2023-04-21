@@ -13,7 +13,7 @@ export const UserMessageContainer = styled.div`
 export const MessageContainer = styled.div`
   height: 100vh; 
   width: 18rem; 
-  background: white;
+  background: darkred;
   text-align: center;
   margin-top: 3.5rem;
   color: black;

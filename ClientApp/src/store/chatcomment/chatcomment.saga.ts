@@ -107,7 +107,7 @@ export function* fetchSingleChatCommentAsync({
             getSingleChatComment,
             chatcommentId 
         );
-        yield* put(chatcommentFetchSingleSuccess(chatSnapshot as ChatComment));
+        yield* put(chatcommentFetchSingleSuccess(chatSnapshot));
     } catch (error) {
         yield* put(chatcommentFetchSingleFailed(error as Error));
     }

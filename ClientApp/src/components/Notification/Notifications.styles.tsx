@@ -22,3 +22,11 @@ export const ActionsContainer = styled.div`
 export const IconContainer = styled.div`
     margin: 1rem;
 `;
+
+export const CardContainer = styled.div`
+    margin: 1rem;
+    border-style: solid;
+    border-radius: .5rem;
+    border-color: white;
+    padding: .2rem;
+`;

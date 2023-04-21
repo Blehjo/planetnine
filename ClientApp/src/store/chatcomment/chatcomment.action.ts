@@ -58,7 +58,7 @@ export type ChatCommentFetchSingleStart = ActionWithPayload<
 
 export type ChatCommentFetchSingleSuccess = ActionWithPayload<
     CHATCOMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
-    ChatComment
+    ChatComment[]
 >;
 
 export type ChatCommentFetchSingleFailed = ActionWithPayload<
@@ -146,8 +146,8 @@ export const chatcommentFetchSingleStart = withMatcher(
 );
 
 export const chatcommentFetchSingleSuccess = withMatcher(
-    (chatcomment: ChatComment): ChatCommentFetchSingleSuccess => 
-    createAction(CHATCOMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, chatcomment)
+    (chatcomments: ChatComment[]): ChatCommentFetchSingleSuccess => 
+    createAction(CHATCOMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, chatcomments)
 );
 
 export const chatcommentFetchSingleFailed = withMatcher(

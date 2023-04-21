@@ -23,8 +23,8 @@ export enum FAVORITE_ACTION_TYPES  {
 };
 
 export type Favorite = {
-    favoriteId: number | null;
+    favoriteId: number;
     contentId: number;
-    contentType: string | null;
+    contentType: string;
     dateCreated: Date | null;
 }

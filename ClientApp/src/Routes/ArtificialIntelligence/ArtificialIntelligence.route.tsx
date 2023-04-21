@@ -1,15 +1,14 @@
-import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import { Badge, Button, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment, MouseEventHandler } from "react";
+import { Button, ButtonGroup, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
 import { Plus, Robot, XCircle } from "react-bootstrap-icons";
 import { RootState } from "../../store/store";
 import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceCreateStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
 import { ConnectedProps, connect } from "react-redux";
 import { ModalPostContainer } from "../../components/ModalPost/ModalPost.styles";
 import CrewPanelComponent from "../../components/CrewPanel/CrewPanel.component";
-import { MessagebarContainer, UserMessageContainer } from "../Messages/Messages.styles";
 import { AiContainer, ChatContainer, CrewContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
-import { chatCreateStart } from "../../store/chat/chat.action";
-import { ChatCommentCreateStart, chatcommentCreateStart } from "../../store/chatcomment/chatcomment.action";
+import { ChatDeleteStart, ChatFetchUserChatsStart, chatCreateStart, chatDeleteStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
+import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 
 type ArtificialIntelligenceProps = ConnectedProps<typeof connector>;
 
@@ -19,6 +18,7 @@ interface IDefaultForms extends IChatForm {
     imageSource: string | ArrayBuffer | null | undefined;
     imageFile: any;
     show: boolean;
+    dropdown: string;
 }
 
 interface IChatForm {
@@ -34,7 +34,8 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             imageSource: "",
             imageFile: null,
             show: false,
-            chatValue: ""
+            chatValue: "",
+            dropdown: "Choose "
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -42,10 +43,27 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showPreview = this.showPreview.bind(this);
         this.convertImages = this.convertImages.bind(this);
+        this.handleGetMessages = this.handleGetMessages.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleDropDown = this.handleDropDown.bind(this);
+    }
+
+    handleDropDown(event: MouseEventHandler<HTMLElement>) {
+        this.setState({
+            // 
+        })
     }
 
     handleCommand() {
 
+    }
+
+    handleDelete(chatId: number) {
+        this.props.deleteChat(chatId)
+    }
+
+    handleGetMessages(chatId: number) {
+        this.props.getChatComments(chatId);
     }
 
     handleClick() {
@@ -114,11 +132,12 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
 
     componentDidMount(): void {
         this.props.getAllCrew();
+        this.props.getChats();
     }
 
     render() {
         const { chats, chatcomments, artificialIntelligence } = this.props;
-        const { show, name, role, chatValue } = this.state;
+        const { show, name, role, chatValue, dropdown } = this.state;
         return (
             <Fragment>
             <AiContainer className="fixed-top">
@@ -127,20 +146,21 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             <Col md={3}>
                 <CrewContainer>
                 <h1>Artoo<Plus size={40} style={{ cursor: 'pointer' }} onClick={this.handleClick}/></h1>
-                <FirstColumnContainer>
-                {chats.chats ? chats.chats.map(({ chatId, title }) => (
+                {chats.userChats ? chats.userChats.map(({ chatId, title }) => (
+                    <FirstColumnContainer>
                     <HeadingContainer>
                     <Row>
-                        <Col xs={9}>
-                        <div key={chatId} >
+                        <Col xs={8}>
+                        <div onClick={() => this.handleGetMessages(chatId)} key={chatId} >
                         {title}
                         </div>
                         </Col>
-                        <Col>
-                        <XCircle key={chatId}/>
+                        <Col xs={3}>
+                        <XCircle onClick={() => this.handleDelete(chatId)} key={chatId}/>
                         </Col>
                     </Row>
                     </HeadingContainer>
+                    </FirstColumnContainer>
                 )) : 
                 <Card style={{ margin: '.5rem'}}>
                     <Card.Body>
@@ -148,31 +168,41 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     </Card.Body>
                 </Card>
                 }
-                </FirstColumnContainer>
                 </CrewContainer>
             </Col>
             <Col md={9}>
                 <FormContainer>
                 <Form className="artooform">
-                <Dropdown style={{ padding: '1rem' }}>
-                <Dropdown.Toggle variant="light" id="dropdown">
-                    {/* {choice} */}
-                </Dropdown.Toggle>
+                <Dropdown as={ButtonGroup} style={{ padding: '1rem' }}>
+                    <Button variant="dark">
+                        {dropdown}
+                    </Button>
+                <Dropdown.Toggle split variant="dark" id="dropdown" />
                 <Dropdown.Menu >
-                    {/* <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Artoo" value="artoo">Artoo</Dropdown.Item>
-                    <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Code" value="code">Code</Dropdown.Item>
-                    <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item> */}
+                    {
+                        artificialIntelligence.userArtificialIntelligences ? artificialIntelligence.userArtificialIntelligences.map(({ artificialIntelligenceId, name, role }) => {
+                            return (
+                                <Dropdown.Item name="dropdown" value={name} key={artificialIntelligenceId?.toString()}>
+                                    {name}
+                                </Dropdown.Item>
+                            )}) 
+                        : <Dropdown.Item>
+                            Add Crew Members
+                        </Dropdown.Item>
+                    }
                 </Dropdown.Menu>
                 </Dropdown>
                 <Row style={{ padding: '2rem', height: '80vh', overflowY: 'auto' }}>
                     <Col>
-                    {chatcomments.chatcomments ? chatcomments.chatcomments.map(({ chatCommentId, chatValue }) => (
+                    {
+                        chatcomments.userChatcomments ? chatcomments.userChatcomments.map(({ chatCommentId, chatValue }) => { 
+                        return (
                         <ChatContainer  key={chatCommentId}>
                             <div key={chatValue}>
                             {this.convertImages(chatValue)}
                             </div>
                         </ChatContainer>
-                    )) :
+                    )}) :
                     <Card >
                         <Card.Body>
                         <Robot style={{ margin: 'auto', display: 'flex', justifyContent: 'center', width: '50%' }} color="black" size={300}/>
@@ -269,11 +299,14 @@ const mapStateToProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<ArtificialIntelligenceFetchUsersStart | ArtificialIntelligenceFetchSingleStart | ArtificialIntelligenceCreateStart | ChatCommentCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<ArtificialIntelligenceFetchUsersStart | ArtificialIntelligenceFetchSingleStart | ArtificialIntelligenceCreateStart | ChatFetchUserChatsStart | ChatCommentCreateStart | ChatCommentFetchSingleStart | ChatDeleteStart>) => ({
 	getAllCrew: () => dispatch(artificialIntelligenceFetchUsersStart()),
     getCrew: (userId: number ) => dispatch(artificialIntelligenceFetchSingleStart(userId)),
     createCrewMember: (name: string, role: string, imageFile: File) => dispatch(artificialIntelligenceCreateStart(name, role, imageFile)),
-    sendCommand: (chatId: number, chatValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile))
+    sendCommand: (chatId: number, chatValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile)),
+    getChats: () => dispatch(chatFetchUserChatsStart()),
+    getChatComments: (chatId: number) => dispatch(chatcommentFetchSingleStart(chatId)),
+    deleteChat: (chatId: number) => dispatch(chatDeleteStart(chatId))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

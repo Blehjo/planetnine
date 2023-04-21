@@ -7,6 +7,7 @@ import { RootState } from "../../store/store";
 import { MessageFetchUserMessagesStart, messageFetchUserMessagesStart } from "../../store/message/message.action";
 import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
 import { PilotContainer } from "../Pilots/Pilots.styles";
+import { HeaderContainer } from "../PilotDash/PilotDash.styles";
 
 type MessageProps = ConnectedProps<typeof connector>;
 
@@ -19,7 +20,9 @@ export class Message extends Component<MessageProps> {
         const { messages } = this.props;
         return(
             <MessageContainer>
-                <h1>Message</h1>
+                <HeaderContainer>
+                <div>Message</div>
+                </HeaderContainer>
                 {
                     messages.messages?.map(({ messageId, messageValue, userId, messageComments, user }) => {
                         return (

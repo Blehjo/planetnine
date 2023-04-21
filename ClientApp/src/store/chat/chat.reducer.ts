@@ -51,7 +51,8 @@ export const chatReducer = (
         chatFetchAllStart.match(action) ||
         chatFetchSingleStart.match(action) ||
         chatFetchSingleUserChatsStart.match(action) ||
-        chatFetchUserChatsStart.match(action)
+        chatFetchUserChatsStart.match(action) ||
+        chatCreateStart.match(action)
     ) {
         return { ...state, isLoading: true }
     }  

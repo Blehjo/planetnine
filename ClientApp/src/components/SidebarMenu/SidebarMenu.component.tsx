@@ -1,7 +1,7 @@
 import { Component, Dispatch, useEffect, useState } from "react";
 // import { useNavigate } from "react-router";
 import { Col, Nav, Row } from "react-bootstrap";
-import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot, ChatLeft } from 'react-bootstrap-icons';
+import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot, ChatLeft, Globe } from 'react-bootstrap-icons';
 import { ConnectedProps, connect, useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
@@ -32,6 +32,12 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                 className="mw-100 pt-3"  
                 xs={1} 
                 >
+                    <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
+                        <Globe className='' color="white" size={20}/>
+                        <Nav.Link href="/resources" className="ms-4">
+                            Voyage
+                        </Nav.Link>
+                    </Nav.Item>
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                         <Person className='' color="white" size={20}/>
                         <Nav.Link href="/vitals" className="ms-4">
@@ -96,12 +102,6 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                         <ChatLeft className='' color="white" size={20}/>
                         <Nav.Link href="/chats" className="ms-4">
                             Chats
-                        </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                        <Bookmark className='' color="white" size={20}/>
-                        <Nav.Link href="/resources" className="ms-4">
-                            Resources
                         </Nav.Link>
                     </Nav.Item>
                 </Row>

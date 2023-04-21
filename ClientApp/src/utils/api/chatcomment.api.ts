@@ -1,14 +1,14 @@
 import axios from "axios";
 import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 
-const api = "https://localhost:7098/api/chat";
+const api = "https://localhost:7098/api/chatcomment";
 
 const headers = {
   'Accept': 'application/x-www-form-urlencoded',
   'Content-Type': 'application/x-www-form-urlencoded' 
 }
 
-export async function getSingleChatComment(chatcommentId: number): Promise<ChatComment> {
+export async function getSingleChatComment(chatcommentId: number): Promise<ChatComment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/${chatcommentId}`,

@@ -9,9 +9,19 @@ export const PilotDashContainer = styled.div`
 `;
 
 export const MarginContainer = styled.div`
-    margin: 1rem;
+    margin: 5rem 1rem 5rem 1rem;
 `;
 
 export const PilotContainer = styled.div`
     margin-top: 1rem;
+`;
+
+export const HeaderContainer = styled.div`
+    position: fixed;
+    color: white;
+    background: black;
+    padding: 1rem;
+    margin: .5rem;
+    opacity: 0.7;
+    border-radius: .5rem;
 `;

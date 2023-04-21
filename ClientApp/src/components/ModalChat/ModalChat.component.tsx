@@ -1,4 +1,4 @@
-import { Component, Dispatch, Fragment } from "react";
+import { ChangeEvent, Component, Dispatch, Fragment } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { Robot } from 'react-bootstrap-icons';
 
@@ -11,12 +11,33 @@ import { Chat } from "../../store/chat/chat.types";
 
 type ModalChatProps = ConnectedProps<typeof connector>;
 
-export class ModalChat extends Component<ModalChatProps> {
-    state = {
-        show: false,
-        title: "",
-        chatcommentValue: "",
-        mediaLink: null
+interface IModalChatProps {
+    title: string;
+    chatcommentValue: string;
+    mediaLink: any;
+    show: boolean;
+}
+
+export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
+    constructor(props: ModalChatProps) {
+        super(props);
+        this.state = {
+            show: false,
+            title: "",
+            chatcommentValue: "",
+            mediaLink: null
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    
+    handleChange(event: ChangeEvent<HTMLInputElement>): void {
+        const { name, value } = event.target;
+        this.setState({
+            ...this.state, [name]: value
+        })
     }
 
     handleClick() {
@@ -33,13 +54,15 @@ export class ModalChat extends Component<ModalChatProps> {
 
     handleSubmit() {
         const { title, chatcommentValue, mediaLink } = this.state;
-        return this.props.createChat(title)
-        // .toPromise()
-        // .then((response: Chat) => this.props.createChatComment(response.chatId, chatcommentValue, mediaLink))
+        const { chats } = this.props;
+        this.props.createChat(title);
+        const chatId = chats.singleChat?.chatId ? chats.singleChat.chatId : 0;
+        this.props.createChatComment(chatId, chatcommentValue, mediaLink)
+        this.handleClose();
     }
 
     render() {
-        const { show } = this.state;
+        const { show, title, chatcommentValue } = this.state;
         return(
             <Fragment>
                 <BoxChatContainer>
@@ -51,12 +74,15 @@ export class ModalChat extends Component<ModalChatProps> {
                     <Modal.Title>Inquiry</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    <Form>
+                    <Form onSubmit={this.handleSubmit}>
                         <Form.Group className="mb-3" controlId="formMember">
                         <Form.Control
                             type="text"
+                            name="title"
                             placeholder="Inquiry request subject"
                             autoFocus
+                            value={title}
+                            onChange={this.handleChange}
                             />
                         </Form.Group>
                         <Form.Group
@@ -64,7 +90,12 @@ export class ModalChat extends Component<ModalChatProps> {
                         controlId="formInquiry"
                         placeholder="inquire with your crew"
                         >
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control
+                            name="chatcommentValue"
+                            value={chatcommentValue}
+                            onChange={this.handleChange}
+                            as="textarea" rows={3} 
+                        />
                         </Form.Group>
                     </Form>
                     </Modal.Body>

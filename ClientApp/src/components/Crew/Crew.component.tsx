@@ -1,5 +1,5 @@
 import { Component, Dispatch } from "react";
-import { CrewContainer, FontContainer } from "./Crew.styles";
+import { CardHolder, CrewContainer, FontContainer } from "./Crew.styles";
 import { ConnectedProps, connect } from "react-redux";
 import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceCreateStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
 import { RootState } from "../../store/store";
@@ -8,6 +8,7 @@ import { Card } from "react-bootstrap";
 import { PostContainer } from "../Post/Post.styles";
 import { ArrowsFullscreen } from "react-bootstrap-icons";
 import CrewPanelComponent from "../CrewPanel/CrewPanel.component";
+import { HeaderContainer } from "../PilotDash/PilotDash.styles";
 
 type CrewProps = ConnectedProps<typeof connector>;
 
@@ -24,7 +25,10 @@ export class Crew extends Component<CrewProps> {
         const { artificialIntelligence } = this.props;
         return(
             <CrewContainer>
-                <h1>Crew</h1>
+                <HeaderContainer>
+                <div>Crew</div>
+                </HeaderContainer>
+                <CardHolder>
                 <ResponsiveMasonry
                     columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
                 >
@@ -44,6 +48,7 @@ export class Crew extends Component<CrewProps> {
                     })}
                     </Masonry>
                 </ResponsiveMasonry>
+                </CardHolder>
             </CrewContainer>
         );
     }

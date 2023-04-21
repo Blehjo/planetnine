@@ -11,6 +11,7 @@ import { ChatFetchAllStart, ChatFetchSingleStart, chatFetchAllStart, chatFetchSi
 import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { FavoriteFetchUserFavoritesStart, favoriteFetchUserFavoritesStart } from "../../store/favorite/favorite.action";
 import { utcConverter } from "../../utils/date/date.utils";
+import { getFavorite } from "../../utils/favorites/favorites.utils";
 
 export interface IChatComment {
     chatCommentId: number;
@@ -45,125 +46,17 @@ export interface IChat {
 
 export type Favorite = IChat | IPost;
 
-const pilots: Favorite[] = [
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "I'm the best to ever do it, bitch. And you the best at never doing shit",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 10,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 1,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "programmer",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    },
-    {
-        postId: 1,
-        postValue: "marauder",
-        about: "I'm the best to ever do it, bitch. And you the best at never doing shit",
-        dateCreated: new Date(1478708162000),
-        mediaLink: "hello",
-        comments: 1,
-        favorites: 0,
-        userId: 10
-    }
-]
-
 type FavoriteProps = ConnectedProps<typeof connector>;
 
+type Favorites = {
+    show: boolean;
+    userFavorites: any[];
+}
+
 export class FavoriteComponent extends Component<FavoriteProps> {
-    state = {
-        pilots: pilots,
-        show: false
+    state: Favorites = {
+        show: false,
+        userFavorites: []
     }
 
     handleClose(): void {
@@ -182,10 +75,14 @@ export class FavoriteComponent extends Component<FavoriteProps> {
 
     componentDidMount(): void {
         this.props.getFavorites();
+        const { favorites } = this.props;
+        favorites.userFavorites?.forEach(({ contentId, contentType }) => {
+            this.state.userFavorites.push("getFavorite(contentId, contentType)")
+        })
     }
 
     render() {
-        const { pilots, show } = this.state;
+        const { show } = this.state;
         const { favorites, chats, chatcomments, posts, comments } = this.props;
         return (
             <Fragment>
@@ -195,37 +92,43 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                         columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
                     >
                         <Masonry>
-                        {pilots.map(({ postId, postValue, about, comments, favorites, dateCreated }, index) => {
-                            return <FavoriteContainer key={index}>
-                                <Card className="bg-dark" key={index}>
-                                    {/* <Card.Img src={mediaLink}/> */}
-                                    {/* <Card.ImgOverlay> */}
-                                        <BadgeContainer>
-                                            <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(postId)}/></Badge>
-                                        </BadgeContainer>
-                                        {
-                                            comments > 0 && <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
-                                                <Globe size={15}/>
-                                                {' '}{comments}
-                                                </Badge>
-                                            </BadgeContainer>
-                                        }
-                                        {
-                                            favorites > 0 && <BadgeContainer>
-                                                <Badge style={{ color: 'black' }} bg="light">
-                                                <Rocket size={15}/>
-                                                {' '}{favorites}
-                                                </Badge>
-                                            </BadgeContainer>
-                                        }
-                                    {/* </Card.ImgOverlay> */}
-                                    <Card.Body>
-                                        <Card.Text>{postValue}</Card.Text>
-                                        <Card.Text>{about}</Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </FavoriteContainer>
-                        })}
+                        {favorites.userFavorites?.map(({ favoriteId, contentId, contentType, dateCreated }, index) => {
+                            return (
+                                <FavoriteContainer key={index}>
+                                    {
+                                        this.state.userFavorites.push("getFavorite(contentId, contentType)")
+                                    }
+                                </FavoriteContainer>
+                            // <FavoriteContainer key={index}>
+                            //     <Card className="bg-dark" key={index}>
+                            //         {/* <Card.Img src={mediaLink}/> */}
+                            //         {/* <Card.ImgOverlay> */}
+                            //             <BadgeContainer>
+                            //                 <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(favoriteId)}/></Badge>
+                            //             </BadgeContainer>
+                            //             {
+                            //                 comments > 0 && <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
+                            //                     <Globe size={15}/>
+                            //                     {' '}{comments}
+                            //                     </Badge>
+                            //                 </BadgeContainer>
+                            //             }
+                            //             {
+                            //                 favorites > 0 && <BadgeContainer>
+                            //                     <Badge style={{ color: 'black' }} bg="light">
+                            //                     <Rocket size={15}/>
+                            //                     {' '}{favorites}
+                            //                     </Badge>
+                            //                 </BadgeContainer>
+                            //             }
+                            //         {/* </Card.ImgOverlay> */}
+                            //         <Card.Body>
+                            //             <Card.Text>{postValue}</Card.Text>
+                            //             <Card.Text>{about}</Card.Text>
+                            //         </Card.Body>
+                            //     </Card>
+                            // </FavoriteContainer>
+                        )})}
                         </Masonry>
                     </ResponsiveMasonry>
                     <Modal 

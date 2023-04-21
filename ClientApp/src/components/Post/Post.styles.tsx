@@ -4,6 +4,10 @@ export const PostContainer = styled.div`
   margin: .5rem;
 `;
 
+export const PostDashContainer = styled.div`
+  margin: 5rem .5rem -4.5rem .5rem;
+`;
+
 export const ModalContainer = styled.div`
   background: rgb(20, 20, 35);
   color: white;

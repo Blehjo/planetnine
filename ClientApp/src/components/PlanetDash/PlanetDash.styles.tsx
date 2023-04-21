@@ -8,3 +8,8 @@ export const PlanetDashPanel = styled.div`
     border-radius: .3rem;
     z-index: 2;
 `;
+
+export const PlanetContainer = styled.div`
+    margin: 5rem .5rem -4.5rem .5rem;
+    color: white;
+`;

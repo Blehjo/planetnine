@@ -49,7 +49,7 @@ export const chatcommentReducer = (
     if (
         chatcommentFetchSingleSuccess.match(action) 
     ) {
-        return { ...state, isLoading: false, singleChatcomment: action.payload }
+        return { ...state, isLoading: false, userChatcomments: action.payload }
     }
     if (
         chatcommentCreateSuccess.match(action) ||

@@ -9,6 +9,10 @@ export const CrewContainer = styled.div`
 `;
 
 export const FontContainer = styled.div`
-    margin: .5rem;
+    margin: 5rem .5rem -4.5rem .5rem;
     color: white;
+`;
+
+export const CardHolder = styled.div`
+
 `;

@@ -1,5 +1,5 @@
 import { Component, Dispatch } from "react";
-import { IconContainer, NotificationsContainer, SidebarContainer } from "./Notifications.styles";
+import { CardContainer, IconContainer, NotificationsContainer, SidebarContainer } from "./Notifications.styles";
 import { RootState } from "../../store/store";
 import { ChatFetchSingleStart, ChatFetchUserChatsStart, chatFetchSingleStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
 import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
@@ -10,11 +10,16 @@ import ModalChatComponent from "../ModalChat/ModalChat.component";
 import ModalMoonComponent from "../ModalMoon/ModalMoon.component";
 import ModalPlanetComponent from "../ModalPlanet/ModalPlanet.component";
 import ModalPostComponent from "../ModalPost/ModalPost.component";
+import { XCircle } from "react-bootstrap-icons";
 
 
 type NotificationProps = ConnectedProps<typeof connector>;
 
 export class Notification extends Component<NotificationProps> {
+    handleGetMessages(chatId: number) {
+        this.props.getComments(chatId);
+    }
+
     componentDidMount(): void {
         this.props.getAllChats();
     }
@@ -43,16 +48,27 @@ export class Notification extends Component<NotificationProps> {
                     </IconContainer>
                     <Row>
                     <Col>
+                    <Row xs={2}>
                     {
-                        chats.chats?.map(({ chatId, title, chatComments }) => {
-                            return (
-                                <Row key={chatId}>
-                                <Card>
+                        chats.userChats?.map(({ chatId, title, chatComments }) => {
+                        return (
+                            <Col xs={6}>
+                            <CardContainer>
+                                <Row xs={2}>
+                                <Col xs={8}>
+                                    <div onClick={() => this.handleGetMessages(chatId)} key={chatId} >
                                     {title}
-                                </Card>
-                            </Row>
+                                    </div>
+                                </Col>
+                                <Col xs={3}>
+                                    <XCircle key={chatId}/>
+                                </Col>
+                                </Row>
+                            </CardContainer>
+                            </Col>
                         )
                     })}
+                    </Row>
                     </Col>
                     </Row>
                 </NotificationsContainer>
@@ -72,7 +88,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ChatFetchUserChatsStart | ChatFet
 	getAllChats: () => dispatch(chatFetchUserChatsStart()),
     getChat: (chatId: number) => dispatch(chatFetchSingleStart(chatId)),
     getComments: (chatId: number) => dispatch(chatcommentFetchSingleStart(chatId)),
-    likeChat: (chatId: number, contentType: string) => dispatch(favoriteCreateStart(chatId, contentType))
+    likeChat: (chatId: number, contentType: string) => dispatch(favoriteCreateStart(chatId, contentType)),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -17,7 +17,6 @@ export const AiContainer = styled.div`
 `;
 
 export const UserAiContainer = styled.div`
-  height: 100vh; 
   position: relative;
   border-radius: .3rem;
   padding: 4rem;
@@ -25,6 +24,7 @@ export const UserAiContainer = styled.div`
 `;
 
 export const CrewContainer = styled.div`
+  height: 100vh;
   margin-bottom: 1rem;
   overflow-y: auto;
   background: #d4d4d4;
@@ -60,11 +60,7 @@ export const TextBox = styled.div`
 `;
 
 export const FirstColumnContainer = styled.div`
-  height: 100vh; 
-  background: white;
   text-align: center;
-  margin-top: 3.5rem;
   color: black;
-  float: left;
   z-index: 2;
 `;

@@ -1,6 +1,6 @@
 import { Component, Dispatch, Fragment } from "react";
 import { Col, Image, Row } from "react-bootstrap";
-import { MarginContainer, PilotContainer, PilotDashContainer } from "./PilotDash.styles";
+import { HeaderContainer, MarginContainer, PilotContainer, PilotDashContainer } from "./PilotDash.styles";
 import { RootState } from "../../store/store";
 import { PilotFetchAllStart, pilotFetchAllStart } from "../../store/pilot/pilot.action";
 import { ConnectedProps, connect } from "react-redux";
@@ -17,7 +17,11 @@ export class PilotDash extends Component<PilotDashProps> {
         const { pilots } = this.props;
         return(
             <PilotDashContainer>
-                <div>Pilots</div>
+                <HeaderContainer>
+                    <div>
+                        Pilots
+                    </div>
+                </HeaderContainer>
                 <MarginContainer>
                 {
                     pilots.pilots?.map(({ userId, username, imageSource, imageLink }) => {
