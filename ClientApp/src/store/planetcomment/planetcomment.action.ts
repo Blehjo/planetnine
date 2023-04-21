@@ -23,7 +23,7 @@ export type PlanetCommentCreateFailed = ActionWithPayload<
 
 export type PlanetCommentUpdateStart = ActionWithPayload<
     PLANET_COMMENT_ACTION_TYPES.UPDATE_START,
-    { commentId: number, commentValue: string, mediaLink: string }
+    { planetCommentId: number, commentValue: string, mediaLink: string }
 >;
 
 export type PlanetCommentUpdateSuccess = ActionWithPayload<
@@ -111,8 +111,8 @@ export const planetcommentCreateFailed = withMatcher(
 );
  
 export const planetcommentUpdateStart = withMatcher(
-    (commentId: number, commentValue: string, mediaLink: string, userId: number): PlanetCommentUpdateStart => 
-    createAction(PLANET_COMMENT_ACTION_TYPES.UPDATE_START, { commentId, commentValue, mediaLink, userId })
+    (planetCommentId: number, commentValue: string, mediaLink: string, userId: number): PlanetCommentUpdateStart => 
+    createAction(PLANET_COMMENT_ACTION_TYPES.UPDATE_START, { planetCommentId, commentValue, mediaLink, userId })
 );
 
 export const planetcommentUpdateSuccess = withMatcher(

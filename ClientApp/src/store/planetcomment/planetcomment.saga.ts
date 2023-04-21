@@ -54,11 +54,11 @@ export function* createComment({ payload: { commentValue, imageFile, planetId }}
     }
 }
 
-export function* updateComment({ payload: { commentId, commentValue, mediaLink }}: PlanetCommentUpdateStart) {
+export function* updateComment({ payload: { planetCommentId, commentValue, mediaLink }}: PlanetCommentUpdateStart) {
     try {
         const comment = yield* call(
             editComment,
-            commentId,
+            planetCommentId,
             commentValue,
             mediaLink
         ); 

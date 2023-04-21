@@ -33,6 +33,11 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
             imageSource: "",
             commentValue: ""
         }
+        this.postComment = this.postComment.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.fetchPlanet = this.fetchPlanet.bind(this);
+        this.showPreview = this.showPreview.bind(this);
     }
 
     handleClose(): void {
@@ -55,6 +60,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
 
     fetchPlanet(planetId: number): void {
         this.props.getPlanet(planetId);
+        this.props.getComments(planetId);
         this.setState({
             show: !this.state.show
         })
@@ -89,6 +95,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
     render() {
         const { show } = this.state;
         const { planets, planetcomments } = this.props;
+        console.log("Planet Comments", planetcomments);
         return (
             <Fragment>
                 <FixedContainer className="fixed-top">
@@ -136,7 +143,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                             />
                             </Col>
                             <Col>
-                            <div>planetcomments</div>
+                            <div>Comments</div>
                             {
                                 planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>

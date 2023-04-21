@@ -12,7 +12,6 @@ import { CommentContainer, ModalContainer, PostContainer, TextContainer } from "
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { CardContainer } from "../Notification/Notifications.styles";
 import { utcConverter } from "../../utils/date/date.utils";
-import { CommentCreateStart, commentCreateStart } from "../../store/comment/comment.action";
 import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
 
 type MoonProps = ConnectedProps<typeof connector>;
@@ -33,6 +32,11 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
             imageSource: "",
             commentValue: ""
         }
+        this.postComment = this.postComment.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.fetchMoon = this.fetchMoon.bind(this);
+        this.showPreview = this.showPreview.bind(this);
     }
 
     handleClose(): void {
