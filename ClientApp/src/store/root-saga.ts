@@ -9,8 +9,10 @@ import { followerSagas } from './follower/follower.saga';
 import { messageSagas } from './message/message.saga';
 import { messageCommentSagas } from './messagecomment/messagecomment.saga';
 import { moonSagas } from './moon/moon.saga';
+import { moonCommentSagas } from './mooncomment/mooncomment.saga';
 import { pilotSagas } from './pilot/pilot.saga';
 import { planetSagas } from './planet/planet.saga';
+import { planetcommentSagas } from './planetcomment/planetcomment.saga';
 import { postSagas } from './post/post.saga';
 import { toolSagas } from './tool/tool.saga';
 import { userSagas } from './user/user.saga';
@@ -27,8 +29,10 @@ export function* rootSaga() {
     call(messageSagas), 
     call(messageCommentSagas), 
     call(moonSagas), 
+    call(moonCommentSagas),
     call(pilotSagas), 
     call(planetSagas), 
+    call(planetcommentSagas),
     call(postSagas), 
     call(toolSagas), 
     call(userSagas),

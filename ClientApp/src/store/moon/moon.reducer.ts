@@ -49,6 +49,7 @@ export const moonReducer = (
 ): MoonState => {
     if (
         moonFetchAllStart.match(action) ||
+        moonFetchSingleStart.match(action) ||
         moonFetchUserMoonsStart.match(action) ||
         moonFetchOtherUserMoonsStart.match(action)
     ) {
@@ -56,7 +57,8 @@ export const moonReducer = (
     }
     if (
         moonCreateSuccess.match(action) ||
-        moonUpdateSuccess.match(action) 
+        moonUpdateSuccess.match(action) ||
+        moonFetchSingleSuccess.match(action)
     ) {
         return { ...state, isLoading: false, singleMoon: action.payload };
     }

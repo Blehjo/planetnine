@@ -13,6 +13,7 @@ import NotificationComponent from "../Notification/Notification.component";
 import { CardContainer } from "../Notification/Notifications.styles";
 import { utcConverter } from "../../utils/date/date.utils";
 import { CommentCreateStart, CommentFetchSingleStart, commentCreateStart, commentFetchSingleStart } from "../../store/comment/comment.action";
+import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
 
 type PlanetProps = ConnectedProps<typeof connector>;
 
@@ -84,11 +85,10 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
 
     componentDidMount(): void {
         this.props.getPlanets();
-        console.log("Planets: ", this.props.planets)
     }
     render() {
         const { show } = this.state;
-        const { planets, comments } = this.props;
+        const { planets, planetcomments } = this.props;
         return (
             <Fragment>
                 <FixedContainer className="fixed-top">
@@ -125,7 +125,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                 >
                     <ModalContainer>
                     <Modal.Header closeButton>
-                        <Modal.Title >Planet Log</Modal.Title>
+                        <Modal.Title>{planets.singlePlanet?.planetName}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Row>
@@ -134,14 +134,13 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                 fluid
                                 src={planets.singlePlanet?.imageLink ? planets.singlePlanet?.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                             />
-                            {planets.singlePlanet?.planetName}
                             </Col>
                             <Col>
-                            <div>Comments</div>
+                            <div>planetcomments</div>
                             {
-                                comments.comments?.map(({ commentId, commentValue, mediaLink, dateCreated }) => {
+                                planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
-                                        <Card className="bg-dark" key={commentId}>
+                                        <Card className="bg-dark" key={planetCommentId}>
                                             <TextContainer>
                                                 <Card.Text>{commentValue}</Card.Text>
                                                 <Card.Text>{utcConverter(dateCreated)}</Card.Text>
@@ -198,15 +197,15 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
 const mapStateToProps = (state: RootState) => {
     return {
         planets: state.planet,
-        comments: state.comment
+        planetcomments: state.planetcomment
     }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<PlanetFetchAllStart | PlanetFetchSingleStart | CommentCreateStart | CommentFetchSingleStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<PlanetFetchAllStart | PlanetFetchSingleStart | PlanetCommentCreateStart | PlanetCommentFetchSingleStart>) => ({
     getPlanets: () => dispatch(planetFetchAllStart()),
     getPlanet: (planetId: number) => dispatch(planetFetchSingleStart(planetId)),
-    getComments: (planetId: number) => dispatch(commentFetchSingleStart(planetId)),
-    createComment: (commentValue: string, imageFile: File, postId: number) => dispatch(commentCreateStart(commentValue, imageFile, postId))
+    getComments: (planetId: number) => dispatch(planetcommentFetchSingleStart(planetId)),
+    createComment: (commentValue: string, imageFile: File, postId: number) => dispatch(planetcommentCreateStart(commentValue, imageFile, postId))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

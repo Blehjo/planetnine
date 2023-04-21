@@ -84,7 +84,7 @@ export function* fetchUserComments() {
     try {
         const comment  = yield* call(getUsersComments);
         if (!comment) return;
-        yield* call(commentFetchAllSuccess, comment);
+        yield* put(commentFetchAllSuccess(comment));
     } catch (error) {
         yield* put(commentFetchAllFailed(error as Error));
     }
@@ -97,7 +97,7 @@ export function* fetchOtherUserss({ payload: { userId } }: CommentFetchUserChats
             userId
         );
         if (!comments) return;
-        yield* call(commentFetchAllSuccess, comments);
+        yield* put(commentFetchAllSuccess(comments));
     } catch (error) {
         yield* put(commentFetchAllFailed(error as Error));
     }
