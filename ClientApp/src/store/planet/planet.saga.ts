@@ -191,7 +191,7 @@ export function* onFetchUserPlanetsStart() {
 
 export function* onFetchOtherUserPlanetsStart() {
     yield* takeLatest(
-        PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START, 
+        PLANET_ACTION_TYPES.FETCH_OTHER_USER_PLANETS_START, 
         fetchOtherUsersPlanets
     );
 }

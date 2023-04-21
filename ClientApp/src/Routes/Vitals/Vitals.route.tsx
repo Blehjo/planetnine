@@ -2,11 +2,11 @@ import { Component, Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
 
 import { VitalsContainer } from "./Vitals.styles";
-import { PlanetDash } from "../../components/PlanetDash/PlanetDash.component";
 import PilotDashComponent from "../../components/PilotDash/PilotDash.component";
 import MessageComponent from "../../components/Message/Message.component";
 import NotificationComponent from "../../components/Notification/Notification.component";
 import CrewComponent from "../../components/Crew/Crew.component";
+import PlanetDashComponent from "../../components/PlanetDash/PlanetDash.component";
 
 
 export class Vitals extends Component {
@@ -28,7 +28,7 @@ export class Vitals extends Component {
                         <MessageComponent/>
                     </Col>
                     <Col xs={6}>
-                        <PlanetDash/>
+                        <PlanetDashComponent/>
                     </Col>
                 </Row>
                 </VitalsContainer>

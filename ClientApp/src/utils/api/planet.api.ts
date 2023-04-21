@@ -4,8 +4,8 @@ import { Planet } from "../../store/planet/planet.types";
 const api = "https://localhost:7098/api/planet";
 
 const headers = {
-  'Accept': 'application/x-www-form-urlencoded',
-  'Content-Type': 'application/x-www-form-urlencoded' 
+  'Accept': 'application/json',
+  'Content-Type': 'application/json' 
 }
 
 export async function getSinglePlanet(planetId: number): Promise<Planet> {

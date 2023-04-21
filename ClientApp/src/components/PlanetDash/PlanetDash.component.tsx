@@ -7,7 +7,7 @@ import { Badge, Card } from "react-bootstrap";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { ArrowsFullscreen } from "react-bootstrap-icons";
 import { RootState } from "../../store/store";
-import { PlanetFetchAllStart, planetFetchAllStart } from "../../store/planet/planet.action";
+import { PlanetFetchAllStart, PlanetFetchUserPlanetsStart, planetFetchAllStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
 import { ConnectedProps, connect } from "react-redux";
 import { HeaderContainer, MarginContainer } from "../PilotDash/PilotDash.styles";
 import { CardHolder } from "../Crew/Crew.styles";
@@ -98,8 +98,16 @@ const planets = [
 
 type PlanetDashProps = ConnectedProps<typeof connector>;
 
-export class PlanetDash extends Component {
+export class PlanetDash extends Component<PlanetDashProps> {
+    constructor(props: PlanetDashProps) {
+        super(props);
+    }
+
+    componentDidMount(): void {
+        this.props.getPlanets();
+    }
     render() {
+        const { planets } = this.props;
         return(
             <PlanetDashPanel>
                 <HeaderContainer>
@@ -110,7 +118,7 @@ export class PlanetDash extends Component {
                     columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
                 >
                     <Masonry>
-                    {planets?.map(({ planetName, perihelion, aphelion, mass, density, gravity, imageLink, discoveredBy }, index) => {
+                    {planets.userPlanets?.map(({ planetName, perihelion, aphelion, planetMass, temperature, gravity, imageLink }, index) => {
                         return <PlanetContainer key={index}>
                             <Card className="bg-dark" key={index}>
                                 <Card.Img src={imageLink ? imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
@@ -137,8 +145,8 @@ const mapStateToProps = (state: RootState) => {
     }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<PlanetFetchAllStart>) => ({
-    getPlanets: () => dispatch(planetFetchAllStart())
+const mapDispatchToProps = (dispatch: Dispatch<PlanetFetchUserPlanetsStart>) => ({
+    getPlanets: () => dispatch(planetFetchUserPlanetsStart())
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

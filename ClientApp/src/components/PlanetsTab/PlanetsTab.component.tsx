@@ -120,7 +120,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
     }
 
     componentDidMount(): void {
-        // this.props.getPlanets();
+        this.props.getPlanets();
     }
 
     render() {

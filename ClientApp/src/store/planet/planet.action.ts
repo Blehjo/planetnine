@@ -239,18 +239,18 @@ export const planetFetchUserPlanetsFailed = withMatcher(
 );
 
 export const planetFetchOtherUserPlanetsStart = withMatcher(
-    (userId: number): PlanetFetchUserPlanetsStart => 
-    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_START, { userId })
+    (userId: number): PlanetFetchOtherUserPlanetsStart => 
+    createAction(PLANET_ACTION_TYPES.FETCH_OTHER_USER_PLANETS_START, { userId })
 );
 
 export const planetFetchOtherUserPlanetsSuccess = withMatcher(
-    (planet: Planet[]): PlanetFetchUserPlanetsSuccess => 
-    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_SUCCESS, planet)
+    (planet: Planet[]): PlanetFetchOtherUserPlanetsSuccess => 
+    createAction(PLANET_ACTION_TYPES.FETCH_OTHER_USER_PLANETS_SUCCESS, planet)
 );
 
 export const planetFetchOtherUserPlanetsFailed = withMatcher(
-    (error: Error): PlanetFetchUserPlanetsFailed => 
-    createAction(PLANET_ACTION_TYPES.FETCH_USER_PLANETS_FAILED, error)
+    (error: Error): PlanetFetchOtherUserPlanetsFailed => 
+    createAction(PLANET_ACTION_TYPES.FETCH_OTHER_USER_PLANETS_FAILED, error)
 );
 
 export const planetFetchAllStart = withMatcher(
