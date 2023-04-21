@@ -41,10 +41,10 @@ export async function getUserMoons(): Promise<Moon[]> {
   return result;
 }
 
-export async function getUsersMoons(): Promise<Moon[]> {
+export async function getUsersMoons(userId: number): Promise<Moon[]> {
   const response = await axios({
     method: 'get',
-    url: `${api}/users`, 
+    url: `${api}/${userId}`, 
     headers: headers,
     withCredentials: true
   });

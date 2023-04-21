@@ -23,7 +23,7 @@ export enum MESSAGE_ACTION_TYPES  {
 };
 
 export type Message = {
-    messageId: number | null;
+    messageId: number;
     messageValue: string | null;
     dateCreated: Date | null;
     userId: number | null,

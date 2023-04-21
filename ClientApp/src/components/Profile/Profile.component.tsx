@@ -15,7 +15,7 @@ import { CommentFetchSingleStart, commentFetchSingleStart } from "../../store/co
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { MoonsTab } from "../MoonsTab/MoonsTab.component";
 import { MoonCreateStart, moonCreateStart } from "../../store/moon/moon.action";
-import { PlanetCreateStart, PlanetFetchUserPlanetsStart, planetCreateStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
+import { PlanetCreateStart, PlanetFetchSingleStart, PlanetFetchUserPlanetsStart, planetCreateStart, planetFetchSingleStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
 import { ChatFetchSingleStart, ChatFetchUserChatsStart, chatFetchSingleStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
 
 
@@ -68,7 +68,7 @@ const mapToStateProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart | PostFetchAllStart | PostFetchUserPostsStart | PostCreateStart | PostFetchSingleStart | ChatFetchUserChatsStart | ChatFetchSingleStart | CommentFetchSingleStart | FavoriteCreateStart | MoonCreateStart | PlanetCreateStart | PlanetFetchUserPlanetsStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart | PostFetchAllStart | PostFetchUserPostsStart | PostCreateStart | PostFetchSingleStart | ChatFetchUserChatsStart | ChatFetchSingleStart | CommentFetchSingleStart | FavoriteCreateStart | MoonCreateStart | PlanetCreateStart | PlanetFetchUserPlanetsStart | PlanetFetchSingleStart>) => ({
     getUserProfile: (userId: number) => dispatch(userprofileFetchSingleStart(userId)),
     getPilot: (userId: number) => dispatch(pilotFetchSingleStart(userId)),
     getAllPosts: () => dispatch(postFetchAllStart()),
@@ -80,6 +80,7 @@ const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | Pil
     getComments: (postId: number) => dispatch(commentFetchSingleStart(postId)),
     likePost: (postId: number, contentType: string) => dispatch(favoriteCreateStart(postId, contentType)),
     getPlanets: () => dispatch(planetFetchUserPlanetsStart()),
+    getPlanet: (planetId: number) => dispatch(planetFetchSingleStart(planetId)),
     getChats: () => dispatch(chatFetchUserChatsStart()),
     getChat: (chatId: number) => dispatch(chatFetchSingleStart(chatId)),
 });

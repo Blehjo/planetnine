@@ -18,6 +18,12 @@ import {
     moonFetchAllStart,
     moonFetchAllSuccess,
     moonFetchAllFailed,
+    moonFetchUserMoonsSuccess,
+    moonFetchOtherUserMoonsSuccess,
+    moonFetchUserMoonsStart,
+    moonFetchOtherUserMoonsStart,
+    moonFetchUserMoonsFailed,
+    moonFetchOtherUserMoonsFailed,
 } from './moon.action';
 
 export type MoonState = {
@@ -42,7 +48,9 @@ export const moonReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): MoonState => {
     if (
-        moonFetchAllStart.match(action) 
+        moonFetchAllStart.match(action) ||
+        moonFetchUserMoonsStart.match(action) ||
+        moonFetchOtherUserMoonsStart.match(action)
     ) {
         return { ...state, isLoading: true }
     }
@@ -54,16 +62,24 @@ export const moonReducer = (
     }
     if (
         moonDeleteSuccess.match(action) ||
-        moonFetchAllSuccess.match(action) 
+        moonFetchAllSuccess.match(action) ||
+        moonFetchOtherUserMoonsSuccess.match(action)
     ) {
         return { ...state, isLoading: false, moons: action.payload };
+    } 
+    if (
+        moonFetchUserMoonsSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userMoons: action.payload };
     } 
     if (
         moonCreateFailed.match(action) ||
         moonUpdateFailed.match(action) ||
         moonDeleteFailed.match(action) ||
         moonFetchSingleFailed.match(action) ||
-        moonFetchAllFailed.match(action) 
+        moonFetchAllFailed.match(action) ||
+        moonFetchUserMoonsFailed.match(action) ||
+        moonFetchOtherUserMoonsFailed.match(action)
     ) {
       return { ...state, isLoading: false, error: action.payload };
     }

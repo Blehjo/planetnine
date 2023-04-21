@@ -2,11 +2,12 @@ import { Component, Dispatch, Fragment } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import { Badge, Card } from "react-bootstrap";
-import { Globe, Person, Rocket } from 'react-bootstrap-icons';
+import { Envelope, Globe, Person, Rocket } from 'react-bootstrap-icons';
 
 import { BadgeContainer, PilotContainer } from "./Pilots.styles";
 import { RootState } from "../../store/store";
 import { PilotFetchAllStart, PilotFetchSingleStart, pilotFetchAllStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
+import { MessageCreateStart, messageCreateStart } from "../../store/message/message.action";
 
 type PilotProps = ConnectedProps<typeof connector>;
 
@@ -17,6 +18,10 @@ export class Pilots extends Component<PilotProps> {
 
     handleClick(userId: number) {
         this.props.getPilot(userId);
+    }
+
+    handleSendMessage(messageValue: string) {
+        this.props.sendMessage(messageValue);
     }
 
     componentDidMount(): void {
@@ -40,6 +45,9 @@ export class Pilots extends Component<PilotProps> {
                                 <Card.ImgOverlay>
                                     <BadgeContainer>
                                         <Badge style={{ color: 'black' }} bg="light"><Person style={{ cursor: 'pointer' }} onClick={() => this.handleClick(userId)} size={15}/></Badge>
+                                    </BadgeContainer>
+                                    <BadgeContainer>
+                                        <Badge style={{ color: 'black' }} bg="light"><Envelope style={{ cursor: 'pointer' }} onClick={() => this.handleSendMessage(username)} size={15}/></Badge>
                                     </BadgeContainer>
                                     {
                                         planets && 
@@ -78,9 +86,10 @@ const mapStateToProps = (state: RootState) => {
     return { pilots: state.pilot };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<PilotFetchAllStart | PilotFetchSingleStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<PilotFetchAllStart | PilotFetchSingleStart | MessageCreateStart>) => ({
 	getAllPilots: () => dispatch(pilotFetchAllStart()),
-    getPilot: (userId: number )=> dispatch(pilotFetchSingleStart(userId))
+    getPilot: (userId: number ) => dispatch(pilotFetchSingleStart(userId)),
+    sendMessage: (messageValue: string) => dispatch(messageCreateStart(messageValue))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

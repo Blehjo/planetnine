@@ -86,9 +86,8 @@ export type MoonFetchSingleFailed = ActionWithPayload<
     Error
 >;
 
-export type MoonFetchUserMoonsStart = ActionWithPayload<
-    MOON_ACTION_TYPES.FETCH_USER_MOONS_START,
-    { userId: number }
+export type MoonFetchUserMoonsStart = Action<
+    MOON_ACTION_TYPES.FETCH_USER_MOONS_START
 >;
 
 export type MoonFetchUserMoonsSuccess = ActionWithPayload<
@@ -98,6 +97,21 @@ export type MoonFetchUserMoonsSuccess = ActionWithPayload<
 
 export type MoonFetchUserMoonsFailed = ActionWithPayload<
     MOON_ACTION_TYPES.FETCH_USER_MOONS_FAILED,
+    Error
+>;
+
+export type MoonFetchOtherUserMoonsStart = ActionWithPayload<
+    MOON_ACTION_TYPES.FETCH_OTHER_USER_MOONS_START,
+    { userId: number }
+>;
+
+export type MoonFetchOtherUserMoonsSuccess = ActionWithPayload<
+    MOON_ACTION_TYPES.FETCH_OTHER_USER_MOONS_SUCCESS, 
+    Moon[]
+>;
+
+export type MoonFetchOtherUserMoonsFailed = ActionWithPayload<
+    MOON_ACTION_TYPES.FETCH_OTHER_USER_MOONS_FAILED,
     Error
 >;
 
@@ -216,18 +230,33 @@ export const moonFetchSingleFailed = withMatcher(
 );
 
 export const moonFetchUserMoonsStart = withMatcher(
-    (userId: number): MoonFetchUserMoonsStart => 
-    createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_START, { userId })
+    (): MoonFetchUserMoonsStart => 
+    createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_START)
 );
 
 export const moonFetchUserMoonsSuccess = withMatcher(
-    (moon: Moon[]): MoonFetchUserMoonsSuccess => 
-    createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_SUCCESS, moon)
+    (moons: Moon[]): MoonFetchUserMoonsSuccess => 
+    createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_SUCCESS, moons)
 );
 
 export const moonFetchUserMoonsFailed = withMatcher(
     (error: Error): MoonFetchUserMoonsFailed => 
     createAction(MOON_ACTION_TYPES.FETCH_USER_MOONS_FAILED, error)
+);
+
+export const moonFetchOtherUserMoonsStart = withMatcher(
+    (userId: number): MoonFetchOtherUserMoonsStart => 
+    createAction(MOON_ACTION_TYPES.FETCH_OTHER_USER_MOONS_START, { userId })
+);
+
+export const moonFetchOtherUserMoonsSuccess = withMatcher(
+    (moon: Moon[]): MoonFetchOtherUserMoonsSuccess => 
+    createAction(MOON_ACTION_TYPES.FETCH_OTHER_USER_MOONS_SUCCESS, moon)
+);
+
+export const moonFetchOtherUserMoonsFailed = withMatcher(
+    (error: Error): MoonFetchOtherUserMoonsFailed => 
+    createAction(MOON_ACTION_TYPES.FETCH_OTHER_USER_MOONS_FAILED, error)
 );
 
 export const moonFetchAllStart = withMatcher(

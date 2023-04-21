@@ -71,7 +71,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
     }
 
     handleClick(postId: number): void {
-        this.props.getPost(postId);
+        this.props.getPlanet(postId);
         this.props.getComments(postId);
         this.setState({
             show: !this.state.show
@@ -146,18 +146,11 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
                 {planets.userPlanets?.map(({ planetId, planetName, planetMass, perihelion, aphelion, gravity, temperature, imageLink, imageSource, favorites, type }, index) => {
                     return <PostContainer key={index}>
                         <Card className="bg-dark" key={index}>
-                            <Card.Img src={imageLink ? imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                            <Card.Img src={imageLink ? imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                             <Card.ImgOverlay>
                                 <BadgeContainer>
                                     <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(planetId)} size={15}/></Badge>
                                 </BadgeContainer>
-                                {
-                                    <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
-                                        <Chat size={15}/>
-                                        {` ${comments != null ? comments : ""}`}
-                                        </Badge>
-                                    </BadgeContainer>
-                                }
                                 {
                                     <BadgeContainer>
                                         <Badge style={{ color: 'black' }} bg="light">
@@ -195,7 +188,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
                     <Col md={8}>
                     <Image
                         fluid
-                        src={planets.singlePlanet?.imageLink ? planets.singlePlanet?.imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
+                        src={planets.singlePlanet?.imageLink ? planets.singlePlanet?.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                     />
                     {planets.singlePlanet?.planetName}
                     </Col>

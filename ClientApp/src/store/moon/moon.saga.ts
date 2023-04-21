@@ -23,7 +23,12 @@ import {
     MoonDeleteStart,
     MoonFetchAllStart,
     MoonFetchSingleStart,
-    MoonFetchUserMoonsStart
+    MoonFetchUserMoonsStart,
+    moonFetchUserMoonsSuccess,
+    MoonFetchOtherUserMoonsStart,
+    moonFetchOtherUserMoonsSuccess,
+    moonFetchUserMoonsFailed,
+    moonFetchOtherUserMoonsFailed
 } from './moon.action';
 
 import { 
@@ -115,19 +120,28 @@ export function* removeMoon({ payload: { moonId }}: MoonDeleteStart) {
 
 export function* fetchUserMoons() {
     try {
-        const Moon = yield* call(getUsersMoons);
-        if (!Moon) return;
-        yield* call(moonFetchAllSuccess, Moon);
+        const moon = yield* call(getUserMoons);
+        if (!moon) return;
+        yield* put(moonFetchUserMoonsSuccess(moon));
     } catch (error) {
-        yield* put(moonFetchAllFailed(error as Error));
+        yield* put(moonFetchUserMoonsFailed(error as Error));
     }
 }
 
-export function* fetchOtherUsersMoons({ payload: { userId } }: MoonFetchUserMoonsStart) {
+export function* fetchOtherUserMoons({ payload: { userId }}: MoonFetchOtherUserMoonsStart) {
+    try {
+        const moon = yield* call(getUsersMoons, userId);
+        if (!moon) return;
+        yield* put(moonFetchOtherUserMoonsSuccess(moon));
+    } catch (error) {
+        yield* put(moonFetchOtherUserMoonsFailed(error as Error));
+    }
+}
+
+export function* fetchOtherUsersMoons({}: MoonFetchUserMoonsStart) {
     try {
         const Moons = yield* call(
             getUserMoons,
-            userId
         );
         if (!Moons) return;
         yield* call(moonFetchAllSuccess, Moons);

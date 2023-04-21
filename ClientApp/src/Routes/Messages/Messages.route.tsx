@@ -2,7 +2,7 @@ import { Component, Dispatch, Fragment } from "react";
 import { FormContainer, MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles";
 import NotificationComponent from "../../components/Notification/Notification.component";
 import { RootState } from "../../store/store";
-import { MessageFetchAllStart, MessageFetchSingleStart, messageFetchAllStart } from "../../store/message/message.action";
+import { MessageDeleteStart, MessageFetchAllStart, MessageFetchSingleStart, messageDeleteStart, messageFetchAllStart } from "../../store/message/message.action";
 import { MessageCommentFetchSingleStart, messagecommentFetchSingleStart } from "../../store/messagecomment/messagecomment.action";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { messageFetchUserMessagesStart } from "../../store/message/message.action";
@@ -11,10 +11,14 @@ import { messageFetchSingleStart } from "../../store/message/message.action";
 import { ConnectedProps, connect } from "react-redux";
 import { PilotContainer } from "../../components/Pilots/Pilots.styles";
 import { Button, Card, Col, Form, Image, Row } from "react-bootstrap";
+import { XCircle } from "react-bootstrap-icons";
 
 type MessagesProps = ConnectedProps<typeof connector>;
 
 export class Messages extends Component<MessagesProps> {
+    handleDelete(messageId: number): void {
+        this.props.deleteMessage(messageId);
+    }
 
     handleClick(messageId: number): void {
         this.props.getMessage(messageId);
@@ -32,15 +36,20 @@ export class Messages extends Component<MessagesProps> {
                 <MessageContainer>
                     <div>Communications</div>
                     {
-                        messages.messages?.map(({ messageId, messageValue, userId, messageComments, user }) => {
+                        messages.userMessages?.map(({ messageId, messageValue, userId, messageComments, user }) => {
                             return (
-                                <Card key={messageId}>
-                                <Row key={userId} xs={2}>
+                                <Card bg="dark" style={{ margin: '1rem', cursor: 'pointer' }} key={messageId}>
+                                <Row key={userId} xs={3}>
                                     <Col xs={2}>
                                         <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://localhost:7098/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                     </Col>
-                                    <Col xs={8}>
+                                    <Col xs={6}>
+                                        <div onClick={() => this.handleClick(messageId)}>
                                         {messageValue}
+                                        </div>
+                                    </Col>
+                                    <Col xs={2}>
+                                    <XCircle onClick={() => this.handleDelete(messageId)}/>
                                     </Col>
                                 </Row>        
                                 </Card>
@@ -96,11 +105,12 @@ const mapStateToProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<MessageFetchUserMessagesStart | MessageFetchSingleStart | MessageCommentFetchSingleStart | FavoriteCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<MessageFetchUserMessagesStart | MessageFetchSingleStart | MessageCommentFetchSingleStart | FavoriteCreateStart | MessageDeleteStart>) => ({
 	getAllMessages: () => dispatch(messageFetchUserMessagesStart()),
     getMessage: (messageId: number) => dispatch(messageFetchSingleStart(messageId)),
     getMessageComments: (messageId: number) => dispatch(messagecommentFetchSingleStart(messageId)),
-    likeMessage: (messageId: number, contentType: string) => dispatch(favoriteCreateStart(messageId, contentType))
+    likeMessage: (messageId: number, contentType: string) => dispatch(favoriteCreateStart(messageId, contentType)),
+    deleteMessage: (messageId: number) => dispatch(messageDeleteStart(messageId))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
