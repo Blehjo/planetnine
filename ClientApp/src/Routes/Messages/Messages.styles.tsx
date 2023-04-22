@@ -20,6 +20,14 @@ export const MessageContainer = styled.div`
   float: left;
   z-index: 2;
 `;
+
+export const CollectionContainer = styled.div`
+  border-style: solid;
+  border-color: black;
+  border-radius: 1rem;
+  margin: 1rem;
+  height: 100vh;
+`;
     
 export const MessagebarContainer = styled.div`
   margin-left: 15.5rem;

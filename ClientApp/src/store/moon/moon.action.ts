@@ -9,15 +9,15 @@ import {
 
 export type MoonCreateStart = ActionWithPayload<
     MOON_ACTION_TYPES.CREATE_START, { 
-        moonMass: number, 
+        moonMass: string, 
         moonName: string, 
-        perihelion: number, 
-        aphelion: number, 
-        gravity: number, 
-        temperature: number, 
+        perihelion: string, 
+        aphelion: string, 
+        gravity: string, 
+        temperature: string, 
         planetId: number | null,
-        imageLink: string | null, 
-        imageFile: File | null,
+        imageLink: string, 
+        imageFile: File,
     }
 >;
 
@@ -130,15 +130,15 @@ export type MoonFetchAllFailed = ActionWithPayload<
 >;
 
 export const moonCreateStart = withMatcher(
-    (   moonMass: number, 
+    (   moonMass: string, 
         moonName: string, 
-        perihelion: number, 
-        aphelion: number, 
-        gravity: number, 
-        temperature: number, 
+        perihelion: string, 
+        aphelion: string, 
+        gravity: string, 
+        temperature: string, 
         planetId: number | null,
-        imageLink: string | null, 
-        imageFile: File | null,
+        imageLink: string, 
+        imageFile: File,
 ): MoonCreateStart => 
     createAction(MOON_ACTION_TYPES.CREATE_START, {
         moonMass, 

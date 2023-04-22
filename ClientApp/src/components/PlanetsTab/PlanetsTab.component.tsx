@@ -2,13 +2,13 @@ import { ChangeEvent, Component, FormEvent, Fragment } from 'react';
 import { Card, Row, Col, Modal, Form, Button, Image, Badge } from 'react-bootstrap';
 import { ProfileProps } from '../Profile/Profile.component';
 import { ModalPostContainer } from '../ModalPost/ModalPost.styles';
-import { CardContainer, ModalContainer, PostContainer, TextContainer } from '../Post/Post.styles';
+import { CardContainer, CommentContainer, ModalContainer, PostContainer, TextContainer } from '../Post/Post.styles';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { BadgeContainer } from '../Pilots/Pilots.styles';
 import { ArrowsFullscreen, Chat, Rocket } from 'react-bootstrap-icons';
 import { utcConverter } from '../../utils/date/date.utils';
 
-interface IPlanetFields {
+interface IPlanetFields extends ICommentFields{
     planetName: string;
     planetMass: string;
     perihelion: string;
@@ -20,6 +20,10 @@ interface IPlanetFields {
     imageFile: any;
     showCreate: boolean;
     show: boolean;
+}
+
+interface ICommentFields {
+    commentValue: string;
 }
 
 export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
@@ -37,6 +41,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
             imageFile: null,
             showCreate: false,
             show: false,
+            commentValue: ""
         }
         this.handleLike = this.handleLike.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
@@ -46,6 +51,14 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.showPreview = this.showPreview.bind(this);
+        this.postComment = this.postComment.bind(this);
+    }
+
+    postComment() {
+        const { commentValue, imageFile } = this.state;
+        const { planets } = this.props;
+        const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet.planetId : 0
+        this.props.createPlanetComment(commentValue, imageFile, planetId);
     }
     
     handleLike(postId: number, type: string): void {
@@ -70,9 +83,9 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
         });
     }
 
-    handleClick(postId: number): void {
-        this.props.getPlanet(postId);
-        this.props.getComments(postId);
+    handleClick(planetId: number): void {
+        this.props.getPlanet(planetId);
+        this.props.getPlanetComments(planetId);
         this.setState({
             show: !this.state.show
         });
@@ -125,7 +138,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
 
     render() {
         const { show, showCreate, planetName, planetMass, perihelion, aphelion, gravity, temperature } = this.state;
-        const { planets, comments } = this.props;
+        const { planets, planetcomments } = this.props;
         return (
             <Fragment>
             <Row style={{ marginBottom: '2rem' }} xs={1} >
@@ -181,7 +194,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
         >
             <ModalContainer>
             <Modal.Header closeButton>
-                <Modal.Title >Pilot Log</Modal.Title>
+                <Modal.Title >{planets.singlePlanet?.planetName}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Row>
@@ -190,14 +203,13 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
                         fluid
                         src={planets.singlePlanet?.imageLink ? planets.singlePlanet?.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                     />
-                    {planets.singlePlanet?.planetName}
                     </Col>
                     <Col>
                     <div>Comments</div>
                     {
-                        comments.comments?.map(({ commentId, commentValue, mediaLink, dateCreated }) => {
+                        planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
                             return <CardContainer>
-                                <Card className="bg-dark" key={commentId}>
+                                <Card className="bg-dark" key={planetCommentId}>
                                     <TextContainer>
                                         <Card.Text>{commentValue}</Card.Text>
                                         <Card.Text>{utcConverter(dateCreated)}</Card.Text>
@@ -206,6 +218,33 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
                             </CardContainer>
                         })
                     }
+                        <CommentContainer>
+                            <Form style={{ margin: 'auto' }} key={planets.singlePlanet?.planetId} onSubmit={this.postComment}>
+                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                                    <Col xs={12}>
+                                        <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
+                                            <Col xs={12}>
+                                                <Form.Group>
+                                                    <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                        <Row style={{ justifyContent: 'center' }}>
+                                            <Col xs={12}>
+                                                <Form.Group className="mb-3" controlId="formMedia">
+                                                    <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    <Col xs={12}>
+                                        <Button id={planets.singlePlanet?.planetId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">
+                                            Post
+                                        </Button>
+                                    </Col>                
+                                </Row>
+                            </Form>
+                        </CommentContainer>
                     </Col>
                 </Row>
             </Modal.Body>

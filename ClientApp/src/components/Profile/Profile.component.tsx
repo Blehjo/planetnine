@@ -11,12 +11,14 @@ import { RootState } from "../../store/store";
 import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
 import { PilotFetchSingleStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
 import { PostCreateStart, PostFetchAllStart, PostFetchSingleStart, PostFetchUserPostsStart, postCreateStart, postFetchAllStart, postFetchSingleStart, postFetchUserPostsStart } from "../../store/post/post.action";
-import { CommentFetchSingleStart, commentFetchSingleStart } from "../../store/comment/comment.action";
+import { CommentCreateStart, CommentFetchSingleStart, commentCreateStart, commentFetchSingleStart } from "../../store/comment/comment.action";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { MoonsTab } from "../MoonsTab/MoonsTab.component";
-import { MoonCreateStart, moonCreateStart } from "../../store/moon/moon.action";
+import { MoonCreateStart, MoonFetchSingleStart, MoonFetchUserMoonsStart, moonCreateStart, moonFetchSingleStart, moonFetchUserMoonsStart } from "../../store/moon/moon.action";
 import { PlanetCreateStart, PlanetFetchSingleStart, PlanetFetchUserPlanetsStart, planetCreateStart, planetFetchSingleStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
 import { ChatFetchSingleStart, ChatFetchUserChatsStart, chatFetchSingleStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
+import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
+import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
 
 
 export type ProfileProps = ConnectedProps<typeof connector>;
@@ -61,6 +63,8 @@ const mapToStateProps = (state: RootState) => {
         pilot: state.pilot,
         posts: state.post,
         comments: state.comment,
+        mooncomments: state.mooncomment,
+        planetcomments: state.planetcomment,
         moons: state.moon,
         planets: state.planet,
         chats: state.chat,
@@ -68,21 +72,28 @@ const mapToStateProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart | PostFetchAllStart | PostFetchUserPostsStart | PostCreateStart | PostFetchSingleStart | ChatFetchUserChatsStart | ChatFetchSingleStart | CommentFetchSingleStart | FavoriteCreateStart | MoonCreateStart | PlanetCreateStart | PlanetFetchUserPlanetsStart | PlanetFetchSingleStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | PilotFetchSingleStart | PostFetchAllStart | PostFetchUserPostsStart | PostCreateStart | PostFetchSingleStart | ChatFetchUserChatsStart | ChatFetchSingleStart | CommentFetchSingleStart | CommentCreateStart | FavoriteCreateStart | MoonCreateStart | PlanetCreateStart | PlanetFetchUserPlanetsStart | PlanetFetchSingleStart | MoonFetchUserMoonsStart | PlanetCommentFetchSingleStart | MoonCommentFetchSingleStart | MoonFetchSingleStart | PlanetCommentCreateStart | MoonCommentCreateStart>) => ({
     getUserProfile: (userId: number) => dispatch(userprofileFetchSingleStart(userId)),
     getPilot: (userId: number) => dispatch(pilotFetchSingleStart(userId)),
     getAllPosts: () => dispatch(postFetchAllStart()),
     getUserPosts: (userId: number | undefined) => dispatch(postFetchUserPostsStart(userId)),
     getPost: (postId: number) => dispatch(postFetchSingleStart(postId)),
+    createComment: (commentValue: string, imageFile: File, postId: number) => dispatch(commentCreateStart(commentValue, imageFile, postId)),
     createPost: (postValue: string, mediaLink: string, imageFile: File) => dispatch(postCreateStart(postValue, mediaLink, imageFile)),
     createPlanet: (planetMass: string, planetName: string, perihelion: string, aphelion: string, gravity: string, temperature: string, imageLink: string, imageFile: File  ) => dispatch(planetCreateStart(planetMass, planetName, perihelion, aphelion, gravity, temperature, imageLink, imageFile)),
-    createMoon: (moonMass: number, moonName: string, perihelion: number, aphelion: number, gravity: number, temperature: number, planetId: number | null, imageLink: string | null, imageFile: File  ) => dispatch(moonCreateStart(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile)),
-    getComments: (postId: number) => dispatch(commentFetchSingleStart(postId)),
+    createMoon: (moonMass: string, moonName: string, perihelion: string, aphelion: string, gravity: string, temperature: string, planetId: number | null, imageLink: string, imageFile: File  ) => dispatch(moonCreateStart(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile)),
+    createPlanetComment: (commentValue: string, imageFile: File, planetId: number) => dispatch(planetcommentCreateStart(commentValue, imageFile, planetId)),
+    createMoonComment: (commentValue: string, imageFile: File, postId: number) => dispatch(moonCommentCreateStart(commentValue, imageFile, postId)),
+    getComments: (planetId: number) => dispatch(commentFetchSingleStart(planetId)),
+    getPlanetComments: (planetId: number) => dispatch(planetcommentFetchSingleStart(planetId)),
+    getMoonComments: (moonId: number) => dispatch(moonCommentFetchSingleStart(moonId)),
     likePost: (postId: number, contentType: string) => dispatch(favoriteCreateStart(postId, contentType)),
     getPlanets: () => dispatch(planetFetchUserPlanetsStart()),
     getPlanet: (planetId: number) => dispatch(planetFetchSingleStart(planetId)),
     getChats: () => dispatch(chatFetchUserChatsStart()),
     getChat: (chatId: number) => dispatch(chatFetchSingleStart(chatId)),
+    getMoons: () => dispatch(moonFetchUserMoonsStart()),
+    getMoon: (moonId: number) => dispatch(moonFetchSingleStart(moonId)) 
 });
 
 const connector = connect(mapToStateProps, mapDispatchToProps);

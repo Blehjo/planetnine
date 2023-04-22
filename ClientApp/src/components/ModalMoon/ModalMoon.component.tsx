@@ -12,11 +12,11 @@ type ModalMoonProps = ConnectedProps<typeof connector>;
 
 interface IMoonFields {
     moonName: string;
-    moonMass: number;
-    perihelion: number;
-    aphelion: number;
-    gravity: number;
-    temperature: number;
+    moonMass: string;
+    perihelion: string;
+    aphelion: string;
+    gravity: string;
+    temperature: string;
     planetId: number | null;
     imageLink: string;
     imageSource: string | ArrayBuffer | null | undefined;
@@ -30,11 +30,11 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
         super(props);
         this.state = {
             moonName: "",
-            moonMass: 0,
-            perihelion: 0,
-            aphelion: 0,
-            gravity: 0,
-            temperature: 0,
+            moonMass: "",
+            perihelion: "",
+            aphelion: "",
+            gravity: "",
+            temperature: "",
             planetId: null,
             imageLink: "",
             imageSource: "",
@@ -71,7 +71,7 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
 
     handleClick(): void {;
         this.setState({
-            show: !this.state.show
+            showCreate: !this.state.showCreate
         });
     }
 
@@ -85,7 +85,7 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
                 alert('Try again, please');
             } 
         }
-        this.handleClose();
+        this.handleCloseCreate();
     }
 
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -117,13 +117,13 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
     }
 
     render() {
-        const { show, moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile } = this.state;
+        const { showCreate, moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile } = this.state;
         return(
             <Fragment>
                 <BoxMoonContainer>
                     <MoonFill onClick={() => this.handleClick()} size={55}/>
                 </BoxMoonContainer>
-                <Modal show={show} onHide={() => this.handleClose()}>
+                <Modal show={showCreate} onHide={() => this.handleCloseCreate()}>
                     <ModalMoonContainer>
                     <Modal.Header closeButton>
                     <Modal.Title>Document Moon</Modal.Title>
@@ -251,7 +251,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<MoonCreateStart>) => ({
-    createMoon: (moonMass: number, moonName: string, perihelion: number, aphelion: number, gravity: number, temperature: number, planetId: number | null, imageLink: string | null, imageFile: File | null ) => dispatch(moonCreateStart(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile))
+    createMoon: (moonMass: string, moonName: string, perihelion: string, aphelion: string, gravity: string, temperature: string, planetId: number | null, imageLink: string, imageFile: File) => dispatch(moonCreateStart(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

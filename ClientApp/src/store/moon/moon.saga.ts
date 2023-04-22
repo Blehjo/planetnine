@@ -54,14 +54,14 @@ export function* createMoon({ payload: {
 }}: MoonCreateStart ) {
     const formData = new FormData();
     formData.append('moonName', moonName);
-    formData.append('moonMass', moonMass as unknown as Blob);
-    formData.append('perihelion', perihelion as unknown as Blob);
-    formData.append('aphelion', aphelion as unknown as Blob);
-    formData.append('gravity', gravity as unknown as Blob);
-    formData.append('temperature', temperature as unknown as Blob);
+    formData.append('moonMass', moonMass);
+    formData.append('perihelion', perihelion);
+    formData.append('aphelion', aphelion);
+    formData.append('gravity', gravity);
+    formData.append('temperature', temperature);
     formData.append('planetId', planetId as unknown as Blob);
-    formData.append('imageLink', imageLink as unknown as Blob);
-    formData.append('imageFile', imageFile as unknown as Blob);
+    formData.append('imageLink', imageLink);
+    formData.append('imageFile', imageFile);
     try {
         const moon = yield* call(
             addMoon,
@@ -157,7 +157,7 @@ export function* fetchSingleMoonAsync({
             getSingleMoon,
             moonId 
         );
-        yield* put(moonFetchSingleSuccess(MoonSnapshot as Moon));
+        yield* put(moonFetchSingleSuccess(MoonSnapshot));
     } catch (error) {
         yield* put(moonFetchSingleFailed(error as Error));
     }

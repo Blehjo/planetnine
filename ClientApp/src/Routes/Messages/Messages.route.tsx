@@ -1,5 +1,5 @@
 import { Component, Dispatch, Fragment } from "react";
-import { FormContainer, MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles";
+import { CollectionContainer, FormContainer, MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles";
 import NotificationComponent from "../../components/Notification/Notification.component";
 import { RootState } from "../../store/store";
 import { MessageDeleteStart, MessageFetchAllStart, MessageFetchSingleStart, messageDeleteStart, messageFetchAllStart } from "../../store/message/message.action";
@@ -34,7 +34,7 @@ export class Messages extends Component<MessagesProps> {
             <Fragment>
             <MessagebarContainer className="fixed-top">
                 <MessageContainer>
-                    <div>Communications</div>
+                    <CollectionContainer>
                     {
                         messages.userMessages?.map(({ messageId, messageValue, userId, messageComments, user }) => {
                             return (
@@ -43,7 +43,7 @@ export class Messages extends Component<MessagesProps> {
                                     <Col xs={2}>
                                         <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://localhost:7098/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col xs={7}>
                                         <div onClick={() => this.handleClick(messageId)}>
                                         {messageValue}
                                         </div>
@@ -56,6 +56,7 @@ export class Messages extends Component<MessagesProps> {
                             )
                         })
                     }
+                    </CollectionContainer>
                 </MessageContainer>
                 <UserMessageContainer className="">
                     {

@@ -8,6 +8,7 @@ import {
   signOutFailed,
   signOutSuccess,
   signInSuccess,
+  setCurrentUser,
 } from './user.action';
 
 export type UserState = {
@@ -23,7 +24,10 @@ const INITIAL_STATE: UserState = {
 };
 
 export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
-  if (signInSuccess.match(action)) {
+  if (
+    signInSuccess.match(action) ||
+    setCurrentUser.match(action) 
+  ) {
     return { ...state, currentUser: action.payload };
   }
 

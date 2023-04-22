@@ -2,19 +2,19 @@ import { ChangeEvent, Component, FormEvent, Fragment } from 'react';
 import { Card, Row, Col, Modal, Form, Button, Image, Badge } from 'react-bootstrap';
 import { ProfileProps } from '../Profile/Profile.component';
 import { ModalPostContainer } from '../ModalPost/ModalPost.styles';
-import { CardContainer, ModalContainer, PostContainer, TextContainer } from '../Post/Post.styles';
+import { CardContainer, CommentContainer, ModalContainer, PostContainer, TextContainer } from '../Post/Post.styles';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { BadgeContainer } from '../Pilots/Pilots.styles';
 import { ArrowsFullscreen, Chat, Rocket } from 'react-bootstrap-icons';
 import { utcConverter } from '../../utils/date/date.utils';
 
-interface IMoonFields {
+interface IMoonFields extends IMoonComment{
     moonName: string;
-    moonMass: number;
-    perihelion: number;
-    aphelion: number;
-    gravity: number;
-    temperature: number;
+    moonMass: string;
+    perihelion: string;
+    aphelion: string;
+    gravity: string;
+    temperature: string;
     imageLink: string;
     imageSource: string | ArrayBuffer | null | undefined;
     imageFile: any;
@@ -23,22 +23,27 @@ interface IMoonFields {
     show: boolean;
 }
 
+interface IMoonComment {
+    commentValue: string;
+}
+
 export class MoonsTab extends Component<ProfileProps, IMoonFields> {
     constructor(props: ProfileProps) {
         super(props);
         this.state = {
             moonName: "",
-            moonMass: 0,
-            perihelion: 0,
-            aphelion: 0,
-            gravity: 0,
-            temperature: 0,
+            moonMass: "",
+            perihelion: "",
+            aphelion: "",
+            gravity: "",
+            temperature: "",
             imageLink: "",
             imageSource: "",
             imageFile: null,
-            planetId: 0,
+            planetId: null,
             showCreate: false,
             show: false,
+            commentValue: ""
         }
         this.handleLike = this.handleLike.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
@@ -48,6 +53,14 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.showPreview = this.showPreview.bind(this);
+        this.postComment = this.postComment.bind(this);
+    }
+
+    postComment() {
+        const { commentValue, imageFile } = this.state;
+        const { planets } = this.props;
+        const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet.planetId : 0
+        this.props.createMoonComment(commentValue, imageFile, planetId);
     }
     
     handleLike(postId: number, type: string): void {
@@ -72,9 +85,9 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         });
     }
 
-    handleClick(postId: number): void {
-        this.props.getPost(postId);
-        this.props.getComments(postId);
+    handleClick(moonId: number): void {
+        this.props.getMoon(moonId);
+        this.props.getMoonComments(moonId);
         this.setState({
             show: !this.state.show
         });
@@ -90,7 +103,7 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
                 alert('Try again, please');
             } 
         }
-        this.handleClose();
+        this.handleCloseCreate();
     }
 
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -121,9 +134,13 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         }
     }
 
+    componentDidMount(): void {
+        this.props.getMoons();
+    }
+
     render() {
         const { show, showCreate, moonName, moonMass, perihelion, aphelion, gravity, temperature, planetId } = this.state;
-        const { moons, comments } = this.props;
+        const { moons, mooncomments } = this.props;
         return (
             <Fragment>
             <Row style={{ marginBottom: '2rem' }} xs={1} >
@@ -149,13 +166,6 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
                                 <BadgeContainer>
                                     <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(moonId)} size={15}/></Badge>
                                 </BadgeContainer>
-                                {
-                                    <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
-                                        <Chat size={15}/>
-                                        {` ${comments != null ? comments : ""}`}
-                                        </Badge>
-                                    </BadgeContainer>
-                                }
                                 {
                                     <BadgeContainer>
                                         <Badge style={{ color: 'black' }} bg="light">
@@ -186,7 +196,7 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         >
             <ModalContainer>
             <Modal.Header closeButton>
-                <Modal.Title >Pilot Log</Modal.Title>
+                <Modal.Title >{moons.singleMoon?.moonName}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Row>
@@ -195,14 +205,13 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
                         fluid
                         src={moons.singleMoon?.imageLink ? moons.singleMoon?.imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                     />
-                    {moons.singleMoon?.moonName}
                     </Col>
                     <Col>
                     <div>Comments</div>
                     {
-                        comments.comments?.map(({ commentId, commentValue, mediaLink, dateCreated }) => {
+                        mooncomments.mooncomments?.map(({ moonCommentId, commentValue, mediaLink, dateCreated }) => {
                             return <CardContainer>
-                                <Card className="bg-dark" key={commentId}>
+                                <Card className="bg-dark" key={moonCommentId}>
                                     <TextContainer>
                                         <Card.Text>{commentValue}</Card.Text>
                                         <Card.Text>{utcConverter(dateCreated)}</Card.Text>
@@ -211,6 +220,33 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
                             </CardContainer>
                         })
                     }
+                        <CommentContainer>
+                            <Form style={{ margin: 'auto' }} key={moons.singleMoon?.moonId} onSubmit={this.postComment}>
+                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                                    <Col xs={12}>
+                                        <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
+                                            <Col xs={12}>
+                                                <Form.Group>
+                                                    <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                        <Row style={{ justifyContent: 'center' }}>
+                                            <Col xs={12}>
+                                                <Form.Group className="mb-3" controlId="formMedia">
+                                                    <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    <Col xs={12}>
+                                        <Button id={moons.singleMoon?.moonId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">
+                                            Post
+                                        </Button>
+                                    </Col>                
+                                </Row>
+                            </Form>
+                        </CommentContainer>
                     </Col>
                 </Row>
             </Modal.Body>
@@ -224,7 +260,7 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
             </Modal.Footer>
             </ModalContainer>
         </Modal>
-        <Modal show={showCreate} onHide={() => this.handleClose()}>
+        <Modal show={showCreate} onHide={() => this.handleCloseCreate()}>
             <ModalPostContainer>
             <Modal.Header closeButton>
             <Modal.Title>Document Moon</Modal.Title>

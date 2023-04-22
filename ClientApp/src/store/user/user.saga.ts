@@ -11,7 +11,8 @@ import {
     signOutFailed,
     EmailSignInStart,
     SignUpStart,
-    SignUpSuccess
+    SignUpSuccess,
+    setCurrentUser
 } from './user.action';
 
 import { 
@@ -26,7 +27,7 @@ export function* getSnapshotFromUserAuth() {
       const userSnapshot = yield* call(
         getUser
       );
-      yield* put(signInSuccess(userSnapshot));
+      yield* put(setCurrentUser(userSnapshot));
     } catch (error) {
       yield* put(signInFailed(error as Error));
     }

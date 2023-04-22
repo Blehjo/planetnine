@@ -2,13 +2,14 @@ import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import { Card, Modal, Row, Col, Form, Button, Image, Badge } from "react-bootstrap";
 import { ProfileProps } from "../Profile/Profile.component";
 import { utcConverter } from "../../utils/date/date.utils";
-import { CardContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
+import { CardContainer, CommentContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
 import { ModalPostContainer } from "../ModalPost/ModalPost.styles";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { ArrowsFullscreen, Chat, Rocket } from "react-bootstrap-icons";
 
 interface IDefaultFormFields {
+    commentValue: string;
     postValue: string;
     mediaLink: string;
     imageSource: string | ArrayBuffer | null | undefined;
@@ -26,7 +27,8 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
             imageSource: "",
             imageFile: null,
             show: false,
-            showCreate: false
+            showCreate: false,
+            commentValue: ""
         }
 
         this.handleLike = this.handleLike.bind(this);
@@ -37,6 +39,14 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.showPreview = this.showPreview.bind(this);
+        this.postComment = this.postComment.bind(this);
+    }
+
+    postComment() {
+        const { commentValue, imageFile } = this.state;
+        const { posts } = this.props;
+        const postId = posts.singlePost?.postId ? posts.singlePost.postId : 0
+        this.props.createComment(commentValue, imageFile, postId);
     }
 
     handleLike(postId: number, type: string): void {
@@ -204,6 +214,33 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                             </CardContainer>
                         })
                     }
+                    <CommentContainer>
+                            <Form style={{ margin: 'auto' }} key={posts.singlePost?.postId} onSubmit={this.postComment}>
+                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                                    <Col xs={12}>
+                                        <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
+                                            <Col xs={12}>
+                                                <Form.Group>
+                                                    <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                        <Row style={{ justifyContent: 'center' }}>
+                                            <Col xs={12}>
+                                                <Form.Group className="mb-3" controlId="formMedia">
+                                                    <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    <Col xs={12}>
+                                        <Button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">
+                                            Post
+                                        </Button>
+                                    </Col>                
+                                </Row>
+                            </Form>
+                        </CommentContainer>
                     </Col>
                 </Row>
             </Modal.Body>

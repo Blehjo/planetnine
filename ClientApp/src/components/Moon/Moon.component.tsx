@@ -53,8 +53,8 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
     postComment() {
         const { commentValue, imageFile } = this.state;
         const { moons } = this.props;
-        const postId = moons.singleMoon?.moonId ? moons.singleMoon.moonId : 0
-        this.props.createComment(commentValue, imageFile, postId);
+        const moonId = moons.singleMoon?.moonId ? moons.singleMoon.moonId : 0
+        this.props.createComment(commentValue, imageFile, moonId);
     }
 
     fetchMoon(moonId: number): void {
@@ -210,7 +210,7 @@ const mapDispatchToProps = (dispatch: Dispatch<MoonFetchAllStart | MoonFetchSing
     getMoons: () => dispatch(moonFetchAllStart()),
     getMoon: (moonId: number) => dispatch(moonFetchSingleStart(moonId)),
     getComments: (moonId: number) => dispatch(moonCommentFetchSingleStart(moonId)),
-    createComment: (commentValue: string, imageFile: File, postId: number) => dispatch(moonCommentCreateStart(commentValue, imageFile, postId))
+    createComment: (commentValue: string, imageFile: File, moonId: number) => dispatch(moonCommentCreateStart(commentValue, imageFile, moonId))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -84,7 +84,7 @@ export class ChatsTab extends Component<ProfileProps, ChatsTabProps> {
                 >
                     <ModalContainer>
                     <Modal.Header closeButton>
-                        <Modal.Title >Crew Logs</Modal.Title>
+                        <Modal.Title >{chats.singleChat?.title}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Row>
@@ -93,7 +93,6 @@ export class ChatsTab extends Component<ProfileProps, ChatsTabProps> {
                                 fluid
                                 src="https://www.artlog.net/sites/default/files/styles/al_colorbox_rules/public/turrell_cregis_golay_federal_studio.jpg?itok=2M4Pyn0A"
                             />
-                            {chats.singleChat?.title}
                             </Col>
                             <Col>
                             <div>Comments</div>

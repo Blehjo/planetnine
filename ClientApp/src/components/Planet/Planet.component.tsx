@@ -95,7 +95,6 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
     render() {
         const { show } = this.state;
         const { planets, planetcomments } = this.props;
-        console.log("Planet Comments", planetcomments);
         return (
             <Fragment>
                 <FixedContainer className="fixed-top">

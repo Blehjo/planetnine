@@ -15,7 +15,6 @@ export async function handleContent(url: string, favoriteId: number): Promise<an
         withCredentials: true
     });
     const result = await response.data;
-    console.log(result);
     return result;
 }
 
