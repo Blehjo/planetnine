@@ -8,7 +8,7 @@ import { Favorites } from "./routes/Favorites/Favorites.route";
 import MessagesRoute from "./routes/Messages/Messages.route";
 import { Posts } from "./routes/Posts/Posts.route";
 import { Profiles } from "./routes/Profiles/Profiles.route";
-import { Resources } from "./routes/Resources/Resources.route";
+import { Voyager } from "./routes/Voyager/Voyager.route";
 import { SingleChat } from "./routes/SingleChat/SingleChat.route";
 import { SinglePlanet } from "./routes/SinglePlanet/SinglePlanet.route";
 import { SinglePost } from "./routes/SinglePost/SinglePost.route";
@@ -70,8 +70,8 @@ const AppRoutes = [
     element: <SingleProfile />
   },
   {
-    path: '/resources',
-    element: <Resources />
+    path: '/voyager',
+    element: <Voyager/>
   },
   {
     path: '/singlechat/:id',

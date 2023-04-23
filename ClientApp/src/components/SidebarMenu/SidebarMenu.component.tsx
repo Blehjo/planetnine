@@ -34,7 +34,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                 >
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                         <Airplane className='' color="white" size={20}/>
-                        <Nav.Link href="/resources" className="ms-4">
+                        <Nav.Link href="/voyager" className="ms-4">
                             Voyage
                         </Nav.Link>
                     </Nav.Item>

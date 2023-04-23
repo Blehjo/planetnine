@@ -72,7 +72,7 @@ class SignInForm extends Component<SignInProp, IDefaultFormFields> {
               />
           </Form.Group>
           <div className="col-12 mb-3" style={{ justifyContent: 'center' }}>
-            <Button className="col-12 mb-3" variant="light" as="input" type="submit" value="Sign In"/>
+            <button className="col-12 mb-3 btn btn-light" type="submit">Sign In</button>
           </div>
           </Row>
         </Form>

@@ -1,5 +1,5 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment, MouseEventHandler } from "react";
-import { Button, ButtonGroup, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
+import { Anchor, Button, ButtonGroup, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
 import { Plus, Robot, XCircle } from "react-bootstrap-icons";
 import { RootState } from "../../store/store";
 import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceCreateStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
@@ -173,22 +173,22 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             <Col md={9}>
                 <FormContainer>
                 <Form className="artooform">
-                <Dropdown as={ButtonGroup} style={{ padding: '1rem' }}>
-                    <Button variant="dark">
+                <Dropdown as={Anchor} style={{ padding: '1rem' }}>
+                    <button className="btn btn-light">
                         {dropdown}
-                    </Button>
+                    </button>
                 <Dropdown.Toggle split variant="dark" id="dropdown" />
                 <Dropdown.Menu >
                     {
-                        artificialIntelligence.userArtificialIntelligences ? artificialIntelligence.userArtificialIntelligences.map(({ artificialIntelligenceId, name, role }) => {
-                            return (
-                                <Dropdown.Item name="dropdown" value={name} key={artificialIntelligenceId?.toString()}>
-                                    {name}
-                                </Dropdown.Item>
-                            )}) 
-                        : <Dropdown.Item>
-                            Add Crew Members
-                        </Dropdown.Item>
+                        // artificialIntelligence.userArtificialIntelligences ? artificialIntelligence.userArtificialIntelligences.map(({ artificialIntelligenceId, name, role }) => {
+                        //     return (
+                        //         <Dropdown.Item as={Anchor} name="dropdown" value={name} key={artificialIntelligenceId?.toString()}>
+                        //             {name}
+                        //         </Dropdown.Item>
+                        //     )}) 
+                        // : <Dropdown.Item>
+                        //     Add Crew Members
+                        // </Dropdown.Item>
                     }
                 </Dropdown.Menu>
                 </Dropdown>
@@ -218,9 +218,9 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     </Form.Group>
                     </Col>
                     <Col xs={2}>
-                    <Button variant="light" type="submit">
+                    <button className="btn btn-light" type="submit">
                         Go
-                    </Button>
+                    </button>
                     </Col>
                 </Row>
                 </TextBox>
@@ -275,12 +275,12 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={() => this.handleClose()}>
+                <button className="btn btn-light" onClick={() => this.handleClose()}>
                     Close
-                </Button>
-                <Button type="submit" variant="primary">
+                </button>
+                <button type="submit" className="btn btn-light">
                     Log
-                </Button>
+                </button>
                 </Modal.Footer>
                 </Form>
                 </ModalPostContainer>
