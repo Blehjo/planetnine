@@ -32,9 +32,9 @@ export class Voyager extends Component {
                 <Stars />
                 {/* <Mercury/> */}
                 {/* <Venus/> */}
-                {/* <Earth/> */}
+                <Earth/>
                 {/* <Mars/> */}
-                <Jupiter/>
+                {/* <Jupiter/> */}
                 {/* <Neptune/> */}
                 {/* <Uranus/> */}
                 <OrbitControls/>

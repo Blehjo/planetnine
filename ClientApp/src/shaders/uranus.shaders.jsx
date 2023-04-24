@@ -16,7 +16,7 @@ export function Uranus() {
         ref={boxRef} 
         geometry={nodes.Object_4.geometry} 
         material={materials['Scene_-_Root']} 
-        scale={1.13} 
+        scale={.75} 
       />
     </group>
   )
