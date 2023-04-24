@@ -24,7 +24,7 @@ export const UserAiContainer = styled.div`
 `;
 
 export const CrewContainer = styled.div`
-  height: 100vh;
+  height: 85vh;
   margin-bottom: 1rem;
   overflow-y: auto;
   background: #d4d4d4;
@@ -63,4 +63,10 @@ export const FirstColumnContainer = styled.div`
   text-align: center;
   color: black;
   z-index: 2;
+`;
+
+export const DropdownContainer = styled.div`
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
 `;

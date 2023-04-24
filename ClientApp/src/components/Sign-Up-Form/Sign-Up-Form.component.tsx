@@ -127,7 +127,7 @@ class SignUpForm extends Component<SignUpProp, IDefaultFormFields> {
                 <Form.Control onChange={this.showPreview} name="medialink" as="input" accept="image/*" type="file" placeholder="Media" />
             </Form.Group>
             <div className="col-12 mb-3" style={{ justifyContent: 'center' }}>
-                <Button className="col-12 mb-3" variant="light" as="input" type="submit" value="Join" />
+                <button className="col-12 mb-3 btn btn-light" type="submit" >Join</button>
             </div>
           </Row>
         </Form>

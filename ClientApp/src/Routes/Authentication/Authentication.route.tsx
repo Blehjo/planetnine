@@ -38,7 +38,7 @@ class Authentication extends Component<{}, IToggle> {
                         : <SignUpFormComponent/>}
                         <div className="d-grid mt-3">
                             <SignInContainer>
-                                <Button variant="light" as="input" type="button" value={name} size="lg" onClick={this.toggleSignIn}/>
+                                <button className="btn btn-light btn-lg" type="button" onClick={this.toggleSignIn}>{name}</button>
                             </SignInContainer>
                         </div>
                     </Col>

@@ -6,7 +6,7 @@ import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleSta
 import { ConnectedProps, connect } from "react-redux";
 import { ModalPostContainer } from "../../components/ModalPost/ModalPost.styles";
 import CrewPanelComponent from "../../components/CrewPanel/CrewPanel.component";
-import { AiContainer, ChatContainer, CrewContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
+import { AiContainer, ChatContainer, CrewContainer, DropdownContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
 import { ChatDeleteStart, ChatFetchUserChatsStart, chatCreateStart, chatDeleteStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
 import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 
@@ -48,9 +48,9 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         this.handleDropDown = this.handleDropDown.bind(this);
     }
 
-    handleDropDown(event: MouseEventHandler<HTMLElement>) {
+    handleDropDown(name: string): void {
         this.setState({
-            // 
+            dropdown: name
         })
     }
 
@@ -58,27 +58,27 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
 
     }
 
-    handleDelete(chatId: number) {
+    handleDelete(chatId: number): void {
         this.props.deleteChat(chatId)
     }
 
-    handleGetMessages(chatId: number) {
+    handleGetMessages(chatId: number): void {
         this.props.getChatComments(chatId);
     }
 
-    handleClick() {
+    handleClick(): void {
         this.setState({
             show: !this.state.show
         })
     }
 
-    handleClose() {
+    handleClose(): void {
         this.setState({
             show: !this.state.show
         })
     }
 
-    handleSubmit(event: FormEvent<HTMLFormElement>) {
+    handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         const { name, role, imageFile } = this.state;
         try {
@@ -164,7 +164,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 )) : 
                 <Card style={{ margin: '.5rem'}}>
                     <Card.Body>
-                    Create An Account To Start Asking Artoo Anything
+                    Create An Account To Start Your Inquiries
                     </Card.Body>
                 </Card>
                 }
@@ -173,26 +173,28 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             <Col md={9}>
                 <FormContainer>
                 <Form className="artooform">
-                <Dropdown as={Anchor} style={{ padding: '1rem' }}>
-                    <button className="btn btn-light">
-                        {dropdown}
-                    </button>
-                <Dropdown.Toggle split variant="dark" id="dropdown" />
+                <Dropdown as={Anchor} style={{ padding: '1rem', margin: '1rem' }}>
+                <DropdownContainer>
+                <Dropdown.Toggle split variant="dark" id="dropdown">
+                    {dropdown}
+                </Dropdown.Toggle>
                 <Dropdown.Menu >
                     {
-                        // artificialIntelligence.userArtificialIntelligences ? artificialIntelligence.userArtificialIntelligences.map(({ artificialIntelligenceId, name, role }) => {
-                        //     return (
-                        //         <Dropdown.Item as={Anchor} name="dropdown" value={name} key={artificialIntelligenceId?.toString()}>
-                        //             {name}
-                        //         </Dropdown.Item>
-                        //     )}) 
-                        // : <Dropdown.Item>
-                        //     Add Crew Members
-                        // </Dropdown.Item>
+                        artificialIntelligence.userArtificialIntelligences ? artificialIntelligence.userArtificialIntelligences.map(({ artificialIntelligenceId, name, role }) => {
+                            return (
+                                <Dropdown.Item as={Anchor} onClick={() => this.handleDropDown(name)} key={artificialIntelligenceId?.toString()}>
+                                    {name}
+                                </Dropdown.Item>
+                            )}) 
+                            : <Dropdown.Item as={Anchor}>
+                            Add Crew Members
+                        </Dropdown.Item>
                     }
                 </Dropdown.Menu>
+                </DropdownContainer>
                 </Dropdown>
-                <Row style={{ padding: '2rem', height: '80vh', overflowY: 'auto' }}>
+                <CrewContainer>
+                <Row style={{ padding: '2rem', overflowY: 'auto' }}>
                     <Col>
                     {
                         chatcomments.userChatcomments ? chatcomments.userChatcomments.map(({ chatCommentId, chatValue }) => { 
@@ -225,10 +227,11 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 </Row>
                 </TextBox>
                 </Row>
+                </CrewContainer>
                 </Form>
                 </FormContainer>
-            </Col>
-            </Row>
+                </Col>
+                </Row>
             </UserAiContainer>
             </AiContainer>
             <Modal show={show} onHide={this.handleClose}>
