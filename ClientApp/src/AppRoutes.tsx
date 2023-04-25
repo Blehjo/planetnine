@@ -15,6 +15,7 @@ import { SinglePost } from "./routes/SinglePost/SinglePost.route";
 import { SingleProfile } from "./routes/SingleProfile/SingleProfile.route";
 import { Planets } from "./routes/Planets/Planets.route";
 import { Moons } from "./routes/Moons/Moons.route";
+import { Fractal } from "./routes/Fractal/Fractal.route";
 
 const AppRoutes = [
   {
@@ -44,6 +45,10 @@ const AppRoutes = [
   {
     path: '/favorites',
     element: <Favorites />
+  },
+  {
+    path: '/fractal',
+    element: <Fractal />
   },
   {
     path: '/messages',

@@ -100,12 +100,12 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
                     </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.handleClose()}>
+                    <button className="btn btn-secondary" onClick={() => this.handleClose()}>
                         Close
-                    </Button>
-                    <Button variant="primary" onClick={() => this.handleSubmit()}>
+                    </button>
+                    <button className="btn btn-primary" onClick={() => this.handleSubmit()}>
                         Log
-                    </Button>
+                    </button>
                     </Modal.Footer>
                     </ModalChatContainer>
                 </Modal>

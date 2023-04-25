@@ -15,6 +15,7 @@ export class Voyager extends Component {
     state = {
         activeMarkerId: "me",
         markers: [{ id: 'me', lat: 0, lon: 0 }],
+        planet: "mercury"
     }
 
     setActiveMarkerId(): void {
@@ -22,21 +23,37 @@ export class Voyager extends Component {
             activeMarkerId: ''
         })
     }
+
+    handlePlanet(planet: string): void {
+        this.setState({
+            planet: planet
+        })
+    }
     render() {
-        const { markers, activeMarkerId } = this.state;
+        const { markers, activeMarkerId, planet } = this.state;
         const activeMarker = markers.find(marker => marker.id === activeMarkerId)
         return (
             <VoyagerContainer>
             <Canvas>
                 <pointLight position={[10, 5, 10]} />
                 <Stars />
-                {/* <Mercury/> */}
-                {/* <Venus/> */}
-                <Earth/>
-                {/* <Mars/> */}
-                {/* <Jupiter/> */}
-                {/* <Neptune/> */}
-                {/* <Uranus/> */}
+                {
+                    planet === "mercury" ? (
+                        <Mercury  onClick={() => this.handlePlanet("mercury")}/> 
+                    ) : planet === "venus" ? (
+                        <Venus onClick={() => this.handlePlanet("venus")}/> 
+                    ) : planet === "earth" ? (
+                        <Earth onClick={() => this.handlePlanet("earth")}/>
+                    ) : planet === "mars" ? (
+                        <Mars onClick={() => this.handlePlanet("mars")}/> 
+                    ) : planet === "jupiter" ? (
+                        <Jupiter onClick={() => this.handlePlanet("jupiter")}/> 
+                    ) : planet === "neptune" ? (
+                        <Neptune onClick={() => this.handlePlanet("neptune")}/>
+                    ) : (
+                        <Uranus /> 
+                    )
+                }
                 <OrbitControls/>
             </Canvas>
             <div className="controls">
