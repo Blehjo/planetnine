@@ -1,6 +1,5 @@
-import { Component } from "react"
-import { VoyagerContainer } from "./Voyager.styles";
-import ControlPanel from "../../components/Earth/ControlPanel.component";
+import { Component, MouseEventHandler } from "react"
+import { ButtonContainer, ControllerContainer, VoyagerContainer } from "./Voyager.styles";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Earth } from "../../shaders/earth.shaders";
@@ -11,11 +10,11 @@ import { Jupiter } from "../../shaders/jupiter.shaders";
 import { Neptune } from "../../shaders/neptune.shaders";
 import { Uranus } from "../../shaders/uranus.shaders";
 
-export class Voyager extends Component {
+export class Voyager extends Component{
     state = {
-        activeMarkerId: "me",
-        markers: [{ id: 'me', lat: 0, lon: 0 }],
-        planet: "mercury"
+        // activeMarkerId: "me",
+        // markers: [{ id: 'me', lat: 0, lon: 0 }],
+        planet: 0
     }
 
     setActiveMarkerId(): void {
@@ -24,41 +23,51 @@ export class Voyager extends Component {
         })
     }
 
-    handlePlanet(planet: string): void {
+    incrementPlanet(): void {
         this.setState({
-            planet: planet
-        })
+            planet: this.state.planet < 6 && this.state.planet + 1
+        });
+    }
+    
+    decrementPlanet(): void {
+        this.setState({
+            planet: this.state.planet > 1 && this.state.planet - 1 
+        });
     }
     render() {
-        const { markers, activeMarkerId, planet } = this.state;
-        const activeMarker = markers.find(marker => marker.id === activeMarkerId)
+        const { planet } = this.state;
         return (
             <VoyagerContainer>
             <Canvas>
                 <pointLight position={[10, 5, 10]} />
                 <Stars />
                 {
-                    planet === "mercury" ? (
-                        <Mercury  onClick={() => this.handlePlanet("mercury")}/> 
-                    ) : planet === "venus" ? (
-                        <Venus onClick={() => this.handlePlanet("venus")}/> 
-                    ) : planet === "earth" ? (
-                        <Earth onClick={() => this.handlePlanet("earth")}/>
-                    ) : planet === "mars" ? (
-                        <Mars onClick={() => this.handlePlanet("mars")}/> 
-                    ) : planet === "jupiter" ? (
-                        <Jupiter onClick={() => this.handlePlanet("jupiter")}/> 
-                    ) : planet === "neptune" ? (
-                        <Neptune onClick={() => this.handlePlanet("neptune")}/>
+                    planet <= 0 ? (
+                        <Mercury/> 
+                    ) : planet === 1 ? (
+                        <Venus/> 
+                    ) : planet === 2 ? (
+                        <Earth/>
+                    ) : planet === 3 ? (
+                        <Mars/> 
+                    ) : planet === 4 ? (
+                        <Jupiter/> 
+                    ) : planet === 5 ? (
+                        <Neptune/>
                     ) : (
-                        <Uranus /> 
+                        <Uranus/> 
                     )
                 }
                 <OrbitControls/>
             </Canvas>
-            <div className="controls">
-                <ControlPanel markers={markers} activeMarkerId={activeMarkerId} setActiveMarkerId={this.setActiveMarkerId} />
-            </div>
+            <ControllerContainer>
+                <ButtonContainer>
+                <button type="button" className="btn btn-secondary" onClick={() => this.decrementPlanet()}>Previous</button>
+                </ButtonContainer>
+                <ButtonContainer>
+                <button type="button" className="btn btn-light" onClick={() => this.incrementPlanet()}>Next</button>
+                </ButtonContainer>
+            </ControllerContainer>
             </VoyagerContainer>
         );
     }
