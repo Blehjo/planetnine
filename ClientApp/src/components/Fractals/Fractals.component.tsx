@@ -3,6 +3,8 @@ import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three/src/materials/MeshLambertMaterial";
 import { FractalGUIContainer, FractalTreeContainer } from "./Fractals.styles";
+import { ButtonContainer, ControllerContainer } from "./Fractals.styles";
+import { Accordion } from "react-bootstrap";
 
 const royalblue = new THREE.MeshLambertMaterial({ color: "darkred" });
 
@@ -145,7 +147,7 @@ function FractalTree({ depth, angleIncrement, shape, is3D }: IFractalTree) {
         x={x}
         y={y}
         z={z}
-        shape={shape}
+        shape={"octahedron"}
         key={id}
       />
     );
@@ -202,17 +204,15 @@ function Branch({ radiusT, radiusB, height, x, y, z, angleZ, angleX, shape }: IB
 // GUI
 function DepthUI({ depth, handleDepth }: IDepth) {
   return (
-    <div className="">
-      <input
-        id="depth-slider"
-        className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-        type="range"
-        min="1"
-        max="10"
-        value={depth}
-        onClick={(e) => handleDepth(e)}
-      />
-    </div>
+    <input
+      id="depth-slider"
+      className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+      type="range"
+      min="1"
+      max="10"
+      value={depth}
+      onClick={(e) => handleDepth(e)}
+    />
   );
 }
 
@@ -235,31 +235,147 @@ function AngleUI({ angleIncrement, handleAngle }: IAngle) {
 
 function ShapeUI({ handleShape }: IShape) {
   return (
-    <div className="mx-auto w-72 sm:w-72 flex justify-between">
-      <button
-        className="rounded-md bg-blue-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-blue-400"
-        onClick={() => handleShape("cylinder")}
-      >
-        Cylinder
-      </button>
-      <button
-        className="rounded-md bg-blue-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-blue-400"
-        onClick={() => handleShape("cube")}
-      >
-        Cube
-      </button>
-      <button
-        className="rounded-md bg-blue-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-blue-400"
-        onClick={() => handleShape("sphere")}
-      >
-        Sphere
-      </button>
-      {/* <button
-        className="rounded-md bg-blue-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-blue-400"
+    <ControllerContainer>
+    <Accordion defaultActiveKey="0" >
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>Settings</Accordion.Header>
+        <Accordion.Body>
+
+        <Accordion>
+        <Accordion.Item eventKey="1">
+        <Accordion.Header>Shapes</Accordion.Header>
+        <Accordion.Body>
+
+        <ButtonContainer>
+        <button
+          type="button" className="btn btn-light"
+          onClick={() => handleShape("cylinder")}
+          >
+          Cylinder
+        </button>
+        </ButtonContainer>
+
+        <ButtonContainer>
+        <button
+          type="button" className="btn btn-light"
+          onClick={() => handleShape("cube")}
+          >
+          Cube
+        </button>
+        </ButtonContainer>
+
+        <ButtonContainer>
+        <button
+          type="button" className="btn btn-light"
+          onClick={() => handleShape("sphere")}
+          >
+          Sphere
+        </button>
+        </ButtonContainer>
+
+        <ButtonContainer>
+        <button
+        type="button" className="btn btn-light"
         onClick={() => handleShape("Octahedron")}
-      >
+        >
         Octahedron
-      </button> */}
-    </div>
+        </button> 
+        </ButtonContainer>
+
+        </Accordion.Body>
+        </Accordion.Item>
+        <p>Ratio</p>
+        <input
+          style={{ cursor: 'pointer' }}
+          id="ratio-slider"
+          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+          type="range"
+          min="1"
+          max="10"
+          value={0.75}
+          // onClick={(e) => handleDepth(e)}
+        />
+        <p>Angle Z</p>
+        <input
+          style={{ cursor: 'pointer' }}
+          id="ratio-slider"
+          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+          type="range"
+          min="1"
+          max="10"
+          value={0.75}
+          // onClick={(e) => handleDepth(e)}
+        />
+        <p>Angle X</p>
+        <input
+          style={{ cursor: 'pointer' }}
+          id="ratio-slider"
+          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+          type="range"
+          min="1"
+          max="10"
+          value={0.75}
+          // onClick={(e) => handleDepth(e)}
+        />
+        <p>Radius</p>
+        <input
+          style={{ cursor: 'pointer' }}
+          id="ratio-slider"
+          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+          type="range"
+          min="1"
+          max="10"
+          value={0.75}
+          // onClick={(e) => handleDepth(e)}
+        />
+        <p>Height</p>
+        <input
+          style={{ cursor: 'pointer' }}
+          id="ratio-slider"
+          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+          type="range"
+          min="1"
+          max="10"
+          value={0.75}
+          // onClick={(e) => handleDepth(e)}
+        />
+        <p>X</p>
+        <input
+          style={{ cursor: 'pointer' }}
+          id="ratio-slider"
+          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+          type="range"
+          min="1"
+          max="10"
+          value={0.75}
+          // onClick={(e) => handleDepth(e)}
+        />
+        <p>Y</p>
+        <input
+          style={{ cursor: 'pointer' }}
+          id="ratio-slider"
+          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+          type="range"
+          min="1"
+          max="10"
+          value={0.75}
+          // onClick={(e) => handleDepth(e)}
+        />
+        <p>Z</p>
+        <input
+          style={{ cursor: 'pointer' }}
+          id="ratio-slider"
+          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
+          type="range"
+          min="1"
+          max="10"
+          value={0.75}
+          // onClick={(e) => handleDepth(e)}
+        />
+        </Accordion>
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
+    </ControllerContainer>
   );
 }

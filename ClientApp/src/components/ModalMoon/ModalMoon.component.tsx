@@ -231,12 +231,12 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
                             </Row>
                         </Modal.Body>
                         <Modal.Footer>
-                        <Button variant="secondary" onClick={() => this.handleCloseCreate()}>
+                        <button className="btn btn-secondary" onClick={() => this.handleCloseCreate()}>
                             Close
-                        </Button>
-                        <Button type="submit" variant="primary">
+                        </button>
+                        <button type="submit" className="btn btn-primary">
                             Log
-                        </Button>
+                        </button>
                         </Modal.Footer>
                     </Form>
                     </ModalMoonContainer>

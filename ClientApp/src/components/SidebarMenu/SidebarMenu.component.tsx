@@ -1,8 +1,7 @@
-import { Component, Dispatch, useEffect, useState } from "react";
-// import { useNavigate } from "react-router";
-import { Col, Nav, Row } from "react-bootstrap";
-import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot, ChatLeft, Globe, Star, Airplane, Moon, Badge3d, PersonBadge } from 'react-bootstrap-icons';
-import { ConnectedProps, connect, useDispatch, useSelector } from "react-redux";
+import { Component, Dispatch} from "react";
+import { Nav, Row } from "react-bootstrap";
+import { Collection, ChatDots, House, Eye, Person, Robot, ChatLeft, Globe, Star, Airplane, Moon, PersonBadge, Hexagon } from 'react-bootstrap-icons';
+import { ConnectedProps, connect } from "react-redux";
 import { RootState } from "../../store/store";
 import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
 import { checkUserSession } from "../../store/user/user.action";
@@ -36,6 +35,12 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                         <Airplane className='' color="white" size={20}/>
                         <Nav.Link href="/voyager" className="ms-4">
                             Voyage
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
+                        <Hexagon className='' color="white" size={20}/>
+                        <Nav.Link href="/fractal" className="ms-4">
+                            Fractals
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center">

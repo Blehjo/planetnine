@@ -10,3 +10,15 @@ export const FractalGUIContainer = styled.div`
     top: 0;
     left: 0;
 `;
+
+export const ControllerContainer = styled.div`
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export const ButtonContainer = styled.div`
+  justify-content: space-between;
+  margin: .2rem;
+`;
