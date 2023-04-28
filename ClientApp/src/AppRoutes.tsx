@@ -16,6 +16,7 @@ import { SingleProfile } from "./routes/SingleProfile/SingleProfile.route";
 import { Planets } from "./routes/Planets/Planets.route";
 import { Moons } from "./routes/Moons/Moons.route";
 import { Fractal } from "./routes/Fractal/Fractal.route";
+import { SolarSystem } from "./components/SolarSystem/SolarSystem.component";
 
 const AppRoutes = [
   {
@@ -93,6 +94,10 @@ const AppRoutes = [
   {
     path: '/singleprofile/:id',
     element: <SingleProfile />
+  },
+  {
+    path: '/solar',
+    element: <SolarSystem />
   },
 ];
 

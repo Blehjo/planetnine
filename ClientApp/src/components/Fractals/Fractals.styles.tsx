@@ -13,6 +13,7 @@ export const FractalGUIContainer = styled.div`
 
 export const ControllerContainer = styled.div`
   display: flex;
+  opacity: .5;
   position: absolute;
   top: 0;
   left: 0;

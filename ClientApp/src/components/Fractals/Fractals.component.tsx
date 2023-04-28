@@ -2,9 +2,11 @@ import { ChangeEvent, Component, MouseEvent, Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three/src/materials/MeshLambertMaterial";
+import { Accordion } from "react-bootstrap";
+import Slider from 'react-input-slider';
+
 import { FractalGUIContainer, FractalTreeContainer } from "./Fractals.styles";
 import { ButtonContainer, ControllerContainer } from "./Fractals.styles";
-import { Accordion } from "react-bootstrap";
 
 const royalblue = new THREE.MeshLambertMaterial({ color: "darkred" });
 
@@ -233,7 +235,31 @@ function AngleUI({ angleIncrement, handleAngle }: IAngle) {
   );
 }
 
+type DefaultState = {
+  ratio: number;
+  angleZ: number;
+  angleX: number;
+  radius: number;
+  height: number;
+  x: number;
+  y: number;
+  z: number;
+}
+
 function ShapeUI({ handleShape }: IShape) {
+  const defaultState: DefaultState = {
+    ratio: 0,
+    angleZ: 0,
+    angleX: 0,
+    radius: 0,
+    height: 0,
+    x: 0,
+    y: 0,
+    z: 0
+  };
+
+  const [state, setState] = useState(defaultState);
+  
   return (
     <ControllerContainer>
     <Accordion defaultActiveKey="0" >
@@ -285,93 +311,63 @@ function ShapeUI({ handleShape }: IShape) {
         </Accordion.Body>
         </Accordion.Item>
         <p>Ratio</p>
-        <input
-          style={{ cursor: 'pointer' }}
-          id="ratio-slider"
-          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-          type="range"
-          min="1"
-          max="10"
-          value={0.75}
-          // onClick={(e) => handleDepth(e)}
+        <div>
+        <Slider
+          axis="x"
+          xmax={10}
+          x={state.ratio}
+          onChange={({ x }) => setState(state => ({ ...state, x }))}
         />
         <p>Angle Z</p>
-        <input
-          style={{ cursor: 'pointer' }}
-          id="ratio-slider"
-          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-          type="range"
-          min="1"
-          max="10"
-          value={0.75}
-          // onClick={(e) => handleDepth(e)}
+        <Slider
+          axis="x"
+          xmax={10}
+          x={state.angleZ}
+          onChange={({ x }) => setState(state => ({ ...state, x }))}
         />
         <p>Angle X</p>
-        <input
-          style={{ cursor: 'pointer' }}
-          id="ratio-slider"
-          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-          type="range"
-          min="1"
-          max="10"
-          value={0.75}
-          // onClick={(e) => handleDepth(e)}
+        <Slider
+          axis="x"
+          xmax={10}
+          x={state.angleX}
+          onChange={({ x }) => setState(state => ({ ...state, x }))}
         />
         <p>Radius</p>
-        <input
-          style={{ cursor: 'pointer' }}
-          id="ratio-slider"
-          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-          type="range"
-          min="1"
-          max="10"
-          value={0.75}
-          // onClick={(e) => handleDepth(e)}
+        <Slider
+          axis="x"
+          xmax={10}
+          x={state.radius}
+          onChange={({ x }) => setState(state => ({ ...state, x }))}
         />
         <p>Height</p>
-        <input
-          style={{ cursor: 'pointer' }}
-          id="ratio-slider"
-          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-          type="range"
-          min="1"
-          max="10"
-          value={0.75}
-          // onClick={(e) => handleDepth(e)}
+        <Slider
+          axis="x"
+          xmax={10}
+          x={state.height}
+          onChange={({ x }) => setState(state => ({ ...state, x }))}
         />
         <p>X</p>
-        <input
-          style={{ cursor: 'pointer' }}
-          id="ratio-slider"
-          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-          type="range"
-          min="1"
-          max="10"
-          value={0.75}
-          // onClick={(e) => handleDepth(e)}
+        <Slider
+          axis="x"
+          xmax={10}
+          x={state.x}
+          onChange={({ x }) => setState(state => ({ ...state, x }))}
         />
         <p>Y</p>
-        <input
-          style={{ cursor: 'pointer' }}
-          id="ratio-slider"
-          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-          type="range"
-          min="1"
-          max="10"
-          value={0.75}
-          // onClick={(e) => handleDepth(e)}
+        <Slider
+          axis="x"
+          xmax={10}
+          x={state.y}
+          onChange={({ y }) => setState(state => ({ ...state, y }))}
         />
         <p>Z</p>
-        <input
-          style={{ cursor: 'pointer' }}
-          id="ratio-slider"
-          className="appearance-none bg-blue-500 rounded-lg h-1 thumb-lg-blue-600"
-          type="range"
-          min="1"
-          max="10"
-          value={0.75}
-          // onClick={(e) => handleDepth(e)}
-        />
+        <Slider
+          axis="x"
+          xmax={10}
+          x={state.z}
+          onChange={({ x }) => setState(state => ({ ...state, x }))}
+         />
+        </div>
         </Accordion>
         </Accordion.Body>
       </Accordion.Item>
