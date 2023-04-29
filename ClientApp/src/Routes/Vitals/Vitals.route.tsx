@@ -1,7 +1,7 @@
 import { Component, Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
 
-import { VitalsContainer } from "./Vitals.styles";
+import { ItemsContainer, VitalsContainer } from "./Vitals.styles";
 import PilotDashComponent from "../../components/PilotDash/PilotDash.component";
 import MessageComponent from "../../components/Message/Message.component";
 import NotificationComponent from "../../components/Notification/Notification.component";
@@ -15,6 +15,7 @@ export class Vitals extends Component {
         return (
             <Fragment>
                 <VitalsContainer className="fixed-top">
+                <ItemsContainer>
                 <Row xs={2} style={{ marginTop: '1rem' }}>
                     <Col xs={6}>
                         <PilotDashComponent/>
@@ -31,6 +32,7 @@ export class Vitals extends Component {
                         <PlanetDashComponent/>
                     </Col>
                 </Row>
+                </ItemsContainer>
                 </VitalsContainer>
                 <NotificationComponent/>
             </Fragment>

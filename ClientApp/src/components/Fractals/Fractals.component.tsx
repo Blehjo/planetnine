@@ -126,7 +126,7 @@ export class FractalTreeCanvas extends Component<{}, IFractalState> {
 
 function FractalTree({ depth, angleIncrement, shape, is3D }: IFractalTree) {
   const branches: any = [];
-  const ratio = 0.75;
+  const ratio = .65;
   let angleZ = 0;
   let angleX = 0;
   let radius = 0.2;
@@ -149,7 +149,7 @@ function FractalTree({ depth, angleIncrement, shape, is3D }: IFractalTree) {
         x={x}
         y={y}
         z={z}
-        shape={"octahedron"}
+        shape={"cylinder"}
         key={id}
       />
     );

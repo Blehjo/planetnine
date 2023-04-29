@@ -22,7 +22,7 @@ export const PlanetPanelContainer = styled.div`
   background: darkred;
   margin-top: 3.5rem;
   color: white;
-  height: 100vh;
+  height: 92vh;
   overflow-y: auto;
   padding-left: 15.5rem;
 `;

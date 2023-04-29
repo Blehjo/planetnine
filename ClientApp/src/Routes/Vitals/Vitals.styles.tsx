@@ -6,3 +6,8 @@ export const VitalsContainer = styled.div`
   float: left;
   z-index: 2;
 `;
+
+export const ItemsContainer = styled.div`
+  overflow-y: auto;
+  margin: auto;
+`;

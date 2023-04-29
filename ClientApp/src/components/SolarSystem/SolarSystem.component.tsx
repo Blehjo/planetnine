@@ -18,13 +18,13 @@ export class SolarSystem extends Component {
                 <Canvas>
                 <pointLight position={[10, 5, 10]} />
                 <Stars />
-                    <Mercury position={[0, 0, 4]}/> 
-                    <Venus position={[6, 0, 0]}/> 
-                    <Earth position={[15, 0, 0]}/>
-                    <Mars position={[-15, 0, 0]}/> 
-                    <Jupiter position={[-6, 0, 0]}/> 
-                    <Neptune position={[-1.2, 0, 0]}/>
-                    <Uranus position={[-1.2, 0, 0]}/> 
+                    <Mercury position={[5, 0, 1]}/> 
+                    <Venus position={[1, 0, 5]}/> 
+                    <Earth position={[8, 0, 8]}/>
+                    <Mars position={[-5, 0, 15]}/> 
+                    <Jupiter position={[-8, 0, -8]}/> 
+                    <Neptune position={[-9, 0, -5]}/>
+                    <Uranus position={[-10, 0, -15]}/> 
                 <OrbitControls/>
             </Canvas>
             </SolarSystemContainer>

@@ -175,9 +175,9 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                         </Row>
                                     </Col>
                                     <Col xs={12}>
-                                        <Button id={planets.singlePlanet?.planetId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">
+                                        <button id={planets.singlePlanet?.planetId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
                                             Post
-                                        </Button>
+                                        </button>
                                     </Col>                
                                 </Row>
                             </Form>
@@ -186,12 +186,12 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
-                    </Button>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    </button>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Single View
-                    </Button>
+                    </button>
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
