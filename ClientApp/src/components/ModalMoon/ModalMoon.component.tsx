@@ -121,7 +121,7 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
         return(
             <Fragment>
                 <BoxMoonContainer>
-                    <MoonFill onClick={() => this.handleClick()} size={55}/>
+                    <MoonFill className="modalIcon" onClick={() => this.handleClick()}/>
                 </BoxMoonContainer>
                 <Modal show={showCreate} onHide={() => this.handleCloseCreate()}>
                     <ModalMoonContainer>

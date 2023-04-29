@@ -108,7 +108,7 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                 <h1>Pilot Logs</h1>
                 <p>Information on the galaxy documented by your fellow pioneers</p>
                 <ResponsiveMasonry
-                    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
+                    columnsCountBreakPoints={{350: 2, 750: 3, 900: 3, 1050: 4}}
                 >
                     <Masonry>
                     {posts.posts?.map(({ postId, postValue, mediaLink, comments, favorites, type, imageSource }, index) => {
@@ -195,9 +195,9 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                         </Row>
                                     </Col>
                                     <Col xs={12}>
-                                        <Button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">
+                                        <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
                                             Post
-                                        </Button>
+                                        </button>
                                     </Col>                
                                 </Row>
                             </Form>
@@ -206,12 +206,12 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
-                    </Button>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    </button>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Single View
-                    </Button>
+                    </button>
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const PlanetDashPanel = styled.div`
     background: darkgrey; 
     margin: auto;
+    margin-bottom: 1rem;
     height: 50vh; 
     overflow-y: auto;
     border-radius: .3rem;

@@ -27,7 +27,7 @@ export const PlanetPanelContainer = styled.div`
 `;
     
 export const FixedContainer = styled.div`
-  margin-right: 25rem;
+  margin-right: 20rem;
   background: darkred;
   height: 100vh;
   float: left;

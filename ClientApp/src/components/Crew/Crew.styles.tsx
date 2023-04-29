@@ -14,5 +14,5 @@ export const FontContainer = styled.div`
 `;
 
 export const CardHolder = styled.div`
-
+   
 `;

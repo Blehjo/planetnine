@@ -27,11 +27,11 @@ export class Notification extends Component<NotificationProps> {
     render() {
         const { chats } = this.props;
         return (
-            <SidebarContainer className="fixed-top" >
+            <SidebarContainer  >
                 <NotificationsContainer>
-                    <h1>Journal Logs</h1>
+                    <h1 className="notifications">Journal Logs</h1>
                     <IconContainer>
-                    <Row xs={4}>
+                    <Row xs={2} md={4}>
                         <Col>
                             <ModalMoonComponent/>
                         </Col>
@@ -52,7 +52,7 @@ export class Notification extends Component<NotificationProps> {
                     {
                         chats.userChats?.map(({ chatId, title, chatComments }) => {
                         return (
-                            <Col xs={6}>
+                            <Col className="notifications" xs={6}>
                             <CardContainer>
                                 <Row xs={2}>
                                 <Col xs={8}>

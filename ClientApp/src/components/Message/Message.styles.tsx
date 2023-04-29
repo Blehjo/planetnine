@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
-export const MessageContainer = styled.div`
+export const MessageDashPanel = styled.div`
     margin: auto;
     height: 50vh; 
-    background: black;
+    background: black; 
     border-radius: .3rem;
+    overflow-y: auto;
+`;
+
+export const MessageContainer = styled.div`
+    margin: auto;
 `;

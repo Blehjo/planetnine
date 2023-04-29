@@ -102,7 +102,7 @@ export class ModalPlanet extends Component<ModalPlanetProps, IPlanetFields> {
         return(
             <Fragment>
                 <BoxPlanetContainer>
-                    <Globe color="black" onClick={() => this.handleClick()} size={55}/>
+                    <Globe className="modalIcon" color="black" onClick={() => this.handleClick()} />
                 </BoxPlanetContainer>
                 <Modal show={show} onHide={() => this.handleClose()}>
                     <ModalPlanetContainer>
@@ -212,12 +212,12 @@ export class ModalPlanet extends Component<ModalPlanetProps, IPlanetFields> {
                         </Row>
                     </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.handleClose()}>
+            <button className="btn btn-secondary" onClick={() => this.handleClose()}>
                 Close
-            </Button>
-            <Button type="submit" variant="primary">
+            </button>
+            <button type="submit" className="btn btn-primary">
                 Log
-            </Button>
+            </button>
             </Modal.Footer>
             </Form>
             </ModalPlanetContainer>

@@ -66,7 +66,7 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
         return(
             <Fragment>
                 <BoxChatContainer>
-                    <Robot onClick={() => this.handleClick()} size={55}/>
+                    <Robot className="modalIcon" onClick={() => this.handleClick()}/>
                 </BoxChatContainer>
                 <Modal show={show} onHide={() => this.handleClose()}>
                     <ModalChatContainer>

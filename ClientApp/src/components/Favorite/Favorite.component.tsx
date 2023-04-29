@@ -89,7 +89,7 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                 <h1>Favorites</h1>
                 <p>Go over content you found useful</p>
                     <ResponsiveMasonry
-                        columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
+                        columnsCountBreakPoints={{350: 2, 750: 3, 900: 3, 1050: 4}}
                     >
                         <Masonry>
                         {favorites.userFavorites?.map(({ favoriteId, contentId, contentType, dateCreated }, index) => {
@@ -167,12 +167,12 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
-                    </Button>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    </button>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Single View
-                    </Button>
+                    </button>
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>

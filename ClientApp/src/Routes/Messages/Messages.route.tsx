@@ -85,9 +85,9 @@ export class Messages extends Component<MessagesProps> {
                         </Form>
                         </Col>
                         <Col xs={4}>
-                        <Button style={{ height: '3.8rem' }} variant="dark" type="submit">
+                        <button style={{ height: '3.8rem' }} className="btn btn-dark" type="submit">
                             Send
-                        </Button>
+                        </button>
                         </Col>
                         </Row>
                     </FormContainer>

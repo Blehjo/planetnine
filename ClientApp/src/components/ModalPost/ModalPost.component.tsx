@@ -91,7 +91,7 @@ export class ModalPost extends Component<ModalPostProps, IDefaultFormFields> {
         return(
             <Fragment>
                 <BoxPostContainer>
-                    <Postcard onClick={() => this.handleClick()} size={55}/>
+                    <Postcard className="modalIcon" onClick={() => this.handleClick()}/>
                 </BoxPostContainer>
                 <Modal show={show} onHide={() => this.handleClose()}>
                     <ModalPostContainer>
@@ -126,12 +126,12 @@ export class ModalPost extends Component<ModalPostProps, IDefaultFormFields> {
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.handleClose()}>
+                    <button className="btn btn-secondary" onClick={() => this.handleClose()}>
                         Close
-                    </Button>
-                    <Button type="submit" variant="primary">
+                    </button>
+                    <button type="submit" className="btn btn-primary">
                         Log
-                    </Button>
+                    </button>
                     </Modal.Footer>
                     </Form>
                     </ModalPostContainer>

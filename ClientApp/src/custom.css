@@ -21,4 +21,7 @@ code {
   max-width: 100%;
   overflow-x: hidden;
   padding-left: 16rem;
+  @media only screen and (max-width: 767px) {
+    padding-left: 18rem;
+  }
 }

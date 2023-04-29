@@ -1,14 +1,40 @@
 import styled from 'styled-components';
 
 export const NotificationsContainer = styled.div`
-    height: 100vh; 
-    width: 25rem; 
-    background: black;
-    text-align: center;
-    color: white;
-    margin-top: 3.5rem;
-    float: right;
-    position: relative;
+    .modalIcon {
+        font-size: 55px;
+    }
+
+    @media (min-width: 718px) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh; 
+        width: 20rem; 
+        background: black;
+        text-align: center;
+        color: white;
+        margin-top: 3.5rem;
+        float: right;
+    }
+
+    @media (max-width: 717px) {
+        position: fixed;
+        background: black;
+        text-align: center;
+        bottom: 0;
+        left: 0;
+        margin-left: 17.9rem;
+        width: 100%;
+        height: 18%;
+        z-index: 5;
+        .notifications {
+            visibility: hidden;
+        }
+        .modalIcon {
+            font-size: 10px;
+        }
+    }
 `;
 
 export const SidebarContainer = styled.div`

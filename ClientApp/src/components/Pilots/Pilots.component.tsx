@@ -35,7 +35,7 @@ export class Pilots extends Component<PilotProps> {
                 <h1>Pilots</h1>
                 <p>Take a look at your fellow Pilots</p>
                 <ResponsiveMasonry
-                    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
+                    columnsCountBreakPoints={{350: 2, 750: 3, 900: 3, 1050: 4}}
                 >
                     <Masonry>
                     {pilots.pilots?.map(({ username, about, imageLink, imageSource, planets, followers, userId }, index) => {

@@ -100,7 +100,7 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                     <MoonPanelContainer>
                         <h1>Moons</h1>
                         <ResponsiveMasonry
-                            columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+                            columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4 }}
                         >
                             <Masonry>
                             {moons.moons?.map(({ moonId, moonName, perihelion, aphelion, moonMass, temperature, gravity }, index) => {
@@ -174,9 +174,9 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                         </Row>
                                     </Col>
                                     <Col xs={12}>
-                                        <Button id={moons.singleMoon?.moonId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">
+                                        <button id={moons.singleMoon?.moonId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
                                             Post
-                                        </Button>
+                                        </button>
                                     </Col>                
                                 </Row>
                             </Form>
@@ -185,12 +185,12 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
-                    </Button>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    </button>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Single View
-                    </Button>
+                    </button>
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>

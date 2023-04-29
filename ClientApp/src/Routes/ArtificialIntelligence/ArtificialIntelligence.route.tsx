@@ -143,7 +143,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             <AiContainer className="fixed-top">
             <UserAiContainer>
             <Row>
-            <Col md={3}>
+            <Col xs={12} md={5} lg={4}>
                 <CrewContainer>
                 <h1>Artoo<Plus size={40} style={{ cursor: 'pointer' }} onClick={this.handleClick}/></h1>
                 {chats.userChats ? chats.userChats.map(({ chatId, title }) => (
@@ -170,9 +170,9 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 }
                 </CrewContainer>
             </Col>
-            <Col md={9}>
+            <Col md={7} lg={8}>
                 <FormContainer>
-                <Form className="artooform">
+                <Form >
                 <Dropdown as={Anchor} style={{ padding: '1rem', margin: '1rem' }}>
                 <DropdownContainer>
                 <Dropdown.Toggle split variant="dark" id="dropdown">

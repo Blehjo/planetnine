@@ -7,6 +7,7 @@ import { ConnectedProps, connect } from "react-redux";
 import { Card, Col, Image, Row } from "react-bootstrap";
 import { ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersFailed, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
 import { Robot } from "react-bootstrap-icons";
+import { CrewContainer } from "./CrewPanel.styles";
 
 
 type CrewPanelProps = ConnectedProps<typeof connector>;
@@ -19,9 +20,9 @@ export class CrewPanel extends Component<CrewPanelProps> {
     render() {
         const { chats, artificialIntelligences } = this.props;
         return (
-            <SidebarContainer className="fixed-top" >
-                <NotificationsContainer>
-                    <h1>Crew Members</h1>
+            <SidebarContainer >
+                <CrewContainer>
+                    <h1 className="notifications">Crew </h1>
                     <IconContainer>
                     <Row xs={4}>
                         {
@@ -34,7 +35,7 @@ export class CrewPanel extends Component<CrewPanelProps> {
                         }
                     </Row>
                     </IconContainer>
-                </NotificationsContainer>
+                </CrewContainer>
             </SidebarContainer>
         );
     }

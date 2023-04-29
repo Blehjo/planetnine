@@ -10,21 +10,29 @@ export const DashboardContainer = styled.div`
 `;
 
 export const AiContainer = styled.div`
-  margin-left: 12rem;
-  margin-right: 21.5rem;
+  margin: 4rem 16.5rem 0rem 16rem;
+  height: 100vh;
   float: left;
   z-index: 2;
+  @media (min-width: 995px) {
+    margin: 4rem 16.5rem 0rem 16rem;
+  }
+  @media (max-width: 994px) {
+    margin: 4rem 1rem 0rem 16rem;
+  }
+  @media (max-width: 767px) {
+    margin: 4rem 1rem 0rem 19rem;
+  }
 `;
 
 export const UserAiContainer = styled.div`
   position: relative;
   border-radius: .3rem;
-  padding: 4rem;
   z-index: 2;
 `;
 
 export const CrewContainer = styled.div`
-  height: 85vh;
+  height: 90vh;
   margin-bottom: 1rem;
   overflow-y: auto;
   background: #d4d4d4;
@@ -56,7 +64,9 @@ export const ChatContainer = styled.div`
 
 export const TextBox = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 15px;
+  left: 0;
+  width: 100%;
 `;
 
 export const FirstColumnContainer = styled.div`

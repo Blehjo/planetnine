@@ -141,7 +141,7 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
             {
                 posts.userPosts?.length ?
                 <ResponsiveMasonry
-                    columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
+                    columnsCountBreakPoints={{350: 2, 750: 3, 900: 3, 1050: 4}}
                 >
                 <Masonry>
                 {posts.userPosts?.map(({ postId, postValue, mediaLink, comments, favorites, type, imageSource }, index) => {
@@ -234,9 +234,9 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                                         </Row>
                                     </Col>
                                     <Col xs={12}>
-                                        <Button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">
+                                        <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
                                             Post
-                                        </Button>
+                                        </button>
                                     </Col>                
                                 </Row>
                             </Form>
@@ -245,12 +245,12 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                 </Row>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="dark" onClick={() => this.handleClose()}>
+            <button className="btn btn-dark" onClick={() => this.handleClose()}>
                 Close
-            </Button>
-            <Button variant="dark" onClick={() => this.handleClose()}>
+            </button>
+            <button className="btn btn-dark" onClick={() => this.handleClose()}>
                 Single View
-            </Button>
+            </button>
             </Modal.Footer>
             </ModalContainer>
         </Modal>
@@ -287,12 +287,12 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.handleCloseCreate()}>
+            <button className="btn btn-secondary" onClick={() => this.handleCloseCreate()}>
                 Close
-            </Button>
-            <Button type="submit" variant="primary">
+            </button>
+            <button type="submit" className="btn btn-primary">
                 Log
-            </Button>
+            </button>
             </Modal.Footer>
             </Form>
             </ModalPostContainer>

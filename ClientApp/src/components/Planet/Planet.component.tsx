@@ -101,7 +101,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                     <PlanetPanelContainer>
                         <h1>Planets</h1>
                         <ResponsiveMasonry
-                            columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+                            columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4 }}
                         >
                             <Masonry>
                             {planets.planets?.map(({ planetId, planetName, perihelion, aphelion, planetMass, temperature, gravity, imageLink }, index) => {

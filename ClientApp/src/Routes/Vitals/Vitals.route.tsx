@@ -16,20 +16,20 @@ export class Vitals extends Component {
             <Fragment>
                 <VitalsContainer className="fixed-top">
                 <ItemsContainer>
-                <Row xs={2} style={{ marginTop: '1rem' }}>
-                    <Col xs={6}>
-                        <PilotDashComponent/>
+                <Row md={1} lg={2} style={{ marginTop: '1rem' }}>
+                    <Col md={12}>
+                        <PlanetDashComponent/>
                     </Col>
-                    <Col xs={6}>
+                    <Col md={12}>
                         <CrewComponent/>
                     </Col>
                 </Row>
-                <Row xs={2} style={{ marginTop: '1rem' }}>
-                    <Col xs={6}>
+                <Row md={1} lg={2} style={{ marginTop: '1rem' }}>
+                    <Col md={12}>
                         <MessageComponent/>
                     </Col>
-                    <Col xs={6}>
-                        <PlanetDashComponent/>
+                    <Col md={12}>
+                        <PilotDashComponent/>
                     </Col>
                 </Row>
                 </ItemsContainer>
