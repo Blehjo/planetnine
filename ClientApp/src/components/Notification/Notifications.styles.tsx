@@ -26,11 +26,14 @@ export const NotificationsContainer = styled.div`
         left: 0;
         width: 100%;
         margin-left: 4rem;
-        margin-top: -2rem;
-        height: 12%;
+        padding-right: 4rem;
+        height: 10%;
         z-index: 5;
         .notifications {
-            visibility: hidden;
+            display: none;
+        }
+        .modalicons {
+            margin-top: 1rem;
         }
         .modalIcon {
             font-size: 55px;
@@ -47,7 +50,7 @@ export const ActionsContainer = styled.div`
 `;
 
 export const IconContainer = styled.div`
-    margin: -2rem 1rem 1rem 1rem;
+    margin: 0rem 1rem 1rem 1rem;
 `;
 
 export const CardContainer = styled.div`

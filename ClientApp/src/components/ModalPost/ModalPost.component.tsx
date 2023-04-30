@@ -91,7 +91,7 @@ export class ModalPost extends Component<ModalPostProps, IDefaultFormFields> {
         return(
             <Fragment>
                 <BoxPostContainer>
-                    <Postcard className="modalIcon" onClick={() => this.handleClick()}/>
+                    <Postcard className="bg-info rounded modalIcon" onClick={() => this.handleClick()}/>
                 </BoxPostContainer>
                 <Modal show={show} onHide={() => this.handleClose()}>
                     <ModalPostContainer>

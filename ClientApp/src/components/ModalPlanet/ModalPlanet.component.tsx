@@ -102,7 +102,7 @@ export class ModalPlanet extends Component<ModalPlanetProps, IPlanetFields> {
         return(
             <Fragment>
                 <BoxPlanetContainer>
-                    <Globe className="modalIcon" color="black" onClick={() => this.handleClick()} />
+                    <Globe className="bg-white rounded modalIcon" color="black" onClick={() => this.handleClick()} />
                 </BoxPlanetContainer>
                 <Modal show={show} onHide={() => this.handleClose()}>
                     <ModalPlanetContainer>

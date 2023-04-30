@@ -30,7 +30,7 @@ export class Notification extends Component<NotificationProps> {
             <SidebarContainer  >
                 <NotificationsContainer>
                     <h1 className="notifications">Journal Logs</h1>
-                    <IconContainer>
+                    <IconContainer className="modalicons">
                     <Row xs={4}>
                         <Col>
                             <ModalMoonComponent/>
