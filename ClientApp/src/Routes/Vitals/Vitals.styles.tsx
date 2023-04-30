@@ -5,11 +5,11 @@ export const VitalsContainer = styled.div`
   height: 100vh;
   float: left;
   z-index: 2;
-  @media (max-width: 1111px) {
-    margin: 4rem 16rem 0rem 16.8rem;
+  @media (min-width: 718px) {
+    margin: 4rem 19rem 0rem 16.8rem;
   }
   @media (max-width: 717px) {
-    margin: 4rem 1rem 0rem 19rem;
+    margin: 4rem 1rem 0rem 5rem;
   }
 `;
 

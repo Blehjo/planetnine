@@ -16,7 +16,7 @@ export class Vitals extends Component {
             <Fragment>
                 <VitalsContainer className="fixed-top">
                 <ItemsContainer>
-                <Row md={1} lg={2} style={{ marginTop: '1rem' }}>
+                <Row xs={2} sm={1} md={1} lg={2} style={{ marginTop: '1rem' }}>
                     <Col md={12}>
                         <PlanetDashComponent/>
                     </Col>
@@ -24,7 +24,7 @@ export class Vitals extends Component {
                         <CrewComponent/>
                     </Col>
                 </Row>
-                <Row md={1} lg={2} style={{ marginTop: '1rem' }}>
+                <Row xs={2} sm={1} md={1} lg={2} style={{ marginTop: '1rem' }}>
                     <Col md={12}>
                         <MessageComponent/>
                     </Col>

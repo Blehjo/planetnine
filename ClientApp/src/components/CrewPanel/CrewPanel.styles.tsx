@@ -21,7 +21,6 @@ export const CrewContainer = styled.div`
         margin-left: 15.65rem;
         bottom: 0;
         left: 0;
-        width: 100%;
         height: 18%;
         z-index: 5;
         .notifications {
@@ -33,10 +32,9 @@ export const CrewContainer = styled.div`
         position: fixed;
         background: black;
         text-align: center;
-        margin-left: 17.9rem;
+        margin-left: 4rem;
         bottom: 0;
         left: 0;
-        width: 100%;
         height: 18%;
         z-index: 5;
         .notifications {

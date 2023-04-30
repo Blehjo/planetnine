@@ -21,7 +21,7 @@ export const AiContainer = styled.div`
     margin: 4rem 1rem 0rem 16rem;
   }
   @media (max-width: 767px) {
-    margin: 4rem 1rem 0rem 19rem;
+    margin: 4rem 1rem 0rem 5rem;
   }
 `;
 

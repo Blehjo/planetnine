@@ -31,7 +31,7 @@ export class Notification extends Component<NotificationProps> {
                 <NotificationsContainer>
                     <h1 className="notifications">Journal Logs</h1>
                     <IconContainer>
-                    <Row xs={2} md={4}>
+                    <Row xs={4}>
                         <Col>
                             <ModalMoonComponent/>
                         </Col>

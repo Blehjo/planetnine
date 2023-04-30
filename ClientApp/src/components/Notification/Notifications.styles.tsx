@@ -10,7 +10,7 @@ export const NotificationsContainer = styled.div`
         top: 0;
         right: 0;
         height: 100vh; 
-        width: 20rem; 
+        width: 18rem; 
         background: black;
         text-align: center;
         color: white;
@@ -24,15 +24,16 @@ export const NotificationsContainer = styled.div`
         text-align: center;
         bottom: 0;
         left: 0;
-        margin-left: 17.9rem;
         width: 100%;
-        height: 18%;
+        margin-left: 4rem;
+        margin-top: -2rem;
+        height: 12%;
         z-index: 5;
         .notifications {
             visibility: hidden;
         }
         .modalIcon {
-            font-size: 10px;
+            font-size: 55px;
         }
     }
 `;
@@ -46,7 +47,7 @@ export const ActionsContainer = styled.div`
 `;
 
 export const IconContainer = styled.div`
-    margin: 1rem;
+    margin: -2rem 1rem 1rem 1rem;
 `;
 
 export const CardContainer = styled.div`
