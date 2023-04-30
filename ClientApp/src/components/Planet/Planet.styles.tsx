@@ -23,13 +23,24 @@ export const PlanetPanelContainer = styled.div`
   color: white;
   height: 92vh;
   overflow-y: auto;
-  padding-left: 15.5rem;
+  padding-left: 16.5rem;
 `;
     
 export const FixedContainer = styled.div`
-  margin-right: 20rem;
+  h1 {
+    align: left !important;
+    float: left;
+  }
+  margin-right: 18rem;
   background: darkred;
   height: 100vh;
   float: left;
   z-index: 2;
+  @media (max-width: 899px) {
+    h1 {
+      align: left !important;
+      float: left;
+    }
+    margin-right: 0rem;
+  }
 `;

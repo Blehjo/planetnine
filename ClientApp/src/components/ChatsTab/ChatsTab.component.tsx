@@ -112,12 +112,12 @@ export class ChatsTab extends Component<ProfileProps, ChatsTabProps> {
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
-                    </Button>
-                    <Button variant="dark" onClick={() => this.handleClose()}>
+                    </button>
+                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Single View
-                    </Button>
+                    </button>
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>

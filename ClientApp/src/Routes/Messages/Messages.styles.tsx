@@ -1,39 +1,42 @@
 import styled from 'styled-components';
 
 export const UserMessageContainer = styled.div`
-  height: 100vh; 
+  height: 92vh; 
   position: relative;
   background: darkred; 
-  border-radius: .3rem;
   padding: 4rem;
-  margin-left: 18rem;
+  margin-top: 3.5rem;
+  margin-left: 16rem;
   z-index: 2;
 `;
 
 export const MessageContainer = styled.div`
-  height: 100vh; 
+  height: 92vh; 
   width: 18rem; 
   background: darkred;
   text-align: center;
   margin-top: 3.5rem;
+  margin-left: 1rem;
   color: black;
   float: left;
   z-index: 2;
 `;
 
 export const CollectionContainer = styled.div`
-  border-style: solid;
-  border-color: black;
-  border-radius: 1rem;
-  margin: 1rem;
-  height: 100vh;
+  height: 92vh;
 `;
     
 export const MessagebarContainer = styled.div`
-  margin-left: 15.5rem;
-  margin-right: 25rem;
+  margin: .5rem 18.5rem 0rem 15.5rem;
   float: left;
   z-index: 2;
+  @media (min-width: 718px) {
+    margin: .5rem 19rem 0rem 16.8rem;
+  }
+  @media (max-width: 717px) {
+    margin: 0rem;
+    padding: 0rem;
+  }
 `;
 
 export const FormContainer = styled.div`

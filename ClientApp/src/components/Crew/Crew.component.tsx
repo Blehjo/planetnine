@@ -5,9 +5,7 @@ import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleSta
 import { RootState } from "../../store/store";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { Card } from "react-bootstrap";
-import { PostContainer } from "../Post/Post.styles";
 import { ArrowsFullscreen } from "react-bootstrap-icons";
-import CrewPanelComponent from "../CrewPanel/CrewPanel.component";
 import { HeaderContainer } from "../PilotDash/PilotDash.styles";
 
 type CrewProps = ConnectedProps<typeof connector>;

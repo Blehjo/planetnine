@@ -2,15 +2,14 @@ import { Component, Dispatch, Fragment } from "react";
 import { CollectionContainer, FormContainer, MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles";
 import NotificationComponent from "../../components/Notification/Notification.component";
 import { RootState } from "../../store/store";
-import { MessageDeleteStart, MessageFetchAllStart, MessageFetchSingleStart, messageDeleteStart, messageFetchAllStart } from "../../store/message/message.action";
+import { MessageDeleteStart,  MessageFetchSingleStart, messageDeleteStart } from "../../store/message/message.action";
 import { MessageCommentFetchSingleStart, messagecommentFetchSingleStart } from "../../store/messagecomment/messagecomment.action";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { messageFetchUserMessagesStart } from "../../store/message/message.action";
 import { MessageFetchUserMessagesStart } from "../../store/message/message.action";
 import { messageFetchSingleStart } from "../../store/message/message.action";
 import { ConnectedProps, connect } from "react-redux";
-import { PilotContainer } from "../../components/Pilots/Pilots.styles";
-import { Button, Card, Col, Form, Image, Row } from "react-bootstrap";
+import { Card, Col, Form, Image, Row } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
 
 type MessagesProps = ConnectedProps<typeof connector>;

@@ -143,7 +143,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             <AiContainer className="fixed-top">
             <UserAiContainer>
             <Row>
-            <Col xs={12} md={5} lg={4}>
+            <Col xs={12} md={5} lg={4} xl={3}>
                 <CrewContainer>
                 <h1>Artoo<Plus size={40} style={{ cursor: 'pointer' }} onClick={this.handleClick}/></h1>
                 {chats.userChats ? chats.userChats.map(({ chatId, title }) => (
@@ -170,7 +170,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 }
                 </CrewContainer>
             </Col>
-            <Col md={7} lg={8}>
+            <Col md={7} lg={8} xl={9}>
                 <FormContainer>
                 <Form >
                 <Dropdown as={Anchor} style={{ padding: '1rem', margin: '1rem' }}>
@@ -212,6 +212,8 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     </Card>
                     }
                     </Col>
+                </Row>
+                </CrewContainer>
                 <TextBox>
                 <Row  xs={2}>
                     <Col xs={8} md={10}>
@@ -226,8 +228,6 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     </Col>
                 </Row>
                 </TextBox>
-                </Row>
-                </CrewContainer>
                 </Form>
                 </FormContainer>
                 </Col>

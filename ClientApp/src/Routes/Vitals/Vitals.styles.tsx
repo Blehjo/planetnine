@@ -5,8 +5,11 @@ export const VitalsContainer = styled.div`
   height: 100vh;
   float: left;
   z-index: 2;
-  @media (min-width: 718px) {
+  @media (min-width: 900px) {
     margin: 4rem 19rem 0rem 16.8rem;
+  }
+  @media (max-width: 899px) {
+    margin: 4rem 1rem 0rem 17rem;
   }
   @media (max-width: 717px) {
     margin: 4rem 1rem 0rem 5rem;

@@ -4,14 +4,10 @@ export const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 380px;
-  h2 {
-    margin: 10px 0;
-  }
 `;
 
 export const AiContainer = styled.div`
   margin: 4rem 16.5rem 0rem 16rem;
-  height: 100vh;
   float: left;
   z-index: 2;
   @media (min-width: 995px) {
@@ -33,8 +29,10 @@ export const UserAiContainer = styled.div`
 
 export const CrewContainer = styled.div`
   height: 90vh;
+  margin-left: .5rem;
   margin-bottom: 1rem;
   overflow-y: auto;
+  overflow-x: hidden;
   background: #d4d4d4;
   border-radius: .2rem;
   text-align: center;
@@ -52,7 +50,10 @@ export const HeadingContainer = styled.div`
 export const FormContainer = styled.div`
   position: relative;
   background: #d4d4d4;
-
+  overflow-y: hidden;
+  overflow-x: hidden;
+  border-radius: .2rem;
+  height: 90vh;
 `;
 
 export const ChatContainer = styled.div`
@@ -67,6 +68,7 @@ export const TextBox = styled.div`
   bottom: 15px;
   left: 0;
   width: 100%;
+  margin: 1rem;
 `;
 
 export const FirstColumnContainer = styled.div`

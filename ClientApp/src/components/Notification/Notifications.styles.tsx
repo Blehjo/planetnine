@@ -5,7 +5,7 @@ export const NotificationsContainer = styled.div`
         font-size: 55px;
     }
 
-    @media (min-width: 718px) {
+    @media (min-width: 900px) {
         position: fixed;
         top: 0;
         right: 0;
@@ -18,6 +18,27 @@ export const NotificationsContainer = styled.div`
         float: right;
     }
 
+    @media (max-width: 899px) {
+        position: fixed;
+        background: black;
+        text-align: center;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        margin-left: 16rem;
+        padding-right: 16rem;
+        height: 10%;
+        z-index: 5;
+        .notifications {
+            display: none;
+        }
+        .modalicons {
+            margin-top: 1rem;
+        }
+        .modalIcon {
+            font-size: 55px;
+        }
+    }
     @media (max-width: 717px) {
         position: fixed;
         background: black;

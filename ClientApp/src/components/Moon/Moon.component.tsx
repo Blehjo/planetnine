@@ -1,7 +1,7 @@
 import { ChangeEvent, Component, Dispatch, Fragment } from "react"
 import { ConnectedProps, connect } from "react-redux";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
+import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { ArrowsFullscreen } from "react-bootstrap-icons";
 
 import { FixedMoonContainer, MoonPanelContainer } from "./Moon.styles"

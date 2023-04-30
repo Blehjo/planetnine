@@ -18,7 +18,9 @@ export const CrewContainer = styled.div`
         position: fixed;
         background: black;
         text-align: center;
-        margin-left: 15.65rem;
+        margin-left: 16rem;
+        padding-right: 4rem;
+        width: 100%;
         bottom: 0;
         left: 0;
         height: 18%;
@@ -28,11 +30,13 @@ export const CrewContainer = styled.div`
         }
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 717px) {
         position: fixed;
         background: black;
         text-align: center;
         margin-left: 4rem;
+        padding-right: 4rem;
+        width: 100%;
         bottom: 0;
         left: 0;
         height: 18%;
