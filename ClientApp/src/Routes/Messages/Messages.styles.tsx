@@ -30,10 +30,10 @@ export const MessagebarContainer = styled.div`
   margin: .5rem 18.5rem 0rem 15.5rem;
   float: left;
   z-index: 2;
-  @media (min-width: 718px) {
-    margin: .5rem 19rem 0rem 16.8rem;
+  @media (min-width: 900px) {
+    margin: .5rem 18.5rem 0rem 15.5rem;
   }
-  @media (max-width: 717px) {
+  @media (max-width: 899px) {
     margin: 0rem;
     padding: 0rem;
   }
@@ -45,4 +45,7 @@ export const FormContainer = styled.div`
   bottom: 0;
   left: 0;
   margin-left: 3rem;
+  @media (max-width: 899px) {
+    bottom: 5rem;
+  }
 `;
