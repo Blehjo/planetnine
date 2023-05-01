@@ -19,14 +19,14 @@ export const CrewContainer = styled.div`
         background: black;
         text-align: center;
         margin-left: 16rem;
-        padding-right: 4rem;
+        padding-right: 16rem;
         width: 100%;
         bottom: 0;
         left: 0;
-        height: 18%;
+        height: 10%;
         z-index: 5;
         .notifications {
-            visibility: hidden;
+            display: none;
         }
     }
 
@@ -39,10 +39,10 @@ export const CrewContainer = styled.div`
         width: 100%;
         bottom: 0;
         left: 0;
-        height: 18%;
+        height: 7%;
         z-index: 5;
         .notifications {
-            visibility: hidden;
+            display: none;
         }
     }
 `;

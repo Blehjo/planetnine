@@ -11,12 +11,14 @@ import { Profiles } from "./routes/Profiles/Profiles.route";
 import { Voyager } from "./routes/Voyager/Voyager.route";
 import { SingleChat } from "./routes/SingleChat/SingleChat.route";
 import { SinglePlanet } from "./routes/SinglePlanet/SinglePlanet.route";
-import { SinglePost } from "./routes/SinglePost/SinglePost.route";
+
 import { SingleProfile } from "./routes/SingleProfile/SingleProfile.route";
 import { Planets } from "./routes/Planets/Planets.route";
 import { Moons } from "./routes/Moons/Moons.route";
 import { Fractal } from "./routes/Fractal/Fractal.route";
 import { SolarSystem } from "./components/SolarSystem/SolarSystem.component";
+import SinglePostRoute from "./routes/SinglePost/SinglePost.route";
+import SinglePost from "./routes/SinglePost/SinglePost.route";
 
 const AppRoutes = [
   {
@@ -90,10 +92,6 @@ const AppRoutes = [
   {
     path: '/singlepost/:id',
     element: <SinglePost />
-  },
-  {
-    path: '/singleprofile/:id',
-    element: <SingleProfile />
   },
   {
     path: '/solar',

@@ -210,7 +210,9 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                         Close
                     </button>
                     <button className="btn btn-dark" onClick={() => this.handleClose()}>
+                        <a href={`/singlepost/${posts.singlePost?.postId}`}>
                         Single View
+                        </a>
                     </button>
                     </Modal.Footer>
                     </ModalContainer>

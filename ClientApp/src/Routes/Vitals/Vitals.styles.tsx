@@ -7,12 +7,15 @@ export const VitalsContainer = styled.div`
   z-index: 2;
   @media (min-width: 900px) {
     margin: 4rem 19rem 0rem 16.8rem;
+    overflow-y: auto;
   }
   @media (max-width: 899px) {
     margin: 4rem 1rem 0rem 17rem;
+    overflow-y: auto;
   }
   @media (max-width: 717px) {
     margin: 4rem 1rem 0rem 5rem;
+    overflow-y: auto;
   }
 `;
 

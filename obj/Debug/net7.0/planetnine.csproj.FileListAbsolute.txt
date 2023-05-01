@@ -54,3 +54,4 @@
 /Users/blehjo/projects/planetninesolution/planetnine/obj/Debug/net7.0/planetnine.pdb
 /Users/blehjo/projects/planetninesolution/planetnine/obj/Debug/net7.0/planetnine.genruntimeconfig.cache
 /Users/blehjo/projects/planetninesolution/planetnine/obj/Debug/net7.0/ref/planetnine.dll
+/Users/blehjo/projects/planetninesolution/planetnine/bin/Debug/net7.0/package-lock.json

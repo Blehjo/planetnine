@@ -9,7 +9,6 @@ export const SideContainer = styled.div`
         height: 100vh;
         overflow-y: auto;
         margin-top: 3rem; 
-        padding-top: 1rem;
         overflow-x: hidden;
         .icons {
             font-size: 20px;
@@ -21,6 +20,7 @@ export const SideContainer = styled.div`
         height: 100vh;
         width: 4rem;
         color: white;
+        padding-top: 1rem;
         .icons {
             font-size: 20px;
             margin: -.2rem;

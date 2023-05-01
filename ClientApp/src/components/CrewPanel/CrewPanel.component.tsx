@@ -29,7 +29,7 @@ export class CrewPanel extends Component<CrewPanelProps> {
                             artificialIntelligences.userArtificialIntelligences?.map(({ name, role, imageLink, imageSource }) => {
                                 return (
                                     <Col key={name}>
-                                        <Image style={{ borderRadius: '1rem' }} fluid src={imageLink ? imageSource : ""} />
+                                        <Image style={{ borderRadius: '.2rem', objectFit: 'cover', width: '2rem', height: '2rem' }} fluid src={imageLink ? imageSource : ""} />
                                     </Col>
                             )})
                         }

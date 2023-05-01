@@ -71,7 +71,7 @@ export const ActionsContainer = styled.div`
 `;
 
 export const IconContainer = styled.div`
-    margin: 0rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem 1rem;
 `;
 
 export const CardContainer = styled.div`
