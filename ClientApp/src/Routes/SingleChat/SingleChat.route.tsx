@@ -16,7 +16,7 @@ export class SingleChat extends Component {
                         <Card.Footer></Card.Footer>
                     </Card>
                 </SingleChatContainer>
-                <Comment/>
+                {/* <Comment/> */}
             </Fragment>
         )
     }

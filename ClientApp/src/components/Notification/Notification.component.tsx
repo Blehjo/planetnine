@@ -27,7 +27,7 @@ export class Notification extends Component<NotificationProps> {
     render() {
         const { chats } = this.props;
         return (
-            <SidebarContainer  >
+            <SidebarContainer >
                 <NotificationsContainer>
                     <h1 className="notifications">Journal Logs</h1>
                     <IconContainer className="modalicons">
