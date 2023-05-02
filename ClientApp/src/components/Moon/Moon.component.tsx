@@ -8,7 +8,7 @@ import { FixedMoonContainer, MoonPanelContainer } from "./Moon.styles"
 import NotificationComponent from "../Notification/Notification.component"
 import { RootState } from "../../store/store";
 import { MoonFetchAllStart, MoonFetchSingleStart, moonFetchAllStart, moonFetchSingleStart } from "../../store/moon/moon.action";
-import { CommentContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
+import { CommentContainer, FormContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { CardContainer } from "../Notification/Notifications.styles";
 import { utcConverter } from "../../utils/date/date.utils";
@@ -142,6 +142,7 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                             </Col>
                             <Col>
                             <div>Comments</div>
+                            <CommentContainer>
                             {
                                 mooncomments.mooncomments?.map(({ moonCommentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -154,7 +155,8 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                     </CardContainer>
                                 })
                             }
-                            <CommentContainer>
+                            </CommentContainer>
+                            <FormContainer>
                             <Form style={{ margin: 'auto' }} key={moons.singleMoon?.moonId} onSubmit={this.postComment}>
                                 <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
                                     <Col xs={12}>
@@ -180,7 +182,7 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                     </Col>                
                                 </Row>
                             </Form>
-                            </CommentContainer>
+                            </FormContainer>
                             </Col>
                         </Row>
                     </Modal.Body>
@@ -188,9 +190,9 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                     <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
                     </button>
-                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
+                    <a href={`/singlemoon/${moons.singleMoon?.moonId}`} className="btn btn-dark">
                         Single View
-                    </button>
+                    </a>
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>

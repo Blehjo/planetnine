@@ -1,17 +1,19 @@
 import { ChangeEvent, Component, Dispatch } from "react";
-import { ConnectedProps, connect } from "react-redux";
-import { Card, Col, Form, Row } from "react-bootstrap";
-
 import { CardContainer, CommentBarContainer, CommentContainer, FormContainer, InnerComments } from "./Comment.styles";
+import { ConnectedProps, connect } from "react-redux";
+
 import { RootState } from "../../store/store";
+
+import { Card, Col, Form, Row } from "react-bootstrap";
 import { TextContainer } from "../Post/Post.styles";
 import { utcConverter } from "../../utils/date/date.utils";
-import { Planet } from "../../store/planet/planet.types";
-import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
+
+import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
+import { Moon } from "../../store/moon/moon.types";
 
 interface CommentQuery extends CommentProps {
     queryId: number;
-    planet: Planet;
+    moon: Moon;
 }
 
 type CommentProps = ConnectedProps<typeof connector>;
@@ -23,7 +25,7 @@ interface IDefaultFormFields {
     show: boolean;
 }
 
-export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
+export class MoonComment extends Component<CommentQuery, IDefaultFormFields> {
     constructor(props: CommentQuery) {
         super(props);
         this.state = {
@@ -41,9 +43,9 @@ export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
 
     postComment() {
         const { commentValue, imageFile } = this.state;
-        const { planets } = this.props;
-        const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet?.planetId : 0
-        this.props.createComment(commentValue, imageFile, planetId);
+        const { moons } = this.props;
+        const moonId = moons.singleMoon?.moonId ? moons.singleMoon?.moonId : 0
+        this.props.createComment(commentValue, imageFile, moonId);
     }
 
     handleClose(): void {
@@ -92,15 +94,15 @@ export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
     }
 
     render() {
-        const { planets, planetcomments } = this.props;
+        const { moons, mooncomments } = this.props;
         return(
             <CommentBarContainer>
                 <CommentContainer>
                     <h1 className="notifications">Comments</h1>
                 {
-                    planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
+                    mooncomments.mooncomments?.map(({ moonCommentId, commentValue, mediaLink, dateCreated }) => {
                         return <CardContainer>
-                            <Card className="bg-dark" key={planetCommentId}>
+                            <Card className="bg-dark" key={moonCommentId}>
                                 <TextContainer>
                                     <Card.Text>{commentValue}</Card.Text>
                                     <Card.Text>{utcConverter(dateCreated)}</Card.Text>
@@ -111,7 +113,7 @@ export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
                 }
                 </CommentContainer>
                 <FormContainer>
-                <Form style={{ margin: 'auto' }} key={planets?.planetId} onSubmit={this.postComment}>
+                <Form style={{ margin: 'auto' }} key={moons?.moonId} onSubmit={this.postComment}>
                     <Row style={{ margin: '.5rem', justifyContent: 'center' }} xs={1}>
                         <Col xs={12}>
                             <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
@@ -144,16 +146,16 @@ export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
 
 const mapStateToProps = (state: RootState) => {
     return { 
-        planets: state.planet,
-        planetcomments: state.planetcomment 
+        moons: state.moon,
+        mooncomments: state.mooncomment 
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch< PlanetCommentCreateStart | PlanetCommentFetchSingleStart>) => ({
-    getComments: (planetId: number) => dispatch(planetcommentFetchSingleStart(planetId)),
-    createComment: (commentValue: string, imageFile: File, postId: number) => dispatch(planetcommentCreateStart(commentValue, imageFile, postId)),
+const mapDispatchToProps = (dispatch: Dispatch<MoonCommentCreateStart | MoonCommentFetchSingleStart>) => ({
+    getComments: (moonId: number) => dispatch(moonCommentFetchSingleStart(moonId)),
+    createComment: (commentValue: string, imageFile: File, postId: number) => dispatch(moonCommentCreateStart(commentValue, imageFile, postId)),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(PlanetComment);
+export default connector(MoonComment);

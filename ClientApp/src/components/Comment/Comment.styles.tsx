@@ -28,8 +28,9 @@ export const CommentContainer = styled.div`
         width: 100%;
         margin-left: 16rem;
         padding-right: 16rem;
-        height: 10%;
+        height: 50vh;
         z-index: 5;
+        overflow-y: auto;
         .notifications {
             display: none;
         }
@@ -49,7 +50,9 @@ export const CommentContainer = styled.div`
         width: 100%;
         margin-left: 4rem;
         padding-right: 4rem;
-        height: 15%;
+        padding-bottom: 8rem;
+        height: 50vh;
+        overflow-y: auto;
         z-index: 5;
         .notifications {
             display: none;
@@ -124,7 +127,6 @@ export const FormContainer = styled.div`
     }
     
     @media (max-width: 500px) {
-        height: 40%;
         position: fixed;
         bottom: 0;
     }

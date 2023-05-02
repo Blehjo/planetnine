@@ -6,6 +6,15 @@ export const PilotDashContainer = styled.div`
     background: red; 
     border-radius: .3rem;
     overflow-y: auto;
+    @media (max-width: 991px) {
+        margin-bottom: 3rem;
+    }
+    @media (max-width: 899px) {
+        margin-bottom: 7rem;
+    }
+    @media (max-width: 770px) {
+        margin-bottom: 8rem;
+    }
 `;
 
 export const MarginContainer = styled.div`

@@ -36,6 +36,14 @@ export const CrewContainer = styled.div`
   background: #d4d4d4;
   border-radius: .2rem;
   text-align: center;
+  @media (max-width: 767px) {
+    margin-left: 12rem;
+    height: 20vh;
+  }
+  @media (max-width: 717px) {
+    margin-left: .5rem;
+    height: 20vh;
+  }
 `;
 
 export const HeadingContainer = styled.div`
@@ -45,6 +53,7 @@ export const HeadingContainer = styled.div`
   margin: 1rem;
   padding: .5rem;
   border-radius: .2rem;
+  
 `;
 
 export const FormContainer = styled.div`
@@ -54,6 +63,16 @@ export const FormContainer = styled.div`
   overflow-x: hidden;
   border-radius: .2rem;
   height: 90vh;
+  @media (max-width: 767px) {
+    margin-left: 12rem;
+    margin-bottom: 15rem;
+    height: 60vh;
+  }
+  @media (max-width: 717px) {
+    margin-left: .5rem;
+    margin-bottom: 15rem;
+    height: 60vh;
+  }
 `;
 
 export const ChatContainer = styled.div`

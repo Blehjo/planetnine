@@ -24,7 +24,7 @@ export class Vitals extends Component {
                         <CrewComponent/>
                     </Col>
                 </Row>
-                <Row xs={2} sm={1} md={1} lg={2} style={{ marginTop: '1rem' }}>
+                <Row xs={2} sm={1} md={1} lg={2} style={{ marginTop: '1rem', marginBottom: '2rem' }}>
                     <Col md={12}>
                         <MessageComponent/>
                     </Col>

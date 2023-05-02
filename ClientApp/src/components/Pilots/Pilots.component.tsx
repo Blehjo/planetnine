@@ -44,7 +44,9 @@ export class Pilots extends Component<PilotProps> {
                                 <Card.Img src={imageLink ? imageSource : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"}/>
                                 <Card.ImgOverlay>
                                     <BadgeContainer>
-                                        <Badge style={{ color: 'black' }} bg="light"><Person style={{ cursor: 'pointer' }} onClick={() => this.handleClick(userId)} size={15}/></Badge>
+                                    <a href={`/profile/${userId}`}>
+                                        <Badge style={{ color: 'black' }} bg="light"><Person style={{ cursor: 'pointer' }} size={15}/></Badge>
+                                    </a>
                                     </BadgeContainer>
                                     <BadgeContainer>
                                         <Badge style={{ color: 'black' }} bg="light"><Envelope style={{ cursor: 'pointer' }} onClick={() => this.handleSendMessage(username)} size={15}/></Badge>

@@ -24,6 +24,9 @@ export const PlanetPanelContainer = styled.div`
   height: 92vh;
   overflow-y: auto;
   padding-left: 16.5rem;
+  @media (max-width: 717px) {
+    padding-left: 4rem;
+  }
 `;
     
 export const FixedContainer = styled.div`

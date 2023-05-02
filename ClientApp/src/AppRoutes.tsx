@@ -17,6 +17,7 @@ import { Planets } from "./routes/Planets/Planets.route";
 import { Moons } from "./routes/Moons/Moons.route";
 import { Fractal } from "./routes/Fractal/Fractal.route";
 import { SolarSystem } from "./components/SolarSystem/SolarSystem.component";
+import SingleMoon from "./routes/SingleMoon/SingleMoon.route";
 
 const AppRoutes = [
   {
@@ -82,6 +83,10 @@ const AppRoutes = [
   {
     path: '/singlechat/:id',
     element: <SingleChat />
+  },
+  {
+    path: '/singlemoon/:id',
+    element: <SingleMoon />
   },
   {
     path: '/singleplanet/:id',
