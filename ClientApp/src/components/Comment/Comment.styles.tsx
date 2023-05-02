@@ -71,6 +71,51 @@ export const CommentContainer = styled.div`
 
 export const CommentBarContainer = styled.div`
     z-index: 1;
+    @media (min-width: 900px) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh; 
+        width: 18rem; 
+        background: black;
+        text-align: center;
+        color: white;
+        margin-top: 3.5rem;
+        float: right;
+        overflow-y: auto;
+    }
+
+    @media (max-width: 899px) {
+        position: fixed;
+        background: black;
+        text-align: center;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        margin-left: 16rem;
+        padding-right: 16rem;
+        height: 50vh;
+        z-index: 5;
+        overflow-y: auto;
+
+    }
+    @media (max-width: 717px) {
+        position: fixed;
+        background: black;
+        text-align: center;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        margin-left: 4rem;
+        padding-right: 4rem;
+        padding-bottom: 8rem;
+        height: 50vh;
+        overflow-y: auto;
+        z-index: 5;
+    }
+    @media (max-width: 500px) {
+        height: 40%;
+    }
 `;
 
 export const CardContainer = styled.div`
