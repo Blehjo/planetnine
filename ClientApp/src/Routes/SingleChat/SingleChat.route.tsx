@@ -37,7 +37,7 @@ function SingleChat() {
     const queryId = parseInt(id!);
 
     const backToPosts = () => {
-        navigate(`/posts`);
+        navigate(`/chats`);
     }
 
     async function postComment() {

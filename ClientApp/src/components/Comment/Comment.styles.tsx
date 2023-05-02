@@ -4,20 +4,19 @@ export const CommentContainer = styled.div`
     .modalIcon {
         font-size: 55px;
     }
-    height: 100vh;
-    overflow-y: auto;
 
     @media (min-width: 900px) {
         position: fixed;
         top: 0;
         right: 0;
-        height: 100vh; 
+        height: 75vh; 
         width: 18rem; 
         background: black;
         text-align: center;
         color: white;
         margin-top: 3.5rem;
         float: right;
+        overflow-y: auto;
     }
 
     @media (max-width: 899px) {
@@ -129,4 +128,9 @@ export const FormContainer = styled.div`
         position: fixed;
         bottom: 0;
     }
+`;
+
+export const InnerComments = styled.div`
+    height: 75vh;
+    overflow-y: auto;
 `;

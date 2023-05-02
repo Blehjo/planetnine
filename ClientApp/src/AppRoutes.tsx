@@ -10,7 +10,7 @@ import { Posts } from "./routes/Posts/Posts.route";
 import { Profiles } from "./routes/Profiles/Profiles.route";
 import { Voyager } from "./routes/Voyager/Voyager.route";
 import SingleChat from "./routes/SingleChat/SingleChat.route";
-import { SinglePlanet } from "./routes/SinglePlanet/SinglePlanet.route";
+import SinglePlanet from "./routes/SinglePlanet/SinglePlanet.route";
 import SinglePost from "./routes/SinglePost/SinglePost.route";
 import { SingleProfile } from "./routes/SingleProfile/SingleProfile.route";
 import { Planets } from "./routes/Planets/Planets.route";

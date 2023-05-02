@@ -6,7 +6,7 @@ import { ConnectedProps, connect } from "react-redux";
 import { FixedContainer, PlanetPanelContainer } from "./Planet.styles";
 import { RootState } from "../../store/store";
 import { PlanetFetchAllStart, PlanetFetchSingleStart, planetFetchAllStart, planetFetchSingleStart } from "../../store/planet/planet.action";
-import { CommentContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
+import { CommentContainer, FormContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { ArrowsFullscreen } from "react-bootstrap-icons";
 import NotificationComponent from "../Notification/Notification.component";
@@ -142,6 +142,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                             </Col>
                             <Col>
                             <div>Comments</div>
+                            <CommentContainer>
                             {
                                 planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -154,7 +155,8 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                     </CardContainer>
                                 })
                             }
-                            <CommentContainer>
+                            </CommentContainer>
+                            <FormContainer>
                             <Form style={{ margin: 'auto' }} key={planets.singlePlanet?.planetId} onSubmit={this.postComment}>
                                 <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
                                     <Col xs={12}>
@@ -180,7 +182,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                     </Col>                
                                 </Row>
                             </Form>
-                            </CommentContainer>
+                            </FormContainer>
                             </Col>
                         </Row>
                     </Modal.Body>
@@ -188,8 +190,10 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                     <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
                     </button>
-                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
+                    <button className="btn btn-dark" >
+                    <a style={{ textDecoration: 'none', color: 'white' }} href={`/singleplanet/${planets.singlePlanet?.planetId}`}>
                         Single View
+                    </a>
                     </button>
                     </Modal.Footer>
                     </ModalContainer>
