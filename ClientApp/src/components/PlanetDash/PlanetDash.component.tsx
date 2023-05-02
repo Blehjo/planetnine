@@ -1,13 +1,11 @@
 import { ChangeEvent, Component, Dispatch } from "react";
 import { PlanetContainer, PlanetDashPanel } from "./PlanetDash.styles";
-import { Planet } from "../../store/planet/planet.types";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { CommentContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
-import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
-import { BadgeContainer } from "../Pilots/Pilots.styles";
+import { CommentContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
+import { Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { ArrowsFullscreen } from "react-bootstrap-icons";
 import { RootState } from "../../store/store";
-import { PlanetFetchAllStart, PlanetFetchSingleStart, PlanetFetchUserPlanetsStart, planetFetchAllStart, planetFetchSingleStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
+import { PlanetFetchSingleStart, PlanetFetchUserPlanetsStart, planetFetchSingleStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
 import { ConnectedProps, connect } from "react-redux";
 import { HeaderContainer, MarginContainer } from "../PilotDash/PilotDash.styles";
 import { CardHolder } from "../Crew/Crew.styles";

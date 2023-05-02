@@ -31,7 +31,7 @@ export type Chat = {
     title: string;
     dateCreated: Date;
     userId: number | null;
-    chatComments: ChatComment[] | null;
+    chatComments: ChatComment[];
     comments: Comment[] | null;
     favorites: Favorite[];
 }

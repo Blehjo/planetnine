@@ -1,24 +1,45 @@
 import { ConnectedProps, connect } from "react-redux";
-import { Component, Fragment, Dispatch } from "react";
+import { Component, Fragment, Dispatch, ChangeEvent } from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import { ArrowsFullscreen, Globe, Rocket } from 'react-bootstrap-icons';
-import { Badge, Button, Card, Col, Image, Modal, Row } from "react-bootstrap";
+import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 
 import { ChatContainer } from "./Chat.styles";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { utcConverter } from "../../utils/date/date.utils";
 import { RootState } from "../../store/store";
 import { ChatFetchAllStart, ChatFetchSingleStart, chatFetchAllStart, chatFetchSingleStart } from "../../store/chat/chat.action";
-import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
+import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
-import { CardContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
+import { CardContainer, CommentContainer, FormContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
 
 type ChatProps = ConnectedProps<typeof connector>;
 
-export class ChatComponent extends Component<ChatProps> {
-    state = {
-        show: false
+interface IDefaultFormFields {
+    commentValue: string;
+    imageSource: string | ArrayBuffer | null | undefined;
+    imageFile: any;
+    show: boolean;
+}
+
+export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
+    constructor(props: ChatProps) {
+        super(props);
+        this.state = {
+            commentValue: "",
+            imageSource: "",
+            imageFile: null,
+            show: false
+        }
+
+        this.handleLike = this.handleLike.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.showPreview = this.showPreview.bind(this);
+        this.postComment = this.postComment.bind(this);
     }
+       
 
     handleLike(chatId: number, type: string): void {
         this.props.likePost(chatId, type);
@@ -30,12 +51,47 @@ export class ChatComponent extends Component<ChatProps> {
         });
     }
 
+    postComment() {
+        const { commentValue, imageFile } = this.state;
+        const { chats } = this.props;
+        const chatId = chats.singleChat?.chatId ? chats.singleChat?.chatId : 0
+        this.props.createComment(chatId, commentValue, imageFile);
+    }
+
     handleClick(chatId: number): void {
         this.props.getChat(chatId);
         this.props.getComments(chatId);
         this.setState({
             show: !this.state.show
         });
+    }
+
+    handleChange(event: ChangeEvent<HTMLInputElement>): void {
+        const { name, value } = event.target;
+        this.setState({ ...this.state, [name]: value });
+    }
+
+    showPreview(event: ChangeEvent<HTMLInputElement>) {
+        if (event.target.files && event.target.files[0]) {
+          const { files } = event.target;
+          const selectedFiles = files as FileList;
+          let imageFile = selectedFiles[0];
+          const reader = new FileReader();
+          reader.onload = x => {
+            this.setState({
+              ...this.state,
+              imageFile,
+              imageSource: x.target?.result
+            });
+          }
+          reader.readAsDataURL(imageFile);
+        } else {
+          this.setState({
+              ...this.state,
+              imageFile: null,
+              imageSource: null
+          });
+        }
     }
 
     componentDidMount(): void {
@@ -103,6 +159,7 @@ export class ChatComponent extends Component<ChatProps> {
                             </Col>
                             <Col>
                             <div>Comments</div>
+                            <CommentContainer>
                             {
                                 chatComments.chatcomments?.map(({ chatCommentId, chatValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -115,6 +172,34 @@ export class ChatComponent extends Component<ChatProps> {
                                     </CardContainer>
                                 })
                             }
+                            </CommentContainer>
+                            <FormContainer>
+                            <Form key={chats.singleChat?.chatId} onSubmit={this.postComment}>
+                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                                    <Col xs={12}>
+                                        <Row style={{ marginBottom: '1rem' }}>
+                                            <Col xs={11}>
+                                                <Form.Group>
+                                                    <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                        <Row >
+                                            <Col xs={8}>
+                                                <Form.Group className="mb-3" controlId="formMedia">
+                                                    <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                                </Form.Group>
+                                            </Col>
+                                            <Col xs={2}>
+                                                <button id={chats.singleChat?.chatId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
+                                                    Post
+                                                </button>
+                                            </Col>                
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            </Form>
+                            </FormContainer>
                             </Col>
                         </Row>
                     </Modal.Body>
@@ -122,9 +207,9 @@ export class ChatComponent extends Component<ChatProps> {
                     <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
                     </button>
-                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
+                    <a href={`/singlechat/${chats.singleChat?.chatId}`} style={{ textDecoration: 'none', color: 'white' }} className="btn btn-dark" onClick={() => this.handleClose()}>
                         Single View
-                    </button>
+                    </a>
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
@@ -140,10 +225,11 @@ const mapStateToProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<ChatFetchAllStart | ChatFetchSingleStart | ChatCommentFetchSingleStart | FavoriteCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<ChatFetchAllStart | ChatFetchSingleStart | ChatCommentFetchSingleStart | FavoriteCreateStart | ChatCommentCreateStart>) => ({
 	getAllChats: () => dispatch(chatFetchAllStart()),
     getChat: (chatId: number) => dispatch(chatFetchSingleStart(chatId)),
     getComments: (chatId: number) => dispatch(chatcommentFetchSingleStart(chatId)),
+    createComment: (chatId: number, commentValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, commentValue, imageFile)),
     likePost: (postId: number, contentType: string) => dispatch(favoriteCreateStart(postId, contentType))
 });
 

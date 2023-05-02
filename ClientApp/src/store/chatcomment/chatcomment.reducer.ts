@@ -23,7 +23,7 @@ import {
 export type ChatCommentState = {
     readonly chatcommentId: number | null;
     readonly singleChatcomment: ChatComment | null;
-    readonly userChatcomments: ChatComment[] | null;
+    readonly userChatcomments: ChatComment[];
     readonly chatcomments: ChatComment[] | null;
     readonly isLoading: boolean;
     readonly error: Error | null;

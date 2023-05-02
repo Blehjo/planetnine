@@ -1,10 +1,10 @@
 import { Fragment, useEffect } from "react";
-import { SinglePostContainer } from "./SinglePost.styles";
-
 import { Card } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+
+import { SinglePostContainer } from "./SinglePost.styles";
 import { selectSinglePost } from "../../store/post/post.selector";
 import { postFetchSingleStart } from "../../store/post/post.action";
 import CommentComponent from "../../components/Comment/Comment.component";

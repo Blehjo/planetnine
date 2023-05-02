@@ -30,6 +30,6 @@ export type Post = {
     type: string;
     dateCreated: Date;
     userId: number | null,
-    comments: Comment[] | null;
+    comments: Comment[];
     favorites: Favorite[] | null;
 }

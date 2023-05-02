@@ -15,5 +15,5 @@ export const FontContainer = styled.div`
 `;
 
 export const CardHolder = styled.div`
-   
+    margin-bottom: 5rem;
 `;

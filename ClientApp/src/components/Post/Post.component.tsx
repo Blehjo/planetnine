@@ -4,7 +4,7 @@ import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstr
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import { Globe, Chat, Rocket, ArrowsFullscreen } from 'react-bootstrap-icons';
 
-import { CardContainer, CommentContainer, ModalContainer, PostContainer, TextContainer } from "./Post.styles";
+import { CardContainer, CommentContainer, FormContainer, ModalContainer, PostContainer, TextContainer } from "./Post.styles";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { RootState } from "../../store/store";
 import { PostFetchAllStart, PostFetchSingleStart, postFetchAllStart, postFetchSingleStart } from "../../store/post/post.action";
@@ -122,7 +122,7 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                     {
                                         <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
                                             <Chat size={15}/>
-                                            {` ${comments != null ? comments : ""}`}
+                                            {` ${comments != null ? comments?.length : ""}`}
                                             </Badge>
                                         </BadgeContainer>
                                     }
@@ -163,6 +163,7 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                             </Col>
                             <Col>
                             <div>Comments</div>
+                            <CommentContainer>
                             {
                                 comments.comments?.map(({ commentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -175,33 +176,34 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                     </CardContainer>
                                 })
                             }
-                            <CommentContainer>
-                            <Form style={{ margin: 'auto' }} key={posts.singlePost?.postId} onSubmit={this.postComment}>
+                            </CommentContainer>
+                            <FormContainer>
+                            <Form key={posts.singlePost?.postId} onSubmit={this.postComment}>
                                 <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
                                     <Col xs={12}>
-                                        <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
-                                            <Col xs={12}>
+                                        <Row style={{ marginBottom: '1rem' }}>
+                                            <Col xs={11}>
                                                 <Form.Group>
                                                     <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
                                                 </Form.Group>
                                             </Col>
                                         </Row>
-                                        <Row style={{ justifyContent: 'center' }}>
-                                            <Col xs={12}>
+                                        <Row >
+                                            <Col xs={8}>
                                                 <Form.Group className="mb-3" controlId="formMedia">
                                                     <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
                                                 </Form.Group>
                                             </Col>
+                                            <Col xs={2}>
+                                                <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
+                                                    Post
+                                                </button>
+                                            </Col>                
                                         </Row>
                                     </Col>
-                                    <Col xs={12}>
-                                        <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
-                                            Post
-                                        </button>
-                                    </Col>                
                                 </Row>
                             </Form>
-                            </CommentContainer>
+                            </FormContainer>
                             </Col>
                         </Row>
                     </Modal.Body>
