@@ -30,6 +30,7 @@ export type Chat = {
     chatId: number;
     title: string;
     dateCreated: Date;
+    type: string;
     userId: number | null;
     chatComments: ChatComment[];
     comments: Comment[] | null;

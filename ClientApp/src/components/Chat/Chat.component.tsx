@@ -1,7 +1,7 @@
 import { ConnectedProps, connect } from "react-redux";
 import { Component, Fragment, Dispatch, ChangeEvent } from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { ArrowsFullscreen, Globe, Rocket } from 'react-bootstrap-icons';
+import { ArrowsFullscreen, Chat, Globe, Rocket } from 'react-bootstrap-icons';
 import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 
 import { ChatContainer } from "./Chat.styles";
@@ -109,16 +109,16 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                     columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
                 >
                     <Masonry>
-                    {chats.chats?.map(({ chatId, title, userId, comments, chatComments, favorites, dateCreated }) => {
+                    {chats.chats?.map(({ chatId, title, type, userId, comments, chatComments, favorites, dateCreated }) => {
                     return <ChatContainer key={chatId}>
                             <Card className="bg-dark" key={chatId}>
                                 <BadgeContainer>
                                     <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(chatId)}/></Badge>
                                 </BadgeContainer>
                                 {
-                                    chatComments && <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
-                                        <Globe size={15}/>
-                                        {` ${chatComments.length}`}
+                                    <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
+                                        <Chat size={15}/>
+                                        {` ${chatComments?.length > 0 ? chatComments?.length : ""}`}
                                         </Badge>
                                     </BadgeContainer>
                                 }
@@ -127,6 +127,14 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                                         <Badge style={{ color: 'black' }} bg="light">
                                         <Rocket size={15}/>
                                         {` ${favorites.length}`}
+                                        </Badge>
+                                    </BadgeContainer>
+                                }
+                                {
+                                    <BadgeContainer>
+                                        <Badge style={{ color: 'black' }} bg="light">
+                                        <Rocket style={{ cursor: 'pointer' }} onClick={() => this.handleLike(chatId, type)} size={15}/>
+                                        {` ${favorites.length > 0 ? favorites?.length : ""}`}
                                         </Badge>
                                     </BadgeContainer>
                                 }

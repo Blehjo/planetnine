@@ -31,5 +31,5 @@ export type Post = {
     dateCreated: Date;
     userId: number | null,
     comments: Comment[];
-    favorites: Favorite[] | null;
+    favorites: Favorite[];
 }

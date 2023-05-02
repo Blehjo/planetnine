@@ -122,7 +122,7 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                     {
                                         <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
                                             <Chat size={15}/>
-                                            {` ${comments != null ? comments?.length : ""}`}
+                                            {` ${comments?.length > 0 ? comments?.length : ""}`}
                                             </Badge>
                                         </BadgeContainer>
                                     }
@@ -130,7 +130,7 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                         <BadgeContainer>
                                             <Badge style={{ color: 'black' }} bg="light">
                                             <Rocket style={{ cursor: 'pointer' }} onClick={() => this.handleLike(postId, type)} size={15}/>
-                                            {` ${favorites != null ? favorites : ""}`}
+                                            {` ${favorites.length > 0 ? favorites?.length : ""}`}
                                             </Badge>
                                         </BadgeContainer>
                                     }
