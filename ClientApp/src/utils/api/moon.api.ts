@@ -44,7 +44,7 @@ export async function getUserMoons(): Promise<Moon[]> {
 export async function getUsersMoons(userId: number): Promise<Moon[]> {
   const response = await axios({
     method: 'get',
-    url: `${api}/${userId}`, 
+    url: `${api}/user/${userId}`, 
     headers: headers,
     withCredentials: true
   });

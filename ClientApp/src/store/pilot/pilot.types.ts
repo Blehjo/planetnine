@@ -2,6 +2,7 @@ import { Favorite } from "../favorite/favorite.types";
 import { Follower } from "../follower/follower.types";
 import { Moon } from "../moon/moon.types";
 import { Planet } from "../planet/planet.types";
+import { Post } from "../post/post.types";
 
 export enum PILOT_ACTION_TYPES  {
     FETCH_SINGLE_START = 'pilot/FETCH_SINGLE_START',
@@ -25,6 +26,7 @@ export type Pilot = {
     imageSource: string;
     type: string;
     dateCreated: Date;
+    posts: Post[];
     planets: Planet[];
     moons: Moon[];
     followers: Follower[];

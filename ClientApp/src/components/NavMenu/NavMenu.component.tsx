@@ -43,7 +43,7 @@ export class NavMenu extends Component<IProps, ICollapsed> {
                 >
                     <img onClick={() => {
                         this.props.navigation.navigate('/')
-                    }} height="25rem" width="25rem" style={{ cursor: 'pointer', objectFit: 'cover', margin: '0rem 1.3rem 0.3rem 1.1rem' }} src='https://i.imgur.com/K0z1k9P.jpg'/>
+                    }} height="25rem" width="25rem" style={{ borderRadius: '.2rem', cursor: 'pointer', objectFit: 'cover', margin: '0rem 1.3rem 0.3rem 1.1rem' }} src='https://i.imgur.com/K0z1k9P.jpg'/>
                     Planet 9
                 </Navbar.Brand>
               </Nav>

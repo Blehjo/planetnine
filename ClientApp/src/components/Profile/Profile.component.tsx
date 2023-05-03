@@ -20,7 +20,6 @@ import { ChatFetchSingleStart, ChatFetchUserChatsStart, chatFetchSingleStart, ch
 import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
 import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
 
-
 export type ProfileProps = ConnectedProps<typeof connector>;
 
 export class Profile extends Component<ProfileProps> {
@@ -96,6 +95,6 @@ const mapDispatchToProps = (dispatch: Dispatch<UserprofileFetchSingleStart | Pil
     getMoon: (moonId: number) => dispatch(moonFetchSingleStart(moonId)) 
 });
 
-const connector = connect(mapToStateProps, mapDispatchToProps);
+export const connector = connect(mapToStateProps, mapDispatchToProps);
 
 export default connector(Profile);

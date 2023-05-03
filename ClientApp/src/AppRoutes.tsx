@@ -18,6 +18,7 @@ import { Moons } from "./routes/Moons/Moons.route";
 import { Fractal } from "./routes/Fractal/Fractal.route";
 import { SolarSystem } from "./components/SolarSystem/SolarSystem.component";
 import SingleMoon from "./routes/SingleMoon/SingleMoon.route";
+import ProfileComponent from "./components/Profile/Profile.component";
 
 const AppRoutes = [
   {
@@ -74,6 +75,10 @@ const AppRoutes = [
   },
   {
     path: '/profile',
+    element: <ProfileComponent />
+  },
+  {
+    path: '/profile/:id',
     element: <SingleProfile />
   },
   {

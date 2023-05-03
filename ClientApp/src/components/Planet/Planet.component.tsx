@@ -136,6 +136,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                         <Row>
                             <Col md={8}>
                             <Image
+                                style={{ height: 'auto', width: '100%' }}
                                 fluid
                                 src={planets.singlePlanet?.imageLink ? planets.singlePlanet?.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                             />

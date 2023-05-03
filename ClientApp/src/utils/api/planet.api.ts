@@ -33,7 +33,7 @@ export async function getPlanets(): Promise<Planet[]> {
 export async function getUserPlanets(userId: number): Promise<Planet[]> {
   const response = await axios({
     method: 'get',
-    url: `${api}/${userId}`, 
+    url: `${api}/user/${userId}`, 
     headers: headers,
     withCredentials: true
   });

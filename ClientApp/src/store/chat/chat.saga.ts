@@ -154,6 +154,13 @@ export function* onFetchUserChatsStart() {
     );
 }
 
+export function* onFetchOthersUserChatsStart() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.FETCH_SINGLE_USER_CHATS_START, 
+        fetchOtherUsersChats
+    );
+}
+
 export function* onFetchSingleChatStart() {
     yield* takeLatest(
         CHAT_ACTION_TYPES.FETCH_SINGLE_START, 
@@ -174,6 +181,7 @@ export function* chatSagas() {
         call(onUpdateStart),
         call(onDeleteStart),
         call(onFetchUserChatsStart),
+        call(onFetchOthersUserChatsStart),
         call(onFetchSingleChatStart),
         call(onFetchChatsStart)
     ]);

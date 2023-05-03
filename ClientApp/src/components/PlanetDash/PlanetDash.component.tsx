@@ -1,7 +1,7 @@
 import { ChangeEvent, Component, Dispatch } from "react";
 import { PlanetContainer, PlanetDashPanel } from "./PlanetDash.styles";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { CommentContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
+import { CommentContainer, FormContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
 import { Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { ArrowsFullscreen } from "react-bootstrap-icons";
 import { RootState } from "../../store/store";
@@ -135,12 +135,14 @@ export class PlanetDash extends Component<PlanetDashProps, ICurrentState> {
                         <Row>
                             <Col md={8}>
                             <Image
+                                style={{ height: 'auto', width: '100%' }}
                                 fluid
                                 src={planets.singlePlanet?.imageLink ? planets.singlePlanet?.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                             />
                             </Col>
                             <Col>
                             <div>Comments</div>
+                            <CommentContainer>
                             {
                                 planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -153,33 +155,34 @@ export class PlanetDash extends Component<PlanetDashProps, ICurrentState> {
                                     </CardContainer>
                                 })
                             }
-                            <CommentContainer>
+                            </CommentContainer>
+                            <FormContainer>
                                 <Form style={{ margin: 'auto' }} key={planets.singlePlanet?.planetId} onSubmit={this.postComment}>
                                     <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
                                         <Col xs={12}>
-                                            <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
-                                                <Col xs={12}>
+                                            <Row style={{ marginBottom: '1rem' }}>
+                                                <Col xs={11}>
                                                     <Form.Group>
                                                         <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
-                                            <Row style={{ justifyContent: 'center' }}>
-                                                <Col xs={12}>
+                                            <Row >
+                                                <Col xs={8}>
                                                     <Form.Group className="mb-3" controlId="formMedia">
                                                         <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
                                                     </Form.Group>
                                                 </Col>
+                                                <Col xs={2}>
+                                                    <button id={planets.singlePlanet?.planetId.toString()} className="btn btn-light" type="submit">
+                                                        Post
+                                                    </button>
+                                                </Col>                
                                             </Row>
                                         </Col>
-                                        <Col xs={12}>
-                                            <button id={planets.singlePlanet?.planetId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
-                                                Post
-                                            </button>
-                                        </Col>                
                                     </Row>
                                 </Form>
-                            </CommentContainer>
+                            </FormContainer>
                             </Col>
                         </Row>
                     </Modal.Body>

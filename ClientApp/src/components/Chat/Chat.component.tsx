@@ -112,9 +112,13 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                     {chats.chats?.map(({ chatId, title, type, userId, comments, chatComments, favorites, dateCreated }) => {
                     return <ChatContainer key={chatId}>
                             <Card className="bg-dark" key={chatId}>
+                                <Row>
+                                <Col>
                                 <BadgeContainer>
                                     <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(chatId)}/></Badge>
                                 </BadgeContainer>
+                                </Col>
+                                <Col>
                                 {
                                     <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
                                         <Chat size={15}/>
@@ -122,26 +126,22 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                                         </Badge>
                                     </BadgeContainer>
                                 }
-                                {
-                                    favorites && <BadgeContainer>
-                                        <Badge style={{ color: 'black' }} bg="light">
-                                        <Rocket size={15}/>
-                                        {` ${favorites.length}`}
-                                        </Badge>
-                                    </BadgeContainer>
-                                }
+                                </Col>
+                                <Col>
                                 {
                                     <BadgeContainer>
                                         <Badge style={{ color: 'black' }} bg="light">
                                         <Rocket style={{ cursor: 'pointer' }} onClick={() => this.handleLike(chatId, type)} size={15}/>
-                                        {` ${favorites.length > 0 ? favorites?.length : ""}`}
+                                        {` ${favorites?.length > 0 ? favorites?.length : ""}`}
                                         </Badge>
                                     </BadgeContainer>
                                 }
+                                </Col>
                                 <Card.Body>
                                     <Card.Text>{title}</Card.Text>
                                     <Card.Text>{utcConverter(dateCreated)}</Card.Text>
                                 </Card.Body>
+                                </Row>
                             </Card>
                         </ChatContainer>
                     })}

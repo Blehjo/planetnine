@@ -200,6 +200,13 @@ export function* onFetchUserMoonsStart() {
     );
 }
 
+export function* onFetchOtherUserMoonsStart() {
+    yield* takeLatest(
+        MOON_ACTION_TYPES.FETCH_OTHER_USER_MOONS_START, 
+        fetchOtherUserMoons
+    );
+}
+
 export function* onFetchSingleMoonStart() {
     yield* takeLatest(
         MOON_ACTION_TYPES.FETCH_SINGLE_START, 
@@ -220,6 +227,7 @@ export function* moonSagas() {
         call(onUpdateStart),
         call(onDeleteStart),
         call(onFetchUserMoonsStart),
+        call(onFetchOtherUserMoonsStart),
         call(onFetchSingleMoonStart),
         call(onFetchMoonsStart)
     ]);
