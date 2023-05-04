@@ -162,7 +162,6 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                             {posts.singlePost?.postValue}
                             </Col>
                             <Col>
-                            <div>Comments</div>
                             <CommentContainer>
                             {
                                 comments.comments?.map(({ commentId, commentValue, mediaLink, dateCreated }) => {
@@ -179,28 +178,24 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                             </CommentContainer>
                             <FormContainer>
                             <Form key={posts.singlePost?.postId} onSubmit={this.postComment}>
-                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
-                                    <Col xs={12}>
-                                        <Row style={{ marginBottom: '1rem' }}>
-                                            <Col xs={11}>
-                                                <Form.Group>
-                                                    <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <Row >
-                                            <Col xs={8}>
-                                                <Form.Group className="mb-3" controlId="formMedia">
-                                                    <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
-                                                </Form.Group>
-                                            </Col>
-                                            <Col xs={2}>
-                                                <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
-                                                    Post
-                                                </button>
-                                            </Col>                
-                                        </Row>
+                                <Row style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                                    <Col xs={11}>
+                                        <Form.Group>
+                                            <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                        </Form.Group>
                                     </Col>
+                                </Row>
+                                <Row >
+                                    <Col xs={8}>
+                                        <Form.Group className="mb-3" controlId="formMedia">
+                                            <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col xs={2}>
+                                        <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
+                                            Post
+                                        </button>
+                                    </Col>                
                                 </Row>
                             </Form>
                             </FormContainer>

@@ -157,7 +157,7 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                         <Modal.Title >Crew Logs</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Row>
+                        <Row style={{ position: 'relative' }}>
                             <Col md={8}>
                             <Image
                                 fluid
@@ -166,7 +166,6 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                             {chats.singleChat?.title}
                             </Col>
                             <Col>
-                            <div>Comments</div>
                             <CommentContainer>
                             {
                                 chatComments.chatcomments?.map(({ chatCommentId, chatValue, mediaLink, dateCreated }) => {
@@ -183,28 +182,24 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                             </CommentContainer>
                             <FormContainer>
                             <Form key={chats.singleChat?.chatId} onSubmit={this.postComment}>
-                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
-                                    <Col xs={12}>
-                                        <Row style={{ marginBottom: '1rem' }}>
-                                            <Col xs={11}>
-                                                <Form.Group>
-                                                    <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <Row >
-                                            <Col xs={8}>
-                                                <Form.Group className="mb-3" controlId="formMedia">
-                                                    <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
-                                                </Form.Group>
-                                            </Col>
-                                            <Col xs={2}>
-                                                <button id={chats.singleChat?.chatId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
-                                                    Post
-                                                </button>
-                                            </Col>                
-                                        </Row>
+                                <Row style={{ marginBottom: '1rem' }}>
+                                    <Col xs={11}>
+                                        <Form.Group>
+                                            <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                        </Form.Group>
                                     </Col>
+                                </Row>
+                                <Row >
+                                    <Col xs={8}>
+                                        <Form.Group className="mb-3" controlId="formMedia">
+                                            <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col xs={2}>
+                                        <button id={chats.singleChat?.chatId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
+                                            Post
+                                        </button>
+                                    </Col>                
                                 </Row>
                             </Form>
                             </FormContainer>

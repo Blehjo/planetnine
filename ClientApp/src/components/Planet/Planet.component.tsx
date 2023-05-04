@@ -142,7 +142,6 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                             />
                             </Col>
                             <Col>
-                            <div>Comments</div>
                             <CommentContainer>
                             {
                                 planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
@@ -158,23 +157,19 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                             }
                             </CommentContainer>
                             <FormContainer>
-                            <Form style={{ margin: 'auto' }} key={planets.singlePlanet?.planetId} onSubmit={this.postComment}>
-                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                            <Form key={planets.singlePlanet?.planetId} onSubmit={this.postComment}>
+                                <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
                                     <Col xs={12}>
-                                        <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
-                                            <Col xs={12}>
-                                                <Form.Group>
-                                                    <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <Row style={{ justifyContent: 'center' }}>
-                                            <Col xs={12}>
-                                                <Form.Group className="mb-3" controlId="formMedia">
-                                                    <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
+                                        <Form.Group>
+                                            <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row style={{ justifyContent: 'center' }}>
+                                    <Col xs={12}>
+                                        <Form.Group className="mb-3" controlId="formMedia">
+                                            <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                        </Form.Group>
                                     </Col>
                                     <Col xs={12}>
                                         <button id={planets.singlePlanet?.planetId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">

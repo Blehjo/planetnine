@@ -39,41 +39,27 @@ export const FormContainer = styled.div`
       margin-top: 3.5rem;
     }
     
-    @media (max-width: 899px) {
-        position: fixed;
-        bottom: 0;
-        left: 16rem;
-        padding-right: 16rem;
-        width: 100%;
-        background: black;
-        z-index: 5;
-    }
 
-    @media (max-width: 717px) {
-        position: fixed;
-        background: black;
-        text-align: center;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        margin-left: 4rem;
-        padding-right: 4rem;
-        height: 15%;
-        z-index: 5;
-        .notifications {
-            display: none;
-        }
-        .modalicons {
-            margin-top: 1rem;
-        }
-        .modalIcon {
-            font-size: 55px;
-        }
+
+    @media (max-width: 899px) {
+      text-align: center;
+      margin-left: 4rem;
+      margin-bottom: 10rem;
+      padding-right: 4rem;
+      height: 15%;
+      z-index: 5;
+      .notifications {
+          display: none;
+      }
+      .modalicons {
+          margin-top: 1rem;
+      }
+      .modalIcon {
+          font-size: 55px;
+      }
     }
     
     @media (max-width: 500px) {
-        height: 40%;
-        position: fixed;
-        bottom: 0;
+      margin-bottom: 10rem;
     }
 `;
