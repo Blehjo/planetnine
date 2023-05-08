@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Planet } from "../../store/planet/planet.types";
 
-const api = "https://localhost:7098/api/planet";
+const api = "https://planetnineserver.azurewebsites.net/api/planet";
 
 const headers = {
   'Accept': 'application/x-www-form-urlencoded',
