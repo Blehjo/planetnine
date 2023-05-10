@@ -36,6 +36,9 @@ export const CrewContainer = styled.div`
   background: #d4d4d4;
   border-radius: .2rem;
   text-align: center;
+  @media (max-width: 994px) {
+    height: 79vh;
+  }
   @media (max-width: 767px) {
     margin-left: 12rem;
     height: 20vh;
@@ -63,10 +66,13 @@ export const FormContainer = styled.div`
   overflow-x: hidden;
   border-radius: .2rem;
   height: 90vh;
+  @media (max-width: 994px) {
+    height: 79vh;
+  }
   @media (max-width: 767px) {
     margin-left: 12rem;
     margin-bottom: 15rem;
-    height: 60vh;
+    height: 58vh;
   }
   @media (max-width: 717px) {
     margin-left: .5rem;

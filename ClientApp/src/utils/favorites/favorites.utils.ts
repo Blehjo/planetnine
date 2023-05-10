@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://planetnineserver.azurewebsites.net/api";
+const api = "https://localhost:7098/api";
 
 const headers = {
   'Accept': 'application/json',

@@ -22,10 +22,7 @@ code {
   overflow-x: hidden;
   padding-left: 16rem;
 
-  @media only screen and (max-width: 767px) {
-    padding-left: 16rem;
-  }
-  @media only screen and (max-width: 718px) {
+  @media screen and (max-width: 718px) {
     padding-left: 4rem;
   }
 }

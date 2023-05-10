@@ -216,12 +216,12 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 </CrewContainer>
                 <TextBox>
                 <Row  xs={2}>
-                    <Col xs={8} md={10}>
+                    <Col xs={9} sm={10} md={8} lg={8} xl={10}>
                     <Form.Group className="mb-3" controlId="request">
                         <Form.Control style={{ height: '.5rem' }} as="textarea" onChange={this.handleChange} value={chatValue} name="chatValue" placeholder="Give your command" />
                     </Form.Group>
                     </Col>
-                    <Col xs={2}>
+                    <Col xs={2} md={2} lg={2}>
                     <button className="btn btn-light" type="submit">
                         Go
                     </button>
