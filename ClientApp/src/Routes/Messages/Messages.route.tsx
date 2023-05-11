@@ -40,7 +40,7 @@ export class Messages extends Component<MessagesProps> {
                                 <Card bg="dark" style={{ margin: '1rem', cursor: 'pointer' }} key={messageId}>
                                 <Row key={userId} xs={3}>
                                     <Col xs={2}>
-                                        <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://localhost:7098/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                        <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                     </Col>
                                     <Col xs={7}>
                                         <div onClick={() => this.handleClick(messageId)}>
@@ -64,7 +64,7 @@ export class Messages extends Component<MessagesProps> {
                                 <Card key={messageCommentId}>
                                 <Row key={userId} xs={2}>
                                     <Col xs={2}>
-                                        <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://localhost:7098/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                        <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                     </Col>
                                     <Col xs={8}>
                                         {messageValue}

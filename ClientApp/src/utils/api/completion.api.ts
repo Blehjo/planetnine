@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 
-const api = "https://localhost:7098/api/chatgpt";
+const api = "https://planetnineservers.azurewebsites.net/api/chatgpt";
 
 const headers = {
   'Accept': 'application/x-www-form-urlencoded',

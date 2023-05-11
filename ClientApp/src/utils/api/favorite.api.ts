@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Favorite } from "../../store/favorite/favorite.types";
 
-const api = "https://localhost:7098/api/favorite";
+const api = "https://planetnineservers.azurewebsites.net/api/favorite";
 
 const headers = {
   'Accept': 'application/json',

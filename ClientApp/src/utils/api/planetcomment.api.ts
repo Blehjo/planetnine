@@ -2,7 +2,7 @@ import axios from "axios";
 import { PlanetComment } from "../../store/planetcomment/planetcomment.types";
 
 
-const api = "https://localhost:7098/api/planetcomment";
+const api = "https://planetnineservers.azurewebsites.net/api/planetcomment";
 
 const headers = {
   'Accept': 'application/x-www-form-urlencoded',
