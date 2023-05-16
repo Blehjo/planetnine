@@ -9,7 +9,7 @@ export function Jupiter(props) {
     boxRef.current.rotation.y += 0.001;
   });
 
-  const { nodes, materials } = useGLTF('/jupiter.gltf')
+  const { nodes, materials } = useGLTF('jupiter.html')
   return (
     <group rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25} scale={2} dispose={null}>
       <mesh 
@@ -23,4 +23,4 @@ export function Jupiter(props) {
   )
 }
 
-useGLTF.preload('/jupiter.gltf');
+useGLTF.preload('/jupiter.html');

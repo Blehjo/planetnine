@@ -9,7 +9,7 @@ export function Earth(props) {
     boxRef.current.rotation.y += 0.001;
   });
 
-  const { nodes, materials } = useGLTF('/earth.gltf')
+  const { nodes, materials } = useGLTF('earth.html')
   return (
     <group rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25} scale={2} dispose={null}>
       <mesh 
@@ -23,4 +23,4 @@ export function Earth(props) {
   )
 }
 
-useGLTF.preload('/earth.gltf');
+// useGLTF.preload('/earth.gltf');

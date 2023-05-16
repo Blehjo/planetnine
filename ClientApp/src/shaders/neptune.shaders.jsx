@@ -9,7 +9,7 @@ export function Neptune(props) {
     boxRef.current.rotation.y += 0.001;
   });
 
-  const { nodes, materials } = useGLTF('/neptune.gltf')
+  const { nodes, materials } = useGLTF('neptune.html')
   return (
     <group rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25} scale={2} dispose={null}>
       <mesh 
@@ -23,4 +23,4 @@ export function Neptune(props) {
   )
 }
 
-useGLTF.preload('/neptune.gltf');
+useGLTF.preload('/neptune.html');

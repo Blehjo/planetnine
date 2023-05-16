@@ -9,7 +9,7 @@ export function Mars(props) {
     boxRef.current.rotation.y += 0.001;
   });
 
-  const { nodes, materials } = useGLTF('/mars.gltf')
+  const { nodes, materials } = useGLTF('mars.html')
   return (
     <group rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25} scale={2} dispose={null}>
       <mesh 
@@ -23,4 +23,4 @@ export function Mars(props) {
   )
 }
 
-useGLTF.preload('/mars.gltf');
+useGLTF.preload('/mars.html');

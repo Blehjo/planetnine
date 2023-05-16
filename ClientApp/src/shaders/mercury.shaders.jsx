@@ -9,7 +9,7 @@ export function Mercury(props) {
     boxRef.current.rotation.y += 0.001;
   });
 
-  const { nodes, materials } = useGLTF('/mercury.gltf')
+  const { nodes, materials } = useGLTF('mercury.html')
   return (
     <group rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25} scale={2} dispose={null}>
       <mesh 
@@ -23,4 +23,4 @@ export function Mercury(props) {
   )
 }
 
-useGLTF.preload('/mercury.gltf');
+useGLTF.preload('/mercury.html');
