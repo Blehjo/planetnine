@@ -8,6 +8,7 @@ import { TextContainer } from "../Post/Post.styles";
 import { utcConverter } from "../../utils/date/date.utils";
 import { Planet } from "../../store/planet/planet.types";
 import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
+import { Send } from "react-bootstrap-icons";
 
 interface CommentQuery extends CommentProps {
     queryId: number;
@@ -129,7 +130,7 @@ export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
                                 </Col>
                                 <Col xs={3}>
                                     <button style={{ textAlign: 'center', width: '100%', height: 'auto'}} className="btn btn-light" type="submit">
-                                        Post
+                                        <Send/>
                                     </button>
                                 </Col>                
                             </Row>

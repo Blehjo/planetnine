@@ -9,6 +9,7 @@ import { Card, Col, Form, Row } from "react-bootstrap";
 import { TextContainer } from "../Post/Post.styles";
 import { utcConverter } from "../../utils/date/date.utils";
 import { Post } from "../../store/post/post.types";
+import { Send } from "react-bootstrap-icons";
 
 interface CommentQuery extends CommentProps {
     queryId: number;
@@ -130,7 +131,7 @@ export class Comment extends Component<CommentQuery, IDefaultFormFields> {
                                 </Col>
                                 <Col xs={3}>
                                     <button id={post?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: 'auto'}} className="btn btn-light" type="submit">
-                                        Post
+                                        <Send/>
                                     </button>
                                 </Col>                
                             </Row>

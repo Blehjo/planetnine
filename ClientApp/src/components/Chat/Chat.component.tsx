@@ -1,7 +1,7 @@
 import { ConnectedProps, connect } from "react-redux";
 import { Component, Fragment, Dispatch, ChangeEvent } from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { ArrowsFullscreen, Chat, Globe, Rocket } from 'react-bootstrap-icons';
+import { ArrowsFullscreen, Chat, Globe, Rocket, Send } from 'react-bootstrap-icons';
 import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 
 import { ChatContainer } from "./Chat.styles";
@@ -197,7 +197,7 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                                     </Col>
                                     <Col xs={2}>
                                         <button id={chats.singleChat?.chatId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
-                                            Post
+                                            <Send/>
                                         </button>
                                     </Col>                
                                 </Row>

@@ -3,7 +3,7 @@ import { PlanetContainer, PlanetDashPanel } from "./PlanetDash.styles";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { CommentContainer, FormContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
 import { Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
-import { ArrowsFullscreen } from "react-bootstrap-icons";
+import { ArrowsFullscreen, Send } from "react-bootstrap-icons";
 import { RootState } from "../../store/store";
 import { PlanetFetchSingleStart, PlanetFetchUserPlanetsStart, planetFetchSingleStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
 import { ConnectedProps, connect } from "react-redux";
@@ -175,7 +175,7 @@ export class PlanetDash extends Component<PlanetDashProps, ICurrentState> {
                                                 </Col>
                                                 <Col xs={2}>
                                                     <button id={planets.singlePlanet?.planetId.toString()} className="btn btn-light" type="submit">
-                                                        Post
+                                                        <Send/>
                                                     </button>
                                                 </Col>                
                                             </Row>

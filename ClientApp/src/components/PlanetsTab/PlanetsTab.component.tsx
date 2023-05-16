@@ -5,7 +5,7 @@ import { ModalPostContainer } from '../ModalPost/ModalPost.styles';
 import { CardContainer, CommentContainer, ModalContainer, PostContainer, TextContainer } from '../Post/Post.styles';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { BadgeContainer } from '../Pilots/Pilots.styles';
-import { ArrowsFullscreen, Chat, Rocket } from 'react-bootstrap-icons';
+import { ArrowsFullscreen, Chat, Rocket, Send } from 'react-bootstrap-icons';
 import { utcConverter } from '../../utils/date/date.utils';
 
 interface IPlanetFields extends ICommentFields{
@@ -239,7 +239,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
                                     </Col>
                                     <Col xs={12}>
                                         <button id={planets.singlePlanet?.planetId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
-                                            Post
+                                            <Send/>
                                         </button>
                                     </Col>                
                                 </Row>

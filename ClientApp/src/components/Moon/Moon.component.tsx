@@ -2,7 +2,7 @@ import { ChangeEvent, Component, Dispatch, Fragment } from "react"
 import { ConnectedProps, connect } from "react-redux";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
-import { ArrowsFullscreen } from "react-bootstrap-icons";
+import { ArrowsFullscreen, Send } from "react-bootstrap-icons";
 
 import { FixedMoonContainer, MoonPanelContainer } from "./Moon.styles"
 import NotificationComponent from "../Notification/Notification.component"
@@ -177,7 +177,7 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                     </Col>
                                     <Col xs={12}>
                                         <button id={moons.singleMoon?.moonId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
-                                            Post
+                                            <Send/>
                                         </button>
                                     </Col>                
                                 </Row>

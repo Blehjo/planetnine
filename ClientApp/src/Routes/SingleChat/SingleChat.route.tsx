@@ -12,6 +12,7 @@ import { TextContainer } from "../../components/Post/Post.styles";
 import { selectSingleChatcomment } from "../../store/chatcomment/chatcomment.selector";
 import { selectUserChatcomments } from "../../store/chatcomment/chatcomment.selector";
 import { utcConverter } from "../../utils/date/date.utils";
+import { Send } from "react-bootstrap-icons";
 
 interface IDefaultFormFields {
     chatValue: string;
@@ -131,7 +132,7 @@ function SingleChat() {
                                 </Col>
                                 <Col xs={3}>
                                     <button style={{ textAlign: 'center', width: '100%', height: 'auto'}} className="btn btn-light" type="submit">
-                                        Post
+                                        <Send/>
                                     </button>
                                 </Col>                
                             </Row>

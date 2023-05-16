@@ -2,7 +2,7 @@ import { ChangeEvent, Component, Dispatch, Fragment } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { Globe, Chat, Rocket, ArrowsFullscreen } from 'react-bootstrap-icons';
+import { Globe, Chat, Rocket, ArrowsFullscreen, Send } from 'react-bootstrap-icons';
 
 import { CardContainer, CommentContainer, FormContainer, ModalContainer, PostContainer, TextContainer } from "./Post.styles";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
@@ -193,7 +193,7 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                     </Col>
                                     <Col xs={2}>
                                         <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
-                                            Post
+                                            <Send/>
                                         </button>
                                     </Col>                
                                 </Row>

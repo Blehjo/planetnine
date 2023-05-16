@@ -10,6 +10,7 @@ import { utcConverter } from "../../utils/date/date.utils";
 
 import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
 import { Moon } from "../../store/moon/moon.types";
+import { PhoneLandscape, Send } from "react-bootstrap-icons";
 
 interface CommentQuery extends CommentProps {
     queryId: number;
@@ -131,7 +132,7 @@ export class MoonComment extends Component<CommentQuery, IDefaultFormFields> {
                                 </Col>
                                 <Col xs={3}>
                                     <button style={{ textAlign: 'center', width: '100%', height: 'auto'}} className="btn btn-light" type="submit">
-                                        Post
+                                        <Send/>
                                     </button>
                                 </Col>                
                             </Row>

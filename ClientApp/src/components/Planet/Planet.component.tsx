@@ -8,7 +8,7 @@ import { RootState } from "../../store/store";
 import { PlanetFetchAllStart, PlanetFetchSingleStart, planetFetchAllStart, planetFetchSingleStart } from "../../store/planet/planet.action";
 import { CommentContainer, FormContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
-import { ArrowsFullscreen } from "react-bootstrap-icons";
+import { ArrowsFullscreen, Send } from "react-bootstrap-icons";
 import NotificationComponent from "../Notification/Notification.component";
 import { CardContainer } from "../Notification/Notifications.styles";
 import { utcConverter } from "../../utils/date/date.utils";
@@ -173,7 +173,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                     </Col>
                                     <Col xs={12}>
                                         <button id={planets.singlePlanet?.planetId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
-                                            Post
+                                            <Send/>
                                         </button>
                                     </Col>                
                                 </Row>

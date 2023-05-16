@@ -4,7 +4,7 @@ import { utcConverter } from "../../utils/date/date.utils";
 import { CardContainer, CommentContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
-import { ArrowsFullscreen, Chat, Rocket } from "react-bootstrap-icons";
+import { ArrowsFullscreen, Chat, Rocket, Send } from "react-bootstrap-icons";
 import { ConnectedProps, connect } from "react-redux";
 
 import { RootState } from "../../store/store";
@@ -245,7 +245,7 @@ export class SinglePostsTab extends Component<UserInfo, IDefaultFormFields> {
                                 </Col>
                                 <Col xs={12}>
                                     <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
-                                        Post
+                                        <Send/>
                                     </button>
                                 </Col>                
                             </Row>
