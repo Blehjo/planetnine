@@ -9,11 +9,11 @@
 
   ## Description:
 
-  Planet Nine is an application developed to change the mindset of the solo artist. Independent artists no longer have to work long hours doing the work of a group through planet nine AI. Create a plan and use your handy, Artoo robot, to look up vital information, come up with inspiration and blueprints, and even create code for your portfolio website.
+  Planet Nine is an application developed to learn about space and discuss all it has to offer. Explorers no longer have to work alone. With planet nine and it's community and AI, explorers can venture farther than before. Create a plan, use your handy crew memebers to look up vital information, and come up with inspiration and blueprints.
 
-  planet nine is also a social media platform, so when you are done creating your masterpiece you can share it with the world. You can also look to your peers for inspiration and leave them feedback on their projects turned reality with the help of this web application.  Join communities to work together and leave the solo act behind. Put your Artoo to work today.
+  Planet nine is also a social media platform, so when you are done exploring you can share it with the world. You can also look to your peers for inspiration and leave them feedback on their projects turned reality with the help of this web application.  Join communities to work together and discover the undiscovered.
 
-  planet nine and Artoo are also great for just messing around and indulging in what the future has to bring.
+  Planet nine and your crew members are also great for just messing around and indulging in what the future has to bring.
 
 ## Table of Contents:
 
