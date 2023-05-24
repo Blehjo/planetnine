@@ -37,7 +37,7 @@ export class Searchbar extends Component<{}, DefaultProps> {
         fetch('https://planetnineservers.azurewebsites.net/api/planet')
         .then(response => response.json())
         .then(planets => this.setState({ planets: planets }));
-        
+
         fetch('https://planetnineservers.azurewebsites.net/api/moon')
         .then(response => response.json())
         .then(moons => this.setState({ moons: moons }));
@@ -61,10 +61,12 @@ export class Searchbar extends Component<{}, DefaultProps> {
         moon.moonName?.toLowerCase().includes(searchField.toLowerCase()));
         return (
             <>
-                <input onClick={this.handleClickEvent} placeholder="Search" />
+                <input style={{ borderRadius: ".5rem", width: "20rem" }} onClick={this.handleClickEvent} placeholder="Search" />
                 <Modal show={show} onHide={this.handleClickEvent}>
                     <SearchBox onSearchChange={this.onSearchChange} />
-                    <CardList users={filteredUsers} planets={filteredPlanets} moons={filteredMoons}/>
+                    <div>
+                        {searchField.length > 0 && <CardList users={filteredUsers} planets={filteredPlanets} moons={filteredMoons}/>}
+                    </div>
                 </Modal>
             </>
         );

@@ -1,8 +1,9 @@
 import { Component } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { User } from "../../store/user/user.types";
 import { Planet } from "../../store/planet/planet.types";
 import { Moon } from "../../store/moon/moon.types";
+import { ArrowBarRight, Globe, Moon as MoonBadge, PersonBadge } from "react-bootstrap-icons";
 
 interface ISearchProps {
     users: User[];
@@ -19,28 +20,55 @@ export class CardList extends Component<ISearchProps> {
         const { users, planets, moons } = this.props;
         return (
             <div className='card-list'>
-                {/* { users.length == 0 && <div style={{ margin: ".5rem", color: "black" }}>
+                {users.length > 0 && <div style={{ margin: ".5rem", color: "black" }}>
                     Users
-                </div>} */}
-                {users.map(user => (
-                    <Card style={{ color: "black", margin: ".2rem" }} key={user.userId} >
-                        <Card.Body>{user.username}</Card.Body>
+                </div>}
+                {users.slice(0,5).map(user => (
+                    <Card bg="dark" style={{ margin: ".2rem", position: "relative" }} key={user.userId} >
+                        <Row xs={2}>
+                            <Col xs={8}>
+                                <Card.Body>{user.username}</Card.Body>
+                            </Col>
+                            <Col xs={2}>
+                                <a href={`/profile/${user.userId}`} style={{ textDecoration: 'none', color: 'black', position: "absolute", margin: "0", top: "50%", transform: "translateY(-50%)", msTransform: "translateY(-50%)" }} className="btn btn-light">
+                                    <PersonBadge size={15}/>
+                                </a>
+                            </Col>
+                        </Row>
                     </Card>
                 ))}
-                { planets.length == 0 && <div style={{ margin: ".5rem", color: "black" }}>
+                {planets.length > 0 && <div style={{ margin: ".5rem", color: "black" }}>
                     Planets
                 </div>}
-                {planets.map(planet => (
-                    <Card style={{ color: "black", margin: ".2rem" }} key={planet.planetId} >
-                        <Card.Body>{planet.planetName}</Card.Body>
+                {planets.slice(0,5).map(planet => (
+                    <Card bg="dark" style={{ margin: ".2rem", position: "relative" }} key={planet.planetId} >
+                        <Row xs={2}>
+                            <Col xs={8}>
+                                <Card.Body>{planet.planetName}</Card.Body>
+                            </Col>
+                            <Col xs={2}>
+                                <a href={`/singleplanet/${planet.planetId}`} style={{ textDecoration: 'none', color: 'black', position: "absolute", margin: "0", top: "50%", transform: "translateY(-50%)", msTransform: "translateY(-50%)" }} className="btn btn-light">
+                                    <Globe size={15}/>
+                                </a>
+                            </Col>
+                        </Row>
                     </Card>
                 ))}
-                {moons.length == 0 && <div style={{ margin: ".5rem", color: "black" }}>
+                {moons.length > 0 && <div style={{ margin: ".5rem", color: "black" }}>
                     Moons
                 </div>}
-                {moons.map(moon => (
-                    <Card style={{ color: "black", margin: ".2rem" }} key={moon.moonId} >
-                        <Card.Body>{moon.moonName}</Card.Body>
+                {moons.slice(0,5).map(moon => (
+                    <Card bg="dark" style={{ margin: ".2rem", position: "relative" }} key={moon.moonId} >
+                        <Row xs={2}>
+                            <Col xs={8}>
+                                <Card.Body>{moon.moonName}</Card.Body>
+                            </Col>
+                            <Col xs={2}>
+                                <a href={`/singlemoon/${moon.moonId}`} style={{ textDecoration: 'none', color: 'black', position: "absolute", margin: "0", top: "50%", transform: "translateY(-50%)", msTransform: "translateY(-50%)" }} className="btn btn-light">
+                                    <MoonBadge size={15}/>
+                                </a>
+                            </Col>
+                        </Row>
                     </Card>
                 ))}
             </div>
