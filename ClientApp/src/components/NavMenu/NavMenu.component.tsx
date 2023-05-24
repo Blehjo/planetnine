@@ -5,6 +5,7 @@ import { Col, Row } from 'reactstrap';
 
 import './NavMenu.styles.css';
 import SignInButtonComponent from '../SignInButton/SignInButton.component';
+import { Searchbar } from '../Searchbar/Searchbar.component';
 
 interface IProps {
   navigation?: any;
@@ -51,7 +52,7 @@ export class NavMenu extends Component<IProps, ICollapsed> {
               <Navbar.Collapse key="navbarCollapse" id="navBarItems">
                 <Col key="searchColumn" className=''>
                   <Nav key="navForm">
-
+                    <Searchbar/>
                   </Nav>
                 </Col>
                 <Row xs={4} style={{ justifyContent: "space-between", textAlign: "center", marginRight: '.5rem' }}>

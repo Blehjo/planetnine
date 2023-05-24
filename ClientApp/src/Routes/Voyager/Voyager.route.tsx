@@ -1,4 +1,4 @@
-import { Component, MouseEventHandler } from "react"
+import { Component } from "react"
 import { ButtonContainer, ControllerContainer, VoyagerContainer } from "./Voyager.styles";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
