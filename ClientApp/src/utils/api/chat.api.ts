@@ -65,12 +65,13 @@ export async function getChats(): Promise<Chat[]> {
   return result;
 }
 
-export async function addChat(title: string): Promise<Chat> {
+export async function addChat(title: string, artificialId: number): Promise<Chat> {
   const response = await axios({
     method: 'post',
     url: api,
     data: {
       title: title,
+      artificialId: artificialId
     },
     headers: headers,
     withCredentials: true

@@ -29,6 +29,7 @@ export enum CHAT_ACTION_TYPES  {
 export type Chat = {
     chatId: number;
     title: string;
+    artificialIntelligenceId: number;
     dateCreated: Date;
     type: string;
     userId: number | null;

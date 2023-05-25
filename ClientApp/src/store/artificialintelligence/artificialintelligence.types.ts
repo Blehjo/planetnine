@@ -26,7 +26,7 @@ export enum ARTIFICIALINTELLIGENCE_ACTION_TYPES  {
 };
 
 export type ArtificialIntelligence = {
-    artificialIntelligenceId: number | null;
+    artificialIntelligenceId: number;
     name: string;
     role: string | null;
     imageLink: string | null;

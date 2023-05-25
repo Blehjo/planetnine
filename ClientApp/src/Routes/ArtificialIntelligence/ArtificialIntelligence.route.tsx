@@ -9,6 +9,10 @@ import CrewPanelComponent from "../../components/CrewPanel/CrewPanel.component";
 import { AiContainer, ChatContainer, CrewContainer, DropdownContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
 import { ChatDeleteStart, ChatFetchUserChatsStart, chatCreateStart, chatDeleteStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
 import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
+import { ChatCreateStart } from "../../store/chat/chat.action";
+import { ArtificialIntelligenceState } from "../../store/artificialintelligence/artificialintelligence.reducer";
+import { ChatState } from "../../store/chat/chat.reducer";
+import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 
 type ArtificialIntelligenceProps = ConnectedProps<typeof connector>;
 
@@ -19,6 +23,8 @@ interface IDefaultForms extends IChatForm {
     imageFile: any;
     show: boolean;
     dropdown: string;
+    artificialId: number;
+    chatId: number;
 }
 
 interface IChatForm {
@@ -35,7 +41,9 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             imageFile: null,
             show: false,
             chatValue: "",
-            dropdown: "Choose "
+            dropdown: "Choose ",
+            artificialId: 0,
+            chatId: 0
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -46,16 +54,14 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         this.handleGetMessages = this.handleGetMessages.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
+        this.speakWith = this.speakWith.bind(this);
     }
 
-    handleDropDown(name: string): void {
+    handleDropDown(name: string, artificialId: number): void {
         this.setState({
-            dropdown: name
+            dropdown: name,
+            artificialId: artificialId
         })
-    }
-
-    handleCommand() {
-
     }
 
     handleDelete(chatId: number): void {
@@ -94,6 +100,23 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
         const { name, value } = event.target;
         this.setState({ ...this.state, [name]: value });
+    }
+
+    speakWith(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const { artificialId, chatValue, chatId, imageFile } = this.state;
+        try {
+            if (chatId == 0) {
+                this.props.createChat(chatValue, artificialId);
+            }
+            if (chatId != 0) {
+                this.props.createComment(this.props.chats.singleChat?.chatId!, chatValue, imageFile);
+            }
+        } catch (error) {
+            if (error) {
+                alert(error)
+            }
+        }
     }
 
     showPreview(event: ChangeEvent<HTMLInputElement>) {
@@ -135,6 +158,20 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         this.props.getChats();
     }
 
+    componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; } & { getAllCrew: () => void; getCrew: (userId: number) => void; createCrewMember: (name: string, role: string, imageFile: File) => void; createChat: (title: string, artificialId: number) => void; createComment: (chatId: number, chatValue: string, imageFile: File) => void; getChats: () => void; getChatComments: (chatId: number) => void; deleteChat: (chatId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
+        if (this.props.chats.chatId != prevProps.chats.chatId) {
+            this.props.getChats();
+            this.props.getChatComments(this.props.chats.singleChat?.chatId!);
+        }
+
+        if (this.props.chats.singleChat?.chatId != prevProps.chats.singleChat?.chatId) {
+            this.props.getChats();
+            this.props.getChatComments(this.props.chats.singleChat?.chatId!);
+            console.log("Chat ID: ", this.props.chats.singleChat?.chatId);
+            console.log("Prev Prop Chat ID: ", prevProps.chats.singleChat?.chatId);
+        }
+    }
+
     render() {
         const { chats, chatcomments, artificialIntelligence } = this.props;
         const { show, name, role, chatValue, dropdown } = this.state;
@@ -164,7 +201,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 )) : 
                 <Card style={{ margin: '.5rem'}}>
                     <Card.Body>
-                    Create An Account To Start Your Inquiries
+                        Create An Account To Start Your Inquiries
                     </Card.Body>
                 </Card>
                 }
@@ -172,7 +209,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             </Col>
             <Col md={7} lg={8} xl={9}>
                 <FormContainer>
-                <Form >
+                <Form onSubmit={this.speakWith} >
                 <Dropdown as={Anchor} style={{ padding: '1rem', margin: '1rem' }}>
                 <DropdownContainer>
                 <Dropdown.Toggle split variant="dark" id="dropdown">
@@ -182,11 +219,11 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     {
                         artificialIntelligence.userArtificialIntelligences ? artificialIntelligence.userArtificialIntelligences.map(({ artificialIntelligenceId, name, role }) => {
                             return (
-                                <Dropdown.Item as={Anchor} onClick={() => this.handleDropDown(name)} key={artificialIntelligenceId?.toString()}>
-                                    {name}
+                                <Dropdown.Item as={Anchor} onClick={() => this.handleDropDown(name, artificialIntelligenceId)} key={artificialIntelligenceId?.toString()}>
+                                    {`${name}   `}
                                 </Dropdown.Item>
                             )}) 
-                            : <Dropdown.Item as={Anchor}>
+                        : <Dropdown.Item as={Anchor}>
                             Add Crew Members
                         </Dropdown.Item>
                     }
@@ -220,6 +257,13 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     <Form.Group className="mb-3" controlId="request">
                         <Form.Control style={{ height: '.5rem' }} as="textarea" onChange={this.handleChange} value={chatValue} name="chatValue" placeholder="Give your command" />
                     </Form.Group>
+                    <Row style={{ justifyContent: 'center' }}>
+                        <Col xs={12}>
+                            <Form.Group className="mb-3" controlId="formMedia">
+                                <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                            </Form.Group>
+                        </Col>
+                    </Row>
                     </Col>
                     <Col xs={2} md={2} lg={2}>
                     <button className="btn btn-light" type="submit">
@@ -302,11 +346,12 @@ const mapStateToProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<ArtificialIntelligenceFetchUsersStart | ArtificialIntelligenceFetchSingleStart | ArtificialIntelligenceCreateStart | ChatFetchUserChatsStart | ChatCommentCreateStart | ChatCommentFetchSingleStart | ChatDeleteStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<ArtificialIntelligenceFetchUsersStart | ArtificialIntelligenceFetchSingleStart | ArtificialIntelligenceCreateStart | ChatCreateStart | ChatFetchUserChatsStart | ChatCommentCreateStart | ChatCommentFetchSingleStart | ChatDeleteStart>) => ({
 	getAllCrew: () => dispatch(artificialIntelligenceFetchUsersStart()),
     getCrew: (userId: number ) => dispatch(artificialIntelligenceFetchSingleStart(userId)),
     createCrewMember: (name: string, role: string, imageFile: File) => dispatch(artificialIntelligenceCreateStart(name, role, imageFile)),
-    sendCommand: (chatId: number, chatValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile)),
+    createChat: (title: string, artificialId: number) => dispatch(chatCreateStart(title, artificialId)),
+    createComment: (chatId: number, chatValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile)),
     getChats: () => dispatch(chatFetchUserChatsStart()),
     getChatComments: (chatId: number) => dispatch(chatcommentFetchSingleStart(chatId)),
     deleteChat: (chatId: number) => dispatch(chatDeleteStart(chatId))

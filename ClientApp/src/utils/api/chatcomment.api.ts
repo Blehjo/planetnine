@@ -63,15 +63,11 @@ export async function getChatComments(): Promise<ChatComment[]> {
   return result;
 }
 
-export async function addChatComment(chatId: number | null, chatcommentValue: string | null, mediaLink: File | null): Promise<ChatComment[]> { 
+export async function addChatComment(chatId: number, formData: FormData): Promise<ChatComment[]> { 
   const response = await axios({
     method: 'post',
-    url: api,
-    data: { 
-      chatId,
-      chatcommentValue,
-      mediaLink
-    },
+    url: `${api}/${chatId}`,
+    data: formData,
     headers: headers,
     withCredentials: true
   });

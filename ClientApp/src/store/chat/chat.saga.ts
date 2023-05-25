@@ -43,11 +43,12 @@ import {
     deleteChat
 } from '../../utils/api/chat.api';
 
-export function* createChat({ payload: { title }}: ChatCreateStart ) {
+export function* createChat({ payload: { title, artificialId }}: ChatCreateStart ) {
     try {
         const chat = yield* call(
             addChat,
             title,
+            artificialId
         ); 
         yield* put(chatCreateSuccess(chat));
     } catch (error) {

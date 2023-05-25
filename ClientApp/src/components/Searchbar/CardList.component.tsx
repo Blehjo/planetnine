@@ -26,7 +26,7 @@ export class CardList extends Component<ISearchProps> {
                 {users.slice(0,5).map(user => (
                     <Card bg="dark" style={{ margin: ".2rem", position: "relative" }} key={user.userId} >
                         <Row xs={2}>
-                            <Col xs={8}>
+                            <Col xs={10}>
                                 <Card.Body>{user.username}</Card.Body>
                             </Col>
                             <Col xs={2}>
@@ -43,7 +43,7 @@ export class CardList extends Component<ISearchProps> {
                 {planets.slice(0,5).map(planet => (
                     <Card bg="dark" style={{ margin: ".2rem", position: "relative" }} key={planet.planetId} >
                         <Row xs={2}>
-                            <Col xs={8}>
+                            <Col xs={10}>
                                 <Card.Body>{planet.planetName}</Card.Body>
                             </Col>
                             <Col xs={2}>
@@ -60,7 +60,7 @@ export class CardList extends Component<ISearchProps> {
                 {moons.slice(0,5).map(moon => (
                     <Card bg="dark" style={{ margin: ".2rem", position: "relative" }} key={moon.moonId} >
                         <Row xs={2}>
-                            <Col xs={8}>
+                            <Col xs={10}>
                                 <Card.Body>{moon.moonName}</Card.Body>
                             </Col>
                             <Col xs={2}>

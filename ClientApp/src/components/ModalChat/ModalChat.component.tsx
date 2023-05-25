@@ -16,6 +16,7 @@ interface IModalChatProps {
     chatcommentValue: string;
     mediaLink: any;
     show: boolean;
+    artificialIntelligenceId: number;
 }
 
 export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
@@ -25,7 +26,8 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
             show: false,
             title: "",
             chatcommentValue: "",
-            mediaLink: null
+            mediaLink: null,
+            artificialIntelligenceId: 0
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -53,9 +55,9 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
     }
 
     handleSubmit() {
-        const { title, chatcommentValue, mediaLink } = this.state;
+        const { title, artificialIntelligenceId, chatcommentValue, mediaLink } = this.state;
         const { chats } = this.props;
-        this.props.createChat(title);
+        this.props.createChat(title, artificialIntelligenceId);
         const chatId = chats.singleChat?.chatId ? chats.singleChat.chatId : 0;
         this.props.createChatComment(chatId, chatcommentValue, mediaLink)
         this.handleClose();
@@ -119,8 +121,8 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ChatCreateStart | ChatCommentCreateStart>) => ({
-    createChat: (title: string) => dispatch(chatCreateStart(title)),
-    createChatComment: (chatId: number, chatValue: string | null, imageFile: File | null) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile))
+    createChat: (title: string, artificialIntelligenceId: number) => dispatch(chatCreateStart(title, artificialIntelligenceId)),
+    createChatComment: (chatId: number, chatValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

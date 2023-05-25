@@ -39,12 +39,14 @@ import {
 } from '../../utils/api/chatcomment.api';
 
 export function* createChatComment({ payload: { chatId, chatcommentValue, mediaLink }}: ChatCommentCreateStart ) {
+    const formData = new FormData();
+    formData.append('chatcommentValue', chatcommentValue);
+    formData.append('mediaLink', mediaLink);
     try {
         const chatcomment = yield* call(
             addChatComment,
             chatId,
-            chatcommentValue,
-            mediaLink
+            formData
         ); 
         yield* put(chatcommentCreateSuccess(chatcomment));
     } catch (error) {

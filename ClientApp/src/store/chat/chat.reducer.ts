@@ -25,7 +25,7 @@ import {
 } from './chat.action';
 
 export type ChatState = {
-    readonly chatId: number | null;
+    readonly chatId: number;
     readonly singleChat: Chat | null;
     readonly userChats: Chat[] | null;
     readonly singleUserChats: Chat[] | null;
@@ -35,7 +35,7 @@ export type ChatState = {
 };
 
 const INITIAL_STATE: ChatState = {
-    chatId: null,
+    chatId: 0,
     singleChat: null,
     userChats: [],
     singleUserChats: [],
@@ -55,6 +55,11 @@ export const chatReducer = (
         chatCreateStart.match(action)
     ) {
         return { ...state, isLoading: true }
+    }  
+    if (
+        chatDeleteStart.match(action)
+    ) {
+        return { ...state, isLoading: false, chatId: action.payload.chatId }
     }  
     if (
         chatCreateSuccess.match(action) ||
