@@ -42,6 +42,7 @@ export const commentReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): CommentState => {
     if (
+        commentCreateStart.match(action) ||
         commentFetchAllStart.match(action) 
     ) {
         return { ...state, isLoading: true }

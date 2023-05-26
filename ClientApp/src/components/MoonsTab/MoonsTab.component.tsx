@@ -7,6 +7,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { BadgeContainer } from '../Pilots/Pilots.styles';
 import { ArrowsFullscreen, Chat, Rocket, Send } from 'react-bootstrap-icons';
 import { utcConverter } from '../../utils/date/date.utils';
+import { MoonState } from '../../store/moon/moon.reducer';
 
 interface IMoonFields extends IMoonComment{
     moonName: string;
@@ -21,6 +22,8 @@ interface IMoonFields extends IMoonComment{
     planetId: number | null;
     showCreate: boolean;
     show: boolean;
+    showDelete: boolean;
+    moonId: number | null;
 }
 
 interface IMoonComment {
@@ -43,7 +46,9 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
             planetId: null,
             showCreate: false,
             show: false,
-            commentValue: ""
+            commentValue: "",
+            showDelete: false,
+            moonId: null
         }
         this.handleLike = this.handleLike.bind(this);
         this.handleCreate = this.handleCreate.bind(this);
@@ -54,6 +59,9 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         this.handleChange = this.handleChange.bind(this);
         this.showPreview = this.showPreview.bind(this);
         this.postComment = this.postComment.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleCloseDelete = this.handleCloseDelete.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
 
     postComment() {
@@ -97,7 +105,7 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         event.preventDefault();
         const { moonName, moonMass, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile } = this.state;
         try {
-            this.props.createMoon(moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile);
+            this.props.createMoon(moonName, moonMass, perihelion, aphelion, gravity, temperature, 2, imageLink, imageFile);
         } catch (error) {
             if (error) {
                 alert('Try again, please');
@@ -109,6 +117,24 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
         const { name, value } = event.target;
         this.setState({ ...this.state, [name]: value });
+    }
+
+    handleDelete(): void {
+        this.props.deletePlanet(this.state.moonId!);
+        this.handleCloseDelete();
+    }
+    
+    handleCloseDelete(): void {
+        this.setState({
+            showDelete: !this.state.showDelete
+        });
+    }
+
+    handleDeleteClick(moonId: number): void {
+        this.setState({
+            moonId: moonId
+        })
+        this.handleCloseDelete();
     }
 
     showPreview(event: ChangeEvent<HTMLInputElement>) {
@@ -138,8 +164,14 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         this.props.getMoons();
     }
 
+    componentDidUpdate(prevProps: Readonly<{ moons: MoonState; } & { getMoons: () => void; }>, prevState: Readonly<IMoonFields>, snapshot?: any): void {
+        if (this.props.moons.userMoons?.length != prevProps.moons.userMoons?.length) {
+            this.props.getMoons();
+        }
+    }
+
     render() {
-        const { show, showCreate, moonName, moonMass, perihelion, aphelion, gravity, temperature, planetId } = this.state;
+        const { show, showCreate, showDelete, moonName, moonMass, perihelion, aphelion, gravity, temperature, planetId } = this.state;
         const { moons, mooncomments } = this.props;
         return (
             <Fragment>
@@ -185,7 +217,7 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
             </ResponsiveMasonry> : 
             <Col xs={12}>
                 <Card style={{ color: 'white', textAlign: 'center' }} className="bg-dark">
-                    <Card.Title>"Stay tuned. Currently no moons..."</Card.Title>
+                    <Card.Title>"Currently no moons... Let's change that!"</Card.Title>
                 </Card>
             </Col>
         }
@@ -341,9 +373,9 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
                         <Form.Group className="mb-3" controlId="formTemperature">
                         <Form.Control
                             onChange={this.handleChange}
-                            name="Temperature"
+                            name="temperature"
                             value={temperature}
-                            type="Temperature"
+                            type="temperature"
                             as="input"
                             placeholder="Temperature"
                             autoFocus
@@ -377,6 +409,19 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
             </Modal.Footer>
             </Form>
             </ModalPostContainer>
+        </Modal>
+        <Modal show={showDelete} onHide={() => this.handleCloseDelete()}>
+            <Modal.Body style={{ textAlign: "center", color: "black" }}>
+                Are you sure you want to delete this moon?
+            </Modal.Body>
+            <Modal.Footer style={{ justifyContent: "center" }}>
+            <button className="btn btn-secondary" onClick={() => this.handleCloseDelete()}>
+                Cancel
+            </button>
+            <button onClick={() => this.handleDelete()} className="btn btn-primary">
+                Delete
+            </button>
+            </Modal.Footer>
         </Modal>
         </Fragment>
         );

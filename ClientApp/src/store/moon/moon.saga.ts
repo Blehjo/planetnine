@@ -59,12 +59,12 @@ export function* createMoon({ payload: {
     formData.append('aphelion', aphelion);
     formData.append('gravity', gravity);
     formData.append('temperature', temperature);
-    formData.append('planetId', planetId as unknown as Blob);
     formData.append('imageLink', imageLink);
     formData.append('imageFile', imageFile);
     try {
         const moon = yield* call(
             addMoon,
+            planetId!,
             formData
         ); 
         yield* put(moonCreateSuccess(moon));

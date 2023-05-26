@@ -1,11 +1,10 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { Col, Form, Modal, Row } from "react-bootstrap";
 import { ConnectedProps, connect } from "react-redux";
 import { MoonFill } from 'react-bootstrap-icons';
 
 import { BoxMoonContainer, ModalMoonContainer } from "./ModalMoon.styles";
 import { RootState } from "../../store/store";
-import { Moon } from "../../store/moon/moon.types";
 import { MoonCreateStart, moonCreateStart } from "../../store/moon/moon.action";
 
 type ModalMoonProps = ConnectedProps<typeof connector>;
@@ -71,7 +70,7 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
 
     handleClick(): void {;
         this.setState({
-            showCreate: !this.state.showCreate
+            show: !this.state.show
         });
     }
 
@@ -85,7 +84,7 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
                 alert('Try again, please');
             } 
         }
-        this.handleCloseCreate();
+        this.handleClose();
     }
 
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -117,13 +116,13 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
     }
 
     render() {
-        const { showCreate, moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile } = this.state;
+        const { showCreate, show, moonMass, moonName, perihelion, aphelion, gravity, temperature, planetId, imageLink, imageFile } = this.state;
         return(
             <Fragment>
                 <BoxMoonContainer>
                     <MoonFill className="bg-warning rounded modalIcon" onClick={() => this.handleClick()}/>
                 </BoxMoonContainer>
-                <Modal show={showCreate} onHide={() => this.handleCloseCreate()}>
+                <Modal show={show} onHide={() => this.handleClose()}>
                     <ModalMoonContainer>
                     <Modal.Header closeButton>
                     <Modal.Title>Document Moon</Modal.Title>
@@ -231,7 +230,7 @@ export class ModalMoon extends Component<ModalMoonProps, IMoonFields> {
                             </Row>
                         </Modal.Body>
                         <Modal.Footer>
-                        <button className="btn btn-secondary" onClick={() => this.handleCloseCreate()}>
+                        <button className="btn btn-secondary" onClick={() => this.handleClose()}>
                             Close
                         </button>
                         <button type="submit" className="btn btn-primary">

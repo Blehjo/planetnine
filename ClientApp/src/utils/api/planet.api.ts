@@ -52,7 +52,7 @@ export async function getUsersPlanets(): Promise<Planet[]> {
   return result;
 }
 
-export async function addPlanet(formData: FormData): Promise<Planet> {
+export async function addPlanet(formData: FormData): Promise<Planet[]> {
   const response = await axios({
     method: 'post',
     url: api, 

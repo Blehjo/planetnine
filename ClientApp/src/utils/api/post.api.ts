@@ -63,7 +63,7 @@ export async function getPosts(): Promise<Post[]> {
   return result;
 }
 
-export async function addPost(formData: FormData): Promise<Post> {
+export async function addPost(formData: FormData): Promise<Post[]> {
   const response = await axios({
     method: 'post',
     url: api, 

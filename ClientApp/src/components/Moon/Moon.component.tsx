@@ -108,9 +108,11 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                     <Card className="bg-dark" key={index}>
                                         <Card.Img src={"https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                                         <Card.ImgOverlay>
+                                        <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
                                             <BadgeContainer>
                                                 <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen onClick={() => this.fetchMoon(moonId)} style={{ cursor: 'pointer' }} size={15}/></Badge>
                                             </BadgeContainer>
+                                        </div>
                                         </Card.ImgOverlay>
                                         <Card.Body>
                                             <Card.Text>{moonName}</Card.Text>
@@ -133,16 +135,23 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                         <Modal.Title >{moons.singleMoon?.moonName}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Row>
+                    <Row>
                             <Col md={8}>
                             <Image
                                 fluid
+                                style={{ borderRadius: '.2rem', objectFit: 'cover', width: '30rem', height: '30rem' }}
                                 src={moons.singleMoon?.imageLink ? moons.singleMoon?.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                             />
+                            <Card style={{ marginTop: "1rem" }} className="bg-dark" key={moons.singleMoon?.moonId}>
+                                <TextContainer>
+                                {moons.singleMoon?.moonName}
+                                </TextContainer>
+                            </Card>
                             </Col>
                             <Col>
-                            <div>Comments</div>
                             <CommentContainer>
+                            <div>Comments</div>
+                            <div style={{ height: "65%", overflowY: "auto" }}>
                             {
                                 mooncomments.mooncomments?.map(({ moonCommentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -155,25 +164,25 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                     </CardContainer>
                                 })
                             }
-                            </CommentContainer>
-                            <FormContainer>
-                            <Form style={{ margin: 'auto' }} key={moons.singleMoon?.moonId} onSubmit={this.postComment}>
-                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                            </div>
+                            {/* <FormContainer> */}
+                            <Form style={{ margin: 'auto', position: "absolute", bottom: "0" }} key={moons.singleMoon?.moonId} onSubmit={this.postComment}>
+                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }}>
+                                <Col xs={12}>
+                                <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
                                     <Col xs={12}>
-                                        <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
-                                            <Col xs={12}>
-                                                <Form.Group>
-                                                    <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        <Row style={{ justifyContent: 'center' }}>
-                                            <Col xs={12}>
-                                                <Form.Group className="mb-3" controlId="formMedia">
-                                                    <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
+                                        <Form.Group>
+                                            <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row style={{ justifyContent: 'center' }}>
+                                    <Col xs={12}>
+                                        <Form.Group className="mb-3" controlId="formMedia">
+                                            <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                        </Form.Group>
+                                    </Col>
+                                    </Row>
                                     </Col>
                                     <Col xs={12}>
                                         <button id={moons.singleMoon?.moonId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
@@ -182,7 +191,8 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                     </Col>                
                                 </Row>
                             </Form>
-                            </FormContainer>
+                            {/* </FormContainer> */}
+                            </CommentContainer>
                             </Col>
                         </Row>
                     </Modal.Body>

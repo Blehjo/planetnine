@@ -42,10 +42,10 @@ export function* createComment({ payload: { commentValue, imageFile, postId }}: 
     const formData = new FormData();
     formData.append('commentValue', commentValue);
     formData.append('imageFile', imageFile);
-    formData.append('postId', postId?.toString());
     try {
         const comments = yield* call(
             addComment,
+            postId,
             formData
         ); 
         yield* put(commentCreateSuccess(comments));

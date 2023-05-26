@@ -63,13 +63,13 @@ export const moonReducer = (
         return { ...state, isLoading: false, singleMoon: action.payload };
     }
     if (
-        moonDeleteSuccess.match(action) ||
         moonFetchAllSuccess.match(action) ||
         moonFetchOtherUserMoonsSuccess.match(action)
     ) {
         return { ...state, isLoading: false, moons: action.payload };
     } 
     if (
+        moonDeleteSuccess.match(action) ||
         moonFetchUserMoonsSuccess.match(action)
     ) {
         return { ...state, isLoading: false, userMoons: action.payload };

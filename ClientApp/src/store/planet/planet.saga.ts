@@ -61,11 +61,11 @@ export function* createPlanet({ payload: {
     formData.append("imageLink", imageLink);
     formData.append("imageFile", imageFile);
     try {
-        const planet = yield* call(
+        const planets = yield* call(
             addPlanet,
             formData
         ); 
-        yield* put(planetCreateSuccess(planet));
+        yield* put(planetCreateSuccess(planets));
     } catch (error) {
         yield* put(planetCreateFailed(error as Error));
     }

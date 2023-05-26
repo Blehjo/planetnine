@@ -60,18 +60,22 @@ export const planetReducer = (
         return { ...state, isLoading: false, userPlanets: action.payload }
     }
     if (
-        planetCreateSuccess.match(action) ||
         planetUpdateSuccess.match(action) ||
         planetFetchSingleSuccess.match(action)
     ) {
         return { ...state, isLoading: false, singlePlanet: action.payload }
     }
     if (
-        planetDeleteSuccess.match(action) ||
         planetFetchAllSuccess.match(action) || 
         planetFetchOtherUserPlanetsSuccess.match(action)
     ) {
         return { ...state, isLoading: false, planets: action.payload };
+    } 
+    if (
+        planetCreateSuccess.match(action) ||
+        planetDeleteSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userPlanets: action.payload };
     } 
     if (
         planetCreateFailed.match(action) ||

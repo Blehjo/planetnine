@@ -52,15 +52,11 @@ export const chatReducer = (
         chatFetchSingleStart.match(action) ||
         chatFetchSingleUserChatsStart.match(action) ||
         chatFetchUserChatsStart.match(action) ||
-        chatCreateStart.match(action)
-    ) {
-        return { ...state, isLoading: true }
-    }  
-    if (
+        chatCreateStart.match(action) ||
         chatDeleteStart.match(action)
     ) {
-        return { ...state, isLoading: false, chatId: action.payload.chatId }
-    }  
+        return { ...state, isLoading: true }
+    }    
     if (
         chatCreateSuccess.match(action) ||
         chatFetchSingleSuccess.match(action) 
@@ -79,10 +75,14 @@ export const chatReducer = (
     }  
     if (
         chatUpdateSuccess.match(action) ||
-        chatDeleteSuccess.match(action) ||
         chatFetchAllSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, chats: action.payload };
+    } 
+    if (
+        chatDeleteSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userChats: action.payload };
     } 
     if (
         chatCreateFailed.match(action) ||

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const PostContainer = styled.div`
   margin: .5rem;
+  position: relative;
 `;
 
 export const PostDashContainer = styled.div`
@@ -25,7 +26,7 @@ export const TextContainer = styled.div`
 export const CommentContainer = styled.div`
   margin: auto;
   position: relative; 
-  height: 60%;
+  height: 37.5rem;
   overflow-y: auto;
   width: auto;
 `;

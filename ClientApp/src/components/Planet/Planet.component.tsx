@@ -108,9 +108,11 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                     <Card className="bg-dark" key={index}>
                                         <Card.Img src={imageLink ? imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                                         <Card.ImgOverlay>
+                                        <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
                                             <BadgeContainer>
                                                 <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen onClick={() => this.fetchPlanet(planetId)} style={{ cursor: 'pointer' }} size={15}/></Badge>
                                             </BadgeContainer>
+                                        </div>
                                         </Card.ImgOverlay>
                                         <Card.Body>
                                             <Card.Text>{planetName}</Card.Text>
@@ -136,13 +138,20 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                         <Row>
                             <Col md={8}>
                             <Image
-                                style={{ height: 'auto', width: '100%' }}
                                 fluid
+                                style={{ borderRadius: '.2rem', objectFit: 'cover', width: '30rem', height: '30rem' }}
                                 src={planets.singlePlanet?.imageLink ? planets.singlePlanet?.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                             />
+                            <Card style={{ marginTop: "1rem" }} className="bg-dark" key={planets.singlePlanet?.planetId}>
+                                <TextContainer>
+                                {planets.singlePlanet?.planetName}
+                                </TextContainer>
+                            </Card>
                             </Col>
                             <Col>
                             <CommentContainer>
+                            <div>Comments</div>
+                            <div style={{ height: "65%", overflowY: "auto" }}>
                             {
                                 planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -155,9 +164,10 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                     </CardContainer>
                                 })
                             }
-                            </CommentContainer>
-                            <FormContainer>
-                            <Form key={planets.singlePlanet?.planetId} onSubmit={this.postComment}>
+                            </div>
+                            <Form style={{ margin: 'auto', position: "absolute", bottom: "0" }} key={planets.singlePlanet?.planetId} onSubmit={this.postComment}>
+                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }}>
+                                <Col xs={12}>
                                 <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
                                     <Col xs={12}>
                                         <Form.Group>
@@ -171,6 +181,8 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                             <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
                                         </Form.Group>
                                     </Col>
+                                    </Row>
+                                    </Col>
                                     <Col xs={12}>
                                         <button id={planets.singlePlanet?.planetId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
                                             <Send/>
@@ -178,7 +190,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                                     </Col>                
                                 </Row>
                             </Form>
-                            </FormContainer>
+                            </CommentContainer>
                             </Col>
                         </Row>
                     </Modal.Body>

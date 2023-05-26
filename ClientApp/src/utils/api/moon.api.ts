@@ -52,10 +52,10 @@ export async function getUsersMoons(userId: number): Promise<Moon[]> {
   return result;
 }
 
-export async function addMoon(formData: FormData): Promise<Moon> {
+export async function addMoon(planetId: number, formData: FormData): Promise<Moon> {
   const response = await axios({
     method: 'post',
-    url: api, 
+    url: `${api}/${planetId}`, 
     data: formData,
     headers: headers,
     withCredentials: true

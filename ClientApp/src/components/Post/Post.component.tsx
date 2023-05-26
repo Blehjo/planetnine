@@ -116,6 +116,7 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                             <Card className="bg-dark" key={index}>
                                 <Card.Img src={mediaLink ? imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                                 <Card.ImgOverlay>
+                                <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
                                     <BadgeContainer>
                                         <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(postId)} size={15}/></Badge>
                                     </BadgeContainer>
@@ -130,10 +131,11 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                         <BadgeContainer>
                                             <Badge style={{ color: 'black' }} bg="light">
                                             <Rocket style={{ cursor: 'pointer' }} onClick={() => this.handleLike(postId, type)} size={15}/>
-                                            {` ${favorites.length > 0 ? favorites?.length : ""}`}
+                                            {` ${favorites?.length > 0 ? favorites?.length : ""}`}
                                             </Badge>
                                         </BadgeContainer>
                                     }
+                                    </div>
                                 </Card.ImgOverlay>
                                 <Card.Body>
                                     <Card.Text>{postValue}</Card.Text>
@@ -157,12 +159,19 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                             <Col md={8}>
                             <Image
                                 fluid
+                                style={{ borderRadius: '.2rem', objectFit: 'cover', width: '30rem', height: '30rem' }}
                                 src={posts.singlePost?.mediaLink ? posts.singlePost?.imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                             />
-                            {posts.singlePost?.postValue}
+                            <Card style={{ marginTop: "1rem" }} className="bg-dark" key={posts.singlePost?.postId}>
+                                <TextContainer>
+                                {posts.singlePost?.postValue}
+                                </TextContainer>
+                            </Card>
                             </Col>
                             <Col>
                             <CommentContainer>
+                            <div>Comments</div>
+                            <div style={{ height: "65%", overflowY: "auto" }}>
                             {
                                 comments.comments?.map(({ commentId, commentValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -175,30 +184,35 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                     </CardContainer>
                                 })
                             }
+                            </div>
+                            {/* <FormContainer> */}
+                            <Form style={{ margin: 'auto', position: "absolute", bottom: "0" }} key={posts.singlePost?.postId} onSubmit={this.postComment}>
+                            <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                                <Col xs={12}>
+                                    <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
+                                        <Col xs={12}>
+                                            <Form.Group>
+                                                <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                    <Row style={{ justifyContent: 'center' }}>
+                                        <Col xs={12}>
+                                            <Form.Group className="mb-3" controlId="formMedia">
+                                                <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col xs={12}>
+                                    <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center', width: '100%', height: '100%'}} className="btn btn-light" type="submit">
+                                        <Send/>
+                                    </button>
+                                </Col>                
+                            </Row>
+                        </Form>
+                            {/* </FormContainer> */}
                             </CommentContainer>
-                            <FormContainer>
-                            <Form key={posts.singlePost?.postId} onSubmit={this.postComment}>
-                                <Row style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                                    <Col xs={11}>
-                                        <Form.Group>
-                                            <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
-                                <Row >
-                                    <Col xs={8}>
-                                        <Form.Group className="mb-3" controlId="formMedia">
-                                            <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col xs={2}>
-                                        <button id={posts.singlePost?.postId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
-                                            <Send/>
-                                        </button>
-                                    </Col>                
-                                </Row>
-                            </Form>
-                            </FormContainer>
                             </Col>
                         </Row>
                     </Modal.Body>

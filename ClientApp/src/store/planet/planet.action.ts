@@ -9,8 +9,8 @@ import {
 
 export type PlanetCreateStart = ActionWithPayload<
     PLANET_ACTION_TYPES.CREATE_START, { 
-        planetMass: string, 
         planetName: string, 
+        planetMass: string, 
         perihelion: string, 
         aphelion: string, 
         gravity: string, 
@@ -22,7 +22,7 @@ export type PlanetCreateStart = ActionWithPayload<
 
 export type PlanetCreateSuccess = ActionWithPayload<
     PLANET_ACTION_TYPES.CREATE_SUCCESS, 
-    Planet
+    Planet[]
 >;
 
 export type PlanetCreateFailed = ActionWithPayload<
@@ -33,8 +33,8 @@ export type PlanetCreateFailed = ActionWithPayload<
 export type PlanetUpdateStart = ActionWithPayload<
     PLANET_ACTION_TYPES.UPDATE_START, { 
         planetId: number,
-        planetMass: string, 
         planetName: string, 
+        planetMass: string, 
         perihelion: string, 
         aphelion: string, 
         gravity: string, 
@@ -128,8 +128,8 @@ export type PlanetFetchAllFailed = ActionWithPayload<
 >;
 
 export const planetCreateStart = withMatcher(
-    (   planetMass: string, 
-        planetName: string, 
+    (   planetName: string, 
+        planetMass: string, 
         perihelion: string, 
         aphelion: string, 
         gravity: string, 
@@ -138,8 +138,8 @@ export const planetCreateStart = withMatcher(
         imageFile: File 
 ): PlanetCreateStart => 
     createAction(PLANET_ACTION_TYPES.CREATE_START, {
-        planetMass, 
         planetName, 
+        planetMass, 
         perihelion, 
         aphelion, 
         gravity, 
@@ -150,8 +150,8 @@ export const planetCreateStart = withMatcher(
 );
 
 export const planetCreateSuccess = withMatcher(
-    (planet: Planet): PlanetCreateSuccess => 
-    createAction(PLANET_ACTION_TYPES.CREATE_SUCCESS, planet)
+    (planets: Planet[]): PlanetCreateSuccess => 
+    createAction(PLANET_ACTION_TYPES.CREATE_SUCCESS, planets)
 );
 
 export const planetCreateFailed = withMatcher(
@@ -161,8 +161,8 @@ export const planetCreateFailed = withMatcher(
  
 export const planetUpdateStart = withMatcher(
     (   planetId: number,
-        planetMass: string, 
         planetName: string, 
+        planetMass: string, 
         perihelion: string, 
         aphelion: string, 
         gravity: string, 
@@ -172,8 +172,8 @@ export const planetUpdateStart = withMatcher(
 ): PlanetUpdateStart => 
     createAction(PLANET_ACTION_TYPES.UPDATE_START, {
         planetId,
-        planetMass, 
         planetName, 
+        planetMass, 
         perihelion, 
         aphelion, 
         gravity, 

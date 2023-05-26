@@ -159,7 +159,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
     }
 
     componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; } & { getAllCrew: () => void; getCrew: (userId: number) => void; createCrewMember: (name: string, role: string, imageFile: File) => void; createChat: (title: string, artificialId: number) => void; createComment: (chatId: number, chatValue: string, imageFile: File) => void; getChats: () => void; getChatComments: (chatId: number) => void; deleteChat: (chatId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
-        if (this.props.chats.chatId != prevProps.chats.chatId) {
+        if (this.props.chats.userChats?.length != prevProps.chats.userChats?.length) {
             this.props.getChats();
             this.props.getChatComments(this.props.chats.singleChat?.chatId!);
         }
@@ -167,8 +167,6 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         if (this.props.chats.singleChat?.chatId != prevProps.chats.singleChat?.chatId) {
             this.props.getChats();
             this.props.getChatComments(this.props.chats.singleChat?.chatId!);
-            console.log("Chat ID: ", this.props.chats.singleChat?.chatId);
-            console.log("Prev Prop Chat ID: ", prevProps.chats.singleChat?.chatId);
         }
     }
 

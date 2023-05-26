@@ -113,6 +113,9 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                     return <ChatContainer key={chatId}>
                             <Card className="bg-dark" key={chatId}>
                                 <Row>
+                                <Card.Img  src={"https://www.artlog.net/sites/default/files/styles/al_colorbox_rules/public/turrell_cregis_golay_federal_studio.jpg?itok=2M4Pyn0A"}/>
+                                <Card.ImgOverlay>
+                                <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
                                 <Col>
                                 <BadgeContainer>
                                     <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(chatId)}/></Badge>
@@ -137,6 +140,8 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                                     </BadgeContainer>
                                 }
                                 </Col>
+                                </div>
+                                </Card.ImgOverlay>
                                 <Card.Body>
                                     <Card.Text>{title}</Card.Text>
                                     <Card.Text>{utcConverter(dateCreated)}</Card.Text>
@@ -161,12 +166,19 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                             <Col md={8}>
                             <Image
                                 fluid
+                                style={{ borderRadius: '.2rem', objectFit: 'cover', width: '30rem', height: '30rem' }}
                                 src="https://www.artlog.net/sites/default/files/styles/al_colorbox_rules/public/turrell_cregis_golay_federal_studio.jpg?itok=2M4Pyn0A"
                             />
-                            {chats.singleChat?.title}
+                             <Card style={{ marginTop: "1rem" }} className="bg-dark" key={chats.singleChat?.chatId}>
+                                <TextContainer>
+                                {chats.singleChat?.title}
+                                </TextContainer>
+                            </Card>
                             </Col>
                             <Col>
                             <CommentContainer>
+                            <div>Comments</div>
+                            <div style={{ height: "65%", overflowY: "auto" }}>
                             {
                                 chatComments.chatcomments?.map(({ chatCommentId, chatValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
@@ -179,30 +191,33 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                                     </CardContainer>
                                 })
                             }
-                            </CommentContainer>
-                            <FormContainer>
-                            <Form key={chats.singleChat?.chatId} onSubmit={this.postComment}>
-                                <Row style={{ marginBottom: '1rem' }}>
-                                    <Col xs={11}>
+                            </div>
+                            <Form style={{ margin: 'auto', position: "absolute", bottom: "0" }} key={chats.singleChat?.chatId} onSubmit={this.postComment}>
+                            <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                                <Col xs={12}>
+                                <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
+                                    <Col xs={12}>
                                         <Form.Group>
                                             <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your comment here" />
                                         </Form.Group>
                                     </Col>
                                 </Row>
-                                <Row >
-                                    <Col xs={8}>
+                                <Row style={{ justifyContent: 'center' }}>
+                                    <Col xs={12}>
                                         <Form.Group className="mb-3" controlId="formMedia">
                                             <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
                                         </Form.Group>
+                                        </Col>
+                                        </Row>
                                     </Col>
-                                    <Col xs={2}>
-                                        <button id={chats.singleChat?.chatId.toString()} style={{ textAlign: 'center' }} className="btn btn-light" type="submit">
+                                    <Col xs={12}>
+                                        <button id={chats.singleChat?.chatId.toString()} style={{ textAlign: 'center', width: "100%" }} className="btn btn-light" type="submit">
                                             <Send/>
                                         </button>
                                     </Col>                
                                 </Row>
                             </Form>
-                            </FormContainer>
+                            </CommentContainer>
                             </Col>
                         </Row>
                     </Modal.Body>

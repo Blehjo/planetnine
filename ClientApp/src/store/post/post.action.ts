@@ -13,7 +13,7 @@ export type PostCreateStart = ActionWithPayload<
 
 export type PostCreateSuccess = ActionWithPayload<
     POST_ACTION_TYPES.CREATE_SUCCESS, 
-    Post
+    Post[]
 >;
 
 export type PostCreateFailed = ActionWithPayload<
@@ -101,8 +101,8 @@ export const postCreateStart = withMatcher(
 );
 
 export const postCreateSuccess = withMatcher(
-    (post: Post): PostCreateSuccess => 
-    createAction(POST_ACTION_TYPES.CREATE_SUCCESS, post)
+    (posts: Post[]): PostCreateSuccess => 
+    createAction(POST_ACTION_TYPES.CREATE_SUCCESS, posts)
 );
 
 export const postCreateFailed = withMatcher(
