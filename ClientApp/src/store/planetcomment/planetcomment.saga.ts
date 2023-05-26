@@ -42,10 +42,10 @@ export function* createComment({ payload: { commentValue, imageFile, planetId }}
     const formData = new FormData();
     formData.append('commentValue', commentValue);
     formData.append('imageFile', imageFile);
-    formData.append('planetId', planetId?.toString());
     try {
         const comments = yield* call(
             addComment,
+            planetId,
             formData
         ); 
         yield* put(planetcommentCreateSuccess(comments));

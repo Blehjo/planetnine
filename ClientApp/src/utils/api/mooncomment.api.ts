@@ -63,10 +63,10 @@ export async function getComments(): Promise<MoonComment[]> {
   return result;
 }
 
-export async function addComment(formData: FormData): Promise<MoonComment[]> {
+export async function addComment(moonId: number, formData: FormData): Promise<MoonComment[]> {
   const response = await axios({
     method: 'post',
-    url: api,
+    url: `${api}/${moonId}`,
     data: formData,
     headers: headers,
     withCredentials: true

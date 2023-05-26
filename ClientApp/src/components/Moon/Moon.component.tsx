@@ -1,4 +1,4 @@
-import { ChangeEvent, Component, Dispatch, Fragment } from "react"
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react"
 import { ConnectedProps, connect } from "react-redux";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
@@ -13,6 +13,8 @@ import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { CardContainer } from "../Notification/Notifications.styles";
 import { utcConverter } from "../../utils/date/date.utils";
 import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
+import { MoonState } from "../../store/moon/moon.reducer";
+import { MoonCommentState } from "../../store/mooncomment/mooncomment.reducer";
 
 type MoonProps = ConnectedProps<typeof connector>;
 
@@ -50,7 +52,8 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
         this.setState({ ...this.state, [name]: value });
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { moons } = this.props;
         const moonId = moons.singleMoon?.moonId ? moons.singleMoon.moonId : 0
@@ -90,6 +93,12 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
     
     componentDidMount(): void {
         this.props.getMoons();
+    }
+
+    componentDidUpdate(prevProps: Readonly<{ moons: MoonState; mooncomments: MoonCommentState; } & { getMoons: () => void; getMoon: (moonId: number) => void; getComments: (moonId: number) => void; createComment: (commentValue: string, imageFile: File, moonId: number) => void; }>, prevState: Readonly<IDefaultForm>, snapshot?: any): void {
+        if (this.props.moons.userMoons?.length != prevProps.moons.userMoons?.length) {
+            this.props.getComments(this.props.moons.singleMoon?.moonId!);
+        }
     }
     render() {
         const { moons, mooncomments } = this.props;
@@ -165,7 +174,6 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                 })
                             }
                             </div>
-                            {/* <FormContainer> */}
                             <Form style={{ margin: 'auto', position: "absolute", bottom: "0" }} key={moons.singleMoon?.moonId} onSubmit={this.postComment}>
                                 <Row style={{ marginBottom: '3rem', justifyContent: 'center' }}>
                                 <Col xs={12}>
@@ -191,7 +199,6 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                                     </Col>                
                                 </Row>
                             </Form>
-                            {/* </FormContainer> */}
                             </CommentContainer>
                             </Col>
                         </Row>

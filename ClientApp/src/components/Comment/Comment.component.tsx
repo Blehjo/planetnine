@@ -1,4 +1,4 @@
-import { ChangeEvent, Component, Dispatch } from "react";
+import { ChangeEvent, Component, Dispatch, FormEvent } from "react";
 import { CardContainer, CommentBarContainer, CommentContainer, FormContainer } from "./Comment.styles";
 import { ConnectedProps, connect } from "react-redux";
 
@@ -41,7 +41,8 @@ export class Comment extends Component<CommentQuery, IDefaultFormFields> {
         this.postComment = this.postComment.bind(this);
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { posts } = this.props;
         const postId = posts.singlePost?.postId ? posts.singlePost.postId : 0
@@ -91,6 +92,12 @@ export class Comment extends Component<CommentQuery, IDefaultFormFields> {
     componentDidMount(): void {
         const { queryId } = this.props;
         this.props.getComments(queryId);
+    }
+    
+    componentDidUpdate(prevProps: Readonly<CommentQuery>, prevState: Readonly<IDefaultFormFields>, snapshot?: any): void {
+        if (this.props.comments.comments?.length != prevProps.comments.comments?.length) {
+            this.props.getComments(this.props.posts.singlePost?.postId!)
+        }
     }
 
     render() {

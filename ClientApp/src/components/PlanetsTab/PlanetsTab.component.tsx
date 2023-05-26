@@ -62,7 +62,8 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { planets } = this.props;
         const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet.planetId : 0
@@ -164,7 +165,7 @@ export class PlanetsTab extends Component<ProfileProps, IPlanetFields> {
 
     componentDidUpdate(prevProps: Readonly<{ planets: PlanetState; } & { getPlanets: () => void; }>, prevState: Readonly<IPlanetFields>, snapshot?: any): void {
         if (this.props.planets.userPlanets?.length != prevProps.planets.userPlanets?.length) {
-            this.props.getPlanets();
+            // this.props.getPlanets();
         }
     }
 

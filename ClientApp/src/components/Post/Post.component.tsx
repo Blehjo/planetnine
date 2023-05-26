@@ -1,4 +1,4 @@
-import { ChangeEvent, Component, Dispatch, Fragment } from "react";
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
@@ -12,6 +12,8 @@ import { CommentCreateStart, CommentFetchSingleStart, commentCreateStart, commen
 import { utcConverter } from "../../utils/date/date.utils";
 import { favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { FavoriteCreateStart } from "../../store/favorite/favorite.action";
+import { CommentState } from "../../store/comment/comment.reducer";
+import { PostState } from "../../store/post/post.reducer";
 
 type PostProps = ConnectedProps<typeof connector>;
 
@@ -40,7 +42,8 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
         this.postComment = this.postComment.bind(this);
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { posts } = this.props;
         const postId = posts.singlePost?.postId ? posts.singlePost.postId : 0
@@ -98,6 +101,13 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
         const postId = posts.singlePost?.postId ? posts.singlePost.postId : 0
         this.props.getAllPosts();
         this.props.getComments(postId);
+    }
+
+    componentDidUpdate(prevProps: Readonly<{ posts: PostState; comments: CommentState; } & { getAllPosts: () => void; getPost: (postId: number) => void; getComments: (postId: number) => void; createComment: (commentValue: string, imageFile: File, postId: number) => void; likePost: (postId: number, contentType: string) => void; }>, prevState: Readonly<IDefaultFormFields>, snapshot?: any): void {
+        if (this.props.comments.comments?.length != prevProps.comments.comments?.length) {
+            this.props.getComments(this.props.posts.singlePost?.postId!)
+            this.props.getAllPosts();
+        }
     }
     
     render() {

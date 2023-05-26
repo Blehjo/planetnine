@@ -1,4 +1,4 @@
-import { ChangeEvent, Component, Dispatch } from "react";
+import { ChangeEvent, Component, Dispatch, FormEvent } from "react";
 import { CardContainer, CommentBarContainer, CommentContainer, FormContainer, InnerComments } from "./Comment.styles";
 import { ConnectedProps, connect } from "react-redux";
 
@@ -42,7 +42,8 @@ export class MoonComment extends Component<CommentQuery, IDefaultFormFields> {
         this.postComment = this.postComment.bind(this);
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { moons } = this.props;
         const moonId = moons.singleMoon?.moonId ? moons.singleMoon?.moonId : 0
@@ -92,6 +93,12 @@ export class MoonComment extends Component<CommentQuery, IDefaultFormFields> {
     componentDidMount(): void {
         const { queryId } = this.props;
         this.props.getComments(queryId);
+    }
+
+    componentDidUpdate(prevProps: Readonly<CommentQuery>, prevState: Readonly<IDefaultFormFields>, snapshot?: any): void {
+        if (this.props.moons.userMoons?.length != prevProps.moons.userMoons?.length) {
+            this.props.getComments(this.props.moons.singleMoon?.moonId!);
+        }
     }
 
     render() {

@@ -63,11 +63,12 @@ export class SingleMoonsTab extends Component<UserInfo, IMoonFields> {
         this.postComment = this.postComment.bind(this);
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
-        const { planets } = this.props;
-        const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet.planetId : 0
-        this.props.createMoonComment(commentValue, imageFile, planetId);
+        const { moons } = this.props;
+        const moonId = moons.singleMoon?.moonId ? moons.singleMoon.moonId : 0
+        this.props.createMoonComment(commentValue, imageFile, moonId);
     }
 
     handleCreate(): void {
@@ -128,6 +129,12 @@ export class SingleMoonsTab extends Component<UserInfo, IMoonFields> {
         this.props.getMoons(this.props.userId!);
     }
 
+    componentDidUpdate(prevProps: Readonly<UserInfo>, prevState: Readonly<IMoonFields>, snapshot?: any): void {
+        if (this.props.moons.userMoons?.length != prevProps.moons.userMoons?.length) {
+            this.props.getMoonComments(this.props.moons.singleMoon?.moonId!);
+        }
+    }
+
     render() {
         const { show, showCreate, moonName, moonMass, perihelion, aphelion, gravity, temperature, planetId } = this.state;
         const { moons, mooncomments } = this.props;
@@ -144,6 +151,7 @@ export class SingleMoonsTab extends Component<UserInfo, IMoonFields> {
                         <Card className="bg-dark" key={index}>
                             <Card.Img src={imageLink ? imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                             <Card.ImgOverlay>
+                            <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
                                 <BadgeContainer>
                                     <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(moonId)} size={15}/></Badge>
                                 </BadgeContainer>
@@ -155,6 +163,7 @@ export class SingleMoonsTab extends Component<UserInfo, IMoonFields> {
                                         </Badge>
                                     </BadgeContainer>
                                 }
+                                </div>
                             </Card.ImgOverlay>
                             <Card.Body>
                                 <Card.Text>{moonName}</Card.Text>
@@ -165,7 +174,7 @@ export class SingleMoonsTab extends Component<UserInfo, IMoonFields> {
                 </Masonry>
             </ResponsiveMasonry> : 
             <Col xs={12}>
-                <Card style={{ color: 'white', textAlign: 'center' }} className="bg-dark">
+                <Card style={{ color: 'white', textAlign: 'center', padding: "1rem" }} className="bg-dark">
                     <Card.Title>"Stay tuned. Currently no moons..."</Card.Title>
                 </Card>
             </Col>
@@ -184,11 +193,19 @@ export class SingleMoonsTab extends Component<UserInfo, IMoonFields> {
                     <Col md={8}>
                     <Image
                         fluid
+                        style={{ borderRadius: '.2rem', objectFit: 'cover', width: '30rem', height: '30rem' }}
                         src={moons.singleMoon?.imageLink ? moons.singleMoon?.imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} 
                     />
+                    <Card style={{ marginTop: "1rem" }} className="bg-dark" key={moons.singleMoon?.moonId}>
+                        <TextContainer>
+                        {moons.singleMoon?.moonName}
+                        </TextContainer>
+                    </Card>
                     </Col>
                     <Col>
+                    <CommentContainer>
                     <div>Comments</div>
+                    <div style={{ height: "65%", overflowY: "auto" }}>
                     {
                         mooncomments.mooncomments?.map(({ moonCommentId, commentValue, mediaLink, dateCreated }) => {
                             return <CardContainer>
@@ -201,9 +218,9 @@ export class SingleMoonsTab extends Component<UserInfo, IMoonFields> {
                             </CardContainer>
                         })
                     }
-                        <CommentContainer>
-                            <Form style={{ margin: 'auto' }} key={moons.singleMoon?.moonId} onSubmit={this.postComment}>
-                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
+                     </div>
+                            <Form style={{ margin: 'auto', position: "absolute", bottom: "0" }} key={moons.singleMoon?.moonId} onSubmit={this.postComment}>
+                                <Row style={{ marginBottom: '3rem', justifyContent: 'center' }}>
                                     <Col xs={12}>
                                         <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
                                             <Col xs={12}>

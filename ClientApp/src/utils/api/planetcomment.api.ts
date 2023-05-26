@@ -64,10 +64,10 @@ export async function getComments(): Promise<PlanetComment[]> {
   return result;
 }
 
-export async function addComment(formData: FormData): Promise<PlanetComment[]> {
+export async function addComment(planetId: number, formData: FormData): Promise<PlanetComment[]> {
   const response = await axios({
     method: 'post',
-    url: api,
+    url: `${api}/${planetId}`,
     data: formData,
     headers: headers,
     withCredentials: true

@@ -64,7 +64,8 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { planets } = this.props;
         const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet.planetId : 0

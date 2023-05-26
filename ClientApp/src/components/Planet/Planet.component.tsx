@@ -1,4 +1,4 @@
-import { ChangeEvent, Component, Dispatch, Fragment } from "react";
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { ConnectedProps, connect } from "react-redux";
@@ -13,6 +13,8 @@ import NotificationComponent from "../Notification/Notification.component";
 import { CardContainer } from "../Notification/Notifications.styles";
 import { utcConverter } from "../../utils/date/date.utils";
 import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
+import { PlanetState } from "../../store/planet/planet.reducer";
+import { PlanetCommentState } from "../../store/planetcomment/planetcomment.reducer";
 
 type PlanetProps = ConnectedProps<typeof connector>;
 
@@ -50,7 +52,8 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
         this.setState({ ...this.state, [name]: value });
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { planets } = this.props;
         const postId = planets.singlePlanet?.planetId ? planets.singlePlanet.planetId : 0
@@ -91,6 +94,13 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
     componentDidMount(): void {
         this.props.getPlanets();
     }
+
+    componentDidUpdate(prevProps: Readonly<{ planets: PlanetState; planetcomments: PlanetCommentState; } & { getPlanets: () => void; getPlanet: (planetId: number) => void; getComments: (planetId: number) => void; createComment: (commentValue: string, imageFile: File, postId: number) => void; }>, prevState: Readonly<IDefaultForm>, snapshot?: any): void {
+        if (this.props.planets.singlePlanet?.planetId != prevProps.planets.singlePlanet?.planetId) {
+            this.props.getComments(this.props.planets.singlePlanet?.planetId!);
+        }
+    }
+
     render() {
         const { show } = this.state;
         const { planets, planetcomments } = this.props;

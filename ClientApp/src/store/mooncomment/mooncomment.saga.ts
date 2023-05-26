@@ -42,10 +42,10 @@ export function* createMoonComment({ payload: { commentValue, imageFile, moonId 
     const formData = new FormData();
     formData.append('commentValue', commentValue);
     formData.append('imageFile', imageFile);
-    formData.append('moonId', moonId?.toString());
     try {
         const comments = yield* call(
             addComment,
+            moonId,
             formData
         ); 
         yield* put(moonCommentCreateSuccess(comments));

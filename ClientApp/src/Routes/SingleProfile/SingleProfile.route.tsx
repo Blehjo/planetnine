@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 import { pilotFetchSingleStart } from "../../store/pilot/pilot.action";
 import { selectSinglePilot } from "../../store/pilot/pilot.selector";
-import SinglePostsTab from "../../components/PostsTab/SinlgePostsTab.component";
+
 import { SingleProfileCard } from "../../components/ProfileCard/SingleProfileCard.component";
 import { Pilot } from "../../store/pilot/pilot.types";
 import { Post } from "../../store/post/post.types";
@@ -14,6 +14,7 @@ import { Chat } from "../../store/chat/chat.types";
 import { Planet } from "../../store/planet/planet.types";
 import { Moon } from "../../store/moon/moon.types";
 import { postFetchUserPostsStart } from "../../store/post/post.action";
+import SinglePostsTab from "../../components/PostsTab/SinglePostsTab.component";
 import SingleChatsTab from "../../components/ChatsTab/SingleChatsTab.component";
 import SinglePlanetsTab from "../../components/PlanetsTab/SinglePlanetsTab.component";
 import SingleMoonsTab from "../../components/MoonsTab/SingleMoonsTab.component";
@@ -43,6 +44,8 @@ export function SingleProfile() {
         dispatch(pilotFetchSingleStart(queryId));
         dispatch(postFetchUserPostsStart(queryId));
     }, []);
+
+    console.log("User ID: ", queryId);
 
     return (
         <Row lg={2}>

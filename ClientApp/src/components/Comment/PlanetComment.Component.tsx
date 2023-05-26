@@ -1,4 +1,4 @@
-import { ChangeEvent, Component, Dispatch } from "react";
+import { ChangeEvent, Component, Dispatch, FormEvent } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import { Card, Col, Form, Row } from "react-bootstrap";
 
@@ -40,11 +40,15 @@ export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
         this.postComment = this.postComment.bind(this);
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { planets } = this.props;
         const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet?.planetId : 0
         this.props.createComment(commentValue, imageFile, planetId);
+        this.setState({
+            commentValue: "",
+        })
     }
 
     handleClose(): void {
@@ -90,6 +94,12 @@ export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
     componentDidMount(): void {
         const { queryId } = this.props;
         this.props.getComments(queryId);
+    }
+
+    componentDidUpdate(prevProps: Readonly<CommentQuery>, prevState: Readonly<IDefaultFormFields>, snapshot?: any): void {
+        if (this.props.planets.singlePlanet?.planetId != prevProps.planets.singlePlanet?.planetId) {
+            this.props.getComments(this.props.planets.singlePlanet?.planetId!);
+        }
     }
 
     render() {

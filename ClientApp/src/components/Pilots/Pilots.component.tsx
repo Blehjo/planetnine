@@ -43,6 +43,7 @@ export class Pilots extends Component<PilotProps> {
                             <Card className="bg-dark" key={index}>
                                 <Card.Img src={imageLink ? imageSource : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"}/>
                                 <Card.ImgOverlay>
+                                <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
                                     <BadgeContainer>
                                     <a href={`/profile/${userId}`}>
                                         <Badge style={{ color: 'black' }} bg="light"><Person style={{ cursor: 'pointer' }} size={15}/></Badge>
@@ -69,6 +70,7 @@ export class Pilots extends Component<PilotProps> {
                                             </Badge>
                                         </BadgeContainer>
                                     }
+                                    </div>
                                 </Card.ImgOverlay>
                                 <Card.Body>
                                     <Card.Text>{username}</Card.Text>

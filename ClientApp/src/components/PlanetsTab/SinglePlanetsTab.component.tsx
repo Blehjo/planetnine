@@ -61,11 +61,15 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
         this.postComment = this.postComment.bind(this);
     }
 
-    postComment() {
+    postComment(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
         const { commentValue, imageFile } = this.state;
         const { planets } = this.props;
         const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet.planetId : 0
         this.props.createPlanetComment(commentValue, imageFile, planetId);
+        this.setState({
+            commentValue: ""
+        })
     }
 
     handleCreate(): void {
@@ -126,6 +130,12 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
         this.props.getPlanets(this.props.userId!);
     }
 
+    componentDidUpdate(prevProps: Readonly<UserInfo>, prevState: Readonly<IPlanetFields>, snapshot?: any): void {
+        if (this.props.planets.singlePlanet?.planetId != prevProps.planets.singlePlanet?.planetId) {
+            this.props.getPlanetComments(this.props.planets.singlePlanet?.planetId!);
+        }
+    }
+
     render() {
         const { show, showCreate, planetName, planetMass, perihelion, aphelion, gravity, temperature } = this.state;
         const { planets, planetcomments } = this.props;
@@ -142,6 +152,7 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
                         <Card className="bg-dark" key={index}>
                             <Card.Img src={imageLink ? imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                             <Card.ImgOverlay>
+                            <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
                                 <BadgeContainer>
                                     <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(planetId)} size={15}/></Badge>
                                 </BadgeContainer>
@@ -153,6 +164,7 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
                                         </Badge>
                                     </BadgeContainer>
                                 }
+                                </div>
                             </Card.ImgOverlay>
                             <Card.Body>
                                 <Card.Text>{planetName}</Card.Text>
@@ -163,7 +175,7 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
                 </Masonry>
             </ResponsiveMasonry> : 
             <Col xs={12}>
-                <Card style={{ color: 'white', textAlign: 'center' }} className="bg-dark">
+                <Card style={{ color: 'white', textAlign: 'center', padding: "1rem" }} className="bg-dark">
                     <Card.Title>"Stay tuned. Currently no planets..."</Card.Title>
                 </Card>
             </Col>
@@ -180,11 +192,12 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
             <Modal.Body>
                 <Row>
                     <Col md={8}>
-                    <Card.Img src={planets.singlePlanet?.imageLink ? planets.singlePlanet.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                    <Card.Img style={{ borderRadius: '.2rem', objectFit: 'cover', width: '30rem', height: '30rem' }} src={planets.singlePlanet?.imageLink ? planets.singlePlanet.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                     </Col>
                     <Col>
-                    <div>Comments</div>
                     <CommentContainer>
+                    <div>Comments</div>
+                    <div style={{ height: "65%", overflowY: "auto" }}>
                     {
                         planetcomments.comments?.map(({ planetCommentId, commentValue, mediaLink, dateCreated }) => {
                             return <CardContainer>
@@ -197,7 +210,7 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
                             </CardContainer>
                         })
                     }
-                    </CommentContainer>
+                    </div>
                         <Form style={{ margin: 'auto' }} key={planets.singlePlanet?.planetId} onSubmit={this.postComment}>
                             <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
                                 <Col xs={12}>
@@ -223,6 +236,7 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
                                 </Col>                
                             </Row>
                         </Form>
+                        </CommentContainer>
                     </Col>
                 </Row>
             </Modal.Body>

@@ -54,6 +54,8 @@ export class SingleChatsTab extends Component<UserInfo, ChatsTabProps> {
         const { show } = this.state;
         return (
             <Fragment>
+                {
+                chats.singleUserChats?.length ? 
                 <ResponsiveMasonry
                     columnsCountBreakPoints={{350: 1, 750: 2, 900: 3, 1050: 4}}
                 >
@@ -87,7 +89,13 @@ export class SingleChatsTab extends Component<UserInfo, ChatsTabProps> {
                         </ChatContainer>
                     })}
                     </Masonry>
-                </ResponsiveMasonry>
+                </ResponsiveMasonry> : 
+                    <Col xs={12}>
+                        <Card style={{ color: 'white', textAlign: 'center', padding: "1rem" }} className="bg-dark">
+                            <Card.Title>"Stay tuned. Currently no chats..."</Card.Title>
+                        </Card>
+                    </Col>
+                }
                 <Modal 
                     size="lg"
                     show={show} 

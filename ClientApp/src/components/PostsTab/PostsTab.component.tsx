@@ -232,7 +232,7 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
             </ResponsiveMasonry> : 
             <Col xs={12}>
                 <Card style={{ color: 'white', textAlign: 'center' }} className="bg-dark">
-                    <Card.Title>"Stay tuned. Currently no posts..."</Card.Title>
+                    <Card.Title>"Currently no posts... Let's change that!"</Card.Title>
                 </Card>
             </Col>
         }

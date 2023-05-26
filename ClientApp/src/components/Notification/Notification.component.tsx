@@ -32,36 +32,36 @@ export class Notification extends Component<NotificationProps> {
                     <h1 className="notifications">Journal Logs</h1>
                     <IconContainer className="modalicons">
                     <Row xs={4}>
-                        <Col>
+                        <Col key="modalmoon">
                             <ModalMoonComponent/>
                         </Col>
-                        <Col>
+                        <Col key="modalchat">
                             <ModalChatComponent/>
                         </Col>
-                        <Col>
+                        <Col key="modalplanet">
                             <ModalPlanetComponent/>
                         </Col>
-                        <Col>
+                        <Col key="modalpost">
                             <ModalPostComponent/>
                         </Col>
                     </Row>
                     </IconContainer>
                     <Row>
                     <Col>
-                    <Row xs={2}>
+                    <Row key="chatcards" xs={2}>
                     {
                         chats.userChats?.map(({ chatId, title, chatComments }) => {
                         return (
-                            <Col className="notifications" xs={6}>
-                            <CardContainer>
-                                <Row xs={2}>
-                                <Col xs={8}>
-                                    <div onClick={() => this.handleGetMessages(chatId)} key={chatId} >
+                            <Col key="controller" className="notifications" xs={12}>
+                            <CardContainer key="model" >
+                                <Row key="controllerrow" xs={2}>
+                                <Col key="chat" xs={9}>
+                                    <div style={{ textAlign: "left" }} onClick={() => this.handleGetMessages(chatId)} key={chatId} >
                                     {title}
                                     </div>
                                 </Col>
-                                <Col xs={3}>
-                                    <XCircle key={chatId}/>
+                                <Col key="x" xs={3}>
+                                    <XCircle style={{ cursor: "pointer" }} key={chatId}/>
                                 </Col>
                                 </Row>
                             </CardContainer>
