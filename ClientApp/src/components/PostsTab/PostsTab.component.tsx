@@ -62,7 +62,7 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                 commentValue: "",
             });
         } catch (error) {
-            console.log("Error: ", error);
+            return error;
         }
     }
 

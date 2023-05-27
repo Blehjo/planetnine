@@ -45,8 +45,6 @@ export function SingleProfile() {
         dispatch(postFetchUserPostsStart(queryId));
     }, []);
 
-    console.log("User ID: ", queryId);
-
     return (
         <Row lg={2}>
             <Col style={{ marginBottom: '2rem' }}lg={4}>
