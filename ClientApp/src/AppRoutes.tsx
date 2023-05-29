@@ -19,6 +19,7 @@ import { Fractal } from "./routes/Fractal/Fractal.route";
 import { SolarSystem } from "./components/SolarSystem/SolarSystem.component";
 import SingleMoon from "./routes/SingleMoon/SingleMoon.route";
 import ProfileComponent from "./components/Profile/Profile.component";
+import Builder from "./components/Builder/Builder";
 
 const AppRoutes = [
   {
@@ -32,6 +33,10 @@ const AppRoutes = [
   {
     path: '/authentication',
     element: <Authentication />
+  },
+  {
+    path: '/builder',
+    element: <Builder />
   },
   {
     path: '/chats',

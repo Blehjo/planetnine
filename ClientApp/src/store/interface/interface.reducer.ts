@@ -32,7 +32,7 @@ const INITIAL_STATE: InterfaceState = {
     utilsOpen: false
 };
 
-export const artificialIntelligenceReducer = (
+export const interfaceReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): InterfaceState => {
     if (

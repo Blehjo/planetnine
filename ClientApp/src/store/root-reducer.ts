@@ -18,6 +18,9 @@ import { toolReducer } from './tool/tool.reducer';
 import { toolboxReducer } from './toolbox/toolbox.reducer';
 import { userReducer } from './user/user.reducer';
 import { userprofileReducer } from './userprofile/userprofile.reducer';
+import { builderReducer } from './builder/builder.reducer';
+import { sceneReducer } from './scene/scene.reducer';
+import { interfaceReducer } from './interface/interface.reducer';
 
 export const rootReducer = combineReducers({
   artificialIntelligence: artificialIntelligenceReducer,
@@ -38,5 +41,8 @@ export const rootReducer = combineReducers({
   tool: toolReducer,
   toolbox: toolboxReducer,
   user: userReducer,
-  userprofile: userprofileReducer
+  userprofile: userprofileReducer,
+  builder: builderReducer,
+  scene: sceneReducer,
+  ui: interfaceReducer
 });
