@@ -7,6 +7,7 @@ import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../
 import { checkUserSession } from "../../store/user/user.action";
 import { CheckUserSession } from "../../store/user/user.action";
 import { SideContainer } from "./SidebarMenu.styles";
+import { Lightbulb } from "react-bootstrap-icons";
 
 type SidebarMenuProps = ConnectedProps<typeof connector>;
 
@@ -45,6 +46,14 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                         </a>
                         <Nav.Link href="/fractal" className="ms-4">
                             Fractals
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item className="ms-4 d-flex align-items-center">
+                        <a href="/builder">
+                        <Lightbulb className='icons' color="white" />
+                        </a>
+                        <Nav.Link href="/builder" className="ms-4">
+                            Builder
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item className="ms-4 d-flex align-items-center">

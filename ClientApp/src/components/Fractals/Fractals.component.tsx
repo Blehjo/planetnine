@@ -1,9 +1,10 @@
-import { ChangeEvent, Component, MouseEvent, Suspense, useState } from "react";
+import { ChangeEvent, Component, MouseEvent, Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three/src/materials/MeshLambertMaterial";
 import { Accordion } from "react-bootstrap";
-import Slider from 'react-input-slider';
+import Slider from '@mui/material/Slider';
+// import Slider from 'react-input-slider';
 
 import { FractalGUIContainer, FractalTreeContainer } from "./Fractals.styles";
 import { ButtonContainer, ControllerContainer } from "./Fractals.styles";
@@ -258,8 +259,15 @@ function ShapeUI({ handleShape }: IShape) {
     z: 0
   };
 
-  const [state, setState] = useState(defaultState);
+  const [state, setState] = useState<DefaultState>(defaultState);
+  const { ratio, angleZ, angleX, radius, height, x, y, z } = state;
   
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, defaultValue } = event.target;
+    console.log("Target: ", name, defaultValue)
+    setState(state => ({ ...state, [name]: defaultValue }));
+  };
+
   return (
     <ControllerContainer>
     <Accordion defaultActiveKey="0" >
@@ -312,14 +320,20 @@ function ShapeUI({ handleShape }: IShape) {
         </Accordion.Item>
         <p>Ratio</p>
         <div>
-        <Slider
-          axis="x"
-          xmax={10}
-          x={state.ratio}
-          onChange={({ x }) => setState(state => ({ ...state, x }))}
+        <Slider 
+          defaultValue={angleZ} 
+          aria-label="ratio" 
+          name="angleZ"
+          onChange={handleChange}
         />
+        {/* <input
+          type="range"
+          xmax={10}
+          x={state.x}
+          onChange={({ x }) => setState(state => ({ ...state, x }))}
+        /> */}
         <p>Angle Z</p>
-        <Slider
+        {/* <Slider
           axis="x"
           xmax={10}
           x={state.angleZ}
@@ -366,7 +380,7 @@ function ShapeUI({ handleShape }: IShape) {
           xmax={10}
           x={state.z}
           onChange={({ x }) => setState(state => ({ ...state, x }))}
-         />
+         /> */}
         </div>
         </Accordion>
         </Accordion.Body>

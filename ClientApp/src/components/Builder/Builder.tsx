@@ -26,8 +26,9 @@ import { ResetScene } from '../../store/scene/scene.action';
 import { setScene } from '../../store/scene/scene.action';
 import { SetScene } from '../../store/scene/scene.action';
 import { Topbar } from '../BrickTopbar/Topbar';
+import { VoyagerContainer } from '../../routes/Voyager/Voyager.styles';
 
-import styles from '../../styles/containers/builder.less';
+//import styles from '../../styles/containers/builder.less';
 
 type BuilderProps = ConnectedProps<typeof connector>;
 
@@ -54,7 +55,7 @@ class Builder extends Component<BuilderProps> {
     const { utilsOpen } = ui;
 
     return (
-      <div className={styles.builder}>
+      <VoyagerContainer>
         <Topbar
           onClickSetMode={setMode}
           onClickSetColor={setColor}
@@ -78,21 +79,11 @@ class Builder extends Component<BuilderProps> {
           removeObject={removeBrick}
           addObject={addBrick}
           updateObject={updateBrick} />
-        <Help inversed={utilsOpen} />
-      </div>
+        {/* <Help inversed={utilsOpen} /> */}
+      </VoyagerContainer>
     );
   }
 }
-
-
-// const mapStateToProps = (state) => ({
-//   mode: getMode(state),
-//   color: getColor(state),
-//   gridVisible: getIsGridVisible(state),
-//   dimensions: getBrickDimensions(state),
-//   utilsOpen: getAreUtilsOpen(state),
-//   bricks: getBricks(state),
-// });
 
 const mapStateToProps = (state: RootState) => {
   return {
