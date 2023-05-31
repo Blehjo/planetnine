@@ -180,6 +180,9 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         if (this.props.chatcomments.chatcomments?.length != prevProps.chatcomments.chatcomments?.length) {
             this.props.getChats();
             this.props.getChatComments(this.props.chats.chatId!);
+            this.setState({
+                chatValue: ""
+            })
         }
     }
 

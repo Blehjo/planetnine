@@ -107,6 +107,9 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
         if (this.props.comments.comments?.length != prevProps.comments.comments?.length) {
             this.props.getComments(this.props.posts.singlePost?.postId!)
             this.props.getAllPosts();
+            this.setState({
+                commentValue: ""
+            })
         }
     }
     

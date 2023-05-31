@@ -53,7 +53,6 @@ export const artificialIntelligenceReducer = (
         return { ...state, isLoading: true }
     }
     if (
-        artificialIntelligenceCreateSuccess.match(action) ||
         artificialIntelligenceUpdateSuccess.match(action) ||
         artificialIntelligenceDeleteSuccess.match(action) ||
         artificialIntelligenceFetchAllSuccess.match(action) 
@@ -69,6 +68,11 @@ export const artificialIntelligenceReducer = (
         artificialIntelligenceFetchSingleSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, singleArtificialIntelligence: action.payload };
+    } 
+    if (
+        artificialIntelligenceCreateSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, userArtificialIntelligences: action.payload };
     } 
     if (
         artificialIntelligenceCreateFailed.match(action) ||

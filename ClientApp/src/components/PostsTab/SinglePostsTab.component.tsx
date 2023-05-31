@@ -75,9 +75,6 @@ export class SinglePostsTab extends Component<UserInfo, IDefaultFormFields> {
         const { posts } = this.props;
         const postId = posts.singlePost?.postId ? posts.singlePost.postId : 0
         this.props.createComment(commentValue, imageFile, postId);
-        this.setState({
-            commentValue: ""
-        });
     }
 
     handleLike(postId: number, type: string): void {
@@ -186,7 +183,10 @@ export class SinglePostsTab extends Component<UserInfo, IDefaultFormFields> {
         //     this.props.getComments(this.props.posts.singlePost?.postId!)
         // }
         if (this.props.comments.comments?.length != prevProps.comments.comments?.length) {
-            this.props.getComments(this.props.posts.singlePost?.postId!)
+            this.props.getComments(this.props.posts.singlePost?.postId!);
+            this.setState({
+                commentValue: ""
+            });
         }
     }
 

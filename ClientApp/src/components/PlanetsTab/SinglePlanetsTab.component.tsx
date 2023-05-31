@@ -67,9 +67,6 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
         const { planets } = this.props;
         const planetId = planets.singlePlanet?.planetId ? planets.singlePlanet.planetId : 0
         this.props.createPlanetComment(commentValue, imageFile, planetId);
-        this.setState({
-            commentValue: ""
-        })
     }
 
     handleCreate(): void {
@@ -133,6 +130,9 @@ export class SinglePlanetsTab extends Component<UserInfo, IPlanetFields> {
     componentDidUpdate(prevProps: Readonly<UserInfo>, prevState: Readonly<IPlanetFields>, snapshot?: any): void {
         if (this.props.planets.singlePlanet?.planetId != prevProps.planets.singlePlanet?.planetId) {
             this.props.getPlanetComments(this.props.planets.singlePlanet?.planetId!);
+            this.setState({
+                commentValue: ""
+            })
         }
     }
 

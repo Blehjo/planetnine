@@ -58,9 +58,6 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
         const postId = posts.singlePost?.postId ? posts.singlePost.postId : 0
         try {
             this.props.createComment(commentValue, imageFile, postId);
-            this.setState({
-                commentValue: "",
-            });
         } catch (error) {
             return error;
         }
@@ -162,14 +159,23 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
     componentDidUpdate(prevProps: Readonly<{ posts: PostState; comments: CommentState; } & { getUserPosts: (userId: number) => void; getComments: (postId: number) => void; }>, prevState: Readonly<IDefaultFormFields>, snapshot?: any): void {
         if (this.props.posts.userPosts?.length != prevProps.posts.userPosts?.length) {
             this.props.getUserPosts(this.props.currentUser.currentUser?.userId);
+            this.setState({
+                postValue: ""
+            })
         }
 
         if (this.props.posts.singlePost?.postId != prevProps.posts.singlePost?.postId) {
             this.props.getUserPosts(this.props.currentUser.currentUser?.userId);
+            this.setState({
+                commentValue: ""
+            })
         }
 
         if (this.props.comments.comments?.length != prevProps.comments.comments?.length) {
-            this.props.getComments(this.props.posts.singlePost?.postId!)
+            this.props.getComments(this.props.posts.singlePost?.postId!);
+            this.setState({
+                commentValue: ""
+            })
         }
     }
 
