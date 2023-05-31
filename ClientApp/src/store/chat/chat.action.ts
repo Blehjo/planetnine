@@ -109,6 +109,11 @@ export type ChatFetchAllFailed = ActionWithPayload<
     Error
 >;
 
+export type ChatSetID = ActionWithPayload<
+    CHAT_ACTION_TYPES.SET_ID,
+    { chatId: number }
+>;
+
 export const chatCreateStart = withMatcher(
     (title: string, artificialId: number): ChatCreateStart => 
     createAction(CHAT_ACTION_TYPES.CREATE_START, { title, artificialId })
@@ -213,3 +218,8 @@ export const chatFetchAllFailed = withMatcher(
     (error: Error): ChatFetchAllFailed => 
     createAction(CHAT_ACTION_TYPES.FETCH_ALL_FAILED, error)
 );
+
+export const chatSetId = withMatcher(
+    (chatId: number) => 
+    createAction(CHAT_ACTION_TYPES.SET_ID, { chatId })
+)

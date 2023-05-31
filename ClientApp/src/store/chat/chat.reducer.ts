@@ -22,10 +22,11 @@ import {
     chatFetchUserChatsStart,
     chatFetchSingleUserChatsSuccess,
     chatFetchUserChatsSuccess,
+    chatSetId,
 } from './chat.action';
 
 export type ChatState = {
-    readonly chatId: number;
+    readonly chatId: number | null;
     readonly singleChat: Chat | null;
     readonly userChats: Chat[] | null;
     readonly singleUserChats: Chat[] | null;
@@ -35,7 +36,7 @@ export type ChatState = {
 };
 
 const INITIAL_STATE: ChatState = {
-    chatId: 0,
+    chatId: null,
     singleChat: null,
     userChats: [],
     singleUserChats: [],
@@ -67,6 +68,11 @@ export const chatReducer = (
         chatFetchUserChatsSuccess.match(action)
     ) {
         return { ...state, isLoading: false, userChats: action.payload }
+    }  
+    if (
+        chatSetId.match(action)
+    ) {
+        return { ...state, isLoading: false, chatId: action.payload.chatId }
     }  
     if (
         chatFetchSingleUserChatsSuccess.match(action)

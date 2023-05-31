@@ -52,7 +52,7 @@ export class Notification extends Component<NotificationProps> {
                     {
                         chats.userChats?.map(({ chatId, title, chatComments }) => {
                         return (
-                            <Col key="controller" className="notifications" xs={12}>
+                            <Col key={chatId} className="notifications" xs={12}>
                             <CardContainer key="model" >
                                 <Row key="controllerrow" xs={2}>
                                 <Col key="chat" xs={9}>

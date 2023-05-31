@@ -29,7 +29,9 @@ import {
     chatFetchSingleUserChatsSuccess,
     chatFetchSingleUserChatsFailed,
     chatFetchUserChatsSuccess,
-    chatFetchUserChatsFailed
+    chatFetchUserChatsFailed,
+    ChatSetID,
+    chatSetId
 } from './chat.action';
 
 import { 
@@ -42,6 +44,10 @@ import {
     editChat,
     deleteChat
 } from '../../utils/api/chat.api';
+
+export function* startSetId({ payload: { chatId }}: ChatSetID) {
+    yield* put(chatSetId(chatId));
+}
 
 export function* createChat({ payload: { title, artificialId }}: ChatCreateStart ) {
     try {
@@ -127,6 +133,13 @@ export function* fetchAllChatsAsync() {
     }
 }
 
+export function* onSetId() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.SET_ID,
+        startSetId
+    );
+}
+
 export function* onCreateStart() {
     yield* takeLatest(
         CHAT_ACTION_TYPES.CREATE_START, 
@@ -178,6 +191,7 @@ export function* onFetchChatsStart() {
 
 export function* chatSagas() {
     yield* all([
+        call(onSetId),
         call(onCreateStart),
         call(onUpdateStart),
         call(onDeleteStart),

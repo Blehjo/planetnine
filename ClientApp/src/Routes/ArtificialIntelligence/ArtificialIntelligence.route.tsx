@@ -7,7 +7,7 @@ import { ConnectedProps, connect } from "react-redux";
 import { ModalPostContainer } from "../../components/ModalPost/ModalPost.styles";
 import CrewPanelComponent from "../../components/CrewPanel/CrewPanel.component";
 import { AiContainer, ChatContainer, CrewContainer, DropdownContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
-import { ChatDeleteStart, ChatFetchUserChatsStart, chatCreateStart, chatDeleteStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
+import { ChatDeleteStart, ChatFetchUserChatsStart, ChatSetID, chatCreateStart, chatDeleteStart, chatFetchUserChatsStart, chatSetId } from "../../store/chat/chat.action";
 import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { ChatCreateStart } from "../../store/chat/chat.action";
 import { ArtificialIntelligenceState } from "../../store/artificialintelligence/artificialintelligence.reducer";
@@ -108,19 +108,18 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         event.preventDefault();
         const { artificialId, chatValue, chatId, imageFile } = this.state;
         const { chats } = this.props;
-        console.log("Current Chat ID: ", chatId);
         try {
-            if (chats.chatId == 0) {
+            if (chats.chatId == null) {
                 await addChat(chatValue, artificialId)
-                .then((response) => this.setState({ chatId: response.chatId }));
-                console.log("Clicked Chat ID: ", chatId);
+                .then((response) => this.props.setId(response.chatId));
+                // console.log("Clicked Chat ID: ", this.props.chats.chatId);
                 await callArtoo(chatValue)
                 .then((response) => this.props.createChat(response.data, artificialId));
             }
-            if (chats.chatId != 0) {
-                this.props.createComment(this.props.chats.singleChat?.chatId!, chatValue, imageFile);
-            }
-        } catch (error) {
+            // if (chats.chatId != null) {
+            //     this.props.createComment(this.props.chats.singleChat?.chatId!, chatValue, imageFile);
+            // }
+        } catch (error: any) {
             if (error) {
                 alert(error)
             }
@@ -166,7 +165,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         this.props.getChats();
     }
 
-    componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; } & { getAllCrew: () => void; getCrew: (userId: number) => void; createCrewMember: (name: string, role: string, imageFile: File) => void; createChat: (title: string, artificialId: number) => void; createComment: (chatId: number, chatValue: string, imageFile: File) => void; getChats: () => void; getChatComments: (chatId: number) => void; deleteChat: (chatId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
+    componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; } & { getAllCrew: () => void; getCrew: (userId: number) => void; createCrewMember: (name: string, role: string, imageFile: File) => void; createChat: (title: string, artificialId: number) => void; createComment: (chatId: number, chatValue: string, imageFile: File) => void; getChats: () => void; getChatComments: (chatId: number) => void; deleteChat: (chatId: number) => void; setId: (chatId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
         if (this.props.chats.userChats?.length != prevProps.chats.userChats?.length) {
             this.props.getChats();
             this.props.getChatComments(this.props.chats.singleChat?.chatId!);
@@ -181,6 +180,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
     render() {
         const { chats, chatcomments, artificialIntelligence } = this.props;
         const { show, name, role, chatValue, dropdown } = this.state;
+        console.log("Current Chat ID: ", chats.singleChat?.chatId);
         return (
             <Fragment>
             <AiContainer className="fixed-top">
@@ -352,7 +352,7 @@ const mapStateToProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<ArtificialIntelligenceFetchUsersStart | ArtificialIntelligenceFetchSingleStart | ArtificialIntelligenceCreateStart | ChatCreateStart | ChatFetchUserChatsStart | ChatCommentCreateStart | ChatCommentFetchSingleStart | ChatDeleteStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<ArtificialIntelligenceFetchUsersStart | ArtificialIntelligenceFetchSingleStart | ArtificialIntelligenceCreateStart | ChatCreateStart | ChatFetchUserChatsStart | ChatCommentCreateStart | ChatCommentFetchSingleStart | ChatDeleteStart | ChatSetID>) => ({
 	getAllCrew: () => dispatch(artificialIntelligenceFetchUsersStart()),
     getCrew: (userId: number ) => dispatch(artificialIntelligenceFetchSingleStart(userId)),
     createCrewMember: (name: string, role: string, imageFile: File) => dispatch(artificialIntelligenceCreateStart(name, role, imageFile)),
@@ -360,7 +360,8 @@ const mapDispatchToProps = (dispatch: Dispatch<ArtificialIntelligenceFetchUsersS
     createComment: (chatId: number, chatValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile)),
     getChats: () => dispatch(chatFetchUserChatsStart()),
     getChatComments: (chatId: number) => dispatch(chatcommentFetchSingleStart(chatId)),
-    deleteChat: (chatId: number) => dispatch(chatDeleteStart(chatId))
+    deleteChat: (chatId: number) => dispatch(chatDeleteStart(chatId)),
+    setId: (chatId: number) => dispatch(chatSetId(chatId))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
