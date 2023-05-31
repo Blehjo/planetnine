@@ -75,7 +75,7 @@ export const IconContainer = styled.div`
 `;
 
 export const CardContainer = styled.div`
-    margin: 1rem;
+    margin: .5rem;
     border-style: solid;
     border-radius: .5rem;
     border-color: white;

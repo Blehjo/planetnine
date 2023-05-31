@@ -1,7 +1,7 @@
 import React from 'react';
 import { autobind } from 'autobind-decorator';
 
-import styles from '../../styles/components/file-uploader.less';
+import styles, { InputContainer, WrapperContainer } from './FileUploader.styles';
 
 
 class FileUploader extends React.Component {
@@ -10,10 +10,12 @@ class FileUploader extends React.Component {
   render() {
     const { children } = this.props;
     return (
-      <div className={styles.wrapper}>
-        <input key="input" className={styles.input} type="file" onChange={(e) => this._handleFileChange(e)} />
+      <WrapperContainer className={"styles.wrapper"}>
+        <InputContainer>
+        <input key="input" className={"styles.input"} type="file" onChange={(e) => this._handleFileChange(e)} />
+        </InputContainer>
         {children}
-      </div>
+      </WrapperContainer>
     );
   }
 

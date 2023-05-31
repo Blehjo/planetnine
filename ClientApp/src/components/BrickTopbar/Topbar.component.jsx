@@ -1,8 +1,9 @@
 import Button from '../BrickButton/Button';
 import ColorPicker from '../ColorPicker/ColorPicker';
 import BrickPicker from '../BrickPicker/BrickPicker';
+// import { TopbarContainer } from './topbar.styles';
 
-import styles from '../../styles/components/topbar.less';
+import { RightSectionContainer, SectionContainer, TitleContainer, TopbarContainer } from './Topbar.styles';
 
 
 export const Topbar = ({
@@ -19,11 +20,11 @@ export const Topbar = ({
   children
 }) => {
   return (
-    <div className={styles.topbar}>
-      <div className={styles.section}>
-        <div className={styles.title}>
+    <TopbarContainer>
+      <SectionContainer >
+        <TitleContainer >
           Mode
-        </div>
+        </TitleContainer>
         <Button
           active={mode === 'build'}
           onClick={() => onClickSetMode('build')}
@@ -34,37 +35,37 @@ export const Topbar = ({
           onClick={() => onClickSetMode('paint')}
           icon="paintbrush"
           text="Paint" />
-      </div>
-      <div className={styles.section}>
-        <div className={styles.title}>
+      </SectionContainer>
+      <SectionContainer>
+        <TitleContainer>
           Color
-        </div>
+        </TitleContainer>
         <ColorPicker background={color} handleSetColor={onClickSetColor} />
-      </div>
-      <div className={styles.section}>
-        <div className={styles.title}>
+      </SectionContainer>
+      <SectionContainer>
+        <TitleContainer>
           Brick
-        </div>
+        </TitleContainer>
         <BrickPicker selectedSize={brickSize} handleSetBrick={onClickSetBrick} />
-      </div>
-      <div className={styles.section}>
-        <div className={styles.title}>
+      </SectionContainer>
+      <SectionContainer>
+        <TitleContainer>
           Scene
-        </div>
+        </TitleContainer>
         <Button
           active={grid}
           onClick={onClickToggleGrid}
           icon="grid"
           text="Grid" />
-      </div>
-      <div className={styles.rightSection}>
+      </SectionContainer>
+      <RightSectionContainer>
         <Button
           active={utilsOpen}
           onClick={onClickToggleUtils}
           icon="navicon-round"
           text="Utils" />
-      </div>
+      </RightSectionContainer>
       {children}
-    </div>
+    </TopbarContainer>
   );
 }

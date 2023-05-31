@@ -1,13 +1,6 @@
-// ----------------
-// MESSAGE
-//
-// Component File
-// ----------------
+import styled from 'styled-components';
 
-@import '~styles/vars';
-
-
-:local(.message) {
+export const MessageContainer = styled.div`
   position: absolute;
   left: @base-margin;
   bottom: @base-margin;
@@ -20,4 +13,4 @@
   > i {
     margin-right: @base-margin-small;
   }
-}
+`;

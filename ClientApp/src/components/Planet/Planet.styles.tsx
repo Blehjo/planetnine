@@ -43,9 +43,7 @@ export const FixedContainer = styled.div`
     h1 {
       align: left !important;
       float: left;
-      margin-left: -4rem;
     }
     margin-right: 0rem;
-    margin-left: 4rem;
   }
 `;

@@ -30,7 +30,7 @@ import {
 import { bricks, colors } from '../../utils/threejs/constants';
 
 export type Brick = {
-    customId?: number,
+    customId?: number;
     x: number; 
     z: number;
 }

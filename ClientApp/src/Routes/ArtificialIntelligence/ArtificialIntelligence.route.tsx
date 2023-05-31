@@ -13,6 +13,8 @@ import { ChatCreateStart } from "../../store/chat/chat.action";
 import { ArtificialIntelligenceState } from "../../store/artificialintelligence/artificialintelligence.reducer";
 import { ChatState } from "../../store/chat/chat.reducer";
 import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
+import { callArtoo } from "../../utils/api/completion.api";
+import { addChat } from "../../utils/api/chat.api";
 
 type ArtificialIntelligenceProps = ConnectedProps<typeof connector>;
 
@@ -102,14 +104,20 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         this.setState({ ...this.state, [name]: value });
     }
 
-    speakWith(event: FormEvent<HTMLFormElement>) {
+    async speakWith(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const { artificialId, chatValue, chatId, imageFile } = this.state;
+        const { chats } = this.props;
+        console.log("Current Chat ID: ", chatId);
         try {
-            if (chatId == 0) {
-                this.props.createChat(chatValue, artificialId);
+            if (chats.chatId == 0) {
+                await addChat(chatValue, artificialId)
+                .then((response) => this.setState({ chatId: response.chatId }));
+                console.log("Clicked Chat ID: ", chatId);
+                await callArtoo(chatValue)
+                .then((response) => this.props.createChat(response.data, artificialId));
             }
-            if (chatId != 0) {
+            if (chats.chatId != 0) {
                 this.props.createComment(this.props.chats.singleChat?.chatId!, chatValue, imageFile);
             }
         } catch (error) {
@@ -187,7 +195,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     <Row>
                         <Col xs={8}>
                         <div onClick={() => this.handleGetMessages(chatId)} key={chatId} >
-                        {title}
+                        {`${title.slice(0,10)}...`}
                         </div>
                         </Col>
                         <Col xs={3}>

@@ -1,18 +1,17 @@
 import axios from "axios";
-import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 
 const api = "https://planetnineservers.azurewebsites.net/api/chatgpt";
 
 const headers = {
-  'Accept': 'application/x-www-form-urlencoded',
-  'Content-Type': 'application/x-www-form-urlencoded'
+  // 'Accept': 'application/json',
+  'Content-Type': 'application/json'
 }
 
-export async function callCompletion(request: string): Promise<string> {
+export async function callArtoo(request: string): Promise<any> {
   return await axios({
     method: 'post',
-    url: `${api}/completion`,
-    data: request,
+    url: `${api}/artoo`,
+    data: {request: request},
     headers: headers,
     withCredentials: true
   });

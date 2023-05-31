@@ -1,15 +1,6 @@
-// ----------------
-// SIDEBAR
-//
-// Component File
-// ----------------
+import styled from 'styled-components';
 
-@import '~styles/vars';
-
-@separator-height: 10px;
-
-
-:local(.sidebar) {
+export const SidebarContainer = styled.div`
   position: absolute;
   top: 100%;
   right: 0;
@@ -18,30 +9,26 @@
   box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.25), inset 2px -2px 3px rgba(0, 0, 0, 0.25);
   transform: translateX(100%);
   transition: all @base-transition-time ease-in-out;
-}
+`
 
-
-:local(.visible) {
+export const VisibleContainer = styled.div`
   composes: sidebar;
   transform: translateX(0);
-}
+`
 
-
-:local(.separator) {
+export const SeperatorContainer = styled.div`
   position: relative;
   height: @separator-height;
   background: @tertiary-blue;
   width: 100%;
   margin-bottom: @base-padding-small;
-}
+`
 
-
-:local(.content) {
+export const ContentContainer = styled.div`
   padding: @base-padding;
-}
+`
 
-
-:local(.row) {
+export const RowContainer = styled.div`
   margin: @base-margin * 2 0;
   color: @white;
   font-size: 0.9em;
@@ -51,10 +38,9 @@
     color: @tertiary-blue;
     cursor: pointer;
   }
-}
+`
 
-
-:local(.text) {
+export const TextContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -62,4 +48,4 @@
   > i {
     margin-right: 10px;
   }
-}
+`

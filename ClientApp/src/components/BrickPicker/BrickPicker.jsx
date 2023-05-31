@@ -5,8 +5,7 @@ import isEqual from 'lodash/isEqual';
 import { displayNameFromDimensions, getBrickIconFromDimensions } from '../../utils/index';
 import { bricks } from '../../utils/threejs/constants';
 
-import styles from '../../styles/components/brick-picker.less';
-
+import { BrickContainer, BrickExampleContainer, BrickIconContainer, BrickPickerContainer, BrickThumb, LabelContainer, PickerContainter, SelectedContainer } from './BrickPicker.styles';
 
 class BrickPicker extends React.Component {
   state = {
@@ -31,28 +30,34 @@ class BrickPicker extends React.Component {
     const { selectedSize, handleSetBrick } = this.props;
     const { open } = this.state;
     return (
-      <div className={styles.brickPicker}>
-        <div className={styles.brick} onClick={this._togglePicker}>
-          <div className={styles.brickIcon}>
+      <BrickPickerContainer>
+        <BrickContainer onClick={this._togglePicker}>
+          <BrickIconContainer>
             {getBrickIconFromDimensions(selectedSize)}
-          </div>
+          </BrickIconContainer>
           {/* {displayNameFromDimensions(selectedSize)} */}
-        </div>
+        </BrickContainer>
         <If cond={open}>
-          <div className={styles.picker} ref={(picker) => this.picker = picker}>
+          <PickerContainter ref={(picker) => this.picker = picker}>
             {bricks.map((b, i) => (
-              <div key={i} className={styles.brickExample}>
-                <div className={isEqual(selectedSize, b) ? styles.selected : styles.brickThumb} onClick={() => handleSetBrick(b)}>
-                  {getBrickIconFromDimensions(b)}
+              <BrickExampleContainer key={i} className={"styles.brickExample"}>
+                <div className={"isEqual(selectedSize, b) ? styles.selected : styles.brickThumb"} onClick={() => handleSetBrick(b)}>
+                  {
+                    isEqual(selectedSize, b) ?
+                    <SelectedContainer>
+                      {getBrickIconFromDimensions(b)}
+                    </SelectedContainer> :
+                    <BrickThumb/>
+                  }
                 </div>
-                <div className={styles.label}>
+                <LabelContainer className={"styles.label"}>
                   {displayNameFromDimensions(b)}
-                </div>
-              </div>
+                </LabelContainer>
+              </BrickExampleContainer>
             ))}
-          </div>
+          </PickerContainter>
         </If>
-      </div>
+      </BrickPickerContainer>
     );
   }
 

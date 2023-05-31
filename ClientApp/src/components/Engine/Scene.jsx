@@ -18,8 +18,8 @@ import {
 } from './Core';
 import { CSSToHex, getMeasurementsFromDimensions } from '../../utils/index';
 import { colors, base } from '../../utils/threejs/constants';
-
-import styles from '../../styles/components/scene.less';
+import { SceneContainer } from './Scene.styles';
+import { ShiftedContainer } from './Scene.styles';
 
 
 class Scene extends Component {
@@ -102,8 +102,8 @@ class Scene extends Component {
     // var spotLightHelper = new THREE.SpotLightHelper( light );
     // this.scene.add( spotLightHelper );
 
-    // const ambientLight = new AmbientLight(0x606060);
-    // this.scene.add(ambientLight);
+    const ambientLight = new THREE.AmbientLight(0x606060);
+    this.scene.add(ambientLight);
 
     // testing
     const pointLight = new THREE.PointLight( 0xfff0f0, 0.6, 100, 0 );
@@ -118,7 +118,7 @@ class Scene extends Component {
     this.grid = grid;
     this.scene.add(grid);
 
-    this.setState({ coreObjects: [ light, /*ambientLight,*/ pointLight, plane, grid, this.rollOverBrick ] });
+    this.setState({ coreObjects: [ light, ambientLight, pointLight, plane, grid, this.rollOverBrick ] });
   }
 
   _initUtils() {
@@ -240,6 +240,7 @@ class Scene extends Component {
       const { translation, rotation } = rollOverBrick;
       const brick = new Brick(intersect, brickColor, dimensions, rotation.y, translation);
       addObject(brick);
+      console.log("hello cube: ", brick)
     }
   }
 
@@ -332,7 +333,13 @@ class Scene extends Component {
     const { mode, shifted } = this.props;
     return(
       <div>
-        <div className={shifted ? styles.shifted : styles.scene} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} />
+        <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} >
+          {
+            shifted ?
+            <SceneContainer/> : 
+            <ShiftedContainer/>
+          }
+        </div>
         <If cond={isDDown && mode === 'build'}>
           <Message>
             <i className="ion-trash-a" />

@@ -23,7 +23,7 @@ export enum MESSAGECOMMENT_ACTION_TYPES  {
 
 export type MessageComment = {
     messageCommentId: number | null;
-    messageValue: string | null;
+    messageValue: string;
     mediaLink: string | null;
     type: string | null;
     dateCreated: Date;

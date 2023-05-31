@@ -25,8 +25,8 @@ import { resetScene } from '../../store/scene/scene.action';
 import { ResetScene } from '../../store/scene/scene.action';
 import { setScene } from '../../store/scene/scene.action';
 import { SetScene } from '../../store/scene/scene.action';
-import { Topbar } from '../BrickTopbar/Topbar';
 import { VoyagerContainer } from '../../routes/Voyager/Voyager.styles';
+import { Topbar } from '../BrickTopbar/Topbar.component';
 
 //import styles from '../../styles/containers/builder.less';
 
@@ -55,7 +55,7 @@ class Builder extends Component<BuilderProps> {
     const { utilsOpen } = ui;
 
     return (
-      <VoyagerContainer>
+      <div style={{ position: "relative", height: "100vh", width: "auto", color: "black" }}>
         <Topbar
           onClickSetMode={setMode}
           onClickSetColor={setColor}
@@ -66,9 +66,12 @@ class Builder extends Component<BuilderProps> {
           brickSize={brick}
           onClickSetBrick={setBrick}
           utilsOpen={utilsOpen}
-          onClickToggleUtils={toggleUtils}>
+          onClickToggleUtils={toggleUtils}
+        >
           <Sidebar utilsOpen={utilsOpen} resetScene={resetScene} objects={bricks} importScene={setScene} />
         </Topbar>
+        <div style={{ width: "100px"}}>
+
         <Scene
           brickColor={color}
           objects={bricks}
@@ -78,9 +81,11 @@ class Builder extends Component<BuilderProps> {
           // shifted={utilsOpen}
           removeObject={removeBrick}
           addObject={addBrick}
-          updateObject={updateBrick} />
+          updateObject={updateBrick} 
+        />
         {/* <Help inversed={utilsOpen} /> */}
-      </VoyagerContainer>
+          </div>
+      </div>
     );
   }
 }

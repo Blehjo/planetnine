@@ -1,13 +1,10 @@
-import React from 'react';
-
-import styles from '../../styles/components/message.less';
-
+import { MessageContainer } from "./Message.styles";
 
 const Message = ({ text, children }) => {
   return (
-    <div className={styles.message}>
+    <MessageContainer>
       {children}
-    </div>
+    </MessageContainer>
   );
 }
 

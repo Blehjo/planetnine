@@ -56,8 +56,8 @@ export class Notification extends Component<NotificationProps> {
                             <CardContainer key="model" >
                                 <Row key="controllerrow" xs={2}>
                                 <Col key="chat" xs={9}>
-                                    <div style={{ textAlign: "left" }} onClick={() => this.handleGetMessages(chatId)} key={chatId} >
-                                    {title}
+                                    <div style={{ padding: ".2rem", textAlign: "left" }} onClick={() => this.handleGetMessages(chatId)} key={chatId} >
+                                    {`${title.slice(0,23)}...`}
                                     </div>
                                 </Col>
                                 <Col key="x" xs={3}>

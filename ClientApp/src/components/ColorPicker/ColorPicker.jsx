@@ -4,7 +4,7 @@ import { GithubPicker } from 'react-color';
 import { SimpleBrick } from '../Icons/Icons';
 import { colors } from '../../utils/threejs/constants';
 
-import styles from '../../styles/components/color-picker.less';
+import styles, { BrickContainer, ColorPickerContainer, PickerContainer, VisibleContainer } from './ColorPicker.styles';
 
 
 class ColorPicker extends React.Component {
@@ -58,19 +58,23 @@ class ColorPicker extends React.Component {
   render() {
     const { background, open } = this.state;
     return (
-      <div className={styles.colorPicker}>
-        <div className={styles.brick} onClick={this._togglePicker}>
+      <ColorPickerContainer className={"styles.colorPicker"}>
+        <BrickContainer className={"styles.brick"} onClick={this._togglePicker}>
           <SimpleBrick color={background} />
-        </div>
-        <div className={open ? styles.visible : styles.picker} ref={(picker) => this.picker = picker}>
+        </BrickContainer>
+        {
+          open ? 
+          <VisibleContainer className={"open ? styles.visible : styles.picker"} ref={(picker) => this.picker = picker}>
           <GithubPicker
             color={background}
             colors={colors}
             onChangeComplete={this._handleChangeColor}
             onSwatchHover={(color) => this.setState({ background: color.hex })}
-          />
-        </div>
-      </div>
+            />
+          </VisibleContainer> : 
+          <PickerContainer/>
+        }
+      </ColorPickerContainer>
     );
   }
 }

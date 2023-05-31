@@ -324,7 +324,7 @@ function ShapeUI({ handleShape }: IShape) {
           defaultValue={angleZ} 
           aria-label="ratio" 
           name="angleZ"
-          onChange={handleChange}
+          onChange={() => handleChange}
         />
         {/* <input
           type="range"

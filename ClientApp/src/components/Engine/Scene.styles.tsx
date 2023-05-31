@@ -1,15 +1,8 @@
-// ----------------
-// SCENE
-//
-// Component File
-// ----------------
+import styled from 'styled-components';
 
-@import '~styles/vars';
+// @shift-amount: 100px;
 
-@shift-amount: 100px;
-
-
-:local(.scene) {
+export const SceneContainer = styled.div`
   position: absolute;
   height: 100%;
   width: 100%;
@@ -20,10 +13,9 @@
   * {
     pointer-events: auto;
   }
-}
+`
 
-
-:local(.shifted) {
+export const ShiftedContainer = styled.div`
   composes: scene;
   transform: translate3d(-@shift-amount, 0, 0);
-}
+`

@@ -1,27 +1,19 @@
-// ----------------
-// BRICK PICKER
-//
-// Component File
-// ----------------
+import styled from 'styled-components';
 
-@import '~styles/vars';
+// @brick-height: 60px;
+// @tip-size: 7px;
 
 
-@brick-height: 60px;
-@tip-size: 7px;
-
-
-:local(.brickPicker) {
+export const BrickPickerContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-}
+`;
 
-
-:local(.brick) {
-  color: @white;
-  height: @brick-height;
+export const BrickContainer = styled.div`
+  color: white;
+  height: .2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,27 +21,25 @@
   &:hover {
     cursor: pointer;
   }
-}
+`;
 
-
-:local(.brickIcon) {
+export const BrickIconContainer = styled.div`
   height: 40px;
   // margin-right: @base-margin-small;
-}
+`;
 
-
-:local(.picker) {
+export const PickerContainter = styled.div`
   position: absolute;
   top: (@brick-height + @base-margin + 5px);
   left: -(@base-margin / 2);
-  padding: @base-padding;
-  background: @secondary-blue;
+  padding: base-padding;
+  background: secondary-blue;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
-  border: 1px solid @primary-blue;
+  border: 1px solid primary-blue;
 
   &:after {
     content: ' ';
@@ -62,11 +52,10 @@
     border-bottom-style: solid;
     border-color: @secondary-blue;
   }
-}
+`;
 
-
-:local(.brickExample) {
-  margin-right: @base-margin;
+export const BrickExampleContainer = styled.div`
+  margin-right: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,32 +64,29 @@
   &:last-child {
     margin-right: 0;
   }
-}
+`;
 
-
-:local(.brickThumb) {
+export const BrickThumb = styled.div`
   height: 50px;
-  margin-bottom: @base-margin-small;
-  padding: @base-padding-small;
-  background-color: @white;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0px 3px 7px rgba(0,0,0,0.6);
-  transition: all @base-transition-time ease-in-out;
+  transition: all base-transition-time ease-in-out;
 
   &:hover {
     cursor: pointer;
     transform: translateY(-2px);
     box-shadow: 0px 5px 10px rgba(0,0,0,0.4);
   }
-}
+`;
 
-
-:local(.selected) {
+export const SelectedContainer = styled.div`
   composes: brickThumb;
-  background-color: @tertiary-blue;
-}
+  background-color: tertiary-blue;
+`;
 
-
-:local(.label) {
-  color: @white;
-}
+export const LabelContainer = styled.div`
+  color: white;
+`;

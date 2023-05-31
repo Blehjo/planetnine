@@ -4,37 +4,42 @@ import autobind from 'autobind-decorator';
 
 import FileUploader from '../FileUploader/FileUploader';
 import Brick from '../Engine/Brick';
-
-import styles from '../../styles/components/sidebar.less';
+import { ContentContainer, RowContainer, SidebarContainer, TextContainer, VisibleContainer } from './Sidebar.styles';
 
 class Sidebar extends Component {
   render() {
     const { utilsOpen, resetScene } = this.props;
     return (
-      <div className={utilsOpen ? styles.visible : styles.sidebar}>
-        <div className={styles.content}>
-          <div className={styles.row} onClick={resetScene}>
-            <div className={styles.text}>
+      // <div className={utilsOpen ? styles.visible : styles.sidebar}>
+      <>
+      { utilsOpen ?
+      <VisibleContainer>
+        <ContentContainer>
+          <RowContainer onClick={resetScene}>
+            <TextContainer>
               <i className="ion-trash-a" />
               <span>Reset scene</span>
-            </div>
-          </div>
-          <div className={styles.row} onClick={this._exportFile}>
-            <div className={styles.text}>
+            </TextContainer>
+          </RowContainer>
+          <RowContainer onClick={this._exportFile}>
+            <TextContainer>
               <i className="ion-log-out" />
               <span>Export scene</span>
-            </div>
-          </div>
-          <div className={styles.row}>
+            </TextContainer>
+          </RowContainer>
+          <RowContainer>
             <FileUploader onFinish={this._importFile}>
-              <div className={styles.text}>
+              <TextContainer>
                 <i className="ion-log-in" />
                 <span>Import scene</span>
-              </div>
+              </TextContainer>
             </FileUploader>
-          </div>
-        </div>
-      </div>
+          </RowContainer>
+        </ContentContainer>
+        </VisibleContainer> :
+      <SidebarContainer/>
+      }
+      </>
     );
   }
 

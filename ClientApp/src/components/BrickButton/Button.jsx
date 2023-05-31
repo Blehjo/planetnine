@@ -1,15 +1,14 @@
-import styles from '../../styles/components/button.less';
-
+import { ActiveContainer, ButtonContainer, IconContainer, TextContainer } from './Button.styles';
 
 const Button = ({ text, icon, active, onClick }) => (
-  <div className={active ? styles.active : styles.button} onClick={onClick}>
-    <div className={styles.icon}>
+  <ButtonContainer className={"active ? styles.active : styles.button"} onClick={onClick}>
+    <IconContainer>
       <i className={`ion-${icon}`} />
-    </div>
-    <div className={styles.text}>
+    </IconContainer>
+    <TextContainer>
       {text}
-    </div>
-  </div>
+    </TextContainer>
+  </ButtonContainer>
 );
 
 

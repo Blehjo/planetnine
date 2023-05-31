@@ -1,51 +1,88 @@
 import styled from 'styled-components';
 
 export const UserMessageContainer = styled.div`
-  height: 92vh; 
-  position: relative;
-  background: darkred; 
-  padding: 4rem;
-  margin-top: 3.5rem;
-  margin-left: 16rem;
-  z-index: 2;
+  height: 90vh;
+  margin-left: .5rem;
+  margin-bottom: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #d4d4d4;
+  border-radius: .2rem;
+  text-align: center;
+  @media (max-width: 994px) {
+    height: 79vh;
+  }
+  @media (max-width: 767px) {
+    margin-left: 12rem;
+    height: 20vh;
+  }
+  @media (max-width: 717px) {
+    margin-left: .5rem;
+    height: 20vh;
+  }
 `;
 
 export const MessageContainer = styled.div`
-  height: 92vh; 
-  width: 18rem; 
-  background: darkred;
-  text-align: center;
-  margin-top: 3.5rem;
-  margin-left: 1rem;
-  color: black;
-  float: left;
+  position: relative;
+  border-radius: .3rem;
   z-index: 2;
 `;
 
 export const CollectionContainer = styled.div`
-  height: 92vh;
+  height: 90vh;
+  margin-left: .5rem;
+  margin-bottom: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #d4d4d4;
+  border-radius: .2rem;
+  text-align: center;
+  @media (max-width: 994px) {
+    height: 79vh;
+  }
+  @media (max-width: 767px) {
+    margin-left: 12rem;
+    height: 20vh;
+  }
+  @media (max-width: 717px) {
+    margin-left: .5rem;
+    height: 20vh;
+  }
 `;
     
 export const MessagebarContainer = styled.div`
-  margin: .5rem 18.5rem 0rem 15.5rem;
+  margin: 4rem 16.5rem 0rem 16rem;
   float: left;
   z-index: 2;
-  @media (min-width: 900px) {
-    margin: .5rem 18.5rem 0rem 15.5rem;
+  @media (min-width: 995px) {
+    margin: 4rem 18.5rem 0rem 16rem;
   }
-  @media (max-width: 899px) {
-    margin: 0rem;
-    padding: 0rem;
+  @media (max-width: 994px) {
+    margin: 4rem 1rem 0rem 16rem;
+  }
+  @media (max-width: 767px) {
+    margin: 4rem 1rem 0rem 5rem;
   }
 `;
 
 export const FormContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  margin-left: 3rem;
-  @media (max-width: 899px) {
-    bottom: 5rem;
+  position: relative;
+  background: #d4d4d4;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  border-radius: .2rem;
+  height: 90vh;
+  @media (max-width: 994px) {
+    height: 79vh;
+  }
+  @media (max-width: 767px) {
+    margin-left: 12rem;
+    margin-bottom: 15rem;
+    height: 58vh;
+  }
+  @media (max-width: 717px) {
+    margin-left: .5rem;
+    margin-bottom: 15rem;
+    height: 60vh;
   }
 `;

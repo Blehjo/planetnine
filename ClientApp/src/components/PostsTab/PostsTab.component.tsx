@@ -223,7 +223,7 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
                                 </Col>
                             </Card.ImgOverlay>
                             <Card.Body>
-                                <Card.Text>{postValue}</Card.Text>
+                                <Card.Text>{`${postValue?.slice(0,10)}...`}</Card.Text>
                             </Card.Body>
                         </Card>
                     </PostContainer>

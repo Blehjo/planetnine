@@ -1,13 +1,6 @@
-// ----------------
-// COLOUR PICKER
-//
-// Component File
-// ----------------
+import styled from 'styled-components';
 
-@import '~styles/vars';
-
-
-:local(.colorPicker) {
+export const ColorPickerContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -15,25 +8,23 @@
   &:hover {
     cursor: pointer;
   }
-}
+`
 
 
-:local(.brick) {
+export const BrickContainer = styled.div`
   width: 35px;
-}
+`;
 
-
-:local(.picker) {
+export const PickerContainer = styled.div`
   position: absolute;
   top: ~'calc(100% + 35px)';
   left: ~'calc(50% - 15px)';
   display: none;
   // transform: translateX();
-}
+`
 
-
-:local(.visible) {
+export const VisibleContainer = styled.div`
   composes: picker;
   display: block;
   // transform: scaleX(0);
-}
+`

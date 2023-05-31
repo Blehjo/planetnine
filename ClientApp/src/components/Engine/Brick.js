@@ -6,9 +6,7 @@ import { mergeMeshes, degToRad } from '../../utils/threejs';
 import { CSSToHex, shadeColor, getMeasurementsFromDimensions } from '../../utils/index';
 import { base } from '../../utils/threejs/constants';
 
-
 const knobSize = 7;
-
 
 export default class Brick extends THREE.Mesh {
   constructor(intersect, color, dimensions, rotation, translation) {
@@ -85,6 +83,8 @@ function createMesh(material, width, height, depth, dimensions) {
     }
   }
 
+  // console.log("Meshes: ", meshes);
   const brickGeometry = mergeMeshes(meshes);
+  // console.log("Brick Geometry: ", brickGeometry);
   return [brickGeometry, material];
 }
