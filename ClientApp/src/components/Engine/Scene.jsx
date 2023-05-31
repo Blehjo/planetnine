@@ -331,6 +331,7 @@ class Scene extends Component {
   render() {
     const { brickHover, isShiftDown, isDDown, isRDown } = this.state;
     const { mode, shifted } = this.props;
+
     return(
       <div>
         <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} >

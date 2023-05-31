@@ -25,6 +25,7 @@ export enum CHAT_ACTION_TYPES  {
     FETCH_ALL_SUCCESS = 'chat/FETCH_ALL_SUCCESS',
     FETCH_ALL_FAILED = 'chat/FETCH_ALL_FAILED',
     SET_ID = 'chat/SET_ID',
+    SET_ID_SUCCESS = 'chat/SET_ID_SUCCESS'
 };
 
 export type Chat = {

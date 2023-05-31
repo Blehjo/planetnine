@@ -15,6 +15,7 @@ import { ChatState } from "../../store/chat/chat.reducer";
 import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 import { callArtoo } from "../../utils/api/completion.api";
 import { addChat } from "../../utils/api/chat.api";
+import { addChatComment } from "../../utils/api/chatcomment.api";
 
 type ArtificialIntelligenceProps = ConnectedProps<typeof connector>;
 
@@ -52,7 +53,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showPreview = this.showPreview.bind(this);
-        this.convertImages = this.convertImages.bind(this);
+        // this.convertImages = this.convertImages.bind(this);
         this.handleGetMessages = this.handleGetMessages.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
@@ -72,6 +73,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
 
     handleGetMessages(chatId: number): void {
         this.props.getChatComments(chatId);
+        this.props.setId(chatId);
     }
 
     handleClick(): void {
@@ -111,14 +113,17 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         try {
             if (chats.chatId == null) {
                 await addChat(chatValue, artificialId)
-                .then((response) => this.props.setId(response.chatId));
-                // console.log("Clicked Chat ID: ", this.props.chats.chatId);
+                .then((response) => this.props.setId(response.chatId))
+                .then((response) => this.props.createComment(this.props.chats.chatId!, chatValue, imageFile));
+
                 await callArtoo(chatValue)
-                .then((response) => this.props.createChat(response.data, artificialId));
+                .then((response) => this.props.createComment(this.props.chats.chatId!, response.data, imageFile));
+            } else {
+                this.props.createComment(this.props.chats.chatId!, chatValue, imageFile);
+
+                await callArtoo(chatValue)
+                .then((response) => this.props.createComment(this.props.chats.chatId!, response.data, imageFile));
             }
-            // if (chats.chatId != null) {
-            //     this.props.createComment(this.props.chats.singleChat?.chatId!, chatValue, imageFile);
-            // }
         } catch (error: any) {
             if (error) {
                 alert(error)
@@ -149,16 +154,16 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         }
     }
 
-    convertImages (value: string) {
-        if (value.startsWith("https")) {
-          const images = value.split("%3D");
-          images.pop()
-          return <div style={{ textAlign: 'center'}}>
-            {images?.map((image) => (<img style={{ margin: '1rem', height: '20rem', width: '20rem' }} key={images.indexOf(image)} src={image + "%3D"} />))}
-          </div>
-        }
-        return value;
-    }
+    // convertImages (value: string) {
+    //     if (value.startsWith("https")) {
+    //       const images = value.split("%3D");
+    //       images.pop()
+    //       return <div style={{ textAlign: 'center'}}>
+    //         {images?.map((image) => (<img style={{ margin: '1rem', height: '20rem', width: '20rem' }} key={images.indexOf(image)} src={image + "%3D"} />))}
+    //       </div>
+    //     }
+    //     return value;
+    // }
 
     componentDidMount(): void {
         this.props.getAllCrew();
@@ -171,7 +176,12 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             this.props.getChatComments(this.props.chats.singleChat?.chatId!);
         }
 
-        if (this.props.chats.singleChat?.chatId != prevProps.chats.singleChat?.chatId) {
+        // if (this.props.chats.chatId != prevProps.chats.chatId) {
+        //     this.props.getChats();
+        //     this.props.getChatComments(this.props.chats.singleChat?.chatId!);
+        // }
+        
+        if (this.props.chatcomments.chatcomments?.length != prevProps.chatcomments.chatcomments?.length) {
             this.props.getChats();
             this.props.getChatComments(this.props.chats.singleChat?.chatId!);
         }
@@ -180,7 +190,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
     render() {
         const { chats, chatcomments, artificialIntelligence } = this.props;
         const { show, name, role, chatValue, dropdown } = this.state;
-        console.log("Current Chat ID: ", chats.singleChat?.chatId);
+
         return (
             <Fragment>
             <AiContainer className="fixed-top">
@@ -244,7 +254,8 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                         return (
                         <ChatContainer  key={chatCommentId}>
                             <div key={chatValue}>
-                            {this.convertImages(chatValue)}
+                            {chatValue}
+                            {/* {this.convertImages(chatValue)} */}
                             </div>
                         </ChatContainer>
                     )}) :

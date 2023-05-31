@@ -114,6 +114,11 @@ export type ChatSetID = ActionWithPayload<
     { chatId: number }
 >;
 
+export type ChatSetIDSuccess = ActionWithPayload<
+    CHAT_ACTION_TYPES.SET_ID_SUCCESS,
+    { chatId: number }
+>;
+
 export const chatCreateStart = withMatcher(
     (title: string, artificialId: number): ChatCreateStart => 
     createAction(CHAT_ACTION_TYPES.CREATE_START, { title, artificialId })
@@ -222,4 +227,9 @@ export const chatFetchAllFailed = withMatcher(
 export const chatSetId = withMatcher(
     (chatId: number) => 
     createAction(CHAT_ACTION_TYPES.SET_ID, { chatId })
-)
+);
+
+export const chatSetIdSuccess = withMatcher(
+    (chatId: number) => 
+    createAction(CHAT_ACTION_TYPES.SET_ID_SUCCESS, { chatId })
+);

@@ -38,9 +38,9 @@ import {
     deleteChatComment
 } from '../../utils/api/chatcomment.api';
 
-export function* createChatComment({ payload: { chatId, chatcommentValue, mediaLink }}: ChatCommentCreateStart ) {
+export function* createChatComment({ payload: { chatId, chatValue, mediaLink }}: ChatCommentCreateStart ) {
     const formData = new FormData();
-    formData.append('chatcommentValue', chatcommentValue);
+    formData.append('chatValue', chatValue);
     formData.append('mediaLink', mediaLink);
     try {
         const chatcomment = yield* call(
@@ -103,11 +103,11 @@ export function* fetchOtherUsersChats({ payload: { userId } }: ChatCommentFetchU
 }
 
 export function* fetchSingleChatCommentAsync({ 
-    payload: { chatcommentId } }: ChatCommentFetchSingleStart) {
+    payload: { chatId } }: ChatCommentFetchSingleStart) {
     try {
         const chatSnapshot = yield* call(
             getSingleChatComment,
-            chatcommentId 
+            chatId 
         );
         yield* put(chatcommentFetchSingleSuccess(chatSnapshot));
     } catch (error) {

@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type ChatCommentCreateStart = ActionWithPayload<
-    CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatId: number, chatcommentValue: string, mediaLink: File }
+    CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatId: number, chatValue: string, mediaLink: File }
 >;
 
 export type ChatCommentCreateSuccess = ActionWithPayload<
@@ -53,7 +53,7 @@ export type ChatCommentDeleteteFailed = ActionWithPayload<
    
 export type ChatCommentFetchSingleStart = ActionWithPayload<
     CHATCOMMENT_ACTION_TYPES.FETCH_SINGLE_START,
-    { chatcommentId: number }
+    { chatId: number }
 >;
 
 export type ChatCommentFetchSingleSuccess = ActionWithPayload<
@@ -96,8 +96,8 @@ export type ChatCommentFetchAllFailed = ActionWithPayload<
 >;
 
 export const chatcommentCreateStart = withMatcher(
-    (chatId: number, chatcommentValue: string, mediaLink: File): ChatCommentCreateStart => 
-    createAction(CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatId, chatcommentValue, mediaLink })
+    (chatId: number, chatValue: string, mediaLink: File): ChatCommentCreateStart => 
+    createAction(CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatId, chatValue, mediaLink })
 );
 
 export const chatcommentCreateSuccess = withMatcher(
@@ -141,8 +141,8 @@ export const chatcommentDeleteFailed = withMatcher(
 );
 
 export const chatcommentFetchSingleStart = withMatcher(
-    (chatcommentId: number): ChatCommentFetchSingleStart => 
-    createAction(CHATCOMMENT_ACTION_TYPES.FETCH_SINGLE_START, { chatcommentId })
+    (chatId: number): ChatCommentFetchSingleStart => 
+    createAction(CHATCOMMENT_ACTION_TYPES.FETCH_SINGLE_START, { chatId })
 );
 
 export const chatcommentFetchSingleSuccess = withMatcher(

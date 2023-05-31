@@ -83,6 +83,7 @@ export const FormContainer = styled.div`
 
 export const ChatContainer = styled.div`
   background: white;
+  color: black;
   margin: 1rem;
   padding: .5rem;
   border-radius: .2rem

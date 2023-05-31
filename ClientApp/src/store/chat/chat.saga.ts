@@ -31,7 +31,8 @@ import {
     chatFetchUserChatsSuccess,
     chatFetchUserChatsFailed,
     ChatSetID,
-    chatSetId
+    chatSetId,
+    chatSetIdSuccess
 } from './chat.action';
 
 import { 
@@ -46,7 +47,7 @@ import {
 } from '../../utils/api/chat.api';
 
 export function* startSetId({ payload: { chatId }}: ChatSetID) {
-    yield* put(chatSetId(chatId));
+    yield* put(chatSetIdSuccess(chatId));
 }
 
 export function* createChat({ payload: { title, artificialId }}: ChatCreateStart ) {
