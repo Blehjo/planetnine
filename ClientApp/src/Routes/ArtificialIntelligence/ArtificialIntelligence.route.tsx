@@ -6,7 +6,7 @@ import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleSta
 import { ConnectedProps, connect } from "react-redux";
 import { ModalPostContainer } from "../../components/ModalPost/ModalPost.styles";
 import CrewPanelComponent from "../../components/CrewPanel/CrewPanel.component";
-import { AiContainer, ChatContainer, CrewContainer, DropdownContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
+import { AiContainer, ChatContainer, CommentContainer, CrewContainer, DropdownContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
 import { ChatDeleteStart, ChatFetchUserChatsStart, ChatSetID, chatCreateStart, chatDeleteStart, chatFetchUserChatsStart, chatSetId } from "../../store/chat/chat.action";
 import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { ChatCreateStart } from "../../store/chat/chat.action";
@@ -16,6 +16,7 @@ import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 import { callArtoo } from "../../utils/api/completion.api";
 import { addChat } from "../../utils/api/chat.api";
 import { addChatComment } from "../../utils/api/chatcomment.api";
+
 
 type ArtificialIntelligenceProps = ConnectedProps<typeof connector>;
 
@@ -175,15 +176,10 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             this.props.getChats();
             this.props.getChatComments(this.props.chats.singleChat?.chatId!);
         }
-
-        // if (this.props.chats.chatId != prevProps.chats.chatId) {
-        //     this.props.getChats();
-        //     this.props.getChatComments(this.props.chats.singleChat?.chatId!);
-        // }
         
         if (this.props.chatcomments.chatcomments?.length != prevProps.chatcomments.chatcomments?.length) {
             this.props.getChats();
-            this.props.getChatComments(this.props.chats.singleChat?.chatId!);
+            this.props.getChatComments(this.props.chats.chatId!);
         }
     }
 
@@ -225,6 +221,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             </Col>
             <Col md={7} lg={8} xl={9}>
                 <FormContainer>
+                    
                 <Form onSubmit={this.speakWith} >
                 <Dropdown as={Anchor} style={{ padding: '1rem', margin: '1rem' }}>
                 <DropdownContainer>
@@ -246,8 +243,8 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 </Dropdown.Menu>
                 </DropdownContainer>
                 </Dropdown>
-                <CrewContainer>
-                <Row style={{ padding: '2rem', overflowY: 'auto' }}>
+                <CommentContainer>
+                <Row >
                     <Col>
                     {
                         chatcomments.userChatcomments ? chatcomments.userChatcomments.map(({ chatCommentId, chatValue }) => { 
@@ -267,7 +264,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                     }
                     </Col>
                 </Row>
-                </CrewContainer>
+                </CommentContainer>
                 <TextBox>
                 <Row  xs={2}>
                     <Col xs={9} sm={10} md={8} lg={8} xl={10}>

@@ -28,6 +28,7 @@ export const CommentContainer = styled.div`
   position: relative; 
   height: 37.5rem;
   overflow-y: auto;
+  overflow-x: hidden;
   width: auto;
 `;
 

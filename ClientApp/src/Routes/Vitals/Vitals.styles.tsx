@@ -5,6 +5,7 @@ export const VitalsContainer = styled.div`
   height: 100vh;
   float: left;
   z-index: 2;
+  overflow-x: hidden;
   @media (min-width: 900px) {
     margin: 4rem 19rem 0rem 16.8rem;
     overflow-y: auto;
@@ -21,5 +22,6 @@ export const VitalsContainer = styled.div`
 
 export const ItemsContainer = styled.div`
   overflow-y: auto;
+  overflow-x: hidden;
   margin: auto;
 `;

@@ -59,6 +59,25 @@ export const HeadingContainer = styled.div`
   
 `;
 
+export const CommentContainer = styled.div`
+  margin: 3rem 2rem 0rem 2rem;
+  width: auto;
+  height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @media (max-width: 994px) {
+    height: 50vh;
+  }
+  @media (max-width: 767px) {
+    margin: 2rem;
+    height: 35vh;
+  }
+  @media (max-width: 717px) {
+    margin: 2rem;
+    height: 38vh;
+  }
+`;
+
 export const FormContainer = styled.div`
   position: relative;
   background: #d4d4d4;
