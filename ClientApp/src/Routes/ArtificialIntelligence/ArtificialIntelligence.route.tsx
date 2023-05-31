@@ -14,21 +14,32 @@ import { ArtificialIntelligenceState } from "../../store/artificialintelligence/
 import { ChatState } from "../../store/chat/chat.reducer";
 import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 import { callArtoo } from "../../utils/api/completion.api";
-import { addChat } from "../../utils/api/chat.api";
-import { addChatComment } from "../../utils/api/chatcomment.api";
+import { addChat, getUserChats, getUsersChats } from "../../utils/api/chat.api";
+import { addChatComment, getUsersChatComments } from "../../utils/api/chatcomment.api";
+import { SearchBox } from "../../components/Searchbar/SearchBox.component";
+import { Chat } from "../../store/chat/chat.types";
+import { ChatComment } from "../../store/chatcomment/chatcomment.types";
+import { ArtificialIntelligence as Ai } from "../../store/artificialintelligence/artificialintelligence.types";
+import { AiList } from "../../components/Searchbar/AiList.component";
+import { getUsersArtificialIntelligences } from "../../utils/api/artificialintelligence.api";
 
 
 type ArtificialIntelligenceProps = ConnectedProps<typeof connector>;
 
 interface IDefaultForms extends IChatForm {
+    artificialIntelligences: Ai[];
+    userchats: Chat[];
+    userchatcomments: ChatComment[];
     name: string;
     role: string;
     imageSource: string | ArrayBuffer | null | undefined;
     imageFile: any;
     show: boolean;
+    showInput: boolean;
     dropdown: string;
     artificialId: number;
     chatId: number;
+    searchField: string;
 }
 
 interface IChatForm {
@@ -39,15 +50,20 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
     constructor(props: ArtificialIntelligenceProps) {
         super(props);
         this.state = {
+            artificialIntelligences: [],
+            userchats: [],
+            userchatcomments: [],
             name: "",
             role: "",
             imageSource: "",
             imageFile: null,
             show: false,
+            showInput: false,
             chatValue: "",
             dropdown: "Choose ",
             artificialId: 0,
-            chatId: 0
+            chatId: 0,
+            searchField: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -59,6 +75,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         this.handleDelete = this.handleDelete.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.speakWith = this.speakWith.bind(this);
+        this.handleClickEvent = this.handleClickEvent.bind(this);
     }
 
     handleDropDown(name: string, artificialId: number): void {
@@ -75,6 +92,10 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
     handleGetMessages(chatId: number): void {
         this.props.getChatComments(chatId);
         this.props.setId(chatId);
+    }
+
+    handleClickEvent() {
+        this.setState({ showInput: !this.state.showInput });
     }
 
     handleClick(): void {
@@ -169,6 +190,15 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
     componentDidMount(): void {
         this.props.getAllCrew();
         this.props.getChats();
+
+        getUsersArtificialIntelligences()
+        .then(artificialIntelligences => this.setState({ artificialIntelligences: artificialIntelligences }));
+       
+        getUsersChats()
+        .then(chats => this.setState({ userchats: chats }));
+
+        getUsersChatComments()
+        .then(chatcomments => this.setState({ userchatcomments: chatcomments }));
     }
 
     componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; } & { getAllCrew: () => void; getCrew: (userId: number) => void; createCrewMember: (name: string, role: string, imageFile: File) => void; createChat: (title: string, artificialId: number) => void; createComment: (chatId: number, chatValue: string, imageFile: File) => void; getChats: () => void; getChatComments: (chatId: number) => void; deleteChat: (chatId: number) => void; setId: (chatId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
@@ -186,10 +216,19 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         }
     }
 
+    onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        this.setState({ searchField: event.target.value });
+    };
+
     render() {
         const { chats, chatcomments, artificialIntelligence } = this.props;
-        const { show, name, role, chatValue, dropdown } = this.state;
-
+        const { artificialIntelligences, userchats, userchatcomments, show, showInput, searchField, name, role, chatValue, dropdown } = this.state;
+        const filteredAis = artificialIntelligences.filter(artificialIntelligence =>
+            artificialIntelligence.name?.toLowerCase().includes(searchField.toLowerCase()));
+        const filteredChats = userchats.filter(chat =>
+            chat.title.toLowerCase().includes(searchField.toLowerCase()));
+        const filteredChatcomments = userchatcomments.filter(chat =>
+            chat.chatValue.toLowerCase().includes(searchField.toLowerCase()));
         return (
             <Fragment>
             <AiContainer className="fixed-top">
@@ -198,7 +237,14 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             <Col xs={12} md={5} lg={4} xl={3}>
                 <CrewContainer>
                 <h1>Artoo<Plus size={40} style={{ cursor: 'pointer' }} onClick={this.handleClick}/></h1>
-                {chats.userChats ? chats.userChats.map(({ chatId, title }) => (
+                    <input style={{ marginTop: '1rem', borderRadius: ".1rem", width: "auto" }} onClick={this.handleClickEvent} placeholder="Search" />
+                        <Modal show={showInput} onHide={this.handleClickEvent}>
+                            <SearchBox onSearchChange={this.onSearchChange} />
+                            <div>
+                                {searchField.length > 0 && <AiList artificialIntelligences={filteredAis} chats={filteredChats} chatcomments={filteredChatcomments} />}
+                            </div>
+                        </Modal>
+                    {chats.userChats ? chats.userChats.map(({ chatId, title }) => (
                     <FirstColumnContainer>
                     <HeadingContainer>
                     <Row>

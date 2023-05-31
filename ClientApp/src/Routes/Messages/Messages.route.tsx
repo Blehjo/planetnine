@@ -10,7 +10,7 @@ import { MessageFetchUserMessagesStart } from "../../store/message/message.actio
 import { messageFetchSingleStart } from "../../store/message/message.action";
 import { ConnectedProps, connect } from "react-redux";
 import { Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
-import { XCircle } from "react-bootstrap-icons";
+import { Plus, XCircle } from "react-bootstrap-icons";
 import { TextBox } from "../ArtificialIntelligence/ArtificialIntelligence.styles";
 import { SearchBox } from "../../components/Searchbar/SearchBox.component";
 import { CardList } from "../../components/Searchbar/CardList.component";
@@ -160,6 +160,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                         <Row>
                             <Col xs={12} md={5} lg={4} xl={3}>
                                 <CollectionContainer>
+                                <h1>Messages<Plus size={40} style={{ cursor: 'pointer' }} /></h1>
                                     <input style={{ marginTop: '1rem', borderRadius: ".1rem", width: "auto" }} onClick={this.handleClickEvent} placeholder="Search" />
                                     <Modal show={show} onHide={this.handleClickEvent}>
                                         <SearchBox onSearchChange={this.onSearchChange} />

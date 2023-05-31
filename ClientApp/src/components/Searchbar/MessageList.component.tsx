@@ -16,8 +16,7 @@ export class MessageList extends Component<ISearchProps> {
 
     render() {
         const { users, messages } = this.props;
-        console.log("Users: ", users);
-        console.log("Messages: ", messages);
+
         return (
             <div className='card-list'>
                 {users.length > 0 && <div style={{ margin: ".5rem", color: "black" }}>
