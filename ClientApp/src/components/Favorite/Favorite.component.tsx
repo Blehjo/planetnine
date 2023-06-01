@@ -76,13 +76,18 @@ export class FavoriteComponent extends Component<FavoriteProps> {
     componentDidMount(): void {
         this.props.getFavorites();
         const { favorites } = this.props;
-        favorites.userFavorites?.forEach(({ contentId, contentType }) => {
-            this.state.userFavorites.push("getFavorite(contentId, contentType)")
-        })
+        const favoritesList = favorites.favorites?.map(({ contentId, contentType }) => 
+            this.setState({
+                userFavorites: this.state.userFavorites.concat(1)
+            })
+            // this.state.userFavorites.concat(getFavorite(contentId, contentType));
+            // this.state.userFavorites.concat(1)
+        )
+        console.log("Favorites List: ", favoritesList)
     }
-
+    
     render() {
-        const { show } = this.state;
+        const { show, userFavorites } = this.state;
         const { favorites, chats, chatcomments, posts, comments } = this.props;
         return (
             <Fragment>
@@ -96,7 +101,7 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                             return (
                                 <FavoriteContainer key={index}>
                                     {
-                                        this.state.userFavorites.push("getFavorite(contentId, contentType)")
+                                        // this.state.userFavorites.concat("getFavorite(contentId, contentType)")
                                     }
                                 </FavoriteContainer>
                             // <FavoriteContainer key={index}>

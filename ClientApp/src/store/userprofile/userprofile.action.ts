@@ -37,11 +37,12 @@ export type UserprofileUpdateStart = ActionWithPayload<
         username: string,
         firstName: string,
         lastName: string,
-        dateOfBirth: Date,
+        dateOfBirth: string,
         emailAddress: string,
         password: string,
         about: string,
-        imageLink: string 
+        imageLink: string,
+        imageFile: File
     }
 >;
 
@@ -138,11 +139,12 @@ export const userprofileUpdateStart = withMatcher(
         username: string, 
         firstName: string,
         lastName: string,
-        dateOfBirth: Date,
+        dateOfBirth: string,
         emailAddress: string,
         password: string,
         about: string,
-        imageLink: string
+        imageLink: string,
+        imageFile: File
     ): UserprofileUpdateStart => 
     createAction(USERPROFILE_ACTION_TYPES.UPDATE_START, {
         userId,
@@ -153,7 +155,8 @@ export const userprofileUpdateStart = withMatcher(
         emailAddress,
         password,
         about,
-        imageLink
+        imageLink,
+        imageFile
     })
 );
 

@@ -28,10 +28,10 @@ export class PilotDash extends Component<PilotDashProps> {
                         return (
                             <PilotContainer key={userId}>
                             <Row xs={2}>
-                                <Col xs={2}>
+                                <Col xs={6} md={2}>
                                     <Image style={{ borderRadius: '.5rem', width: '4rem', height: '4rem', objectFit: 'cover' }} fluid src={imageLink ? imageSource : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                 </Col>
-                                <Col xs={8}>
+                                <Col xs={6}>
                                     <div style = {{ textDecoration: "underline", fontSize: "200%" }}>
                                         <a style={{ textDecoration: "none", color: "black" }} href={`/profile/${userId}`}>
                                             {username}

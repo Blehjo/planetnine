@@ -1,13 +1,19 @@
-import { ChangeEvent, Component, Dispatch, Fragment } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
+import { Anchor, Button, Dropdown, Form, Modal } from "react-bootstrap";
 import { Robot } from 'react-bootstrap-icons';
 
 import { BoxChatContainer, ModalChatContainer } from "./ModalChat.styles";
 import { RootState } from "../../store/store";
-import { ChatCreateStart, chatCreateStart } from "../../store/chat/chat.action";
+import { ChatCreateStart, ChatSetID, chatCreateStart, chatSetId } from "../../store/chat/chat.action";
 import { ChatCommentCreateStart, chatcommentCreateStart } from "../../store/chatcomment/chatcomment.action";
 import { ConnectedProps, connect } from "react-redux";
 import { Chat } from "../../store/chat/chat.types";
+import { addChat } from "../../utils/api/chat.api";
+import { callArtoo } from "../../utils/api/completion.api";
+import { DropdownContainer } from "../../routes/ArtificialIntelligence/ArtificialIntelligence.styles";
+import { ArtificialIntelligenceState } from "../../store/artificialintelligence/artificialintelligence.reducer";
+import { ChatState } from "../../store/chat/chat.reducer";
+import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 
 type ModalChatProps = ConnectedProps<typeof connector>;
 
@@ -16,7 +22,12 @@ interface IModalChatProps {
     chatcommentValue: string;
     mediaLink: any;
     show: boolean;
-    artificialIntelligenceId: number;
+    artificialId: number;
+    chatId: number;
+    searchField: string;
+    imageFile: any;
+    chatValue: string;
+    dropdown: string;
 }
 
 export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
@@ -27,12 +38,26 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
             title: "",
             chatcommentValue: "",
             mediaLink: null,
-            artificialIntelligenceId: 0
+            artificialId: 0,
+            chatId: 0,
+            searchField: "",
+            imageFile: null,
+            chatValue: "",
+            dropdown: "Choose"
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDropDown = this.handleDropDown.bind(this);
+        this.speakWith = this.speakWith.bind(this);
+    }
+
+    handleDropDown(name: string, artificialId: number): void {
+        this.setState({
+            dropdown: name,
+            artificialId: artificialId
+        })
     }
     
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -55,16 +80,51 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
     }
 
     handleSubmit() {
-        const { title, artificialIntelligenceId, chatcommentValue, mediaLink } = this.state;
+        const { title, artificialId, chatcommentValue, chatValue, mediaLink } = this.state;
         const { chats } = this.props;
-        this.props.createChat(title, artificialIntelligenceId);
+        this.props.createChat(title, artificialId);
         const chatId = chats.singleChat?.chatId ? chats.singleChat.chatId : 0;
-        this.props.createChatComment(chatId, chatcommentValue, mediaLink)
+        this.props.createChatComment(chatId, chatValue, mediaLink)
         this.handleClose();
     }
 
+    async speakWith(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        console.log("State: ",this.state)
+        const { artificialId, chatValue, chatId, imageFile } = this.state;
+        const { chats } = this.props;
+        try {
+            if (chats.chatId == null) {
+                await addChat(chatValue, artificialId)
+                .then((response) => this.props.setId(response.chatId))
+                .then((response) => this.props.createChatComment(this.props.chats.chatId!, chatValue, imageFile));
+
+                await callArtoo(chatValue)
+                .then((response) => this.props.createChatComment(this.props.chats.chatId!, response.data, imageFile));
+            } else {
+                this.props.createChatComment(this.props.chats.chatId!, chatValue, imageFile);
+
+                await callArtoo(chatValue)
+                .then((response) => this.props.createChatComment(this.props.chats.chatId!, response.data, imageFile));
+            }
+        } catch (error: any) {
+            if (error) {
+                alert(error)
+            }
+        }
+    }
+
+    componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; } & { createChat: (title: string, artificialIntelligenceId: number) => void; createChatComment: (chatId: number, chatValue: string, imageFile: File) => void; setId: (chatId: number) => void; }>, prevState: Readonly<IModalChatProps>, snapshot?: any): void {
+        if (this.props.chatcomments.chatcomments?.length != prevProps.chatcomments.chatcomments?.length) {
+            this.setState({
+                chatValue: ""
+            })
+        }
+    }
+
     render() {
-        const { show, title, chatcommentValue } = this.state;
+        const { show, chatValue, dropdown } = this.state;
+        const { artificialIntelligence, chats, chatcomments } = this.props;
         return(
             <Fragment>
                 <BoxChatContainer>
@@ -75,40 +135,50 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
                     <Modal.Header closeButton>
                     <Modal.Title>Inquiry</Modal.Title>
                     </Modal.Header>
+                    <Form onSubmit={this.speakWith}>
                     <Modal.Body>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Group className="mb-3" controlId="formMember">
-                        <Form.Control
-                            type="text"
-                            name="title"
-                            placeholder="Inquiry request subject"
-                            autoFocus
-                            value={title}
-                            onChange={this.handleChange}
-                            />
-                        </Form.Group>
+                        <Dropdown as={Anchor} style={{ padding: '1rem', margin: '1rem', width: '80%' }}>
+                        {/* <DropdownContainer> */}
+                        <Dropdown.Toggle split variant="dark" id="dropdown">
+                            {dropdown}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu >
+                            {
+                                artificialIntelligence.userArtificialIntelligences ? artificialIntelligence.userArtificialIntelligences.map(({ artificialIntelligenceId, name, role }) => {
+                                    return (
+                                        <Dropdown.Item as={Anchor} onClick={() => this.handleDropDown(name, artificialIntelligenceId)} key={artificialIntelligenceId?.toString()}>
+                                            {`${name}   `}
+                                        </Dropdown.Item>
+                                    )}) 
+                                : <Dropdown.Item as={Anchor}>
+                                    Add Crew Members
+                                </Dropdown.Item>
+                            }
+                        </Dropdown.Menu>
+                        {/* </DropdownContainer> */}
+                        </Dropdown>
                         <Form.Group
                         className="mb-3"
                         controlId="formInquiry"
                         placeholder="inquire with your crew"
                         >
                         <Form.Control
-                            name="chatcommentValue"
-                            value={chatcommentValue}
+                            style={{ height: '.5rem' }}
+                            name="chatValue"
+                            value={chatValue}
                             onChange={this.handleChange}
                             as="textarea" rows={3} 
+                            placeholder="Give your command"
                         />
                         </Form.Group>
-                    </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                    <button className="btn btn-secondary" onClick={() => this.handleClose()}>
+                    <div className="btn btn-secondary" onClick={this.handleClose}>
                         Close
-                    </button>
-                    <button className="btn btn-primary" onClick={() => this.handleSubmit()}>
-                        Log
-                    </button>
+                    </div>
+                    <input value="Log" type="submit" className="btn btn-primary" />
                     </Modal.Footer>
+                    </Form>
                     </ModalChatContainer>
                 </Modal>
             </Fragment>
@@ -117,12 +187,15 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-    chats: state.chat
+    artificialIntelligence: state.artificialIntelligence,
+    chats: state.chat,
+    chatcomments: state.chatcomment
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<ChatCreateStart | ChatCommentCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<ChatCreateStart | ChatCommentCreateStart | ChatSetID>) => ({
     createChat: (title: string, artificialIntelligenceId: number) => dispatch(chatCreateStart(title, artificialIntelligenceId)),
-    createChatComment: (chatId: number, chatValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile))
+    createChatComment: (chatId: number, chatValue: string, imageFile: File) => dispatch(chatcommentCreateStart(chatId, chatValue, imageFile)),
+    setId: (chatId: number) => dispatch(chatSetId(chatId))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

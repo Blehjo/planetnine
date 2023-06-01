@@ -212,12 +212,10 @@ export class ModalPlanet extends Component<ModalPlanetProps, IPlanetFields> {
                         </Row>
                     </Modal.Body>
             <Modal.Footer>
-            <button className="btn btn-secondary" onClick={() => this.handleClose()}>
+            <div className="btn btn-secondary" onClick={this.handleClose}>
                 Close
-            </button>
-            <button type="submit" className="btn btn-primary">
-                Log
-            </button>
+            </div>
+            <input value="Log" type="submit" className="btn btn-primary"/>
             </Modal.Footer>
             </Form>
             </ModalPlanetContainer>

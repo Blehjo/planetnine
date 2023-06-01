@@ -31,6 +31,7 @@ export class ModalPost extends Component<ModalPostProps, IDefaultFormFields> {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showPreview = this.showPreview.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     handleClick() {
@@ -126,12 +127,10 @@ export class ModalPost extends Component<ModalPostProps, IDefaultFormFields> {
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
-                    <button className="btn btn-secondary" onClick={() => this.handleClose()}>
+                    <div className="btn btn-secondary" onClick={this.handleClose}>
                         Close
-                    </button>
-                    <button type="submit" className="btn btn-primary">
-                        Log
-                    </button>
+                    </div>
+                    <input value="Log" type="submit" className="btn btn-primary"/>
                     </Modal.Footer>
                     </Form>
                     </ModalPostContainer>

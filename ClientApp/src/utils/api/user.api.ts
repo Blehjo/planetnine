@@ -85,29 +85,12 @@ export async function addUser(
 
 export async function editUser(
   userId: number,
-  username: string, 
-  firstName: string,
-  lastName: string,
-  dateOfBirth: Date,
-  emailAddress: string,
-  password: string,
-  about: string,
-  imageLink: string
+  formData: FormData
 ): Promise<User> {
   const response = await axios({
     method: 'put',
     url: `${api}/${userId}`, 
-    data: {
-      userId,
-      username,
-      firstName,
-      lastName,
-      dateOfBirth,
-      emailAddress,
-      password,
-      about,
-      imageLink
-    },
+    data: formData,
     headers: headers,
     withCredentials: true
   });

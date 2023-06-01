@@ -15,7 +15,7 @@ import { ChatState } from "../../store/chat/chat.reducer";
 import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 import { callArtoo } from "../../utils/api/completion.api";
 import { addChat, getUserChats, getUsersChats } from "../../utils/api/chat.api";
-import { addChatComment, getUsersChatComments } from "../../utils/api/chatcomment.api";
+import { addChatComment, getAllChatComments, getUsersChatComments } from "../../utils/api/chatcomment.api";
 import { SearchBox } from "../../components/Searchbar/SearchBox.component";
 import { Chat } from "../../store/chat/chat.types";
 import { ChatComment } from "../../store/chatcomment/chatcomment.types";
@@ -197,7 +197,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         getUsersChats()
         .then(chats => this.setState({ userchats: chats }));
 
-        getUsersChatComments()
+        getAllChatComments()
         .then(chatcomments => this.setState({ userchatcomments: chatcomments }));
     }
 
@@ -237,7 +237,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             <Col xs={12} md={5} lg={4} xl={3}>
                 <CrewContainer>
                 <h1>Artoo<Plus size={40} style={{ cursor: 'pointer' }} onClick={this.handleClick}/></h1>
-                    <input style={{ marginTop: '1rem', borderRadius: ".1rem", width: "auto" }} onClick={this.handleClickEvent} placeholder="Search" />
+                    <input style={{ borderRadius: ".1rem", width: "85%" }} onClick={this.handleClickEvent} placeholder="Search" />
                         <Modal show={showInput} onHide={this.handleClickEvent}>
                             <SearchBox onSearchChange={this.onSearchChange} />
                             <div>
@@ -279,7 +279,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 </Dropdown.Toggle>
                 <Dropdown.Menu >
                     {
-                        artificialIntelligence.userArtificialIntelligences ? artificialIntelligence.userArtificialIntelligences.map(({ artificialIntelligenceId, name, role }) => {
+                        artificialIntelligence.userArtificialIntelligences?.length! > 0 ? artificialIntelligence.userArtificialIntelligences?.map(({ artificialIntelligenceId, name, role }) => {
                             return (
                                 <Dropdown.Item as={Anchor} onClick={() => this.handleDropDown(name, artificialIntelligenceId)} key={artificialIntelligenceId?.toString()}>
                                     {`${name}   `}

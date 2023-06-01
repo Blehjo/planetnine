@@ -72,20 +72,24 @@ export function* updateUser({ payload: {
     emailAddress,
     password,
     about,
-    imageLink
+    imageLink, 
+    imageFile
 }}: UserprofileUpdateStart) {
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('dateOfBirth', dateOfBirth);
+    formData.append('emailAddress', emailAddress);
+    formData.append('password', password);
+    formData.append('about', about);
+    formData.append('imageLink', imageLink);
+    formData.append('imageFile', imageFile);
     try {
         const user = yield* call(
             editUser,
             userId,
-            username,
-            firstName,
-            lastName,
-            dateOfBirth,
-            emailAddress,
-            password,
-            about,
-            imageLink
+            formData
         ); 
         yield* put(userprofileUpdateSuccess(user));
     } catch (error) {

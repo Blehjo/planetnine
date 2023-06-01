@@ -45,5 +45,6 @@ export function getFavorite(favoriteId: number, contentType: string): any {
         default: 
             return 'post';
     }
-    return handleContent(url, favoriteId);
+    // return handleContent(url, favoriteId);
+    return url;
 }

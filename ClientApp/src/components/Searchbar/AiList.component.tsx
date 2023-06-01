@@ -64,7 +64,7 @@ export class AiList extends Component<ISearchProps> {
                     <Card bg="dark" style={{ margin: ".2rem", position: "relative" }} key={chatcomment.chatCommentId} >
                         <Row xs={2}>
                             <Col xs={10}>
-                                <Card.Body>{"chatcomment.chatcommentComments"}</Card.Body>
+                                <Card.Body>{chatcomment.chatValue}</Card.Body>
                             </Col>
                             <Col xs={2}>
                                 <a href={`/singleplanet/${chatcomment.chatCommentId}`} style={{ textDecoration: 'none', color: 'black', position: "absolute", margin: "0", top: "50%", transform: "translateY(-50%)", msTransform: "translateY(-50%)" }} className="btn btn-light">

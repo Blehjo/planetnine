@@ -6,7 +6,6 @@ import { SignUpContainer } from './Sign-Up-Form.styles';
 import { SignUpStart, signUpStart } from '../../store/user/user.action';
 import { RootState } from '../../store/store';
 
-
 interface IDefaultFormFields {
   username: string;
   about: string;
