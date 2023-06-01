@@ -92,6 +92,7 @@ class Scene extends Component {
     this.controls = controls;
 
     this.mount.appendChild(this.renderer.domElement);
+    console.log("Window Inners", window.innerWidth, window.innerHeight, window)
   }
 
   _initEnv() {
@@ -334,13 +335,15 @@ class Scene extends Component {
 
     return(
       <div>
-        <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} >
           {
             shifted ?
-            <SceneContainer/> : 
-            <ShiftedContainer/>
+            <ShiftedContainer>
+              <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} />
+            </ShiftedContainer> : 
+            <SceneContainer>
+              <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} />
+            </SceneContainer>
           }
-        </div>
         <If cond={isDDown && mode === 'build'}>
           <Message>
             <i className="ion-trash-a" />

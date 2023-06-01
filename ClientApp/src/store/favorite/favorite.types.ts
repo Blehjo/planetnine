@@ -25,6 +25,7 @@ export enum FAVORITE_ACTION_TYPES  {
 export type Favorite = {
     favoriteId: number;
     contentId: number;
+    userId: number;
     contentType: string;
     dateCreated: Date | null;
 }

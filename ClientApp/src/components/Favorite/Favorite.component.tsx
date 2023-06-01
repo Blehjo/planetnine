@@ -12,6 +12,12 @@ import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../
 import { FavoriteFetchUserFavoritesStart, favoriteFetchUserFavoritesStart } from "../../store/favorite/favorite.action";
 import { utcConverter } from "../../utils/date/date.utils";
 import { getFavorite } from "../../utils/favorites/favorites.utils";
+import { ChatState } from "../../store/chat/chat.reducer";
+import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
+import { CommentState } from "../../store/comment/comment.reducer";
+import { FavoriteState } from "../../store/favorite/favorite.reducer";
+import { PostState } from "../../store/post/post.reducer";
+import { User } from "../../store/user/user.types";
 
 export interface IChatComment {
     chatCommentId: number;
@@ -75,20 +81,23 @@ export class FavoriteComponent extends Component<FavoriteProps> {
 
     componentDidMount(): void {
         this.props.getFavorites();
-        const { favorites } = this.props;
-        const favoritesList = favorites.favorites?.map(({ contentId, contentType }) => 
-            this.setState({
-                userFavorites: this.state.userFavorites.concat(1)
-            })
-            // this.state.userFavorites.concat(getFavorite(contentId, contentType));
-            // this.state.userFavorites.concat(1)
-        )
-        console.log("Favorites List: ", favoritesList)
+        // this.props.favorites.favorites?.map(({ contentId, contentType }) => 
+        //     getFavorite(contentId, contentType)
+        //     .then((response) => this.setState({ userFavorites: this.state.userFavorites.concat(response) })))
+    }
+
+    componentDidUpdate(prevProps: Readonly<{ chats: ChatState; chatcomments: ChatCommentState; posts: PostState; comments: CommentState; favorites: FavoriteState; currentUser: User | null; } & { getAllChats: () => void; getChat: (chatId: number) => void; getComments: (chatId: number) => void; getFavorites: () => void; }>, prevState: Readonly<{}>, snapshot?: any): void {
+        if (this.props.favorites.favorites?.length != prevProps.favorites.favorites?.length) {
+            this.props.favorites.favorites?.map(({ contentId, contentType }) => 
+                getFavorite(contentId, contentType)
+                .then((response) => this.setState({ userFavorites: this.state.userFavorites.concat(response) })))
+        }
     }
     
     render() {
         const { show, userFavorites } = this.state;
-        const { favorites, chats, chatcomments, posts, comments } = this.props;
+        const { favorites, chats, chatcomments, posts, comments, currentUser } = this.props;
+        console.log(userFavorites);
         return (
             <Fragment>
                 <h1>Favorites</h1>
@@ -97,11 +106,11 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                         columnsCountBreakPoints={{350: 2, 750: 3, 900: 3, 1050: 4}}
                     >
                         <Masonry>
-                        {favorites.userFavorites?.map(({ favoriteId, contentId, contentType, dateCreated }, index) => {
+                        {userFavorites.map(({ favoriteId, contentId, contentType, dateCreated }, index) => {
                             return (
                                 <FavoriteContainer key={index}>
                                     {
-                                        // this.state.userFavorites.concat("getFavorite(contentId, contentType)")
+
                                     }
                                 </FavoriteContainer>
                             // <FavoriteContainer key={index}>
@@ -192,7 +201,8 @@ const mapStateToProps = (state: RootState) => {
         chatcomments: state.chatcomment,
         posts: state.post,
         comments: state.comment,
-        favorites: state.favorite
+        favorites: state.favorite,
+        currentUser: state.user.currentUser
     };
 };
 

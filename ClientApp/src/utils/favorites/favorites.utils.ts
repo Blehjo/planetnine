@@ -1,4 +1,10 @@
 import axios from "axios";
+import { Post } from "../../store/post/post.types";
+import { Chat } from "../../store/chat/chat.types";
+import { Planet } from "../../store/planet/planet.types";
+import { Moon } from "../../store/moon/moon.types";
+import { Comment } from "../../store/comment/comment.types";
+import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 
 const api = "https://planetnineservers.azurewebsites.net/api";
 
@@ -7,7 +13,9 @@ const headers = {
   'Content-Type': 'application/json' 
 }
 
-export async function handleContent(url: string, favoriteId: number): Promise<any[]> {
+type Content = Post | Chat | Planet | Moon | Comment | ChatComment;
+
+export async function handleContent(url: string, favoriteId: number): Promise<Content> {
     const response = await axios({
         method: 'get',
         url: `${api}/${url}/${favoriteId}`,
@@ -18,7 +26,7 @@ export async function handleContent(url: string, favoriteId: number): Promise<an
     return result;
 }
 
-export function getFavorite(favoriteId: number, contentType: string): any {
+export async function getFavorite(favoriteId: number, contentType: string): Promise<Content> {
     let url;
     switch(contentType) {
         case 'post': 
@@ -43,8 +51,7 @@ export function getFavorite(favoriteId: number, contentType: string): any {
             url = 'planet';
             break;
         default: 
-            return 'post';
+            url = 'post';
     }
-    // return handleContent(url, favoriteId);
-    return url;
+    return handleContent(url, favoriteId);
 }
