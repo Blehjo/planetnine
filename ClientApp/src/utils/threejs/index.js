@@ -1,22 +1,14 @@
 import * as THREE from 'three';
-// import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
-// import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-// import  {BufferGeometryUtils}  from 'https://cdn.jsdelivr.net/npm/three@0.125.2/examples/jsm/utils/BufferGeometryUtils.js';
-// const BufferGeometryUtils = require("three/examples/jsm/utils/BufferGeometryUtils.js");
-// const mergeBufferGeometries = require("three/examples/jsm/utils/BufferGeometryUtils.js");
+import * as BufferGeometryUtils from './BufferGeometryUtils';
 
 export function mergeMeshes (meshes) {
-  // console.log("Buffer Geometry Utils: ", typeof BufferGeometryUtils)
-  // console.log("Meshes: ", meshes)
-  // var combined = new BufferGeometryUtils();
-  var combined = new THREE.BoxGeometry();
-  var combined = [];
+  var combined;
+
   for (var i = 0; i < meshes.length; i++) {
     meshes[i].updateMatrix();
-    // combined.mergeGeometries(meshes[i].geometry, meshes[i].matrix);
-    combined.merge(meshes[i].geometry, meshes[i].matrix);
-    combined.push(meshes[i].geometry);
+    combined = BufferGeometryUtils.mergeGeometries(meshes[i].geometry, meshes[i].matrix);
   }
+
   return combined;
 }
 

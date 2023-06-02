@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
-// @shift-amount: 100px;
-
 export const SceneContainer = styled.div`
-  position: absolute;
+  position: relative;
   height: 100%;
   width: 100%;
   pointer-events: none;
@@ -17,5 +15,6 @@ export const SceneContainer = styled.div`
 
 export const ShiftedContainer = styled.div`
   composes: scene;
+  position: relative;
   transform: translate3d(-@shift-amount, 0, 0);
 `

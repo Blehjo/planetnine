@@ -90,7 +90,7 @@ export class ModalChat extends Component<ModalChatProps, IModalChatProps> {
 
     async speakWith(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        console.log("State: ",this.state)
+
         const { artificialId, chatValue, chatId, imageFile } = this.state;
         const { chats } = this.props;
         try {

@@ -68,10 +68,8 @@ class Builder extends Component<BuilderProps> {
           utilsOpen={utilsOpen}
           onClickToggleUtils={toggleUtils}
         >
-          <Sidebar utilsOpen={utilsOpen} resetScene={resetScene} objects={bricks} importScene={setScene} />
+          <Sidebar utilsOpen={utilsOpen} toggleUtils={toggleUtils} resetScene={resetScene} objects={bricks} importScene={setScene} />
         </Topbar>
-        <div style={{ width: "100px"}}>
-
         <Scene
           brickColor={color}
           objects={bricks}
@@ -84,7 +82,6 @@ class Builder extends Component<BuilderProps> {
           updateObject={updateBrick} 
         />
         {/* <Help inversed={utilsOpen} /> */}
-          </div>
       </div>
     );
   }

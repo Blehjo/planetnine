@@ -63,7 +63,7 @@ export const Topbar = ({
           active={utilsOpen}
           onClick={onClickToggleUtils}
           icon="navicon-round"
-          text="Utils" />
+          text="Utilities" />
       </RightSectionContainer>
       {children}
     </TopbarContainer>

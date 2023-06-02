@@ -6,8 +6,8 @@ class Monitor extends Component {
   componentWillMount() {
     const stats = new Stats();
     stats.domElement.style.position = 'absolute';
-  	stats.domElement.style.bottom = '-35px';
-  	stats.domElement.style.zIndex = 100;
+  	// stats.domElement.style.bottom = '0px';
+  	// stats.domElement.style.zIndex = 100;
     this.stats = stats;
     this.updateSubscriber = PubSub.subscribe('monitor', () => this._update(this));
   }
@@ -22,7 +22,7 @@ class Monitor extends Component {
 
   render() {
     const { domElement } = this.stats;
-    // console.log("Dom Element: ", domElement);
+
     return (
       <div ref={(nodeElement) => nodeElement ? nodeElement.appendChild(domElement) : null}/>
     );

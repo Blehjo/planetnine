@@ -80,10 +80,11 @@ class Scene extends Component {
     this.scene = scene;
 
     const renderer = new Renderer({ antialias: true });
-    renderer.init(window.innerWidth, window.innerHeight);
+    renderer.init(window.innerWidth , window.innerHeight);
+    renderer.domElement.style.paddingRight = window.innerWidth >  767 ? "280px" : "100px";
     this.renderer = renderer;
 
-    const camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+    const camera = new PerspectiveCamera(45, (window.innerWidth) / window.innerHeight, 1, 10000);
     camera.init();
     this.camera = camera;
 
@@ -92,7 +93,6 @@ class Scene extends Component {
     this.controls = controls;
 
     this.mount.appendChild(this.renderer.domElement);
-    console.log("Window Inners", window.innerWidth, window.innerHeight, window)
   }
 
   _initEnv() {
@@ -149,9 +149,10 @@ class Scene extends Component {
   }
 
   _onWindowResize(event, scene) {
-    scene.camera.aspect = window.innerWidth / window.innerHeight;
+    scene.camera.aspect = (window.innerWidth) / window.innerHeight;
     scene.camera.updateProjectionMatrix();
     scene.renderer.setSize(window.innerWidth, window.innerHeight);
+    scene.renderer.domElement.style.paddingRight = window.innerWidth >  767 ? "280px" : "100px";
   }
 
   _onMouseMove(event, scene) {
@@ -163,7 +164,8 @@ class Scene extends Component {
     const { width, height } = getMeasurementsFromDimensions(dimensions);
     const evenWidth = dimensions.x % 2 === 0;
     const evenDepth = dimensions.z % 2 === 0;
-    scene.mouse.set( ( (event.clientX / window.innerWidth) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+    scene.mouse.set( ( (event.clientX / (window.innerWidth)) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+    // scene.mouse.set( ( (event.clientX / (window.innerWidth - 280)) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
     scene.raycaster.setFromCamera( scene.mouse, scene.camera );
     const intersects = scene.raycaster.intersectObjects( [ ...objects, this.plane ], true );
     if ( intersects.length > 0) {
@@ -195,7 +197,7 @@ class Scene extends Component {
     if (event.target.localName !== 'canvas') return;
     event.preventDefault();
     if (! drag) {
-      scene.mouse.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+      scene.mouse.set( ( event.clientX / (window.innerWidth) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
       scene.raycaster.setFromCamera( scene.mouse, scene.camera );
       const intersects = scene.raycaster.intersectObjects( [ ...objects, this.plane ] );
       if ( intersects.length > 0 ) {
@@ -241,7 +243,6 @@ class Scene extends Component {
       const { translation, rotation } = rollOverBrick;
       const brick = new Brick(intersect, brickColor, dimensions, rotation.y, translation);
       addObject(brick);
-      console.log("hello cube: ", brick)
     }
   }
 
@@ -320,7 +321,6 @@ class Scene extends Component {
     this.controls.update();
     PubSub.publish('monitor');
 
-    // just testing
     this._renderScene();
     this.frameId = window.requestAnimationFrame(this._animate);
   }
@@ -334,14 +334,17 @@ class Scene extends Component {
     const { mode, shifted } = this.props;
 
     return(
-      <div>
+      <div style={{ position: 'relative' }}>
           {
             shifted ?
             <ShiftedContainer>
-              <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} />
+              {/* <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} /> */}
             </ShiftedContainer> : 
             <SceneContainer>
               <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} />
+              <div style={{ left: "0", bottom: "3rem", position: "absolute" }}>
+                <Monitor />
+              </div>
             </SceneContainer>
           }
         <If cond={isDDown && mode === 'build'}>
@@ -356,7 +359,6 @@ class Scene extends Component {
             <span>Rotating bricks</span>
           </Message>
         </If>
-        <Monitor />
       </div>
     );
   }

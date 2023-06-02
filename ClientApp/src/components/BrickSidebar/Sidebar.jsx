@@ -5,38 +5,54 @@ import autobind from 'autobind-decorator';
 import FileUploader from '../FileUploader/FileUploader';
 import Brick from '../Engine/Brick';
 import { ContentContainer, RowContainer, SidebarContainer, TextContainer, VisibleContainer } from './Sidebar.styles';
+import { Card, Dropdown, Modal } from 'react-bootstrap';
 
 class Sidebar extends Component {
+
   render() {
-    const { utilsOpen, resetScene } = this.props;
+    const { utilsOpen, resetScene, toggleUtils } = this.props;
+
     return (
       // <div className={utilsOpen ? styles.visible : styles.sidebar}>
       <>
       { utilsOpen ?
-      <VisibleContainer>
-        <ContentContainer>
-          <RowContainer onClick={resetScene}>
-            <TextContainer>
-              <i className="ion-trash-a" />
-              <span>Reset scene</span>
-            </TextContainer>
-          </RowContainer>
-          <RowContainer onClick={this._exportFile}>
-            <TextContainer>
-              <i className="ion-log-out" />
-              <span>Export scene</span>
-            </TextContainer>
-          </RowContainer>
-          <RowContainer>
-            <FileUploader onFinish={this._importFile}>
-              <TextContainer>
-                <i className="ion-log-in" />
-                <span>Import scene</span>
-              </TextContainer>
-            </FileUploader>
-          </RowContainer>
-        </ContentContainer>
-        </VisibleContainer> :
+      <Modal onHide={toggleUtils} show={utilsOpen}>
+        <Modal.Header style={{ color: "black" }} closeButton >
+          Utilities
+        </Modal.Header>
+          <Modal.Body>
+            <VisibleContainer>
+              <ContentContainer>
+                <Card style={{ padding: "1rem", margin: "1rem" }} bg="dark">
+                <RowContainer onClick={resetScene}>
+                  <TextContainer>
+                    <i className="ion-trash-a" />
+                    <span>Reset scene</span>
+                  </TextContainer>
+                </RowContainer>
+                </Card>
+                <Card style={{ padding: "1rem", margin: "1rem" }} bg="dark">
+                <RowContainer onClick={this._exportFile}>
+                  <TextContainer>
+                    <i className="ion-log-out" />
+                    <span>Export scene</span>
+                  </TextContainer>
+                </RowContainer>
+                </Card>
+                <Card style={{ padding: "1rem", margin: "1rem" }} bg="dark">
+                <RowContainer>
+                  <FileUploader onFinish={this._importFile}>
+                    <TextContainer>
+                      <i className="ion-log-in" />
+                      <span>Import scene</span>
+                    </TextContainer>
+                  </FileUploader>
+                </RowContainer>
+                </Card>
+              </ContentContainer>
+            </VisibleContainer> 
+          </Modal.Body>
+        </Modal> :
       <SidebarContainer/>
       }
       </>

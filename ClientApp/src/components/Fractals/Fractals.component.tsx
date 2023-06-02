@@ -264,7 +264,7 @@ function ShapeUI({ handleShape }: IShape) {
   
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, defaultValue } = event.target;
-    console.log("Target: ", name, defaultValue)
+    // console.log("Target: ", name, defaultValue)
     setState(state => ({ ...state, [name]: defaultValue }));
   };
 

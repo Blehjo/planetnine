@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import * as THREE from 'three';
 
 import { mergeMeshes, degToRad } from '../../utils/threejs';
@@ -35,7 +35,7 @@ export default class Brick extends THREE.Mesh {
     this.geometry.translate(translation, 0, translation);
     this.castShadow = true;
     this.receiveShadow = true;
-    this.customId = uuid();
+    this.customId = v4();
     this.defaultColor = cubeMaterial.color;
 
     this._intersect = intersect;
@@ -83,8 +83,7 @@ function createMesh(material, width, height, depth, dimensions) {
     }
   }
 
-  // console.log("Meshes: ", meshes);
   const brickGeometry = mergeMeshes(meshes);
-  // console.log("Brick Geometry: ", brickGeometry);
+  
   return [brickGeometry, material];
 }
