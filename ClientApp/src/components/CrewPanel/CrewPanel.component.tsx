@@ -1,12 +1,11 @@
 import { Component, Dispatch } from "react";
-import { IconContainer, NotificationsContainer, SidebarContainer } from "../Notification/Notifications.styles";
+import { IconContainer, SidebarContainer } from "../Notification/Notifications.styles";
 import { RootState } from "../../store/store";
-import { ChatFetchSingleStart, ChatFetchUserChatsStart, chatFetchSingleStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
+import { ChatFetchUserChatsStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
 import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { ConnectedProps, connect } from "react-redux";
-import { Card, Col, Image, Row } from "react-bootstrap";
+import { Col, Image, Row } from "react-bootstrap";
 import { ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersFailed, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
-import { Robot } from "react-bootstrap-icons";
 import { CrewContainer } from "./CrewPanel.styles";
 import { ArtificialIntelligenceState } from "../../store/artificialintelligence/artificialintelligence.reducer";
 import { ChatState } from "../../store/chat/chat.reducer";
@@ -22,13 +21,13 @@ export class CrewPanel extends Component<CrewPanelProps> {
 
     componentDidUpdate(prevProps: Readonly<{ artificialIntelligences: ArtificialIntelligenceState; chats: ChatState; chatComments: ChatCommentState; } & { getCrewMembers: () => void; getSingleCrewMember: (artificialIntelligenceId: number) => void; getChats: () => void; getChatcomments: (artificialIntelligenceId: number) => void; }>, prevState: Readonly<{}>, snapshot?: any): void {
         const { artificialIntelligences, getCrewMembers } = this.props;
-        if (artificialIntelligences.userArtificialIntelligences?.length != prevProps.artificialIntelligences.userArtificialIntelligences?.length) {
+        if (artificialIntelligences.userArtificialIntelligences?.length !== prevProps.artificialIntelligences.userArtificialIntelligences?.length) {
             getCrewMembers();
         }
     }
 
     render() {
-        const { chats, artificialIntelligences } = this.props;
+        const { artificialIntelligences } = this.props;
         return (
             <SidebarContainer >
                 <CrewContainer>

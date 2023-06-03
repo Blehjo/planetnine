@@ -25,7 +25,6 @@ import { resetScene } from '../../store/scene/scene.action';
 import { ResetScene } from '../../store/scene/scene.action';
 import { setScene } from '../../store/scene/scene.action';
 import { SetScene } from '../../store/scene/scene.action';
-import { VoyagerContainer } from '../../routes/Voyager/Voyager.styles';
 import { Topbar } from '../BrickTopbar/Topbar.component';
 
 //import styles from '../../styles/containers/builder.less';

@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { saveAs } from 'file-saver';
-import autobind from 'autobind-decorator';
 
 import FileUploader from '../FileUploader/FileUploader';
 import Brick from '../Engine/Brick';

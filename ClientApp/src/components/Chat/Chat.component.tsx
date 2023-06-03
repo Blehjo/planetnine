@@ -1,8 +1,8 @@
 import { ConnectedProps, connect } from "react-redux";
 import { Component, Fragment, Dispatch, ChangeEvent } from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { ArrowsFullscreen, Chat, Globe, Rocket, Send } from 'react-bootstrap-icons';
-import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
+import { ArrowsFullscreen, Chat, Rocket, Send } from 'react-bootstrap-icons';
+import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 
 import { ChatContainer } from "./Chat.styles";
 import { BadgeContainer } from "../Pilots/Pilots.styles";
@@ -11,7 +11,7 @@ import { RootState } from "../../store/store";
 import { ChatFetchAllStart, ChatFetchSingleStart, chatFetchAllStart, chatFetchSingleStart } from "../../store/chat/chat.action";
 import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
-import { CardContainer, CommentContainer, FormContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
+import { CardContainer, CommentContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
 
 type ChatProps = ConnectedProps<typeof connector>;
 

@@ -1,5 +1,5 @@
 import { Fragment, Component } from 'react';
-import { Badge, Button, Card, Col, Image, Modal, Row } from 'react-bootstrap';
+import { Badge, Card, Col, Image, Modal, Row } from 'react-bootstrap';
 import { ProfileProps } from '../Profile/Profile.component';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { ChatContainer } from '../Chat/Chat.styles';
@@ -65,7 +65,7 @@ export class ChatsTab extends Component<ProfileProps, ChatsTabProps> {
     }
 
     componentDidUpdate(prevProps: Readonly<{ chats: ChatState; } & { getChats: () => void; }>, prevState: Readonly<ChatsTabProps>, snapshot?: any): void {
-        if (this.props.chats.userChats?.length != prevProps.chats.userChats?.length) {
+        if (this.props.chats.userChats?.length !== prevProps.chats.userChats?.length) {
             this.props.getChats();
         }
     }

@@ -1,8 +1,6 @@
-// import * as THREE from 'three';
 import * as THREE from 'three';
 import { OrthographicCamera } from './Camera';
 
-// export class Light extends THREE.SpotLight {
 export class Light extends THREE.SpotLight {
   constructor() {
     // super(0xff8c85);
@@ -24,5 +22,5 @@ export class Light extends THREE.SpotLight {
 }
 
 
-// export class AmbientLight extends THREE.AmbientLight {
-// }
+export class AmbientLight extends THREE.AmbientLight {
+}

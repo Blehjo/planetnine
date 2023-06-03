@@ -1,9 +1,8 @@
 import { v4 } from 'uuid';
 import * as THREE from 'three';
 
-import { mergeMeshes, degToRad } from '../../utils/threejs';
-// import BufferSubdivisionModifier from 'utils/threejs/BufferSubdivisionModifier';
-import { CSSToHex, shadeColor, getMeasurementsFromDimensions } from '../../utils/index';
+import { mergeMeshes } from '../../utils/threejs';
+import { CSSToHex, getMeasurementsFromDimensions } from '../../utils/index';
 import { base } from '../../utils/threejs/constants';
 
 const knobSize = 7;

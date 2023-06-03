@@ -95,7 +95,7 @@ export class Comment extends Component<CommentQuery, IDefaultFormFields> {
     }
     
     componentDidUpdate(prevProps: Readonly<CommentQuery>, prevState: Readonly<IDefaultFormFields>, snapshot?: any): void {
-        if (this.props.comments.comments?.length != prevProps.comments.comments?.length) {
+        if (this.props.comments.comments?.length !== prevProps.comments.comments?.length) {
             this.props.getComments(this.props.posts.singlePost?.postId!)
         }
     }

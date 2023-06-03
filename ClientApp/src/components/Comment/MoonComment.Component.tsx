@@ -1,5 +1,5 @@
 import { ChangeEvent, Component, Dispatch, FormEvent } from "react";
-import { CardContainer, CommentBarContainer, CommentContainer, FormContainer, InnerComments } from "./Comment.styles";
+import { CardContainer, CommentBarContainer, CommentContainer, FormContainer } from "./Comment.styles";
 import { ConnectedProps, connect } from "react-redux";
 
 import { RootState } from "../../store/store";
@@ -10,7 +10,7 @@ import { utcConverter } from "../../utils/date/date.utils";
 
 import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
 import { Moon } from "../../store/moon/moon.types";
-import { PhoneLandscape, Send } from "react-bootstrap-icons";
+import { Send } from "react-bootstrap-icons";
 
 interface CommentQuery extends CommentProps {
     queryId: number;
@@ -96,7 +96,7 @@ export class MoonComment extends Component<CommentQuery, IDefaultFormFields> {
     }
 
     componentDidUpdate(prevProps: Readonly<CommentQuery>, prevState: Readonly<IDefaultFormFields>, snapshot?: any): void {
-        if (this.props.moons.userMoons?.length != prevProps.moons.userMoons?.length) {
+        if (this.props.moons.userMoons?.length !== prevProps.moons.userMoons?.length) {
             this.props.getComments(this.props.moons.singleMoon?.moonId!);
         }
     }

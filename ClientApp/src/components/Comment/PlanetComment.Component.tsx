@@ -2,7 +2,7 @@ import { ChangeEvent, Component, Dispatch, FormEvent } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import { Card, Col, Form, Row } from "react-bootstrap";
 
-import { CardContainer, CommentBarContainer, CommentContainer, FormContainer, InnerComments } from "./Comment.styles";
+import { CardContainer, CommentBarContainer, CommentContainer, FormContainer } from "./Comment.styles";
 import { RootState } from "../../store/store";
 import { TextContainer } from "../Post/Post.styles";
 import { utcConverter } from "../../utils/date/date.utils";

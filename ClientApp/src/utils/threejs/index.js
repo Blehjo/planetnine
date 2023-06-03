@@ -1,4 +1,3 @@
-import * as THREE from 'three';
 import * as BufferGeometryUtils from './BufferGeometryUtils';
 
 export function mergeMeshes (meshes) {
@@ -8,7 +7,7 @@ export function mergeMeshes (meshes) {
     meshes[i].updateMatrix();
     combined = BufferGeometryUtils.mergeGeometries(meshes[i].geometry, meshes[i].matrix);
   }
-  console.log("Combined: ", combined)
+  // console.log("Combined: ", combined)
   return combined;
 }
 

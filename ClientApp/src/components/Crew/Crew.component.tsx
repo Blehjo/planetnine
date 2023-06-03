@@ -11,14 +11,11 @@ import { HeaderContainer } from "../PilotDash/PilotDash.styles";
 type CrewProps = ConnectedProps<typeof connector>;
 
 export class Crew extends Component<CrewProps> {
-    constructor(props: CrewProps) {
-        super(props);
-
-    }
 
     componentDidMount(): void {
         this.props.getAllCrew();
     }
+
     render() {
         const { artificialIntelligence } = this.props;
         return(

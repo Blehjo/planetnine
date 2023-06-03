@@ -27,6 +27,7 @@
 /Users/blehjo/projects/planetnine/planetnine/obj/Debug/net7.0/planetnine.genruntimeconfig.cache
 /Users/blehjo/projects/planetnine/planetnine/obj/Debug/net7.0/ref/planetnine.dll
 /Users/blehjo/projects/planetninesolution/planetnine/bin/Debug/net7.0/spa.proxy.json
+/Users/blehjo/projects/planetninesolution/planetnine/bin/Debug/net7.0/package-lock.json
 /Users/blehjo/projects/planetninesolution/planetnine/bin/Debug/net7.0/planetnine
 /Users/blehjo/projects/planetninesolution/planetnine/bin/Debug/net7.0/planetnine.deps.json
 /Users/blehjo/projects/planetninesolution/planetnine/bin/Debug/net7.0/planetnine.runtimeconfig.json
@@ -54,4 +55,3 @@
 /Users/blehjo/projects/planetninesolution/planetnine/obj/Debug/net7.0/planetnine.pdb
 /Users/blehjo/projects/planetninesolution/planetnine/obj/Debug/net7.0/planetnine.genruntimeconfig.cache
 /Users/blehjo/projects/planetninesolution/planetnine/obj/Debug/net7.0/ref/planetnine.dll
-/Users/blehjo/projects/planetninesolution/planetnine/bin/Debug/net7.0/package-lock.json
