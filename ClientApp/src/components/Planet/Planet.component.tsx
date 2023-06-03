@@ -106,7 +106,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
         const { planets, planetcomments } = this.props;
         return (
             <Fragment>
-                <FixedContainer className="fixed-top">
+                {/* <FixedContainer className="fixed-top"> */}
                     <PlanetPanelContainer>
                         <h1>Planets</h1>
                         <ResponsiveMasonry
@@ -133,7 +133,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                             </Masonry>
                         </ResponsiveMasonry>
                     </PlanetPanelContainer>
-                </FixedContainer>
+                {/* </FixedContainer> */}
                 <NotificationComponent/>
                 <Modal 
                     size="lg"

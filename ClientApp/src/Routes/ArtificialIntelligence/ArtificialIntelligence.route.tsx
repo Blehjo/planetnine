@@ -270,7 +270,6 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             </Col>
             <Col md={7} lg={8} xl={9}>
                 <FormContainer>
-                    
                 <Form onSubmit={this.speakWith} >
                 <Dropdown as={Anchor} style={{ padding: '1rem', margin: '1rem' }}>
                 <DropdownContainer>

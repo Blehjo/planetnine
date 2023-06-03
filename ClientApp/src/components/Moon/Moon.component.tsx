@@ -105,7 +105,7 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
         const { show } = this.state;
         return (
             <Fragment>
-                <FixedMoonContainer className="fixed-top">
+                {/* <FixedMoonContainer className="fixed-top"> */}
                     <MoonPanelContainer>
                         <h1>Moons</h1>
                         <ResponsiveMasonry
@@ -132,7 +132,7 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                             </Masonry>
                         </ResponsiveMasonry>
                     </MoonPanelContainer>
-                </FixedMoonContainer>
+                {/* </FixedMoonContainer> */}
                 <NotificationComponent/>
                 <Modal 
                     size="lg"

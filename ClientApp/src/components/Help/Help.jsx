@@ -4,6 +4,7 @@ import  { createPortal } from 'react-dom';
 
 import styles from '../../styles/components/help.less';
 import { Modal } from 'react-bootstrap';
+import { Info, InfoCircle } from 'react-bootstrap-icons';
 
 class Help extends React.Component {
   state = {
@@ -30,8 +31,8 @@ class Help extends React.Component {
     return (
       <div style={{ zIndex: '100', position: 'absolute', bottom: '.8rem', right: '0' }}  className={styles.help}>
         <div className={inversed ? styles.inversed : styles.text} onClick={this._toggleHelp}>
-          <i className="ion-information-circled" />
-          <span style={{ cursor: 'pointer', background: 'blue', padding: '1rem' }}>Help</span>
+          <InfoCircle size={15} style={{ cursor: 'pointer', alignItems: 'start' }} />
+          <span style={{ cursor: 'pointer', alignItems: 'end', padding: '1rem 1rem 1rem .2rem' }}>Help</span>
         </div>
         <Modal style={{ color: 'black' }} show={open} onHide={this._toggleHelp} className={"open ? styles.modalWrapper : styles.closedModal"}>
           <Modal.Header style={{ textAlign: 'center' }} closeButton>

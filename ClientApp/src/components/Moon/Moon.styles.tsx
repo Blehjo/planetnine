@@ -19,14 +19,16 @@ export const MoonBarContainer = styled.div`
 `;
 
 export const MoonPanelContainer = styled.div`
-margin-top: 3.5rem;
-color: white;
-height: 92vh;
-overflow-y: auto;
-padding-left: 16.5rem;
-@media (max-width: 717px) {
-  padding-left: 4rem;
-}
+  @media (min-width: 900px) {
+    margin-right: 18rem;
+    color: white;
+    height: 92vh;
+    overflow-y: auto;
+  }
+  @media (max-width: 899px) {
+    margin-right: 0rem;
+    margin-bottom: 8rem;
+  }
 `;
     
 export const FixedMoonContainer = styled.div`

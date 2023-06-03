@@ -81,7 +81,19 @@ class Scene extends Component {
 
     const renderer = new Renderer({ antialias: true });
     renderer.init(window.innerWidth , window.innerHeight);
-    renderer.domElement.style.paddingRight = window.innerWidth >  767 ? "280px" : "100px";
+    if  (window.innerWidth > 500) {
+      renderer.domElement.style.paddingRight = "100px";
+    }
+    if  (window.innerWidth > 600) {
+      renderer.domElement.style.paddingRight = "150px";
+    }
+    if  (window.innerWidth > 717) {
+      renderer.domElement.style.paddingRight = "250px";
+    }
+    if  (window.innerWidth > 767) {
+      renderer.domElement.style.paddingRight = "280px";
+    }
+    // renderer.domElement.style.paddingRight = window.innerWidth >  767 ? "280px" : "100px";
     this.renderer = renderer;
 
     const camera = new PerspectiveCamera(45, (window.innerWidth) / window.innerHeight, 1, 10000);
@@ -152,7 +164,19 @@ class Scene extends Component {
     scene.camera.aspect = (window.innerWidth) / window.innerHeight;
     scene.camera.updateProjectionMatrix();
     scene.renderer.setSize(window.innerWidth, window.innerHeight);
-    scene.renderer.domElement.style.paddingRight = window.innerWidth >  767 ? "280px" : "100px";
+    if  (window.innerWidth > 500) {
+      scene.renderer.domElement.style.paddingRight = "100px";
+    }
+    if  (window.innerWidth > 600) {
+      scene.renderer.domElement.style.paddingRight = "150px";
+    }
+    if  (window.innerWidth > 717) {
+      scene.renderer.domElement.style.paddingRight = "250px";
+    }
+    if  (window.innerWidth > 767) {
+      scene.renderer.domElement.style.paddingRight = "280px";
+    }
+    // scene.renderer.domElement.style.paddingRight = window.innerWidth >  767 ? "280px" : "100px";
   }
 
   _onMouseMove(event, scene) {
@@ -164,8 +188,8 @@ class Scene extends Component {
     const { width, height } = getMeasurementsFromDimensions(dimensions);
     const evenWidth = dimensions.x % 2 === 0;
     const evenDepth = dimensions.z % 2 === 0;
-    scene.mouse.set( ( (event.clientX / (window.innerWidth)) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
-    // scene.mouse.set( ( (event.clientX / (window.innerWidth - 280)) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+    // scene.mouse.set( ( (event.clientX / (window.innerWidth)) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+    scene.mouse.set( ( (event.clientX / (window.innerWidth)) ) * 2 - 1.2, - ( event.clientY / window.innerHeight ) * 2 + 1.2 );
     scene.raycaster.setFromCamera( scene.mouse, scene.camera );
     const intersects = scene.raycaster.intersectObjects( [ ...objects, this.plane ], true );
     if ( intersects.length > 0) {
@@ -202,7 +226,6 @@ class Scene extends Component {
       const intersects = scene.raycaster.intersectObjects( [ ...objects, this.plane ] );
       if ( intersects.length > 0 ) {
         const intersect = intersects[ 0 ];
-        console.log("Intersect: ", intersect);
         if (mode === 'build') {
           // delete cube
           if ( isDDown ) {
@@ -243,7 +266,6 @@ class Scene extends Component {
     if (canCreate) {
       const { translation, rotation } = rollOverBrick;
       const brick = new Brick(intersect, brickColor, dimensions, rotation.y, translation);
-      console.log("brick: ", brick)
       addObject(brick);
     }
   }
@@ -340,10 +362,10 @@ class Scene extends Component {
           {
             shifted ?
             <ShiftedContainer>
-              {/* <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} /> */}
+              <div style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} />
             </ShiftedContainer> : 
             <SceneContainer>
-              <div className={"shifted ? styles.shifted : styles.scene"} style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} />
+              <div style={{ cursor: isShiftDown ? 'move' : (brickHover ? 'pointer' : 'default') }} ref={(mount) => { this.mount = mount }} />
               <div style={{ left: "0", bottom: "3rem", position: "absolute" }}>
                 <Monitor />
               </div>

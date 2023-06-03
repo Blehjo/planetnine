@@ -28,10 +28,8 @@ class Sidebar extends Component {
 
   render() {
     const { utilsOpen, resetScene, toggleUtils } = this.props;
-    console.log("Props: ", this.props)
 
     return (
-      // <div className={utilsOpen ? styles.visible : styles.sidebar}>
       <>
       { utilsOpen ?
       <Modal onHide={toggleUtils} show={utilsOpen}>
@@ -79,7 +77,6 @@ class Sidebar extends Component {
 
   // @autobind
   _exportFile() {
-    // console.log("Props: ", this.props)
     const { objects } = this.props;
     const fileName = 'scene.json';
     const simplified = objects.map((o) => ({
