@@ -8,9 +8,27 @@ import { ContentContainer, RowContainer, SidebarContainer, TextContainer, Visibl
 import { Card, Dropdown, Modal } from 'react-bootstrap';
 
 class Sidebar extends Component {
+  // _exportFile() {
+  //   console.log("Props: ", this.props)
+  //   const { objects } = this.props;
+  //   const fileName = 'scene.json';
+  //   const simplified = objects.map((o) => ({
+  //     intersect: o._intersect,
+  //     color: o._color,
+  //     dimensions: o._dimensions,
+  //     rotation: o._rotation,
+  //     translation: o._translation,
+  //   }));
+  //   var fileToSave = new Blob([JSON.stringify(simplified)], {
+  //     type: 'application/json',
+  //     name: fileName,
+  //   });
+  //   saveAs(fileToSave, fileName);
+  // }
 
   render() {
     const { utilsOpen, resetScene, toggleUtils } = this.props;
+    console.log("Props: ", this.props)
 
     return (
       // <div className={utilsOpen ? styles.visible : styles.sidebar}>
@@ -61,6 +79,7 @@ class Sidebar extends Component {
 
   // @autobind
   _exportFile() {
+    // console.log("Props: ", this.props)
     const { objects } = this.props;
     const fileName = 'scene.json';
     const simplified = objects.map((o) => ({

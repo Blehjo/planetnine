@@ -202,6 +202,7 @@ class Scene extends Component {
       const intersects = scene.raycaster.intersectObjects( [ ...objects, this.plane ] );
       if ( intersects.length > 0 ) {
         const intersect = intersects[ 0 ];
+        console.log("Intersect: ", intersect);
         if (mode === 'build') {
           // delete cube
           if ( isDDown ) {
@@ -242,6 +243,7 @@ class Scene extends Component {
     if (canCreate) {
       const { translation, rotation } = rollOverBrick;
       const brick = new Brick(intersect, brickColor, dimensions, rotation.y, translation);
+      console.log("brick: ", brick)
       addObject(brick);
     }
   }

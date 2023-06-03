@@ -81,7 +81,7 @@ class Builder extends Component<BuilderProps> {
           addObject={addBrick}
           updateObject={updateBrick} 
         />
-        {/* <Help inversed={utilsOpen} /> */}
+        <Help inversed={utilsOpen} />
       </div>
     );
   }
