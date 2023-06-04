@@ -100,6 +100,12 @@ export class PlanetComment extends Component<CommentQuery, IDefaultFormFields> {
         if (this.props.planets.singlePlanet?.planetId != prevProps.planets.singlePlanet?.planetId) {
             this.props.getComments(this.props.planets.singlePlanet?.planetId!);
         }
+
+        if (this.props.planetcomments.comments?.length != prevProps.planetcomments.comments?.length) {
+            this.setState({
+                commentValue: ""
+            })
+        }
     }
 
     render() {

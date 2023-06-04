@@ -54,6 +54,7 @@ class BrickPicker extends React.Component {
                   }
                 </div>
                 <LabelContainer>
+                  {/* {getBrickIconFromDimensions(b)} */}
                   {displayNameFromDimensions(b)}
                 </LabelContainer>
               </BrickExampleContainer>
