@@ -29,49 +29,53 @@ class BrickPicker extends React.Component {
   render() {
     const { selectedSize, handleSetBrick } = this.props;
     const { open } = this.state;
+    // console.log("Bricks: ",  bricks)
     return (
       <BrickPickerContainer>
         <BrickContainer onClick={this._togglePicker}>
           <BrickIconContainer>
             {getBrickIconFromDimensions(selectedSize)}
           </BrickIconContainer>
-          {/* {displayNameFromDimensions(selectedSize)} */}
         </BrickContainer>
-        <If cond={open}>
+        {
+          open &&
           <PickerContainter ref={(picker) => this.picker = picker}>
             {bricks.map((b, i) => (
-              <BrickExampleContainer key={i} className={"styles.brickExample"}>
-                <div className={"isEqual(selectedSize, b) ? styles.selected : styles.brickThumb"} onClick={() => handleSetBrick(b)}>
+              <BrickExampleContainer key={i}>
+                <div onClick={() => handleSetBrick(b)}>
                   {
                     isEqual(selectedSize, b) ?
                     <SelectedContainer>
                       {getBrickIconFromDimensions(b)}
                     </SelectedContainer> :
-                    <BrickThumb/>
+                    <BrickThumb>
+                      {getBrickIconFromDimensions(b)}
+                    </BrickThumb>
                   }
                 </div>
-                <LabelContainer className={"styles.label"}>
+                <LabelContainer>
                   {displayNameFromDimensions(b)}
                 </LabelContainer>
               </BrickExampleContainer>
             ))}
           </PickerContainter>
-        </If>
+
+        }
       </BrickPickerContainer>
     );
   }
 
   _togglePicker() {
     this.setState({
-      open: !this.state.open,
+      open: !this.state.open
     });
   }
 
   _handleClickOutside(event) {
     if (this.picker && !this.picker.contains(event.target)) {
-      this.setState({
-        open: false,
-      });
+      // this.setState({
+      //   open: false,
+      // });
     }
   }
 }

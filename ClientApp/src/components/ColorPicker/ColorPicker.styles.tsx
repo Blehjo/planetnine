@@ -8,7 +8,7 @@ export const ColorPickerContainer = styled.div`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 
 
 export const BrickContainer = styled.div`
@@ -21,10 +21,10 @@ export const PickerContainer = styled.div`
   left: ~'calc(50% - 15px)';
   display: none;
   // transform: translateX();
-`
+`;
 
 export const VisibleContainer = styled.div`
-  composes: picker;
-  display: block;
-  // transform: scaleX(0);
-`
+  position: absolute;
+  top: 2rem;
+  left: ~'calc(50% - 15px)';
+`;

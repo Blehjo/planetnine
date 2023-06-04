@@ -80,23 +80,11 @@ class Scene extends Component {
     this.scene = scene;
 
     const renderer = new Renderer({ antialias: true });
-    renderer.init(window.innerWidth , window.innerHeight);
-    if  (window.innerWidth > 500) {
-      renderer.domElement.style.paddingRight = "100px";
-    }
-    if  (window.innerWidth > 600) {
-      renderer.domElement.style.paddingRight = "150px";
-    }
-    if  (window.innerWidth > 717) {
-      renderer.domElement.style.paddingRight = "250px";
-    }
-    if  (window.innerWidth > 767) {
-      renderer.domElement.style.paddingRight = "280px";
-    }
-    // renderer.domElement.style.paddingRight = window.innerWidth >  767 ? "280px" : "100px";
+    const width = window.document.querySelector('.container').offsetWidth;
+    renderer.init(width - 25 , window.innerHeight);
     this.renderer = renderer;
 
-    const camera = new PerspectiveCamera(45, (window.innerWidth) / window.innerHeight, 1, 10000);
+    const camera = new PerspectiveCamera(45, (width - 25) / window.innerHeight, 1, 10000);
     camera.init();
     this.camera = camera;
 
@@ -161,22 +149,11 @@ class Scene extends Component {
   }
 
   _onWindowResize(event, scene) {
-    scene.camera.aspect = (window.innerWidth) / window.innerHeight;
+    const width = window.document.querySelector('.container').offsetWidth;
+    scene.camera.aspect = (width - 25) / window.innerHeight;
     scene.camera.updateProjectionMatrix();
-    scene.renderer.setSize(window.innerWidth, window.innerHeight);
-    if  (window.innerWidth > 500) {
-      scene.renderer.domElement.style.paddingRight = "100px";
-    }
-    if  (window.innerWidth > 600) {
-      scene.renderer.domElement.style.paddingRight = "150px";
-    }
-    if  (window.innerWidth > 717) {
-      scene.renderer.domElement.style.paddingRight = "250px";
-    }
-    if  (window.innerWidth > 767) {
-      scene.renderer.domElement.style.paddingRight = "280px";
-    }
-    // scene.renderer.domElement.style.paddingRight = window.innerWidth >  767 ? "280px" : "100px";
+    scene.renderer.setSize(width - 25, window.innerHeight);
+    scene.renderer.domElement.style.paddingRight = window.document.defaultView.innerWidth;
   }
 
   _onMouseMove(event, scene) {
@@ -186,10 +163,10 @@ class Scene extends Component {
     const drag = true;
     this.setState({ drag });
     const { width, height } = getMeasurementsFromDimensions(dimensions);
+    const windowWidth = window.document.querySelector('.container').offsetWidth;
     const evenWidth = dimensions.x % 2 === 0;
     const evenDepth = dimensions.z % 2 === 0;
-    // scene.mouse.set( ( (event.clientX / (window.innerWidth)) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
-    scene.mouse.set( ( (event.clientX / (window.innerWidth)) ) * 2 - 1.2, - ( event.clientY / window.innerHeight ) * 2 + 1.2 );
+    scene.mouse.set( ( (event.clientX / (windowWidth - 25)) ) * 2 - 1.2, - ( event.clientY / window.innerHeight ) * 2 + 1.2 );
     scene.raycaster.setFromCamera( scene.mouse, scene.camera );
     const intersects = scene.raycaster.intersectObjects( [ ...objects, this.plane ], true );
     if ( intersects.length > 0) {
@@ -218,10 +195,11 @@ class Scene extends Component {
   _onMouseUp(event, scene) {
     const { mode, objects } = this.props;
     const { drag, isDDown, isRDown } = this.state;
+    const width = window.document.querySelector('.container').offsetWidth;
     if (event.target.localName !== 'canvas') return;
     event.preventDefault();
     if (! drag) {
-      scene.mouse.set( ( event.clientX / (window.innerWidth) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
+      scene.mouse.set( ( event.clientX / (width) ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
       scene.raycaster.setFromCamera( scene.mouse, scene.camera );
       const intersects = scene.raycaster.intersectObjects( [ ...objects, this.plane ] );
       if ( intersects.length > 0 ) {

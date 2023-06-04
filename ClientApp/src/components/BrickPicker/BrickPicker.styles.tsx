@@ -30,10 +30,10 @@ export const BrickIconContainer = styled.div`
 
 export const PickerContainter = styled.div`
   position: absolute;
-  top: (@brick-height + @base-margin + 5px);
-  left: -(@base-margin / 2);
+  top: 2rem;
+
   padding: base-padding;
-  background: secondary-blue;
+  background: blue;
   display: flex;
   align-items: center;
   justify-content: center;

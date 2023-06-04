@@ -65,6 +65,7 @@ function createMesh(material, width, height, depth, dimensions) {
   // const smooth = modifier.modify( cubeGeo );
 
   const mesh = new THREE.Mesh(cubeGeo, material);
+  console.log("Cube Geo: ", cubeGeo);
   meshes.push(mesh);
   mesh.castShadow = true;
   mesh.receiveShadow = true;
@@ -83,6 +84,7 @@ function createMesh(material, width, height, depth, dimensions) {
   }
 
   const brickGeometry = mergeMeshes(meshes);
+  console.log("MESHES!!: ", meshes);
   
   return [brickGeometry, material];
 }
