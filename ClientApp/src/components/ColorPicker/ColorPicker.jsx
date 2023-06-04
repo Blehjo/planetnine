@@ -51,7 +51,7 @@ class ColorPicker extends Component {
     const { background } = this.props;
     this.setState({
       open: !this.state.open,
-      background,
+      background
     });
   }
 

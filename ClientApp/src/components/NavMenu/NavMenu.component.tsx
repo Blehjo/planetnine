@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Col, Row } from 'reactstrap';
@@ -35,6 +35,7 @@ export class NavMenu extends Component<IProps, ICollapsed> {
   }
 
   render() {
+    console.log("Navigation Props: ", this.props.navigation)
     return (
       <Row key="navbar">
         <Navbar fixed='top' bg='dark' expand="sm">
