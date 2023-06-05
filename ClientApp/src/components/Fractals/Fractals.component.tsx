@@ -3,10 +3,8 @@ import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three/src/materials/MeshLambertMaterial";
 import { Accordion } from "react-bootstrap";
-import Slider from '@mui/material/Slider';
-// import Slider from 'react-input-slider';
 
-import { FractalGUIContainer, FractalTreeContainer } from "./Fractals.styles";
+import { DragStyle, FractalGUIContainer, FractalTreeContainer } from "./Fractals.styles";
 import { ButtonContainer, ControllerContainer } from "./Fractals.styles";
 
 const royalblue = new THREE.MeshLambertMaterial({ color: "darkred" });
@@ -19,10 +17,20 @@ interface IFractalState {
   showAngle: boolean;
   showShape: boolean;
   is3D: boolean;
+  ratio: number;
+  angleZ: number;
+  angleX: number;
+  radius: number;
+  height: number;
+  x: number;
+  y: number;
+  z: number;
 }
 
 interface IShape {
   handleShape: (inputShape: string) => void;
+  parameters: TreeParameters;
+  changeWidth: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface IAngle {
@@ -35,11 +43,22 @@ interface IDepth {
   depth: number;
 }
 
+type TreeParameters = {
+  ratio: number;
+  angleZ: number;
+  angleX: number;
+  radius: number;
+  height: number;
+  x: number;
+  y: number;
+  z: number;
+}
 interface IFractalTree {
   depth: number;
   angleIncrement: number;
   shape: string;
   is3D: boolean;
+  parameters: TreeParameters;
 }
 
 interface IBranch {
@@ -64,8 +83,17 @@ export class FractalTreeCanvas extends Component<{}, IFractalState> {
       showDepth: false,
       showAngle: false,
       showShape: true,
-      is3D: false
+      is3D: false,
+      ratio: .65,
+      angleZ: 0,
+      angleX: 0,
+      radius: .2,
+      height: 1,
+      x: 0,
+      y: 0,
+      z: 0
     }
+    this.changeWidth = this.changeWidth.bind(this);
   }
 
   handleDepth(e: MouseEvent<HTMLElement>): void {
@@ -86,27 +114,36 @@ export class FractalTreeCanvas extends Component<{}, IFractalState> {
     });
   }
 
+  changeWidth(event: ChangeEvent<HTMLInputElement>): void {
+    const { name, value } = event.target;
+    this.setState({ ...this.state, [name]: value });
+  };
+
   render() {
-    const { depth, angleIncrement, shape, showDepth, showAngle, showShape, is3D } = this.state;
+    const { depth, angleIncrement, shape, showDepth, showAngle, showShape, is3D, ratio, angleZ, angleX, radius, height, x, y, z } = this.state;
+    const parameters = { ratio, angleZ, angleX, radius, height, x, y, z };
+    const MIN = 0;
+    const MAX = 10;
     return (
         <FractalTreeContainer>
         <Suspense fallback={null}>
             <Canvas 
               frameloop="demand" 
             >
-            <PerspectiveCamera makeDefault position={[0, 3, 5]} fov={50} />
-            <OrbitControls enableZoom={true} target={[0, 2, 0]} />
-            <hemisphereLight
-                intensity={0.5}
-                groundColor={"#080820"}
-                position={[0, 1, 0]}
-            />
-                <FractalTree
+              <PerspectiveCamera makeDefault position={[0, 3, 5]} fov={50} />
+              <OrbitControls enableZoom={true} target={[0, 2, 0]} />
+              <hemisphereLight
+                  intensity={0.5}
+                  groundColor={"#080820"}
+                  position={[0, 1, 0]}
+              />
+              <FractalTree
+                parameters={parameters}
                 depth={depth}
                 angleIncrement={angleIncrement}
                 shape={shape}
                 is3D={is3D}
-                />
+              />
             </Canvas>
         </Suspense>
 
@@ -117,7 +154,142 @@ export class FractalTreeCanvas extends Component<{}, IFractalState> {
             {showAngle && (
             <AngleUI angleIncrement={angleIncrement} handleAngle={this.handleAngle} />
             )}
-            {showShape && <ShapeUI handleShape={this.handleShape} />}
+            <ControllerContainer>
+                <Accordion>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Settings</Accordion.Header>
+                    <Accordion.Body>
+
+                    <Accordion>
+                    <Accordion.Item eventKey="1">
+                    <Accordion.Header>Shapes</Accordion.Header>
+                    <Accordion.Body>
+
+                    <ButtonContainer>
+                    <button
+                      type="button" className="btn btn-light"
+                      onClick={() => this.handleShape("cylinder")}
+                    >
+                      Cylinder
+                    </button>
+                    </ButtonContainer>
+
+                    <ButtonContainer>
+                    <button
+                      type="button" className="btn btn-light"
+                      onClick={() => this.handleShape("cube")}
+                    >
+                      Cube
+                    </button>
+                    </ButtonContainer>
+
+                    <ButtonContainer>
+                    <button
+                      type="button" className="btn btn-light"
+                      onClick={() => this.handleShape("sphere")}
+                    >
+                      Sphere
+                    </button>
+                    </ButtonContainer>
+
+                    <ButtonContainer>
+                    <button
+                    type="button" className="btn btn-light"
+                    onClick={() => this.handleShape("Octahedron")}
+                    >
+                      Octahedron
+                    </button> 
+                    </ButtonContainer>
+
+                    </Accordion.Body>
+                    </Accordion.Item>
+                    <div>
+                    <DragStyle
+                      type="range"
+                      min={0}
+                      max={2}
+                      name="ratio"
+                      value={ratio}
+                      step=".05"
+                      onChange={this.changeWidth}
+                    />
+                    <p>Ratio: {ratio}</p>
+                    <DragStyle
+                      type="range"
+                      min={0}
+                      max={6.3}
+                      name="angleZ"
+                      value={angleZ}
+                      step=".05"
+                      onChange={this.changeWidth}
+                    />
+                    <p>Angle Z: {angleZ}</p>
+                    <DragStyle
+                      type="range"
+                      min={0}
+                      max={6.3}
+                      name="angleX"
+                      value={angleX}
+                      step=".05"
+                      onChange={this.changeWidth}
+                    />
+                    <p>Angle X: {angleX}</p>
+                    <DragStyle
+                      type="range"
+                      min="-10"
+                      max={10}
+                      name="radius"
+                      value={radius}
+                      step=".05"
+                      onChange={this.changeWidth}
+                    />
+                    <p>Radius: {radius}</p>
+                    <DragStyle
+                      type="range"
+                      min={MIN}
+                      max={MAX}
+                      name="height"
+                      value={height}
+                      step=".05"
+                      onChange={this.changeWidth}
+                    />
+                    <p>Height: {height}</p>
+                    <DragStyle
+                      type="range"
+                      min="-10"
+                      max={10}
+                      name="x"
+                      value={x}
+                      step=".05"
+                      onChange={this.changeWidth}
+                    />
+                    <p>X: {x}</p>
+                    <DragStyle
+                      type="range"
+                      min="-10"
+                      max={10}
+                      name="y"
+                      value={y}
+                      step=".05"
+                      onChange={this.changeWidth}
+                    />
+                    <p>Y: {y}</p>
+                    <DragStyle
+                      type="range"
+                      min="-10"
+                      max={10}
+                      name="z"
+                      value={z}
+                      step=".05"
+                      onChange={this.changeWidth}
+                    />
+                    <p>Z: {z}</p>
+                    </div>
+                    </Accordion>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+              </ControllerContainer>
         </div>
         </FractalGUIContainer>
         </FractalTreeContainer>
@@ -125,21 +297,13 @@ export class FractalTreeCanvas extends Component<{}, IFractalState> {
   }  
 }
 
-function FractalTree({ depth, angleIncrement, shape, is3D }: IFractalTree) {
+function FractalTree({ parameters, depth, angleIncrement, shape, is3D }: IFractalTree) {
   const branches: any = [];
-  const ratio = .65;
-  let angleZ = 0;
-  let angleX = 0;
-  let radius = 0.2;
-  let height = 1;
-  let x = 0,
-    y = 0,
-    z = 0;
+  const { radius, ratio, height, angleZ, angleX, x, y, z } = parameters;
   let id = 0;
 
   function generate(depth: number, angleZ: number, angleX: number, radius: number, height: number, x: number, y: number, z: number) {
     if (depth === 0) return;
-
     branches.push(
       <Branch
         radiusT={radius * ratio}
@@ -150,7 +314,7 @@ function FractalTree({ depth, angleIncrement, shape, is3D }: IFractalTree) {
         x={x}
         y={y}
         z={z}
-        shape={"cylinder"}
+        shape={shape}
         key={id}
       />
     );
@@ -185,7 +349,6 @@ function FractalTree({ depth, angleIncrement, shape, is3D }: IFractalTree) {
 function Branch({ radiusT, radiusB, height, x, y, z, angleZ, angleX, shape }: IBranch) {
   return (
     <group position={[x, y, z]} rotation={[angleX, 0, angleZ]}>
-      {/* Value can be changed to modify fractal */}
       <mesh position={[0, height / 2, 0]} material={royalblue}>
         {shape === "cylinder" ? (
           <cylinderGeometry
@@ -233,159 +396,5 @@ function AngleUI({ angleIncrement, handleAngle }: IAngle) {
         onClick={(e) => handleAngle(e)}
       />
     </div>
-  );
-}
-
-type DefaultState = {
-  ratio: number;
-  angleZ: number;
-  angleX: number;
-  radius: number;
-  height: number;
-  x: number;
-  y: number;
-  z: number;
-}
-
-function ShapeUI({ handleShape }: IShape) {
-  const defaultState: DefaultState = {
-    ratio: 0,
-    angleZ: 0,
-    angleX: 0,
-    radius: 0,
-    height: 0,
-    x: 0,
-    y: 0,
-    z: 0
-  };
-
-  const [state, setState] = useState<DefaultState>(defaultState);
-  const { ratio, angleZ, angleX, radius, height, x, y, z } = state;
-  
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, defaultValue } = event.target;
-    // console.log("Target: ", name, defaultValue)
-    setState(state => ({ ...state, [name]: defaultValue }));
-  };
-
-  return (
-    <ControllerContainer>
-    <Accordion defaultActiveKey="0" >
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Settings</Accordion.Header>
-        <Accordion.Body>
-
-        <Accordion>
-        <Accordion.Item eventKey="1">
-        <Accordion.Header>Shapes</Accordion.Header>
-        <Accordion.Body>
-
-        <ButtonContainer>
-        <button
-          type="button" className="btn btn-light"
-          onClick={() => handleShape("cylinder")}
-          >
-          Cylinder
-        </button>
-        </ButtonContainer>
-
-        <ButtonContainer>
-        <button
-          type="button" className="btn btn-light"
-          onClick={() => handleShape("cube")}
-          >
-          Cube
-        </button>
-        </ButtonContainer>
-
-        <ButtonContainer>
-        <button
-          type="button" className="btn btn-light"
-          onClick={() => handleShape("sphere")}
-          >
-          Sphere
-        </button>
-        </ButtonContainer>
-
-        <ButtonContainer>
-        <button
-        type="button" className="btn btn-light"
-        onClick={() => handleShape("Octahedron")}
-        >
-        Octahedron
-        </button> 
-        </ButtonContainer>
-
-        </Accordion.Body>
-        </Accordion.Item>
-        <p>Ratio</p>
-        <div>
-        <Slider 
-          defaultValue={angleZ} 
-          aria-label="ratio" 
-          name="angleZ"
-          onChange={() => handleChange}
-        />
-        {/* <input
-          type="range"
-          xmax={10}
-          x={state.x}
-          onChange={({ x }) => setState(state => ({ ...state, x }))}
-        /> */}
-        <p>Angle Z</p>
-        {/* <Slider
-          axis="x"
-          xmax={10}
-          x={state.angleZ}
-          onChange={({ x }) => setState(state => ({ ...state, x }))}
-        />
-        <p>Angle X</p>
-        <Slider
-          axis="x"
-          xmax={10}
-          x={state.angleX}
-          onChange={({ x }) => setState(state => ({ ...state, x }))}
-        />
-        <p>Radius</p>
-        <Slider
-          axis="x"
-          xmax={10}
-          x={state.radius}
-          onChange={({ x }) => setState(state => ({ ...state, x }))}
-        />
-        <p>Height</p>
-        <Slider
-          axis="x"
-          xmax={10}
-          x={state.height}
-          onChange={({ x }) => setState(state => ({ ...state, x }))}
-        />
-        <p>X</p>
-        <Slider
-          axis="x"
-          xmax={10}
-          x={state.x}
-          onChange={({ x }) => setState(state => ({ ...state, x }))}
-        />
-        <p>Y</p>
-        <Slider
-          axis="x"
-          xmax={10}
-          x={state.y}
-          onChange={({ y }) => setState(state => ({ ...state, y }))}
-        />
-        <p>Z</p>
-        <Slider
-          axis="x"
-          xmax={10}
-          x={state.z}
-          onChange={({ x }) => setState(state => ({ ...state, x }))}
-         /> */}
-        </div>
-        </Accordion>
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
-    </ControllerContainer>
   );
 }

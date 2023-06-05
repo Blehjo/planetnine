@@ -11,6 +11,7 @@ export const DropdownContainer = styled.div`
     background: black;
     border-radius: .5rem;
     border: solid;
+    border-width: .1px;
     div {
         margin-bottom: .5rem;
         cursor: pointer;
@@ -29,9 +30,11 @@ export const ModalContainer = styled.div`
     background: black;
     border: solid;
     border-radius: .5rem;
+    border-width: .1px;
     left: 50%;
     transform: translate(-50%, 0);
     div {
+        text-align: left;
         margin: 1rem;
         cursor: pointer;
     }

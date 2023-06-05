@@ -96,7 +96,7 @@ export const FormContainer = styled.div`
   @media (max-width: 717px) {
     margin-left: .5rem;
     margin-bottom: 15rem;
-    height: 50vh;
+    height: 55vh;
   }
 `;
 

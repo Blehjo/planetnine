@@ -26,6 +26,7 @@ export class SignInButton extends Component<IProps, ICollapsed> {
         super(props);
     
         this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.navigateToProfile = this.navigateToProfile.bind(this);
         this.state = {
           collapsed: true,
           openModal: false,
@@ -42,6 +43,10 @@ export class SignInButton extends Component<IProps, ICollapsed> {
         this.setState({
           collapsed: !this.state.collapsed
         });
+    }
+
+    navigateToProfile() {
+        this.props.navigation.navigate('profile')
     }
 
     componentDidMount(): void {
@@ -65,21 +70,29 @@ export class SignInButton extends Component<IProps, ICollapsed> {
                     <div>
                         {`Signed in as ${currentUser?.username}`}
                     </div>
+                    <hr/>
                     <div>
-                        Your Projects
+                        Your projects
                     </div>
                     <div>
-                        Your Posts
+                        Your posts
                     </div>
                     <div>
-                        Your Planets
+                        Your planets
                     </div>
-                    <div>
-                        Your Profile
+                    <div
+                    onClick={this.navigateToProfile}
+                    >
+                        Your profile
                     </div>
+                    <hr/>
                     <div>
                         Settings
                     </div>
+                    <div>
+                        Help
+                    </div>
+                    <hr/>
                     <div onClick={this.props.signOut}>
                         Sign Out
                     </div>
@@ -91,21 +104,27 @@ export class SignInButton extends Component<IProps, ICollapsed> {
                         <div>
                             {`Signed in as ${currentUser?.username}`}
                         </div>
+                        <hr/>
                         <div>
-                            Your Projects
+                            Your projects
                         </div>
                         <div>
-                            Your Posts
+                            Your posts
                         </div>
                         <div>
-                            Your Planets
+                            Your planets
                         </div>
                         <div>
-                            Your Profile
+                            Your profile
                         </div>
+                        <hr/>
                         <div>
                             Settings
                         </div>
+                        <div>
+                            Help
+                        </div>
+                        <hr/>
                         <div onClick={this.props.signOut}>
                             Sign Out
                         </div>
