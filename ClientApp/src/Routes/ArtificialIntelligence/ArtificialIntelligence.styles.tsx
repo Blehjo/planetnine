@@ -74,7 +74,7 @@ export const CommentContainer = styled.div`
   }
   @media (max-width: 717px) {
     margin: 2rem;
-    height: 38vh;
+    height: 35vh;
   }
 `;
 
@@ -96,7 +96,7 @@ export const FormContainer = styled.div`
   @media (max-width: 717px) {
     margin-left: .5rem;
     margin-bottom: 15rem;
-    height: 55vh;
+    height: 53vh;
   }
 `;
 
