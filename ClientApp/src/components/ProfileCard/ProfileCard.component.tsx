@@ -159,7 +159,7 @@ export class ProfileCard extends Component<ProfileProps, IDefaultFormFields> {
                             <Form.Control onChange={this.showPreview} name="medialink" as="input" accept="image/*" type="file" placeholder="Media" />
                         </Form.Group>
                         <div className="col-6 mb-3" style={{ justifyContent: 'center' }}>
-                            <button className="col-12 mb-3 btn btn-dark" onClick={this.handleClick} >Cancel</button>
+                            <a className="col-12 mb-3 btn btn-dark" onClick={this.handleClick} >Cancel</a>
                         </div>
                         <div className="col-6 mb-3" style={{ justifyContent: 'center' }}>
                             <button className="col-12 mb-3 btn btn-dark" type="submit" >Update</button>
