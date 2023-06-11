@@ -14,13 +14,14 @@ type PilotProps = ConnectedProps<typeof connector>;
 export class Pilots extends Component<PilotProps> {
     constructor(props: PilotProps) {
         super(props);
+        this.handleSendMessage = this.handleSendMessage.bind(this);
     }
 
     handleClick(userId: number) {
         this.props.getPilot(userId);
     }
 
-    handleSendMessage(messageValue: string) {
+    handleSendMessage(messageValue: string): void {
         this.props.sendMessage(messageValue);
     }
 

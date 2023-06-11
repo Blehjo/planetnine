@@ -18,6 +18,8 @@ import { User } from "../../store/user/user.types";
 import { MessageList } from "../../components/Searchbar/MessageList.component";
 import { Message } from "../../store/message/message.types";
 import { MessageComment } from "../../store/messagecomment/messagecomment.types";
+import { MessageState } from "../../store/message/message.reducer";
+import { MessageCommentState } from "../../store/messagecomment/messagecomment.reducer";
 
 type MessagesProps = ConnectedProps<typeof connector>;
 
@@ -144,6 +146,12 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
         fetch('https://planetnineservers.azurewebsites.net/api/messagecomment')
         .then(response => response.json())
         .then(messages => this.setState({ userMessages: messages }));
+    }
+
+    componentDidUpdate(prevProps: Readonly<{ messages: MessageState; messagecomments: MessageCommentState; } & { getAllMessages: () => void; getMessage: (messageId: number) => void; getMessageComments: (messageId: number) => void; likeMessage: (messageId: number, contentType: string) => void; deleteMessage: (messageId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
+        if (this.props.messages.userMessages?.length != prevProps.messages.userMessages?.length) {
+            this.props.getAllMessages();
+        }
     }
 
     render() {

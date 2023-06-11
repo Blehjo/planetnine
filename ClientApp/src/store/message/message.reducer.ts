@@ -56,14 +56,14 @@ export const messageReducer = (
         return { ...state, isLoading: false, singleMessage: action.payload }
     } 
     if (
+        messageCreateSuccess.match(action) ||
+        messageDeleteSuccess.match(action) ||
         messageFetchUserMessagesSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, userMessages: action.payload }
     } 
     if (
-        messageCreateSuccess.match(action) ||
         messageUpdateSuccess.match(action) ||
-        messageDeleteSuccess.match(action) ||
         messageFetchAllSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, messages: action.payload };
