@@ -225,11 +225,11 @@ export const chatFetchAllFailed = withMatcher(
 );
 
 export const chatSetId = withMatcher(
-    (chatId: number) => 
+    (chatId: number): ChatSetID => 
     createAction(CHAT_ACTION_TYPES.SET_ID, { chatId })
 );
 
 export const chatSetIdSuccess = withMatcher(
-    (chatId: number) => 
+    (chatId: number): ChatSetIDSuccess => 
     createAction(CHAT_ACTION_TYPES.SET_ID_SUCCESS, { chatId })
 );

@@ -27,6 +27,7 @@ export class SignInButton extends Component<IProps, ICollapsed> {
     
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.navigateToProfile = this.navigateToProfile.bind(this);
+        this.handleSignOut = this.handleSignOut.bind(this);
         this.state = {
           collapsed: true,
           openModal: false,
@@ -47,6 +48,11 @@ export class SignInButton extends Component<IProps, ICollapsed> {
 
     navigateToProfile() {
         this.props.navigation.navigate('profile')
+    }
+
+    handleSignOut() {
+        this.props.signOut();
+        this.toggleNavbar();
     }
 
     componentDidMount(): void {
@@ -93,7 +99,7 @@ export class SignInButton extends Component<IProps, ICollapsed> {
                         Help
                     </div>
                     <hr/>
-                    <div onClick={this.props.signOut}>
+                    <div onClick={this.handleSignOut}>
                         Sign Out
                     </div>
                     </DropdownContainer>

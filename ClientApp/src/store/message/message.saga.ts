@@ -26,7 +26,9 @@ import {
     MessageUpdateStart,
     MessageDeleteStart,
     messageFetchUserMessagesSuccess,
-    messageFetchUserMessagesFailed
+    messageFetchUserMessagesFailed,
+    MessageSetID,
+    messageSetIdSuccess
 } from './message.action';
 
 import { 
@@ -39,6 +41,10 @@ import {
     editMessage,
     deleteMessage
 } from '../../utils/api/message.api';
+
+export function* startSetId({ payload: { messageId }}: MessageSetID) {
+    yield* put(messageSetIdSuccess(messageId));
+}
 
 export function* createMessage({ payload: { messageValue }}: MessageCreateStart ) {
     try {
@@ -108,6 +114,13 @@ export function* fetchAllMessagesAsync() {
     }
 }
 
+export function* onSetId() {
+    yield* takeLatest(
+        MESSAGE_ACTION_TYPES.SET_ID,
+        startSetId
+    );
+}
+
 export function* onCreateStart() {
     yield* takeLatest(
         MESSAGE_ACTION_TYPES.CREATE_START, 
@@ -152,6 +165,7 @@ export function* onFetchMessagesStart() {
 
 export function* messageSagas() {
     yield* all([
+        call(onSetId),
         call(onCreateStart),
         call(onUpdateStart),
         call(onDeleteStart),

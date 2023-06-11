@@ -20,6 +20,7 @@ import {
     messageFetchAllFailed,
     messageFetchUserMessagesSuccess,
     messageFetchUserMessagesStart,
+    messageSetIdSuccess,
 } from './message.action';
 
 export type MessageState = {
@@ -67,6 +68,11 @@ export const messageReducer = (
         messageFetchAllSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, messages: action.payload };
+    } 
+    if (
+        messageSetIdSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, messageId: action.payload.messageId }
     } 
     if (
         messageCreateFailed.match(action) ||

@@ -76,7 +76,10 @@ export class ProfileCard extends Component<ProfileProps, IDefaultFormFields> {
         formData.append('imageLink', imageLink);
         formData.append('imageFile', imageFile);
         try {
-          editUser(currentUser?.userId!, formData);
+          await editUser(currentUser?.userId!, formData);
+          this.setState({
+            showEdit: !this.state.showEdit
+          })
         } catch (error) {
           if (error) {
             alert('Cannot create user, email already in use');

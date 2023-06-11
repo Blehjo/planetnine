@@ -94,6 +94,16 @@ export type MessageFetchAllFailed = ActionWithPayload<
     Error
 >;
 
+export type MessageSetID = ActionWithPayload<
+    MESSAGE_ACTION_TYPES.SET_ID,
+    { messageId: number }
+>;
+
+export type MessageSetIDSuccess = ActionWithPayload<
+    MESSAGE_ACTION_TYPES.SET_ID_SUCCESS,
+    { messageId: number }
+>;
+
 export const messageCreateStart = withMatcher(
     (messageValue: string): MessageCreateStart => 
     createAction(MESSAGE_ACTION_TYPES.CREATE_START, { messageValue })
@@ -182,4 +192,14 @@ export const messageFetchAllSuccess = withMatcher(
 export const messageFetchAllFailed = withMatcher(
     (error: Error): MessageFetchAllFailed => 
     createAction(MESSAGE_ACTION_TYPES.FETCH_ALL_FAILED, error)
+);
+
+export const messageSetId = withMatcher(
+    (messageId: number): MessageSetID => 
+    createAction(MESSAGE_ACTION_TYPES.SET_ID, { messageId })
+);
+
+export const messageSetIdSuccess = withMatcher(
+    (messageId: number): MessageSetIDSuccess => 
+    createAction(MESSAGE_ACTION_TYPES.SET_ID_SUCCESS, { messageId })
 );

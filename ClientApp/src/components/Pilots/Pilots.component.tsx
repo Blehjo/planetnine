@@ -1,28 +1,93 @@
-import { Component, Dispatch, Fragment } from "react";
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import { ConnectedProps, connect } from "react-redux";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { Badge, Card } from "react-bootstrap";
-import { Envelope, Globe, Person, Rocket } from 'react-bootstrap-icons';
+import { Badge, Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
+import { Envelope, Globe, Person, Rocket, Send } from 'react-bootstrap-icons';
 
 import { BadgeContainer, PilotContainer } from "./Pilots.styles";
 import { RootState } from "../../store/store";
 import { PilotFetchAllStart, PilotFetchSingleStart, pilotFetchAllStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
 import { MessageCreateStart, messageCreateStart } from "../../store/message/message.action";
+import { MessageCommentCreateStart, messagecommentCreateStart } from "../../store/messagecomment/messagecomment.action";
 
 type PilotProps = ConnectedProps<typeof connector>;
 
-export class Pilots extends Component<PilotProps> {
+type PilotState = {
+    openModal: boolean;
+    messageValue: string;
+    messageCommentValue: string;
+    imageSource: string | ArrayBuffer | null | undefined;
+    imageFile: any;
+}
+
+export class Pilots extends Component<PilotProps, PilotState> {
     constructor(props: PilotProps) {
         super(props);
         this.handleSendMessage = this.handleSendMessage.bind(this);
+        this.handleMessage = this.handleMessage.bind(this);
+        this.openMessage = this.openMessage.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.showPreview = this.showPreview.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = {
+            openModal: false,
+            messageValue: "",
+            messageCommentValue: "",
+            imageSource: "",
+            imageFile: null
+        }
     }
 
-    handleClick(userId: number) {
+    handleClick(userId: number): void {
         this.props.getPilot(userId);
     }
 
-    handleSendMessage(messageValue: string): void {
-        this.props.sendMessage(messageValue);
+    openMessage() {
+        this.setState({
+            openModal: !this.state.openModal
+        })
+    }
+
+    handleSendMessage(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
+        const { singlePilot } = this.props.pilots;
+        this.props.sendMessage(singlePilot?.username!);
+    }
+
+    handleMessage(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
+        const { messageCommentValue, imageFile } = this.state;
+        const { singlePilot } = this.props.pilots;
+        this.props.sendMessage(singlePilot?.username!);
+        this.props.createMessageComment(messageCommentValue, imageFile);
+    }
+
+    handleChange(event: ChangeEvent<HTMLInputElement>): void {
+        const { name, value } = event.target;
+        this.setState({ ...this.state, [name]: value });
+    }
+
+    showPreview(event: ChangeEvent<HTMLInputElement>) {
+        if (event.target.files && event.target.files[0]) {
+            const { files } = event.target;
+            const selectedFiles = files as FileList;
+            let imageFile = selectedFiles[0];
+            const reader = new FileReader();
+            reader.onload = x => {
+            this.setState({
+                ...this.state,
+                imageFile,
+                imageSource: x.target?.result
+            });
+          }
+          reader.readAsDataURL(imageFile);
+        } else {
+            this.setState({
+                ...this.state,
+                imageFile: null,
+                imageSource: null
+            });
+        }
     }
 
     componentDidMount(): void {
@@ -31,6 +96,7 @@ export class Pilots extends Component<PilotProps> {
 
     render() {
         const { pilots } = this.props;
+        const { openModal } = this.state;
         return (
             <Fragment>
                 <h1>Pilots</h1>
@@ -51,7 +117,16 @@ export class Pilots extends Component<PilotProps> {
                                     </a>
                                     </BadgeContainer>
                                     <BadgeContainer>
-                                        <Badge style={{ color: 'black' }} bg="light"><Envelope style={{ cursor: 'pointer' }} onClick={() => this.handleSendMessage(username)} size={15}/></Badge>
+                                        <Badge style={{ color: 'black' }} bg="light">
+                                            <Envelope 
+                                                style={{ cursor: 'pointer' }} 
+                                                onClick={() => {
+                                                    this.handleClick(userId);
+                                                    this.openMessage();
+                                                }} 
+                                                size={15}
+                                            />
+                                        </Badge>
                                     </BadgeContainer>
                                     {
                                         planets && 
@@ -82,6 +157,34 @@ export class Pilots extends Component<PilotProps> {
                     })}
                     </Masonry>
                 </ResponsiveMasonry>
+                <Modal show={openModal} onHide={this.openMessage}>
+                    <Modal.Header closeButton>
+                        <Modal.Title style={{ color: 'black' }}>Send a message</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={this.handleMessage}>
+                            <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
+                                <Col xs={12}>
+                                    <Form.Group>
+                                        <Form.Control style={{ height: '.5rem' }} name="messageCommentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your message here" />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row style={{ justifyContent: 'center' }}>
+                                <Col xs={9}>
+                                    <Form.Group className="mb-3" controlId="formMedia">
+                                        <Form.Control onChange={this.showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={3}>
+                                    <button id={"post?.postId.toString()"} style={{ textAlign: 'center', width: '100%', height: 'auto'}} className="btn btn-light" type="submit">
+                                        <Send/>
+                                    </button>
+                                </Col>                
+                            </Row>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
             </Fragment>
         )
     }
@@ -91,10 +194,11 @@ const mapStateToProps = (state: RootState) => {
     return { pilots: state.pilot };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<PilotFetchAllStart | PilotFetchSingleStart | MessageCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<PilotFetchAllStart | PilotFetchSingleStart | MessageCreateStart | MessageCommentCreateStart>) => ({
 	getAllPilots: () => dispatch(pilotFetchAllStart()),
     getPilot: (userId: number ) => dispatch(pilotFetchSingleStart(userId)),
-    sendMessage: (messageValue: string) => dispatch(messageCreateStart(messageValue))
+    sendMessage: (messageValue: string) => dispatch(messageCreateStart(messageValue)),
+    createMessageComment: (messageCommentValue: string, mediaLink: string) => dispatch(messagecommentCreateStart(messageCommentValue, mediaLink))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
