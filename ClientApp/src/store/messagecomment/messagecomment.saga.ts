@@ -38,13 +38,13 @@ import {
     deleteMessageComment
 } from '../../utils/api/messagecomment.api';
 
-export function* createMessageComment({ payload: { messageId, messageValue, mediaLink }}: MessageCommentCreateStart ) {
+export function* createMessageComment({ payload: { messageId, messageValue, imageFile }}: MessageCommentCreateStart ) {
     try {
         const messagecomment = yield* call(
             addMessageComment,
             messageId,
             messageValue,
-            mediaLink
+            imageFile
         ); 
         yield* put(messagecommentCreateSuccess(messagecomment));
     } catch (error) {
@@ -108,7 +108,7 @@ export function* fetchSingleMessageAsync({
             getSingleMessageComment,
             messageId 
         );
-        yield* put(messagecommentFetchSingleSuccess(messageSnapshot as MessageComment));
+        yield* put(messagecommentFetchSingleSuccess(messageSnapshot));
     } catch (error) {
         yield* put(messagecommentFetchSingleFailed(error as Error));
     }

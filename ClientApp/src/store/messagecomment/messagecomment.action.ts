@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type MessageCommentCreateStart = ActionWithPayload<
-    MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageId: number, messageValue: string, mediaLink: File }
+    MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageId: number, messageValue: string, imageFile: File }
 >;
 
 export type MessageCommentCreateSuccess = ActionWithPayload<
@@ -58,7 +58,7 @@ export type MessageCommentFetchSingleStart = ActionWithPayload<
 
 export type MessageCommentFetchSingleSuccess = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
-    MessageComment
+    MessageComment[]
 >;
 
 export type MessageCommentFetchSingleFailed = ActionWithPayload<
@@ -96,8 +96,8 @@ export type MessageCommentFetchAllFailed = ActionWithPayload<
 >;
 
 export const messagecommentCreateStart = withMatcher(
-    (messageId: number, messageValue: string, mediaLink: File): MessageCommentCreateStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageId, messageValue, mediaLink })
+    (messageId: number, messageValue: string, imageFile: File): MessageCommentCreateStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageId, messageValue, imageFile })
 );
 
 export const messagecommentCreateSuccess = withMatcher(
@@ -146,7 +146,7 @@ export const messagecommentFetchSingleStart = withMatcher(
 );
 
 export const messagecommentFetchSingleSuccess = withMatcher(
-    (Message: MessageComment): MessageCommentFetchSingleSuccess => 
+    (Message: MessageComment[]): MessageCommentFetchSingleSuccess => 
     createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, Message)
 );
 

@@ -25,7 +25,6 @@ type PilotStates = {
 export class Pilots extends Component<PilotProps, PilotStates> {
     constructor(props: PilotProps) {
         super(props);
-        this.handleSendMessage = this.handleSendMessage.bind(this);
         this.handleMessage = this.handleMessage.bind(this);
         this.openMessage = this.openMessage.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -49,19 +48,17 @@ export class Pilots extends Component<PilotProps, PilotStates> {
         })
     }
 
-    handleSendMessage(event: FormEvent<HTMLFormElement>): void {
-        event.preventDefault();
-        const { singlePilot } = this.props.pilots;
-        this.props.sendMessage(singlePilot?.username!);
-    }
-
     async handleMessage(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+
         const { messageValue, imageFile } = this.state;
         const { singlePilot } = this.props.pilots;
+
         await addMessage(singlePilot?.username!)
-        .then((response) => this.props.setId(response.messageId))
+        .then((response) => this.props.setId(response.messageId));
+
         this.props.createMessageComment(this.props.messages.messageId!, messageValue, imageFile);
+
         this.openMessage();
 
     }

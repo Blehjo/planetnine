@@ -1,5 +1,5 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import { CollectionContainer, FormContainer, MessageContainer, MessagebarContainer } from "./Messages.styles";
+import { CollectionContainer, FormContainer, JustifyLeft, JustifyRight, MessageContainer, MessagebarContainer, RowContainer } from "./Messages.styles";
 import NotificationComponent from "../../components/Notification/Notification.component";
 import { RootState } from "../../store/store";
 import { MessageDeleteStart, MessageFetchSingleStart, MessageSetID, messageDeleteStart, messageSetId } from "../../store/message/message.action";
@@ -10,7 +10,7 @@ import { MessageFetchUserMessagesStart } from "../../store/message/message.actio
 import { messageFetchSingleStart } from "../../store/message/message.action";
 import { ConnectedProps, connect } from "react-redux";
 import { Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
-import { Plus, XCircle } from "react-bootstrap-icons";
+import { Eye, Eyeglasses, Plus, XCircle } from "react-bootstrap-icons";
 import { TextBox } from "../ArtificialIntelligence/ArtificialIntelligence.styles";
 import { SearchBox } from "../../components/Searchbar/SearchBox.component";
 import { User } from "../../store/user/user.types";
@@ -54,13 +54,8 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showPreview = this.showPreview.bind(this);
         this.convertImages = this.convertImages.bind(this);
-        this.handleGetMessages = this.handleGetMessages.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleClickEvent = this.handleClickEvent.bind(this);
-    }
-
-    handleGetMessages(chatId: number): void {
-        // this.props.getChatComments(chatId);
     }
 
     handleClose(): void {
@@ -123,9 +118,9 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
         this.props.deleteMessage(messageId);
     }
 
-    handleClick(messageId: number): void {
-        this.props.setId(messageId)
-        this.props.getMessageComments(18);
+    async handleClick(messageId: number) {
+        await this.props.setId(messageId);
+        this.props.getMessageComments(this.props.messages?.messageId!);
     }
 
     onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -144,15 +139,9 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
         .then(messages => this.setState({ userMessages: messages }));
     }
 
-    componentDidUpdate(prevProps: Readonly<{ messages: MessageState; messagecomments: MessageCommentState; } & { getAllMessages: () => void; getMessage: (messageId: number) => void; getMessageComments: (messageId: number) => void; createMessageComment: (messageId: number, messageValue: string, mediaLink: File) => void; likeMessage: (messageId: number, contentType: string) => void; deleteMessage: (messageId: number) => void; setId: (messageId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
-        if (this.props.messages.userMessages?.length != prevProps.messages.userMessages?.length) {
-            this.props.getAllMessages();
-        } 
-    }
-
     render() {
         const { messageValue, searchField, show, users, userMessages } = this.state;
-        const { messages, messagecomments } = this.props;
+        const { messages, messagecomments, currentUser } = this.props;
         const filteredUsers = users.filter(user =>
             user.username?.toLowerCase().includes(searchField.toLowerCase()));
         const filteredMessages = userMessages.filter(message =>
@@ -161,11 +150,11 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
             <Fragment>
                 <MessagebarContainer className="fixed-top">
                     <MessageContainer>
-                        <Row>
-                            <Col xs={12} md={5} lg={4} xl={3}>
+                        <Row xs={2} md={2} lg={1} xl={2}>
+                            <Col xs={12} md={5} lg={7} xl={3}>
                                 <CollectionContainer>
                                 <h1>Messages<Plus size={40} style={{ cursor: 'pointer' }} /></h1>
-                                    <input style={{ marginTop: '1rem', borderRadius: ".1rem", width: "auto" }} onClick={this.handleClickEvent} placeholder="Search" />
+                                    <input style={{ marginTop: '1rem', marginBottom: '1rem', borderRadius: ".1rem", width: "auto" }} onClick={this.handleClickEvent} placeholder="Search" />
                                     <Modal show={show} onHide={this.handleClickEvent}>
                                         <SearchBox onSearchChange={this.onSearchChange} />
                                         <div>
@@ -175,7 +164,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                     {
                                         messages.userMessages?.map(({ messageId, messageValue, userId, messageComments, user }) => {
                                             return (
-                                                <Card onClick={() => this.handleClick(messageId)} bg="dark" style={{ margin: '.2rem', cursor: 'pointer' }} key={messageId}>
+                                                <Card onClick={() => this.handleClick(messageId)} bg="dark" style={{ margin: '.2rem .2rem 1rem .2rem', cursor: 'pointer' }} key={messageId}>
                                                     <Row key={userId} xs={3}>
                                                         <Col xs={4}>
                                                             <Image style={{ borderRadius: '.4rem', margin: '.5rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
@@ -197,29 +186,82 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                     }
                                 </CollectionContainer>
                             </Col>
-                            <Col md={7} lg={8} xl={9}>
+                            <Col xs={12} md={7} lg={7} xl={9}>
                                 <FormContainer>
                                     <Form onSubmit={this.handleSubmit}>
-                                        <Row style={{ padding: '2rem', overflowY: 'auto' }}>
+                                        <RowContainer>
+                                        <Row>
                                             <Col>
                                                 {
-                                                    messagecomments.messagecomments?.map(({ messageCommentId, mediaLink, messageValue, userId, user }) => {
+                                                    messagecomments.userMessagecomments?.map(({ messageCommentId, mediaLink, imageSource, messageValue, userId, user }) => {
                                                         return (
-                                                            <Card key={messageCommentId}>
-                                                                <Row key={userId} xs={2}>
-                                                                    <Col xs={4}>
-                                                                        <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
-                                                                    </Col>
-                                                                    <Col xs={8}>
-                                                                        {messageValue}
-                                                                    </Col>
-                                                                </Row>
-                                                            </Card>
+                                                            <div>
+                                                                {
+                                                                userId == currentUser.currentUser?.userId ? 
+                                                                <>
+                                                                <JustifyRight key={messageCommentId}> 
+                                                                    <Card style={{ width: '50%', padding: '.5rem' }} key={messageCommentId}>
+                                                                        <Row key={userId} xs={2}>
+                                                                            <Col xs={4}>
+                                                                                <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                                                            </Col>
+                                                                            <Col xs={8}>
+                                                                                <div style={{ color: 'black', textAlign: 'left' }}>
+                                                                                    {messageValue}
+                                                                                </div>
+                                                                            </Col>
+                                                                        </Row>
+                                                                    </Card>
+                                                                </JustifyRight> 
+                                                                <JustifyRight>
+                                                                    {
+                                                                        mediaLink && 
+                                                                        <Card style={{ width: '50%', padding: '.5rem' }}>
+                                                                        <Row xs={1}>
+                                                                            <Col>
+                                                                                <Image fluid style={{ borderRadius: '.2rem', width: '20rem', height: '20rem', objectFit: 'cover' }} src={`https://planetnineservers.azurewebsites.net/Images/${mediaLink}`}/>
+                                                                            </Col>
+                                                                        </Row>
+                                                                        </Card>
+                                                                    }
+                                                                </JustifyRight> 
+                                                                </> : 
+                                                                <>
+                                                                <JustifyLeft key={messageCommentId}> 
+                                                                    <Card style={{ width: '50%', padding: '.5rem' }} key={messageCommentId}>
+                                                                        <Row key={userId} xs={2}>
+                                                                            <Col xs={4}>
+                                                                                <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                                                            </Col>
+                                                                            <Col xs={8}>
+                                                                                <div style={{ color: 'black', textAlign: 'left' }}>
+                                                                                    {messageValue}
+                                                                                </div>
+                                                                            </Col>
+                                                                        </Row>
+                                                                    </Card>
+                                                                </JustifyLeft>
+                                                                <JustifyLeft>
+                                                                    {
+                                                                        mediaLink && 
+                                                                        <Card style={{ width: '50%', padding: '.5rem' }}>
+                                                                        <Row xs={1}>
+                                                                            <Col>
+                                                                                <Image fluid style={{ borderRadius: '.2rem', width: '20rem', height: '20rem', objectFit: 'cover' }} src={`https://planetnineservers.azurewebsites.net/Images/${mediaLink}`}/>
+                                                                            </Col>
+                                                                        </Row>
+                                                                        </Card>
+                                                                    }
+                                                                </JustifyLeft> 
+                                                                </>
+                                                                }
+                                                            </div>
                                                         )
                                                     })
                                                 }
                                             </Col>
                                         </Row>
+                                        </RowContainer>
                                         <TextBox>
                                             <Row xs={2}>
                                                 <Col xs={9} sm={10} md={8} lg={8} xl={10}>
@@ -256,7 +298,9 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
 const mapStateToProps = (state: RootState) => {
     return { 
         messages: state.message,
-        messagecomments: state.messagecomment 
+        messagecomments: state.messagecomment,
+        currentUser: state.user
+
     };
 };
 

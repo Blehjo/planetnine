@@ -18,7 +18,7 @@ export const PilotDashContainer = styled.div`
 `;
 
 export const MarginContainer = styled.div`
-    margin: 5rem 1rem 5rem 1rem;
+    margin: 5rem 1rem 1rem 1rem;
 `;
 
 export const PilotContainer = styled.div`

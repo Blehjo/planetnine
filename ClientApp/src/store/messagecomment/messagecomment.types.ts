@@ -25,6 +25,7 @@ export type MessageComment = {
     messageCommentId: number | null;
     messageValue: string;
     mediaLink: string | null;
+    imageSource: string | null;
     type: string | null;
     dateCreated: Date;
     messageId: number | null;

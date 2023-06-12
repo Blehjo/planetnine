@@ -8,7 +8,7 @@ const headers = {
   'Content-Type': 'application/x-www-form-urlencoded'
 }
 
-export async function getSingleMessageComment(messageId: number): Promise<MessageComment> {
+export async function getSingleMessageComment(messageId: number): Promise<MessageComment[]> {
   const response = await axios({
     method: 'get',
     url: `${api}/${messageId}`,
@@ -63,10 +63,10 @@ export async function getMessageComments(): Promise<MessageComment[]> {
   return result;
 }
 
-export async function addMessageComment(messageId: number, messageValue: string, mediaLink: File): Promise<MessageComment[]> {
+export async function addMessageComment(messageId: number, messageValue: string, imageFile: File): Promise<MessageComment[]> {
   const formData = new FormData();
   formData.append('messageValue', messageValue);
-  formData.append('imageFile', mediaLink);
+  formData.append('imageFile', imageFile);
   const response = await axios({
     method: 'post',
     url: `${api}/${messageId}`,
@@ -87,9 +87,7 @@ export async function editMessageComment(messageCommentId: number, messageCommen
       messageCommentValue,
       mediaLink
     },
-    headers: {
-        'Content-Type': 'application/json'
-    },
+    headers: headers,
     withCredentials: true
   });
   const result = await response.data;

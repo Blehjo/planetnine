@@ -21,7 +21,7 @@ export class Message extends Component<MessageProps> {
         return(
             <MessageDashPanel>
                 <HeaderContainer>
-                <div>Message</div>
+                <div>Communications</div>
                 </HeaderContainer>
                 <MarginContainer>
                 {
@@ -30,7 +30,7 @@ export class Message extends Component<MessageProps> {
                             <PilotContainer key={messageId}>
                             <Row key={userId} xs={2}>
                                 <Col xs={2}>
-                                    <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                    <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                 </Col>
                                 <Col xs={8}>
                                     {messageValue}

@@ -38,7 +38,7 @@ export const CollectionContainer = styled.div`
   border-radius: .2rem;
   text-align: center;
   @media (max-width: 994px) {
-    height: 79vh;
+    height: 20vh;
   }
   @media (max-width: 767px) {
     margin-left: 12rem;
@@ -73,7 +73,7 @@ export const FormContainer = styled.div`
   border-radius: .2rem;
   height: 90vh;
   @media (max-width: 994px) {
-    height: 79vh;
+    height: 65vh;
   }
   @media (max-width: 767px) {
     margin-left: 12rem;
@@ -84,5 +84,37 @@ export const FormContainer = styled.div`
     margin-left: .5rem;
     margin-bottom: 15rem;
     height: 50vh;
+  }
+`;
+
+export const JustifyRight = styled.div`
+  display: flex; 
+  justify-content: flex-end;
+  margin: .5rem;
+`;
+
+export const JustifyLeft = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin: .5rem;
+`;
+
+export const RowContainer = styled.div`
+  margin-top: 2rem; 
+  padding: 2rem; 
+  overflow-y: auto; 
+  height: 60vh;
+  @media (max-width: 994px) {
+    height: 50vh;
+  }
+  @media (max-width: 767px) {
+    height: 32vh;
+  }
+  @media (max-width: 717px) {
+    height: 26vh;
+  }
+  @media (max-width: 390px) {
+    margin: 2rem;
+    height: 30vh;
   }
 `;

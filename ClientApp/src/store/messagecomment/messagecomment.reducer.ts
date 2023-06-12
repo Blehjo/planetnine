@@ -23,7 +23,7 @@ import {
 export type MessageCommentState = {
     readonly messagecommentId: number | null;
     readonly singleMessagecomment: MessageComment | null;
-    readonly userMessagecomments: MessageComment[] | null;
+    readonly userMessagecomments: MessageComment[];
     readonly messagecomments: MessageComment[] | null;
     readonly isLoading: boolean;
     readonly error: Error | null;
@@ -32,7 +32,7 @@ export type MessageCommentState = {
 const INITIAL_STATE: MessageCommentState = {
     messagecommentId: null,
     singleMessagecomment: null,
-    userMessagecomments: null,
+    userMessagecomments: [],
     messagecomments: [],
     isLoading: false,
     error: null,
@@ -42,18 +42,24 @@ export const messagecommentReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): MessageCommentState => {
     if (
-        messagecommentFetchAllStart.match(action) 
+        messagecommentFetchAllStart.match(action) ||
+        messagecommentFetchSingleStart.match(action)
     ) {
         return { ...state, isLoading: true }
     }
     if (
-        messagecommentCreateSuccess.match(action) ||
         messagecommentUpdateSuccess.match(action) ||
         messagecommentDeleteSuccess.match(action) ||
         messagecommentFetchAllSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, messagecomments: action.payload };
     } 
+    if (
+        messagecommentFetchSingleSuccess.match(action) ||
+        messagecommentCreateSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userMessagecomments: action.payload}
+    }
     if (
         messagecommentCreateFailed.match(action) ||
         messagecommentUpdateFailed.match(action) ||
