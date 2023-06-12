@@ -8,7 +8,7 @@ import {
 } from '../../utils/reducer/reducer.utils';
 
 export type MessageCommentCreateStart = ActionWithPayload<
-    MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageCommentValue: string, mediaLink: string }
+    MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageId: number, messageValue: string, mediaLink: File }
 >;
 
 export type MessageCommentCreateSuccess = ActionWithPayload<
@@ -23,7 +23,7 @@ export type MessageCommentCreateFailed = ActionWithPayload<
 
 export type MessageCommentUpdateStart = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.UPDATE_START,
-    { messageCommentId: number, messageCommentValue: string, mediaLink: string }
+    { messageCommentId: number, messageValue: string, mediaLink: string }
 >;
 
 export type MessageCommentUpdateSuccess = ActionWithPayload<
@@ -53,7 +53,7 @@ export type MessageCommentDeleteteFailed = ActionWithPayload<
    
 export type MessageCommentFetchSingleStart = ActionWithPayload<
     MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_START,
-    { messageCommentId: number }
+    { messageId: number }
 >;
 
 export type MessageCommentFetchSingleSuccess = ActionWithPayload<
@@ -96,8 +96,8 @@ export type MessageCommentFetchAllFailed = ActionWithPayload<
 >;
 
 export const messagecommentCreateStart = withMatcher(
-    (messageCommentValue: string, mediaLink: string): MessageCommentCreateStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageCommentValue, mediaLink })
+    (messageId: number, messageValue: string, mediaLink: File): MessageCommentCreateStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.CREATE_START, { messageId, messageValue, mediaLink })
 );
 
 export const messagecommentCreateSuccess = withMatcher(
@@ -111,8 +111,8 @@ export const messagecommentCreateFailed = withMatcher(
 );
  
 export const messagecommentUpdateStart = withMatcher(
-    (messageCommentId: number, messageCommentValue: string, mediaLink: string): MessageCommentUpdateStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.UPDATE_START, { messageCommentId, messageCommentValue, mediaLink })
+    (messageCommentId: number, messageValue: string, mediaLink: string): MessageCommentUpdateStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.UPDATE_START, { messageCommentId, messageValue, mediaLink })
 );
 
 export const messagecommentUpdateSuccess = withMatcher(
@@ -141,8 +141,8 @@ export const messagecommentDeleteFailed = withMatcher(
 );
 
 export const messagecommentFetchSingleStart = withMatcher(
-    (messageCommentId: number): MessageCommentFetchSingleStart => 
-    createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_START, { messageCommentId })
+    (messageId: number): MessageCommentFetchSingleStart => 
+    createAction(MESSAGECOMMENT_ACTION_TYPES.FETCH_SINGLE_START, { messageId })
 );
 
 export const messagecommentFetchSingleSuccess = withMatcher(

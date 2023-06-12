@@ -7,20 +7,22 @@ import { Envelope, Globe, Person, Rocket, Send } from 'react-bootstrap-icons';
 import { BadgeContainer, PilotContainer } from "./Pilots.styles";
 import { RootState } from "../../store/store";
 import { PilotFetchAllStart, PilotFetchSingleStart, pilotFetchAllStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
-import { MessageCreateStart, messageCreateStart } from "../../store/message/message.action";
+import { MessageCreateStart, MessageSetID, messageCreateStart, messageSetId } from "../../store/message/message.action";
 import { MessageCommentCreateStart, messagecommentCreateStart } from "../../store/messagecomment/messagecomment.action";
+import { addMessage } from "../../utils/api/message.api";
+import { MessageState } from "../../store/message/message.reducer";
+import { PilotState } from "../../store/pilot/pilot.reducer";
 
 type PilotProps = ConnectedProps<typeof connector>;
 
-type PilotState = {
+type PilotStates = {
     openModal: boolean;
     messageValue: string;
-    messageCommentValue: string;
     imageSource: string | ArrayBuffer | null | undefined;
     imageFile: any;
 }
 
-export class Pilots extends Component<PilotProps, PilotState> {
+export class Pilots extends Component<PilotProps, PilotStates> {
     constructor(props: PilotProps) {
         super(props);
         this.handleSendMessage = this.handleSendMessage.bind(this);
@@ -32,7 +34,6 @@ export class Pilots extends Component<PilotProps, PilotState> {
         this.state = {
             openModal: false,
             messageValue: "",
-            messageCommentValue: "",
             imageSource: "",
             imageFile: null
         }
@@ -54,12 +55,15 @@ export class Pilots extends Component<PilotProps, PilotState> {
         this.props.sendMessage(singlePilot?.username!);
     }
 
-    handleMessage(event: FormEvent<HTMLFormElement>): void {
+    async handleMessage(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const { messageCommentValue, imageFile } = this.state;
+        const { messageValue, imageFile } = this.state;
         const { singlePilot } = this.props.pilots;
-        this.props.sendMessage(singlePilot?.username!);
-        this.props.createMessageComment(messageCommentValue, imageFile);
+        await addMessage(singlePilot?.username!)
+        .then((response) => this.props.setId(response.messageId))
+        this.props.createMessageComment(this.props.messages.messageId!, messageValue, imageFile);
+        this.openMessage();
+
     }
 
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -93,6 +97,13 @@ export class Pilots extends Component<PilotProps, PilotState> {
     componentDidMount(): void {
         this.props.getAllPilots();
     }
+
+    // componentDidUpdate(prevProps: Readonly<{ pilots: PilotState; messages: MessageState; } & { getAllPilots: () => void; getPilot: (userId: number) => void; sendMessage: (messageValue: string) => void; createMessageComment: (messageId: number, messageValue: string, mediaLink: File) => void; setId: (messageId: number) => void; }>, prevState: Readonly<PilotState>, snapshot?: any): void {
+    //     if (prevProps.messages.messages?.length != this.props.messages.messages?.length) {
+    //         console.log("hello");
+    //     }
+    // }
+    
 
     render() {
         const { pilots } = this.props;
@@ -166,7 +177,7 @@ export class Pilots extends Component<PilotProps, PilotState> {
                             <Row style={{ marginBottom: '1rem', justifyContent: 'center' }}>
                                 <Col xs={12}>
                                     <Form.Group>
-                                        <Form.Control style={{ height: '.5rem' }} name="messageCommentValue" as="textarea" onChange={this.handleChange} placeholder=" Write your message here" />
+                                        <Form.Control style={{ height: '.5rem' }} name="messageValue" as="textarea" onChange={this.handleChange} placeholder=" Write your message here" />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -191,14 +202,18 @@ export class Pilots extends Component<PilotProps, PilotState> {
 }
 
 const mapStateToProps = (state: RootState) => {
-    return { pilots: state.pilot };
+    return { 
+        pilots: state.pilot,
+        messages: state.message
+    };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<PilotFetchAllStart | PilotFetchSingleStart | MessageCreateStart | MessageCommentCreateStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<PilotFetchAllStart | MessageSetID | PilotFetchSingleStart | MessageCreateStart | MessageCommentCreateStart>) => ({
 	getAllPilots: () => dispatch(pilotFetchAllStart()),
     getPilot: (userId: number ) => dispatch(pilotFetchSingleStart(userId)),
     sendMessage: (messageValue: string) => dispatch(messageCreateStart(messageValue)),
-    createMessageComment: (messageCommentValue: string, mediaLink: string) => dispatch(messagecommentCreateStart(messageCommentValue, mediaLink))
+    createMessageComment: (messageId: number, messageValue: string, mediaLink: File) => dispatch(messagecommentCreateStart(messageId, messageValue, mediaLink)),
+    setId: (messageId: number) => dispatch(messageSetId(messageId))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

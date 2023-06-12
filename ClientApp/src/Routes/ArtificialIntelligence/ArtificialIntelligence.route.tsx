@@ -1,5 +1,5 @@
-import { ChangeEvent, Component, Dispatch, FormEvent, Fragment, MouseEventHandler } from "react";
-import { Anchor, Button, ButtonGroup, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
+import { Anchor, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
 import { Plus, Robot, XCircle } from "react-bootstrap-icons";
 import { RootState } from "../../store/store";
 import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceCreateStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
@@ -14,8 +14,8 @@ import { ArtificialIntelligenceState } from "../../store/artificialintelligence/
 import { ChatState } from "../../store/chat/chat.reducer";
 import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 import { callArtoo } from "../../utils/api/completion.api";
-import { addChat, getUserChats, getUsersChats } from "../../utils/api/chat.api";
-import { addChatComment, getAllChatComments, getUsersChatComments } from "../../utils/api/chatcomment.api";
+import { addChat, getUsersChats } from "../../utils/api/chat.api";
+import { getAllChatComments } from "../../utils/api/chatcomment.api";
 import { SearchBox } from "../../components/Searchbar/SearchBox.component";
 import { Chat } from "../../store/chat/chat.types";
 import { ChatComment } from "../../store/chatcomment/chatcomment.types";

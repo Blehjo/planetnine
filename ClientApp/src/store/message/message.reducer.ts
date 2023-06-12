@@ -57,7 +57,6 @@ export const messageReducer = (
         return { ...state, isLoading: false, singleMessage: action.payload }
     } 
     if (
-        messageCreateSuccess.match(action) ||
         messageDeleteSuccess.match(action) ||
         messageFetchUserMessagesSuccess.match(action) 
     ) {
@@ -74,6 +73,11 @@ export const messageReducer = (
     ) {
         return { ...state, isLoading: false, messageId: action.payload.messageId }
     } 
+    if (
+        messageCreateSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singleMessage: action.payload }
+    }  
     if (
         messageCreateFailed.match(action) ||
         messageUpdateFailed.match(action) ||

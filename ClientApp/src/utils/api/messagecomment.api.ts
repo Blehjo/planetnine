@@ -63,13 +63,13 @@ export async function getMessageComments(): Promise<MessageComment[]> {
   return result;
 }
 
-export async function addMessageComment(messageCommentValue: string, mediaLink: string): Promise<MessageComment[]> {
+export async function addMessageComment(messageId: number, messageValue: string, mediaLink: File): Promise<MessageComment[]> {
   const formData = new FormData();
-  formData.append('messageCommentValue', messageCommentValue);
-  formData.append('mediaLink', mediaLink);
+  formData.append('messageValue', messageValue);
+  formData.append('imageFile', mediaLink);
   const response = await axios({
     method: 'post',
-    url: api,
+    url: `${api}/${messageId}`,
     data: formData,
     headers: headers,
     withCredentials: true

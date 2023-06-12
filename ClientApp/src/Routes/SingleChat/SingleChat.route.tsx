@@ -1,18 +1,16 @@
 import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { Card, Col, Form, Row } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { SingleChatContainer } from "./SingleChat.styles";
-import { chatFetchSingleStart } from "../../store/chat/chat.action";
-import { selectSingleChat } from "../../store/chat/chat.selector";
+import { Send } from "react-bootstrap-icons";
 import { CardContainer, CommentBarContainer, CommentContainer, FormContainer } from "../../components/Comment/Comment.styles";
 import { TextContainer } from "../../components/Post/Post.styles";
-import { selectSingleChatcomment } from "../../store/chatcomment/chatcomment.selector";
+import { chatFetchSingleStart } from "../../store/chat/chat.action";
+import { selectSingleChat } from "../../store/chat/chat.selector";
 import { selectUserChatcomments } from "../../store/chatcomment/chatcomment.selector";
 import { utcConverter } from "../../utils/date/date.utils";
-import { Send } from "react-bootstrap-icons";
+import { SingleChatContainer } from "./SingleChat.styles";
 
 interface IDefaultFormFields {
     chatValue: string;

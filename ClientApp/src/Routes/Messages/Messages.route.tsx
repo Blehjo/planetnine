@@ -1,9 +1,9 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import { CollectionContainer, FormContainer, MessageContainer, MessagebarContainer, UserMessageContainer } from "./Messages.styles";
+import { CollectionContainer, FormContainer, MessageContainer, MessagebarContainer } from "./Messages.styles";
 import NotificationComponent from "../../components/Notification/Notification.component";
 import { RootState } from "../../store/store";
-import { MessageDeleteStart,  MessageFetchSingleStart, messageDeleteStart } from "../../store/message/message.action";
-import { MessageCommentFetchSingleStart, messagecommentFetchSingleStart } from "../../store/messagecomment/messagecomment.action";
+import { MessageDeleteStart, MessageFetchSingleStart, MessageSetID, messageDeleteStart, messageSetId } from "../../store/message/message.action";
+import { MessageCommentCreateStart, MessageCommentFetchSingleStart, messagecommentCreateStart, messagecommentFetchSingleStart } from "../../store/messagecomment/messagecomment.action";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { messageFetchUserMessagesStart } from "../../store/message/message.action";
 import { MessageFetchUserMessagesStart } from "../../store/message/message.action";
@@ -13,10 +13,8 @@ import { Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { Plus, XCircle } from "react-bootstrap-icons";
 import { TextBox } from "../ArtificialIntelligence/ArtificialIntelligence.styles";
 import { SearchBox } from "../../components/Searchbar/SearchBox.component";
-import { CardList } from "../../components/Searchbar/CardList.component";
 import { User } from "../../store/user/user.types";
 import { MessageList } from "../../components/Searchbar/MessageList.component";
-import { Message } from "../../store/message/message.types";
 import { MessageComment } from "../../store/messagecomment/messagecomment.types";
 import { MessageState } from "../../store/message/message.reducer";
 import { MessageCommentState } from "../../store/messagecomment/messagecomment.reducer";
@@ -74,7 +72,8 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
     handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         const { messageValue, imageFile } = this.state;
-        this.handleClose();
+        this.props.createMessageComment(this.props.messages.messageId!, messageValue, imageFile);
+        // this.handleClose();
     }
 
     handleChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -120,16 +119,13 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
         return value;
     }
 
-    // componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; } & { getAllCrew: () => void; getCrew: (userId: number) => void; createCrewMember: (name: string, role: string, imageFile: File) => void; createChat: (title: string, artificialId: number) => void; createComment: (chatId: number, chatValue: string, imageFile: File) => void; getChats: () => void; getChatComments: (chatId: number) => void; deleteChat: (chatId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
-
-    // }
-
     handleDelete(messageId: number): void {
         this.props.deleteMessage(messageId);
     }
 
     handleClick(messageId: number): void {
-        this.props.getMessage(messageId);
+        this.props.setId(messageId)
+        this.props.getMessageComments(18);
     }
 
     onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -148,10 +144,10 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
         .then(messages => this.setState({ userMessages: messages }));
     }
 
-    componentDidUpdate(prevProps: Readonly<{ messages: MessageState; messagecomments: MessageCommentState; } & { getAllMessages: () => void; getMessage: (messageId: number) => void; getMessageComments: (messageId: number) => void; likeMessage: (messageId: number, contentType: string) => void; deleteMessage: (messageId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
+    componentDidUpdate(prevProps: Readonly<{ messages: MessageState; messagecomments: MessageCommentState; } & { getAllMessages: () => void; getMessage: (messageId: number) => void; getMessageComments: (messageId: number) => void; createMessageComment: (messageId: number, messageValue: string, mediaLink: File) => void; likeMessage: (messageId: number, contentType: string) => void; deleteMessage: (messageId: number) => void; setId: (messageId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
         if (this.props.messages.userMessages?.length != prevProps.messages.userMessages?.length) {
             this.props.getAllMessages();
-        }
+        } 
     }
 
     render() {
@@ -179,17 +175,19 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                     {
                                         messages.userMessages?.map(({ messageId, messageValue, userId, messageComments, user }) => {
                                             return (
-                                                <Card bg="dark" style={{ margin: '1rem', cursor: 'pointer' }} key={messageId}>
+                                                <Card onClick={() => this.handleClick(messageId)} bg="dark" style={{ margin: '.2rem', cursor: 'pointer' }} key={messageId}>
                                                     <Row key={userId} xs={3}>
-                                                        <Col xs={2}>
-                                                            <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                                        <Col xs={4}>
+                                                            <Image style={{ borderRadius: '.4rem', margin: '.5rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                                         </Col>
-                                                        <Col xs={7}>
-                                                            <div onClick={() => this.handleClick(messageId)}>
-                                                                {messageValue}
+                                                        <Col xs={5}>
+                                                            <div style={{ alignSelf: 'flex-start' }}>
+                                                                <div>
+                                                                    {messageValue}
+                                                                </div>
                                                             </div>
                                                         </Col>
-                                                        <Col xs={2}>
+                                                        <Col xs={1}>
                                                             <XCircle onClick={() => this.handleDelete(messageId)} />
                                                         </Col>
                                                     </Row>
@@ -201,7 +199,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                             </Col>
                             <Col md={7} lg={8} xl={9}>
                                 <FormContainer>
-                                    <Form>
+                                    <Form onSubmit={this.handleSubmit}>
                                         <Row style={{ padding: '2rem', overflowY: 'auto' }}>
                                             <Col>
                                                 {
@@ -209,7 +207,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                                         return (
                                                             <Card key={messageCommentId}>
                                                                 <Row key={userId} xs={2}>
-                                                                    <Col xs={2}>
+                                                                    <Col xs={4}>
                                                                         <Image style={{ width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                                                     </Col>
                                                                     <Col xs={8}>
@@ -262,12 +260,14 @@ const mapStateToProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<MessageFetchUserMessagesStart | MessageFetchSingleStart | MessageCommentFetchSingleStart | FavoriteCreateStart | MessageDeleteStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<MessageFetchUserMessagesStart | MessageFetchSingleStart | MessageCommentCreateStart | MessageCommentFetchSingleStart | FavoriteCreateStart | MessageDeleteStart | MessageSetID>) => ({
 	getAllMessages: () => dispatch(messageFetchUserMessagesStart()),
     getMessage: (messageId: number) => dispatch(messageFetchSingleStart(messageId)),
     getMessageComments: (messageId: number) => dispatch(messagecommentFetchSingleStart(messageId)),
+    createMessageComment: (messageId: number, messageValue: string, mediaLink: File) => dispatch(messagecommentCreateStart(messageId, messageValue, mediaLink)),
     likeMessage: (messageId: number, contentType: string) => dispatch(favoriteCreateStart(messageId, contentType)),
-    deleteMessage: (messageId: number) => dispatch(messageDeleteStart(messageId))
+    deleteMessage: (messageId: number) => dispatch(messageDeleteStart(messageId)),
+    setId: (messageId: number) => dispatch(messageSetId(messageId))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -38,11 +38,12 @@ import {
     deleteMessageComment
 } from '../../utils/api/messagecomment.api';
 
-export function* createMessageComment({ payload: { messageCommentValue, mediaLink }}: MessageCommentCreateStart ) {
+export function* createMessageComment({ payload: { messageId, messageValue, mediaLink }}: MessageCommentCreateStart ) {
     try {
         const messagecomment = yield* call(
             addMessageComment,
-            messageCommentValue,
+            messageId,
+            messageValue,
             mediaLink
         ); 
         yield* put(messagecommentCreateSuccess(messagecomment));
@@ -51,12 +52,12 @@ export function* createMessageComment({ payload: { messageCommentValue, mediaLin
     }
 }
 
-export function* updateMessageComment({ payload: { messageCommentId, messageCommentValue, mediaLink }}: MessageCommentUpdateStart) {
+export function* updateMessageComment({ payload: { messageCommentId, messageValue, mediaLink }}: MessageCommentUpdateStart) {
     try {
         const messagecomment = yield* call(
             editMessageComment,
             messageCommentId,
-            messageCommentValue,
+            messageValue,
             mediaLink
         ); 
         yield* put(messagecommentUpdateSuccess(messagecomment));
@@ -101,11 +102,11 @@ export function* fetchOtherUsersMessageComments({ payload: { userId } }: Message
 }
 
 export function* fetchSingleMessageAsync({ 
-    payload: { messageCommentId } }: MessageCommentFetchSingleStart) {
+    payload: { messageId } }: MessageCommentFetchSingleStart) {
     try {
         const messageSnapshot = yield* call(
             getSingleMessageComment,
-            messageCommentId 
+            messageId 
         );
         yield* put(messagecommentFetchSingleSuccess(messageSnapshot as MessageComment));
     } catch (error) {

@@ -13,7 +13,7 @@ export type MessageCreateStart = ActionWithPayload<
 
 export type MessageCreateSuccess = ActionWithPayload<
     MESSAGE_ACTION_TYPES.CREATE_SUCCESS, 
-    Message[]
+    Message
 >;
 
 export type MessageCreateFailed = ActionWithPayload<
@@ -110,7 +110,7 @@ export const messageCreateStart = withMatcher(
 );
 
 export const messageCreateSuccess = withMatcher(
-    (message: Message[]): MessageCreateSuccess => 
+    (message: Message): MessageCreateSuccess => 
     createAction(MESSAGE_ACTION_TYPES.CREATE_SUCCESS, message)
 );
 
