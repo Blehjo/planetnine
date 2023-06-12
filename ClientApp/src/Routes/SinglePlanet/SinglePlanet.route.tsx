@@ -1,13 +1,14 @@
 import { Fragment, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import ReactLoading from "react-loading";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import { SinglePostContainer } from "../SinglePost/SinglePost.styles";
-import { selectSinglePlanet } from "../../store/planet/planet.selector";
 import PlanetCommentComponent from "../../components/Comment/PlanetComment.Component";
 import { planetFetchSingleStart } from "../../store/planet/planet.action";
+import { selectIsPlanetLoading, selectSinglePlanet } from "../../store/planet/planet.selector";
+import { selectIsPlanetCommentLoading } from "../../store/planetcomment/planetcomment.selector";
+import { SinglePostContainer } from "../SinglePost/SinglePost.styles";
 
 const defaultFormFields = {
     commentValue: '',
@@ -18,14 +19,11 @@ const defaultFormFields = {
 
 function SinglePlanet() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const planet = useSelector(selectSinglePlanet);
+    const planetLoading = useSelector(selectIsPlanetLoading);
+    const planetcommentLoading = useSelector(selectIsPlanetCommentLoading);
     let { id } = useParams();
     const queryId = parseInt(id!);
-
-    const backToPosts = () => {
-        navigate(`/planets`);
-    }
 
     useEffect(() => {
         dispatch(planetFetchSingleStart(queryId));
@@ -33,15 +31,33 @@ function SinglePlanet() {
     
     return (
         <Fragment>
-            <SinglePostContainer>
-                <Card className="bg-dark">
-                    <Card.Body>
-                        <Card.Img src={planet?.imageLink ? planet.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
-                    </Card.Body>
-                    <Card.Footer>{planet?.planetName}</Card.Footer>
-                </Card>
-            </SinglePostContainer>
-            <PlanetCommentComponent planet={planet!} queryId={queryId}/>
+            {
+                planetLoading || planetcommentLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
+                <SinglePostContainer>
+                    <Card className="bg-dark">
+                        <Card.Title style={{ margin: '1rem 0rem 0rem 1rem' }} >{planet?.planetName}</Card.Title>
+                        <Card.Body>
+                            {
+                                planet?.modelLink ? 
+                                <iframe
+                                    src={planet?.modelLink}
+                                    width="100%" 
+                                    height="450px"
+
+                                /> :
+                                <Card.Img src={planet?.imageLink ? planet.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                            }
+                        </Card.Body>
+                        <Card.Footer>{planet?.description}</Card.Footer>
+                    </Card>
+                </SinglePostContainer>
+                <PlanetCommentComponent planet={planet!} queryId={queryId}/>
+                </>
+            }
         </Fragment>
     )
 }

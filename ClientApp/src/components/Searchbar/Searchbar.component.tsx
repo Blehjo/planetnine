@@ -1,12 +1,12 @@
 import { ChangeEvent, Component } from "react";
 import { Modal } from "react-bootstrap";
 
-import { SearchBox } from "./SearchBox.component";
 import { CardList } from "./CardList.component";
+import { SearchBox } from "./SearchBox.component";
 
-import { User } from "../../store/user/user.types";
-import { Planet } from "../../store/planet/planet.types";
 import { Moon } from "../../store/moon/moon.types";
+import { Planet } from "../../store/planet/planet.types";
+import { User } from "../../store/user/user.types";
 
 type DefaultProps = {
     users: User[],
@@ -30,15 +30,15 @@ export class Searchbar extends Component<{}, DefaultProps> {
     }
 
     componentDidMount(): void {
-        fetch('https://planetnineservers.azurewebsites.net/api/user')
+        fetch('https://planetnineserver.azurewebsites.net/api/user')
         .then(response => response.json())
         .then(users => this.setState({ users: users }));
 
-        fetch('https://planetnineservers.azurewebsites.net/api/planet')
+        fetch('https://planetnineserver.azurewebsites.net/api/planet')
         .then(response => response.json())
         .then(planets => this.setState({ planets: planets }));
 
-        fetch('https://planetnineservers.azurewebsites.net/api/moon')
+        fetch('https://planetnineserver.azurewebsites.net/api/moon')
         .then(response => response.json())
         .then(moons => this.setState({ moons: moons }));
     }

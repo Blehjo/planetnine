@@ -6,6 +6,11 @@ import { ChatState } from './chat.reducer';
 
 export const selectChatReducer = (state: RootState): ChatState => state.chat;
 
+export const selectIsChatLoading = createSelector(
+  [selectChatReducer],
+  (chat) => chat.isLoading
+);
+
 export const selectChatId = createSelector(
   [selectChatReducer],
   (chat) => chat.chatId

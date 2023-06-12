@@ -1,20 +1,21 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
+import ReactLoading from "react-loading";
 import { ConnectedProps, connect } from "react-redux";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
-import { FixedContainer, PlanetPanelContainer } from "./Planet.styles";
-import { RootState } from "../../store/store";
-import { PlanetFetchAllStart, PlanetFetchSingleStart, planetFetchAllStart, planetFetchSingleStart } from "../../store/planet/planet.action";
-import { CommentContainer, FormContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
-import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { ArrowsFullscreen, Send } from "react-bootstrap-icons";
+import { PlanetFetchAllStart, PlanetFetchSingleStart, planetFetchAllStart, planetFetchSingleStart } from "../../store/planet/planet.action";
+import { PlanetState } from "../../store/planet/planet.reducer";
+import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
+import { PlanetCommentState } from "../../store/planetcomment/planetcomment.reducer";
+import { RootState } from "../../store/store";
+import { utcConverter } from "../../utils/date/date.utils";
 import NotificationComponent from "../Notification/Notification.component";
 import { CardContainer } from "../Notification/Notifications.styles";
-import { utcConverter } from "../../utils/date/date.utils";
-import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
-import { PlanetState } from "../../store/planet/planet.reducer";
-import { PlanetCommentState } from "../../store/planetcomment/planetcomment.reducer";
+import { BadgeContainer } from "../Pilots/Pilots.styles";
+import { CommentContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
+import { PlanetPanelContainer } from "./Planet.styles";
 
 type PlanetProps = ConnectedProps<typeof connector>;
 
@@ -106,34 +107,38 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
         const { planets, planetcomments } = this.props;
         return (
             <Fragment>
-                {/* <FixedContainer className="fixed-top"> */}
-                    <PlanetPanelContainer>
-                        <h1>Planets</h1>
-                        <ResponsiveMasonry
-                            columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4 }}
-                        >
-                            <Masonry>
-                            {planets.planets?.map(({ planetId, planetName, perihelion, aphelion, planetMass, temperature, gravity, imageLink }, index) => {
-                                return <PostContainer key={index}>
-                                    <Card className="bg-dark" key={index}>
-                                        <Card.Img src={imageLink ? imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
-                                        <Card.ImgOverlay>
-                                        <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
-                                            <BadgeContainer>
-                                                <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen onClick={() => this.fetchPlanet(planetId)} style={{ cursor: 'pointer' }} size={15}/></Badge>
-                                            </BadgeContainer>
-                                        </div>
-                                        </Card.ImgOverlay>
-                                        <Card.Body>
-                                            <Card.Text>{planetName}</Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </PostContainer>
-                            })}
-                            </Masonry>
-                        </ResponsiveMasonry>
-                    </PlanetPanelContainer>
-                {/* </FixedContainer> */}
+                {
+                planets.isLoading || planetcomments.isLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
+                <PlanetPanelContainer>
+                    <h1>Planets</h1>
+                    <ResponsiveMasonry
+                        columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4 }}
+                    >
+                        <Masonry>
+                        {planets.planets?.map(({ planetId, planetName, brief, perihelion, aphelion, planetMass, temperature, gravity, imageLink }, index) => {
+                            return <PostContainer key={index}>
+                                <Card className="bg-dark" key={index}>
+                                    <Card.Img src={imageLink ? imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                                    <Card.ImgOverlay>
+                                    <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
+                                        <BadgeContainer>
+                                            <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen onClick={() => this.fetchPlanet(planetId)} style={{ cursor: 'pointer' }} size={15}/></Badge>
+                                        </BadgeContainer>
+                                    </div>
+                                    </Card.ImgOverlay>
+                                    <Card.Body>
+                                        <Card.Text>{planetName}</Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </PostContainer>
+                        })}
+                        </Masonry>
+                    </ResponsiveMasonry>
+                </PlanetPanelContainer>
                 <NotificationComponent/>
                 <Modal 
                     size="lg"
@@ -154,7 +159,7 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                             />
                             <Card style={{ marginTop: "1rem" }} className="bg-dark" key={planets.singlePlanet?.planetId}>
                                 <TextContainer>
-                                {planets.singlePlanet?.planetName}
+                                {planets.singlePlanet?.brief}
                                 </TextContainer>
                             </Card>
                             </Col>
@@ -216,6 +221,8 @@ export class Planet extends Component<PlanetProps, IDefaultForm> {
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
+                </>
+                }
             </Fragment>
         )
     }

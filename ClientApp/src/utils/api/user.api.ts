@@ -1,8 +1,8 @@
 import axios from "axios";
-import { User } from "../../store/user/user.types";
 import { Pilot } from "../../store/pilot/pilot.types";
+import { User } from "../../store/user/user.types";
 
-const api = "https://planetnineservers.azurewebsites.net/api/user";
+const api = "https://planetnineserver.azurewebsites.net/api/user";
 
 const headers = {
   'Accept': 'application/x-www-form-urlencoded',

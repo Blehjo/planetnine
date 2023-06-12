@@ -45,6 +45,9 @@ export const artificialIntelligenceReducer = (
     state = INITIAL_STATE, action: AnyAction
 ): ArtificialIntelligenceState => {
     if (
+        artificialIntelligenceCreateStart.match(action) ||
+        artificialIntelligenceUpdateStart.match(action) ||
+        artificialIntelligenceDeleteStart.match(action) ||
         artificialIntelligenceFetchAllStart.match(action) ||
         artificialIntelligenceFetchSingleStart.match(action) ||
         artificialIntelligenceFetchUsersStart.match(action) ||
@@ -60,7 +63,8 @@ export const artificialIntelligenceReducer = (
         return { ...state, isLoading: false, artificialIntelligences: action.payload };
     } 
     if (
-        artificialIntelligenceFetchUsersSuccess.match(action)
+        artificialIntelligenceFetchUsersSuccess.match(action) ||
+        artificialIntelligenceCreateSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, userArtificialIntelligences: action.payload };
     } 
@@ -68,11 +72,6 @@ export const artificialIntelligenceReducer = (
         artificialIntelligenceFetchSingleSuccess.match(action) 
     ) {
         return { ...state, isLoading: false, singleArtificialIntelligence: action.payload };
-    } 
-    if (
-        artificialIntelligenceCreateSuccess.match(action) 
-    ) {
-        return { ...state, isLoading: false, userArtificialIntelligences: action.payload };
     } 
     if (
         artificialIntelligenceCreateFailed.match(action) ||

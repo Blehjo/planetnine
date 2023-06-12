@@ -1,23 +1,18 @@
 import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { Card, Col, Form, Row } from "react-bootstrap";
+import ReactLoading from "react-loading";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { Send } from "react-bootstrap-icons";
 import { CardContainer, CommentBarContainer, CommentContainer, FormContainer } from "../../components/Comment/Comment.styles";
 import { TextContainer } from "../../components/Post/Post.styles";
 import { chatFetchSingleStart } from "../../store/chat/chat.action";
-import { selectSingleChat } from "../../store/chat/chat.selector";
-import { selectUserChatcomments } from "../../store/chatcomment/chatcomment.selector";
+import { selectIsChatLoading, selectSingleChat } from "../../store/chat/chat.selector";
+import { chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
+import { selectIsChatCommentLoading, selectUserChatcomments } from "../../store/chatcomment/chatcomment.selector";
 import { utcConverter } from "../../utils/date/date.utils";
 import { SingleChatContainer } from "./SingleChat.styles";
-
-interface IDefaultFormFields {
-    chatValue: string;
-    imageSource: string | ArrayBuffer | null | undefined;
-    imageFile: any;
-    show: boolean;
-}
 
 const defaultFormFields = {
     chatValue: "",
@@ -28,16 +23,13 @@ const defaultFormFields = {
 
 function SingleChat() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [formFields, setFormFields] = useState(defaultFormFields);
     const chat = useSelector(selectSingleChat);
     const comments = useSelector(selectUserChatcomments);
+    const chatLoading = useSelector(selectIsChatLoading);
+    const chatcommentLoading = useSelector(selectIsChatCommentLoading);
     let { id } = useParams();
     const queryId = parseInt(id!);
-
-    const backToPosts = () => {
-        navigate(`/chats`);
-    }
 
     async function postComment() {
 
@@ -83,17 +75,35 @@ function SingleChat() {
 
     useEffect(() => {
         dispatch(chatFetchSingleStart(queryId));
+        dispatch(chatcommentFetchSingleStart(queryId));
     }, [id]);
 
     return (
         <Fragment>
+            {
+                chatLoading || chatcommentLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+            <>
             <SingleChatContainer>
                 <Card className="bg-dark">
                     <Card.Body>
                         <Card.Img src="https://www.artlog.net/sites/default/files/styles/al_colorbox_rules/public/turrell_cregis_golay_federal_studio.jpg?itok=2M4Pyn0A"/>
                     </Card.Body>
-                    <Card.Footer>{chat?.title}</Card.Footer>
                 </Card>
+                {
+                    comments?.map(({ chatCommentId, chatValue, mediaLink, dateCreated }) => {
+                        return <CardContainer>
+                            <Card className="bg-dark" key={chatCommentId}>
+                                <TextContainer>
+                                    <Card.Text>{chatValue}</Card.Text>
+                                    <Card.Text>{utcConverter(dateCreated)}</Card.Text>
+                                </TextContainer>
+                            </Card>
+                        </CardContainer>
+                    })
+                }
             </SingleChatContainer>
             <CommentBarContainer>
                 <CommentContainer>
@@ -139,6 +149,8 @@ function SingleChat() {
                 </Form>
                 </FormContainer>
             </CommentBarContainer>
+            </>
+            }
         </Fragment>
     )
 }

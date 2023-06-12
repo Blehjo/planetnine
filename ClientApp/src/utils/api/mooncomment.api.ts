@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MoonComment } from "../../store/mooncomment/mooncomment.types";
 
-const api = "https://planetnineservers.azurewebsites.net/api/mooncomment";
+const api = "https://planetnineserver.azurewebsites.net/api/mooncomment";
 
 const headers = {
   'Accept': 'application/x-www-form-urlencoded',

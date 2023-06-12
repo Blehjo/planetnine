@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ChatComment } from "../../store/chatcomment/chatcomment.types";
 
-const api = "https://planetnineservers.azurewebsites.net/api/AiComment";
+const api = "https://planetnineserver.azurewebsites.net/api/AiComment";
 
 const headers = {
   'Accept': 'application/json',

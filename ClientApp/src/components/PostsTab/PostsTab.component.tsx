@@ -326,7 +326,7 @@ export class PostsTab extends Component<ProfileProps, IDefaultFormFields> {
         <Modal show={showCreate} onHide={() => this.handleCloseCreate()}>
             <ModalPostContainer>
             <Modal.Header closeButton>
-            <Modal.Title>Inquiry</Modal.Title>
+            <Modal.Title>Data Log</Modal.Title>
             </Modal.Header>
             <Form autoComplete="off" onSubmit={this.handleSubmit}>
             <Modal.Body>

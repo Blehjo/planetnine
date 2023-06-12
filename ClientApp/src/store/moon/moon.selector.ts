@@ -6,6 +6,11 @@ import { MoonState } from './moon.reducer';
 
 export const selectMoonReducer = (state: RootState): MoonState => state.moon;
 
+export const selectIsMoonLoading = createSelector(
+  [selectMoonReducer],
+  (moon) => moon.isLoading
+);
+
 export const selectMoonId = createSelector(
   [selectMoonReducer],
   (moon) => moon.moonId

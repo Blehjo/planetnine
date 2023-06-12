@@ -1,23 +1,20 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import { CollectionContainer, FormContainer, JustifyLeft, JustifyRight, MessageContainer, MessagebarContainer, RowContainer } from "./Messages.styles";
-import NotificationComponent from "../../components/Notification/Notification.component";
-import { RootState } from "../../store/store";
-import { MessageDeleteStart, MessageFetchSingleStart, MessageSetID, messageDeleteStart, messageSetId } from "../../store/message/message.action";
-import { MessageCommentCreateStart, MessageCommentFetchSingleStart, messagecommentCreateStart, messagecommentFetchSingleStart } from "../../store/messagecomment/messagecomment.action";
-import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
-import { messageFetchUserMessagesStart } from "../../store/message/message.action";
-import { MessageFetchUserMessagesStart } from "../../store/message/message.action";
-import { messageFetchSingleStart } from "../../store/message/message.action";
-import { ConnectedProps, connect } from "react-redux";
 import { Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
-import { Eye, Eyeglasses, Plus, XCircle } from "react-bootstrap-icons";
-import { TextBox } from "../ArtificialIntelligence/ArtificialIntelligence.styles";
-import { SearchBox } from "../../components/Searchbar/SearchBox.component";
-import { User } from "../../store/user/user.types";
+import { Plus, XCircle } from "react-bootstrap-icons";
+import { ConnectedProps, connect } from "react-redux";
+import ReactLoading from "react-loading";
+
+import NotificationComponent from "../../components/Notification/Notification.component";
 import { MessageList } from "../../components/Searchbar/MessageList.component";
+import { SearchBox } from "../../components/Searchbar/SearchBox.component";
+import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
+import { MessageDeleteStart, MessageFetchSingleStart, MessageFetchUserMessagesStart, MessageSetID, messageDeleteStart, messageFetchSingleStart, messageFetchUserMessagesStart, messageSetId } from "../../store/message/message.action";
+import { MessageCommentCreateStart, MessageCommentFetchSingleStart, messagecommentCreateStart, messagecommentFetchSingleStart } from "../../store/messagecomment/messagecomment.action";
 import { MessageComment } from "../../store/messagecomment/messagecomment.types";
-import { MessageState } from "../../store/message/message.reducer";
-import { MessageCommentState } from "../../store/messagecomment/messagecomment.reducer";
+import { RootState } from "../../store/store";
+import { User } from "../../store/user/user.types";
+import { TextBox } from "../ArtificialIntelligence/ArtificialIntelligence.styles";
+import { CollectionContainer, FormContainer, JustifyLeft, JustifyRight, MessageContainer, MessagebarContainer, RowContainer } from "./Messages.styles";
 
 type MessagesProps = ConnectedProps<typeof connector>;
 
@@ -130,11 +127,11 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
     componentDidMount(): void {
         this.props.getAllMessages();
 
-        fetch('https://planetnineservers.azurewebsites.net/api/user')
+        fetch('https://planetnineserver.azurewebsites.net/api/user')
         .then(response => response.json())
         .then(users => this.setState({ users: users }));
        
-        fetch('https://planetnineservers.azurewebsites.net/api/messagecomment')
+        fetch('https://planetnineserver.azurewebsites.net/api/messagecomment')
         .then(response => response.json())
         .then(messages => this.setState({ userMessages: messages }));
     }
@@ -148,12 +145,18 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
             message.messageValue.toLowerCase().includes(searchField.toLowerCase()));
         return (
             <Fragment>
+                {
+                messages.isLoading || messagecomments.isLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
                 <MessagebarContainer className="fixed-top">
                     <MessageContainer>
                         <Row xs={2} md={2} lg={1} xl={2}>
                             <Col xs={12} md={5} lg={7} xl={3}>
                                 <CollectionContainer>
-                                <h1>Messages<Plus size={40} style={{ cursor: 'pointer' }} /></h1>
+                                <h1>Comms<Plus size={40} style={{ cursor: 'pointer' }} /></h1>
                                     <input style={{ marginTop: '1rem', marginBottom: '1rem', borderRadius: ".1rem", width: "auto" }} onClick={this.handleClickEvent} placeholder="Search" />
                                     <Modal show={show} onHide={this.handleClickEvent}>
                                         <SearchBox onSearchChange={this.onSearchChange} />
@@ -167,7 +170,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                                 <Card onClick={() => this.handleClick(messageId)} bg="dark" style={{ margin: '.2rem .2rem 1rem .2rem', cursor: 'pointer' }} key={messageId}>
                                                     <Row key={userId} xs={3}>
                                                         <Col xs={4}>
-                                                            <Image style={{ borderRadius: '.4rem', margin: '.5rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                                            <Image style={{ borderRadius: '.4rem', margin: '.5rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineserver.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                                         </Col>
                                                         <Col xs={5}>
                                                             <div style={{ alignSelf: 'flex-start' }}>
@@ -203,7 +206,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                                                     <Card style={{ width: '50%', padding: '.5rem' }} key={messageCommentId}>
                                                                         <Row key={userId} xs={2}>
                                                                             <Col xs={4}>
-                                                                                <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                                                                <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineserver.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                                                             </Col>
                                                                             <Col xs={8}>
                                                                                 <div style={{ color: 'black', textAlign: 'left' }}>
@@ -219,7 +222,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                                                         <Card style={{ width: '50%', padding: '.5rem' }}>
                                                                         <Row xs={1}>
                                                                             <Col>
-                                                                                <Image fluid style={{ borderRadius: '.2rem', width: '20rem', height: '20rem', objectFit: 'cover' }} src={`https://planetnineservers.azurewebsites.net/Images/${mediaLink}`}/>
+                                                                                <Image fluid style={{ borderRadius: '.2rem', width: '20rem', height: '20rem', objectFit: 'cover' }} src={`https://planetnineserver.azurewebsites.net/Images/${mediaLink}`}/>
                                                                             </Col>
                                                                         </Row>
                                                                         </Card>
@@ -231,7 +234,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                                                     <Card style={{ width: '50%', padding: '.5rem' }} key={messageCommentId}>
                                                                         <Row key={userId} xs={2}>
                                                                             <Col xs={4}>
-                                                                                <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                                                                <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user?.imageLink ? `https://planetnineserver.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                                                             </Col>
                                                                             <Col xs={8}>
                                                                                 <div style={{ color: 'black', textAlign: 'left' }}>
@@ -247,7 +250,7 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                                                                         <Card style={{ width: '50%', padding: '.5rem' }}>
                                                                         <Row xs={1}>
                                                                             <Col>
-                                                                                <Image fluid style={{ borderRadius: '.2rem', width: '20rem', height: '20rem', objectFit: 'cover' }} src={`https://planetnineservers.azurewebsites.net/Images/${mediaLink}`}/>
+                                                                                <Image fluid style={{ borderRadius: '.2rem', width: '20rem', height: '20rem', objectFit: 'cover' }} src={`https://planetnineserver.azurewebsites.net/Images/${mediaLink}`}/>
                                                                             </Col>
                                                                         </Row>
                                                                         </Card>
@@ -290,6 +293,8 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                     </MessageContainer>
                 </MessagebarContainer>
                 <NotificationComponent />
+                </>
+                }
             </Fragment>
         );
     }

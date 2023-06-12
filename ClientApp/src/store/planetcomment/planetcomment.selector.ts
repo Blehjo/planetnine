@@ -5,6 +5,11 @@ import { PlanetCommentState } from './planetcomment.reducer';
 
 export const selectPlanetCommentReducer = (state: RootState): PlanetCommentState => state.planetcomment;
 
+export const selectIsPlanetCommentLoading = createSelector(
+    [selectPlanetCommentReducer],
+    (planetcomment) => planetcomment.isLoading
+);
+
 export const selectPlanetCommentId = createSelector(
     [selectPlanetCommentReducer],
     (planetcomment) => planetcomment.planetCommentId

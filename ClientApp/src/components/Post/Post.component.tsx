@@ -1,5 +1,6 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import { ConnectedProps, connect } from "react-redux";
+import ReactLoading from "react-loading";
 import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
 import { Globe, Chat, Rocket, ArrowsFullscreen, Send } from 'react-bootstrap-icons';
@@ -118,6 +119,12 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
         const { show } = this.state;
         return (
             <Fragment>
+                {
+                posts.isLoading || comments.isLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
                 <h1>Pilot Logs</h1>
                 <p>Information on the galaxy documented by your fellow pioneers</p>
                 <ResponsiveMasonry
@@ -198,7 +205,6 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                 })
                             }
                             </div>
-                            {/* <FormContainer> */}
                             <Form style={{ margin: 'auto', position: "absolute", bottom: "0" }} key={posts.singlePost?.postId} onSubmit={this.postComment}>
                             <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={1}>
                                 <Col xs={12}>
@@ -224,7 +230,6 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                                 </Col>                
                             </Row>
                         </Form>
-                            {/* </FormContainer> */}
                             </CommentContainer>
                             </Col>
                         </Row>
@@ -241,6 +246,8 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
+                </>
+                }
             </Fragment>
         )
     }

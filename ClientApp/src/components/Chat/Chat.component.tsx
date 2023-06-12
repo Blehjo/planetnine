@@ -1,6 +1,7 @@
 import { ConnectedProps, connect } from "react-redux";
 import { Component, Fragment, Dispatch, ChangeEvent } from "react";
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
+import ReactLoading from "react-loading";
 import { ArrowsFullscreen, Chat, Rocket, Send } from 'react-bootstrap-icons';
 import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 
@@ -103,6 +104,12 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
         const { show } = this.state;
         return (
             <Fragment>
+                {
+                chats.isLoading || chatComments.isLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
                 <h1>Chat Manifests</h1>
                 <p>Information on the galaxy documented by your fellow pioneers</p>
                 <ResponsiveMasonry
@@ -180,7 +187,7 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                             <div>Comments</div>
                             <div style={{ height: "65%", overflowY: "auto" }}>
                             {
-                                chatComments.chatcomments?.map(({ chatCommentId, chatValue, mediaLink, dateCreated }) => {
+                                chatComments.userChatcomments?.map(({ chatCommentId, chatValue, mediaLink, dateCreated }) => {
                                     return <CardContainer>
                                         <Card className="bg-dark" key={chatCommentId}>
                                             <TextContainer>
@@ -231,6 +238,8 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
+                </>
+                }
             </Fragment>
         )
     }

@@ -1,17 +1,16 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import { ConnectedProps, connect } from "react-redux";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { Badge, Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
+import { Badge, Card, Col, Form, Modal, Row } from "react-bootstrap";
 import { Envelope, Globe, Person, Rocket, Send } from 'react-bootstrap-icons';
+import { ConnectedProps, connect } from "react-redux";
+import ReactLoading from "react-loading";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
-import { BadgeContainer, PilotContainer } from "./Pilots.styles";
-import { RootState } from "../../store/store";
-import { PilotFetchAllStart, PilotFetchSingleStart, pilotFetchAllStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
 import { MessageCreateStart, MessageSetID, messageCreateStart, messageSetId } from "../../store/message/message.action";
 import { MessageCommentCreateStart, messagecommentCreateStart } from "../../store/messagecomment/messagecomment.action";
+import { PilotFetchAllStart, PilotFetchSingleStart, pilotFetchAllStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
+import { RootState } from "../../store/store";
 import { addMessage } from "../../utils/api/message.api";
-import { MessageState } from "../../store/message/message.reducer";
-import { PilotState } from "../../store/pilot/pilot.reducer";
+import { BadgeContainer, PilotContainer } from "./Pilots.styles";
 
 type PilotProps = ConnectedProps<typeof connector>;
 
@@ -95,18 +94,17 @@ export class Pilots extends Component<PilotProps, PilotStates> {
         this.props.getAllPilots();
     }
 
-    // componentDidUpdate(prevProps: Readonly<{ pilots: PilotState; messages: MessageState; } & { getAllPilots: () => void; getPilot: (userId: number) => void; sendMessage: (messageValue: string) => void; createMessageComment: (messageId: number, messageValue: string, mediaLink: File) => void; setId: (messageId: number) => void; }>, prevState: Readonly<PilotState>, snapshot?: any): void {
-    //     if (prevProps.messages.messages?.length != this.props.messages.messages?.length) {
-    //         console.log("hello");
-    //     }
-    // }
-    
-
     render() {
         const { pilots } = this.props;
         const { openModal } = this.state;
         return (
             <Fragment>
+                {
+                pilots.isLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
                 <h1>Pilots</h1>
                 <p>Take a look at your fellow Pilots</p>
                 <ResponsiveMasonry
@@ -193,6 +191,8 @@ export class Pilots extends Component<PilotProps, PilotStates> {
                         </Form>
                     </Modal.Body>
                 </Modal>
+                </>
+                }
             </Fragment>
         )
     }

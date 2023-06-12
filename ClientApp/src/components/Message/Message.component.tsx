@@ -1,13 +1,13 @@
 import { Component, Dispatch } from "react";
+import { Col, Image, Row } from "react-bootstrap";
 import { ConnectedProps, connect } from "react-redux";
-import { Card, Col, Image, Row } from "react-bootstrap";
 
-import { MessageContainer, MessageDashPanel } from "./Message.styles";
-import { RootState } from "../../store/store";
 import { MessageFetchUserMessagesStart, messageFetchUserMessagesStart } from "../../store/message/message.action";
+import { RootState } from "../../store/store";
 import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
-import { PilotContainer } from "../Pilots/Pilots.styles";
 import { HeaderContainer, MarginContainer } from "../PilotDash/PilotDash.styles";
+import { PilotContainer } from "../Pilots/Pilots.styles";
+import { MessageDashPanel } from "./Message.styles";
 
 type MessageProps = ConnectedProps<typeof connector>;
 
@@ -30,7 +30,7 @@ export class Message extends Component<MessageProps> {
                             <PilotContainer key={messageId}>
                             <Row key={userId} xs={2}>
                                 <Col xs={2}>
-                                    <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineservers.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
+                                    <Image style={{ borderRadius: '.2rem', width: '2rem', height: '2rem', objectFit: 'cover' }} fluid src={user.imageLink ? `https://planetnineserver.azurewebsites.net/Images/${user.imageLink}` : "https://t3.ftcdn.net/jpg/04/37/12/40/360_F_437124090_g3px49FczWcCdl3zvGbrkxH9TdiY3yRa.jpg"} />
                                 </Col>
                                 <Col xs={8}>
                                     {messageValue}

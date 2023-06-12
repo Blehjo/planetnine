@@ -1,6 +1,8 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import { Anchor, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
 import { Plus, Robot, XCircle } from "react-bootstrap-icons";
+import ReactLoading from "react-loading";
+
 import { RootState } from "../../store/store";
 import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceCreateStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
 import { ConnectedProps, connect } from "react-redux";
@@ -214,6 +216,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 chatValue: ""
             })
         }
+
     }
 
     onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -231,6 +234,12 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             chat.chatValue.toLowerCase().includes(searchField.toLowerCase()));
         return (
             <Fragment>
+            {
+                chats.isLoading || chatcomments.isLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
             <AiContainer className="fixed-top">
             <UserAiContainer>
             <Row>
@@ -395,6 +404,8 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 </ModalPostContainer>
             </Modal>
             <CrewPanelComponent/>
+            </>
+            }
             </Fragment>
         );
     }

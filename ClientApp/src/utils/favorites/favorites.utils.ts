@@ -1,12 +1,12 @@
 import axios from "axios";
-import { Post } from "../../store/post/post.types";
 import { Chat } from "../../store/chat/chat.types";
-import { Planet } from "../../store/planet/planet.types";
-import { Moon } from "../../store/moon/moon.types";
-import { Comment } from "../../store/comment/comment.types";
 import { ChatComment } from "../../store/chatcomment/chatcomment.types";
+import { Comment } from "../../store/comment/comment.types";
+import { Moon } from "../../store/moon/moon.types";
+import { Planet } from "../../store/planet/planet.types";
+import { Post } from "../../store/post/post.types";
 
-const api = "https://planetnineservers.azurewebsites.net/api";
+const api = "https://planetnineserver.azurewebsites.net/api";
 
 const headers = {
   'Accept': 'application/json',

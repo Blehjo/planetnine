@@ -1,20 +1,21 @@
-import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react"
-import { ConnectedProps, connect } from "react-redux";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { ArrowsFullscreen, Send } from "react-bootstrap-icons";
+import ReactLoading from "react-loading";
+import { ConnectedProps, connect } from "react-redux";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
-import { FixedMoonContainer, MoonPanelContainer } from "./Moon.styles"
-import NotificationComponent from "../Notification/Notification.component"
-import { RootState } from "../../store/store";
 import { MoonFetchAllStart, MoonFetchSingleStart, moonFetchAllStart, moonFetchSingleStart } from "../../store/moon/moon.action";
-import { CommentContainer, FormContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
-import { BadgeContainer } from "../Pilots/Pilots.styles";
-import { CardContainer } from "../Notification/Notifications.styles";
-import { utcConverter } from "../../utils/date/date.utils";
-import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
 import { MoonState } from "../../store/moon/moon.reducer";
+import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
 import { MoonCommentState } from "../../store/mooncomment/mooncomment.reducer";
+import { RootState } from "../../store/store";
+import { utcConverter } from "../../utils/date/date.utils";
+import NotificationComponent from "../Notification/Notification.component";
+import { CardContainer } from "../Notification/Notifications.styles";
+import { BadgeContainer } from "../Pilots/Pilots.styles";
+import { CommentContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
+import { MoonPanelContainer } from "./Moon.styles";
 
 type MoonProps = ConnectedProps<typeof connector>;
 
@@ -105,34 +106,38 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
         const { show } = this.state;
         return (
             <Fragment>
-                {/* <FixedMoonContainer className="fixed-top"> */}
-                    <MoonPanelContainer>
-                        <h1>Moons</h1>
-                        <ResponsiveMasonry
-                            columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4 }}
-                        >
-                            <Masonry>
-                            {moons.moons?.map(({ moonId, moonName, perihelion, aphelion, moonMass, temperature, gravity }, index) => {
-                                return <PostContainer key={index}>
-                                    <Card className="bg-dark" key={index}>
-                                        <Card.Img src={"https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
-                                        <Card.ImgOverlay>
-                                        <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
-                                            <BadgeContainer>
-                                                <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen onClick={() => this.fetchMoon(moonId)} style={{ cursor: 'pointer' }} size={15}/></Badge>
-                                            </BadgeContainer>
-                                        </div>
-                                        </Card.ImgOverlay>
-                                        <Card.Body>
-                                            <Card.Text>{moonName}</Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </PostContainer>
-                            })}
-                            </Masonry>
-                        </ResponsiveMasonry>
-                    </MoonPanelContainer>
-                {/* </FixedMoonContainer> */}
+                {
+                moons.isLoading || mooncomments.isLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
+                <MoonPanelContainer>
+                    <h1>Moons</h1>
+                    <ResponsiveMasonry
+                        columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4 }}
+                    >
+                        <Masonry>
+                        {moons.moons?.map(({ moonId, moonName, perihelion, aphelion, moonMass, temperature, gravity }, index) => {
+                            return <PostContainer key={index}>
+                                <Card className="bg-dark" key={index}>
+                                    <Card.Img src={"https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                                    <Card.ImgOverlay>
+                                    <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
+                                        <BadgeContainer>
+                                            <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen onClick={() => this.fetchMoon(moonId)} style={{ cursor: 'pointer' }} size={15}/></Badge>
+                                        </BadgeContainer>
+                                    </div>
+                                    </Card.ImgOverlay>
+                                    <Card.Body>
+                                        <Card.Text>{moonName}</Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </PostContainer>
+                        })}
+                        </Masonry>
+                    </ResponsiveMasonry>
+                </MoonPanelContainer>
                 <NotificationComponent/>
                 <Modal 
                     size="lg"
@@ -213,6 +218,8 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
+                </>
+                }
             </Fragment>
         )
     }

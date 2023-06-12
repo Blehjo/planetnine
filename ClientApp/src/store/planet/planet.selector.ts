@@ -6,6 +6,11 @@ import { PlanetState } from './planet.reducer';
 
 export const selectPlanetReducer = (state: RootState): PlanetState => state.planet;
 
+export const selectIsPlanetLoading = createSelector(
+  [selectPlanetReducer],
+  (planet) => planet.isLoading
+);
+
 export const selectPlanetId = createSelector(
   [selectPlanetReducer],
   (planet) => planet.planetId

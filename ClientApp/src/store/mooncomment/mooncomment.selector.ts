@@ -5,6 +5,11 @@ import { MoonCommentState } from './mooncomment.reducer';
 
 export const selectMoonCommentReducer = (state: RootState): MoonCommentState => state.mooncomment;
 
+export const selectIsMoonCommentLoading = createSelector(
+    [selectMoonCommentReducer],
+    (mooncomment) => mooncomment.isLoading
+);
+
 export const selectMoonCommentId = createSelector(
     [selectMoonCommentReducer],
     (mooncomment) => mooncomment.moonCommentId

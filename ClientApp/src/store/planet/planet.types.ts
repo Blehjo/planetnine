@@ -33,6 +33,9 @@ export type Planet = {
     aphelion: string;
     gravity: string;
     temperature: string;
+    brief: string;
+    description: string;
+    modelLink: string;
     type: string;
     imageSource: string;
     imageLink: string | null;

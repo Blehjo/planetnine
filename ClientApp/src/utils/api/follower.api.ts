@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Follower } from "../../store/follower/follower.types";
 
-const api = "https://planetnineservers.azurewebsites.net/api/follower";
+const api = "https://planetnineserver.azurewebsites.net/api/follower";
 
 const headers = {
   'Accept': 'application/json',

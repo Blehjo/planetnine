@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Comment } from "../../store/comment/comment.types";
 
-const api = "https://planetnineservers.azurewebsites.net/api/comment";
+const api = "https://planetnineserver.azurewebsites.net/api/comment";
 
 const headers = {
   'Accept': 'application/x-www-form-urlencoded',

@@ -10,6 +10,8 @@ export function Mercury(props) {
   });
 
   const { nodes, materials } = useGLTF('mercury.html')
+  console.log("Nodes: ", nodes)
+  console.log("Materials: ", materials)
   return (
     <group rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25} scale={2} dispose={null}>
       <mesh 

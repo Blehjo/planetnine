@@ -1,23 +1,23 @@
-import { ChangeEvent, Component, Dispatch, Fragment } from "react";
+import { Component, Dispatch, Fragment } from "react";
+import { Card, Col, Image, Modal, Row } from "react-bootstrap";
+import ReactLoading from "react-loading";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { FavoriteContainer } from "./Favorite.styles";
-import { Badge, Button, Card, Col, Image, Modal, Row } from "react-bootstrap";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { ArrowsFullscreen, Globe, Person, Rocket } from 'react-bootstrap-icons';
-import { BadgeContainer } from "../Pilots/Pilots.styles";
-import { CardContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
-import { RootState } from "../../store/store";
+
 import { ConnectedProps, connect } from "react-redux";
 import { ChatFetchAllStart, ChatFetchSingleStart, chatFetchAllStart, chatFetchSingleStart } from "../../store/chat/chat.action";
-import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
-import { FavoriteFetchUserFavoritesStart, favoriteFetchUserFavoritesStart } from "../../store/favorite/favorite.action";
-import { utcConverter } from "../../utils/date/date.utils";
-import { getFavorite } from "../../utils/favorites/favorites.utils";
 import { ChatState } from "../../store/chat/chat.reducer";
+import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 import { CommentState } from "../../store/comment/comment.reducer";
+import { FavoriteFetchUserFavoritesStart, favoriteFetchUserFavoritesStart } from "../../store/favorite/favorite.action";
 import { FavoriteState } from "../../store/favorite/favorite.reducer";
 import { PostState } from "../../store/post/post.reducer";
+import { RootState } from "../../store/store";
 import { User } from "../../store/user/user.types";
+import { utcConverter } from "../../utils/date/date.utils";
+import { getFavorite } from "../../utils/favorites/favorites.utils";
+import { CardContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
 
 export interface IChatComment {
     chatCommentId: number;
@@ -100,6 +100,12 @@ export class FavoriteComponent extends Component<FavoriteProps> {
         console.log(userFavorites);
         return (
             <Fragment>
+                {
+                favorites.isLoading || chats.isLoading || chatcomments.isLoading || posts.isLoading || comments.isLoading ? 
+                <div style={{ width: '50%', margin: 'auto' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                </div> :
+                <>
                 <h1>Favorites</h1>
                 <p>Go over content you found useful</p>
                     <ResponsiveMasonry
@@ -190,6 +196,8 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
+                </>
+                }
             </Fragment>
         )
     }
