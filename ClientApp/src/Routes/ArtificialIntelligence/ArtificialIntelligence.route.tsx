@@ -3,27 +3,28 @@ import { Anchor, Card, Col, Dropdown, Form, Modal, Row } from "react-bootstrap";
 import { Plus, Robot, XCircle } from "react-bootstrap-icons";
 import ReactLoading from "react-loading";
 
-import { RootState } from "../../store/store";
-import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceCreateStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
 import { ConnectedProps, connect } from "react-redux";
-import { ModalPostContainer } from "../../components/ModalPost/ModalPost.styles";
 import CrewPanelComponent from "../../components/CrewPanel/CrewPanel.component";
-import { AiContainer, ChatContainer, CommentContainer, CrewContainer, DropdownContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
-import { ChatDeleteStart, ChatFetchUserChatsStart, ChatSetID, chatCreateStart, chatDeleteStart, chatFetchUserChatsStart, chatSetId } from "../../store/chat/chat.action";
-import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
-import { ChatCreateStart } from "../../store/chat/chat.action";
+import { ModalPostContainer } from "../../components/ModalPost/ModalPost.styles";
+import { AiList } from "../../components/Searchbar/AiList.component";
+import { SearchBox } from "../../components/Searchbar/SearchBox.component";
+import { ArtificialIntelligenceCreateStart, ArtificialIntelligenceFetchSingleStart, ArtificialIntelligenceFetchUsersStart, artificialIntelligenceCreateStart, artificialIntelligenceFetchSingleStart, artificialIntelligenceFetchUsersStart } from "../../store/artificialintelligence/artificialintelligence.action";
 import { ArtificialIntelligenceState } from "../../store/artificialintelligence/artificialintelligence.reducer";
+import { ArtificialIntelligence as Ai } from "../../store/artificialintelligence/artificialintelligence.types";
+import { ChatCreateStart, ChatDeleteStart, ChatFetchUserChatsStart, ChatSetID, chatCreateStart, chatDeleteStart, chatFetchUserChatsStart, chatSetId } from "../../store/chat/chat.action";
 import { ChatState } from "../../store/chat/chat.reducer";
+import { Chat } from "../../store/chat/chat.types";
+import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
-import { callArtoo } from "../../utils/api/completion.api";
+import { ChatComment } from "../../store/chatcomment/chatcomment.types";
+import { RootState } from "../../store/store";
+import { UserState } from "../../store/user/user.reducer";
+import { getUsersArtificialIntelligences } from "../../utils/api/artificialintelligence.api";
 import { addChat, getUsersChats } from "../../utils/api/chat.api";
 import { getAllChatComments } from "../../utils/api/chatcomment.api";
-import { SearchBox } from "../../components/Searchbar/SearchBox.component";
-import { Chat } from "../../store/chat/chat.types";
-import { ChatComment } from "../../store/chatcomment/chatcomment.types";
-import { ArtificialIntelligence as Ai } from "../../store/artificialintelligence/artificialintelligence.types";
-import { AiList } from "../../components/Searchbar/AiList.component";
-import { getUsersArtificialIntelligences } from "../../utils/api/artificialintelligence.api";
+import { callArtoo } from "../../utils/api/completion.api";
+import Authentication from "../Authentication/Authentication.route";
+import { AiContainer, ChatContainer, CommentContainer, CrewContainer, DropdownContainer, FirstColumnContainer, FormContainer, HeadingContainer, TextBox, UserAiContainer } from "./ArtificialIntelligence.styles";
 
 
 type ArtificialIntelligenceProps = ConnectedProps<typeof connector>;
@@ -203,7 +204,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
         .then(chatcomments => this.setState({ userchatcomments: chatcomments }));
     }
 
-    componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; } & { getAllCrew: () => void; getCrew: (userId: number) => void; createCrewMember: (name: string, role: string, imageFile: File) => void; createChat: (title: string, artificialId: number) => void; createComment: (chatId: number, chatValue: string, imageFile: File) => void; getChats: () => void; getChatComments: (chatId: number) => void; deleteChat: (chatId: number) => void; setId: (chatId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
+    componentDidUpdate(prevProps: Readonly<{ artificialIntelligence: ArtificialIntelligenceState; chats: ChatState; chatcomments: ChatCommentState; currentUser: UserState; } & { getAllCrew: () => void; getCrew: (userId: number) => void; createCrewMember: (name: string, role: string, imageFile: File) => void; createChat: (title: string, artificialId: number) => void; createComment: (chatId: number, chatValue: string, imageFile: File) => void; getChats: () => void; getChatComments: (chatId: number) => void; deleteChat: (chatId: number) => void; setId: (chatId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
         if (this.props.chats.userChats?.length != prevProps.chats.userChats?.length) {
             this.props.getChats();
             this.props.getChatComments(this.props.chats.singleChat?.chatId!);
@@ -216,7 +217,6 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
                 chatValue: ""
             })
         }
-
     }
 
     onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -224,7 +224,7 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
     };
 
     render() {
-        const { chats, chatcomments, artificialIntelligence } = this.props;
+        const { chats, chatcomments, currentUser, artificialIntelligence } = this.props;
         const { artificialIntelligences, userchats, userchatcomments, show, showInput, searchField, name, role, chatValue, dropdown } = this.state;
         const filteredAis = artificialIntelligences.filter(artificialIntelligence =>
             artificialIntelligence.name?.toLowerCase().includes(searchField.toLowerCase()));
@@ -234,10 +234,14 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             chat.chatValue.toLowerCase().includes(searchField.toLowerCase()));
         return (
             <Fragment>
+                {
+                    currentUser.currentUser == null ? 
+                    <Authentication/> :
+                    <>
             {
                 chats.isLoading || chatcomments.isLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
                 <>
             <AiContainer className="fixed-top">
@@ -406,6 +410,8 @@ export class ArtificialIntelligence extends Component<ArtificialIntelligenceProp
             <CrewPanelComponent/>
             </>
             }
+            </>
+            }
             </Fragment>
         );
     }
@@ -415,7 +421,8 @@ const mapStateToProps = (state: RootState) => {
     return { 
         artificialIntelligence: state.artificialIntelligence,
         chats: state.chat,
-        chatcomments: state.chatcomment
+        chatcomments: state.chatcomment,
+        currentUser: state.user
     };
 };
 

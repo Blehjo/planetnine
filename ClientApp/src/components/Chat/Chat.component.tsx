@@ -1,18 +1,18 @@
-import { ConnectedProps, connect } from "react-redux";
-import { Component, Fragment, Dispatch, ChangeEvent } from "react";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import ReactLoading from "react-loading";
-import { ArrowsFullscreen, Chat, Rocket, Send } from 'react-bootstrap-icons';
+import { ChangeEvent, Component, Dispatch, Fragment } from "react";
 import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
+import { ArrowsFullscreen, Chat, Rocket, Send } from 'react-bootstrap-icons';
+import ReactLoading from "react-loading";
+import { ConnectedProps, connect } from "react-redux";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
-import { ChatContainer } from "./Chat.styles";
-import { BadgeContainer } from "../Pilots/Pilots.styles";
-import { utcConverter } from "../../utils/date/date.utils";
-import { RootState } from "../../store/store";
 import { ChatFetchAllStart, ChatFetchSingleStart, chatFetchAllStart, chatFetchSingleStart } from "../../store/chat/chat.action";
 import { ChatCommentCreateStart, ChatCommentFetchSingleStart, chatcommentCreateStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
+import { RootState } from "../../store/store";
+import { utcConverter } from "../../utils/date/date.utils";
+import { BadgeContainer } from "../Pilots/Pilots.styles";
 import { CardContainer, CommentContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
+import { ChatContainer } from "./Chat.styles";
 
 type ChatProps = ConnectedProps<typeof connector>;
 
@@ -106,8 +106,8 @@ export class ChatComponent extends Component<ChatProps, IDefaultFormFields> {
             <Fragment>
                 {
                 chats.isLoading || chatComments.isLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
                 <>
                 <h1>Chat Manifests</h1>

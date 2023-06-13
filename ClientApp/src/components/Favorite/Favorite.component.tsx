@@ -18,6 +18,7 @@ import { User } from "../../store/user/user.types";
 import { utcConverter } from "../../utils/date/date.utils";
 import { getFavorite } from "../../utils/favorites/favorites.utils";
 import { CardContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
+import Authentication from "../../routes/Authentication/Authentication.route";
 
 export interface IChatComment {
     chatCommentId: number;
@@ -101,9 +102,13 @@ export class FavoriteComponent extends Component<FavoriteProps> {
         return (
             <Fragment>
                 {
+                    currentUser == null ? 
+                    <Authentication/> :
+                    <>
+                    {
                 favorites.isLoading || chats.isLoading || chatcomments.isLoading || posts.isLoading || comments.isLoading ? 
                 <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                    <ReactLoading type="bars" color="lightgrey" height={'20%'} width={'20%'}/>
                 </div> :
                 <>
                 <h1>Favorites</h1>
@@ -196,6 +201,8 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
+                </>
+                }
                 </>
                 }
             </Fragment>

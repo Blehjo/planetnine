@@ -1,20 +1,19 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
-import { ConnectedProps, connect } from "react-redux";
+import { Badge, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
+import { ArrowsFullscreen, Chat, Rocket, Send } from 'react-bootstrap-icons';
 import ReactLoading from "react-loading";
-import { Badge, Button, Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
-import Masonry, {ResponsiveMasonry} from "react-responsive-masonry";
-import { Globe, Chat, Rocket, ArrowsFullscreen, Send } from 'react-bootstrap-icons';
+import { ConnectedProps, connect } from "react-redux";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
-import { CardContainer, CommentContainer, FormContainer, ModalContainer, PostContainer, TextContainer } from "./Post.styles";
-import { BadgeContainer } from "../Pilots/Pilots.styles";
-import { RootState } from "../../store/store";
-import { PostFetchAllStart, PostFetchSingleStart, postFetchAllStart, postFetchSingleStart } from "../../store/post/post.action";
 import { CommentCreateStart, CommentFetchSingleStart, commentCreateStart, commentFetchSingleStart } from "../../store/comment/comment.action";
-import { utcConverter } from "../../utils/date/date.utils";
-import { favoriteCreateStart } from "../../store/favorite/favorite.action";
-import { FavoriteCreateStart } from "../../store/favorite/favorite.action";
 import { CommentState } from "../../store/comment/comment.reducer";
+import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
+import { PostFetchAllStart, PostFetchSingleStart, postFetchAllStart, postFetchSingleStart } from "../../store/post/post.action";
 import { PostState } from "../../store/post/post.reducer";
+import { RootState } from "../../store/store";
+import { utcConverter } from "../../utils/date/date.utils";
+import { BadgeContainer } from "../Pilots/Pilots.styles";
+import { CardContainer, CommentContainer, ModalContainer, PostContainer, TextContainer } from "./Post.styles";
 
 type PostProps = ConnectedProps<typeof connector>;
 
@@ -121,8 +120,8 @@ export class PostComponent extends Component<PostProps, IDefaultFormFields> {
             <Fragment>
                 {
                 posts.isLoading || comments.isLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
                 <>
                 <h1>Pilot Logs</h1>

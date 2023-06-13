@@ -24,6 +24,7 @@ function SinglePlanet() {
     const planetcommentLoading = useSelector(selectIsPlanetCommentLoading);
     let { id } = useParams();
     const queryId = parseInt(id!);
+    // const height = innerHeight;
 
     useEffect(() => {
         dispatch(planetFetchSingleStart(queryId));
@@ -33,8 +34,8 @@ function SinglePlanet() {
         <Fragment>
             {
                 planetLoading || planetcommentLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
                 <>
                 <SinglePostContainer>
@@ -46,7 +47,7 @@ function SinglePlanet() {
                                 <iframe
                                     src={planet?.modelLink}
                                     width="100%" 
-                                    height="450px"
+                                    height={window.innerWidth > 900 ? "450px" : "100px"}
 
                                 /> :
                                 <Card.Img src={planet?.imageLink ? planet.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>

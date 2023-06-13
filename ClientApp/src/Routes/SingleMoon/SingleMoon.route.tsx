@@ -38,16 +38,26 @@ function SingleMoon() {
         <Fragment>
             {
                 moonLoading || mooncommentLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
                 <>
                 <SinglePostContainer>
                     <Card className="bg-dark">
+                    <Card.Title style={{ margin: '1rem 0rem 0rem 1rem' }} >{moon?.moonName}</Card.Title>
                         <Card.Body>
-                            <Card.Img src={moon?.imageLink ? moon.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                            {
+                                moon?.modelLink ? 
+                                <iframe
+                                    src={moon?.modelLink}
+                                    width="100%" 
+                                    height={window.innerWidth > 900 ? "450px" : "100px"}
+
+                                /> :
+                                <Card.Img src={moon?.imageLink ? moon.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                            }
                         </Card.Body>
-                        <Card.Footer>{moon?.moonName}</Card.Footer>
+                        <Card.Footer>{moon?.description}</Card.Footer>
                     </Card>
                 </SinglePostContainer>
                 <MoonCommentComponent moon={moon!} queryId={queryId}/>

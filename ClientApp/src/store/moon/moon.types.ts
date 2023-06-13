@@ -32,6 +32,9 @@ export type Moon = {
     aphelion: number;
     gravity: number;
     temperature: number;
+    modelLink: string;
+    description: string;
+    brief: string;
     type: string;
     imageLink: string;
     imageSource: string;

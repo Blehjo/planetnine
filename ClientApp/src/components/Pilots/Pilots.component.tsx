@@ -1,8 +1,8 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import { Badge, Card, Col, Form, Modal, Row } from "react-bootstrap";
 import { Envelope, Globe, Person, Rocket, Send } from 'react-bootstrap-icons';
-import { ConnectedProps, connect } from "react-redux";
 import ReactLoading from "react-loading";
+import { ConnectedProps, connect } from "react-redux";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { MessageCreateStart, MessageSetID, messageCreateStart, messageSetId } from "../../store/message/message.action";
@@ -101,8 +101,8 @@ export class Pilots extends Component<PilotProps, PilotStates> {
             <Fragment>
                 {
                 pilots.isLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
                 <>
                 <h1>Pilots</h1>

@@ -82,8 +82,8 @@ function SingleChat() {
         <Fragment>
             {
                 chatLoading || chatcommentLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
             <>
             <SingleChatContainer>

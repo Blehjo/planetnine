@@ -108,8 +108,8 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
             <Fragment>
                 {
                 moons.isLoading || mooncomments.isLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
                 <>
                 <MoonPanelContainer>
@@ -118,10 +118,10 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                         columnsCountBreakPoints={{ 350: 2, 750: 3, 900: 4 }}
                     >
                         <Masonry>
-                        {moons.moons?.map(({ moonId, moonName, perihelion, aphelion, moonMass, temperature, gravity }, index) => {
+                        {moons.moons?.map(({ moonId, moonName, imageLink, perihelion, aphelion, moonMass, temperature, gravity }, index) => {
                             return <PostContainer key={index}>
                                 <Card className="bg-dark" key={index}>
-                                    <Card.Img src={"https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
+                                    <Card.Img src={imageLink ? imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                                     <Card.ImgOverlay>
                                     <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
                                         <BadgeContainer>
@@ -158,7 +158,7 @@ export class Moon extends Component<MoonProps, IDefaultForm> {
                             />
                             <Card style={{ marginTop: "1rem" }} className="bg-dark" key={moons.singleMoon?.moonId}>
                                 <TextContainer>
-                                {moons.singleMoon?.moonName}
+                                {moons.singleMoon?.brief}
                                 </TextContainer>
                             </Card>
                             </Col>

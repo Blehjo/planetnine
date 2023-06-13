@@ -1,19 +1,23 @@
 import { ChangeEvent, Component, Dispatch, FormEvent, Fragment } from "react";
 import { Card, Col, Form, Image, Modal, Row } from "react-bootstrap";
 import { Plus, XCircle } from "react-bootstrap-icons";
-import { ConnectedProps, connect } from "react-redux";
 import ReactLoading from "react-loading";
+import { ConnectedProps, connect } from "react-redux";
 
 import NotificationComponent from "../../components/Notification/Notification.component";
 import { MessageList } from "../../components/Searchbar/MessageList.component";
 import { SearchBox } from "../../components/Searchbar/SearchBox.component";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
 import { MessageDeleteStart, MessageFetchSingleStart, MessageFetchUserMessagesStart, MessageSetID, messageDeleteStart, messageFetchSingleStart, messageFetchUserMessagesStart, messageSetId } from "../../store/message/message.action";
+import { MessageState } from "../../store/message/message.reducer";
 import { MessageCommentCreateStart, MessageCommentFetchSingleStart, messagecommentCreateStart, messagecommentFetchSingleStart } from "../../store/messagecomment/messagecomment.action";
+import { MessageCommentState } from "../../store/messagecomment/messagecomment.reducer";
 import { MessageComment } from "../../store/messagecomment/messagecomment.types";
 import { RootState } from "../../store/store";
+import { UserState } from "../../store/user/user.reducer";
 import { User } from "../../store/user/user.types";
 import { TextBox } from "../ArtificialIntelligence/ArtificialIntelligence.styles";
+import Authentication from "../Authentication/Authentication.route";
 import { CollectionContainer, FormContainer, JustifyLeft, JustifyRight, MessageContainer, MessagebarContainer, RowContainer } from "./Messages.styles";
 
 type MessagesProps = ConnectedProps<typeof connector>;
@@ -136,6 +140,14 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
         .then(messages => this.setState({ userMessages: messages }));
     }
 
+    componentDidUpdate(prevProps: Readonly<{ messages: MessageState; messagecomments: MessageCommentState; currentUser: UserState; } & { getAllMessages: () => void; getMessage: (messageId: number) => void; getMessageComments: (messageId: number) => void; createMessageComment: (messageId: number, messageValue: string, mediaLink: File) => void; likeMessage: (messageId: number, contentType: string) => void; deleteMessage: (messageId: number) => void; setId: (messageId: number) => void; }>, prevState: Readonly<IDefaultForms>, snapshot?: any): void {
+        if (this.props.currentUser.currentUser != prevProps.currentUser.currentUser) {
+            fetch('https://planetnineserver.azurewebsites.net/api/messagecomment')
+            .then(response => response.json())
+            .then(messages => this.setState({ userMessages: messages }));
+        }
+    }
+
     render() {
         const { messageValue, searchField, show, users, userMessages } = this.state;
         const { messages, messagecomments, currentUser } = this.props;
@@ -146,9 +158,13 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
         return (
             <Fragment>
                 {
+                    currentUser.currentUser == null ? 
+                    <Authentication/> :
+                    <>
+                {
                 messages.isLoading || messagecomments.isLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
                 </div> :
                 <>
                 <MessagebarContainer className="fixed-top">
@@ -295,6 +311,8 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                 <NotificationComponent />
                 </>
                 }
+                </>
+            }
             </Fragment>
         );
     }
