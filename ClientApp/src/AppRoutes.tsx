@@ -1,25 +1,25 @@
-import Authentication from "./routes/Authentication/Authentication.route";
-import { Vitals } from "./routes/Vitals/Vitals.route";
-import { Home } from "./routes/Home/Home.route";
+import Builder from "./components/Builder/Builder";
+import ProfileComponent from "./components/Profile/Profile.component";
+import { SolarSystem } from "./components/SolarSystem/SolarSystem.component";
 import ArtificialIntelligenceRoute from "./routes/ArtificialIntelligence/ArtificialIntelligence.route";
+import Authentication from "./routes/Authentication/Authentication.route";
 import { Chats } from "./routes/Chats/Chats.route";
 import { Explore } from "./routes/Explore/Explore.route";
 import { Favorites } from "./routes/Favorites/Favorites.route";
+import { Fractal } from "./routes/Fractal/Fractal.route";
+import { Home } from "./routes/Home/Home.route";
 import MessagesRoute from "./routes/Messages/Messages.route";
+import { Moons } from "./routes/Moons/Moons.route";
+import { Planets } from "./routes/Planets/Planets.route";
 import { Posts } from "./routes/Posts/Posts.route";
 import { Profiles } from "./routes/Profiles/Profiles.route";
-import { Voyager } from "./routes/Voyager/Voyager.route";
 import SingleChat from "./routes/SingleChat/SingleChat.route";
+import SingleMoon from "./routes/SingleMoon/SingleMoon.route";
 import SinglePlanet from "./routes/SinglePlanet/SinglePlanet.route";
 import SinglePost from "./routes/SinglePost/SinglePost.route";
 import { SingleProfile } from "./routes/SingleProfile/SingleProfile.route";
-import { Planets } from "./routes/Planets/Planets.route";
-import { Moons } from "./routes/Moons/Moons.route";
-import { Fractal } from "./routes/Fractal/Fractal.route";
-import { SolarSystem } from "./components/SolarSystem/SolarSystem.component";
-import SingleMoon from "./routes/SingleMoon/SingleMoon.route";
-import ProfileComponent from "./components/Profile/Profile.component";
-import Builder from "./components/Builder/Builder";
+import VitalsRoute from "./routes/Vitals/Vitals.route";
+import { Voyager } from "./routes/Voyager/Voyager.route";
 
 const AppRoutes = [
   {
@@ -28,7 +28,7 @@ const AppRoutes = [
   },
   {
     path: '/vitals',
-    element: <Vitals />
+    element: <VitalsRoute />
   },
   {
     path: '/authentication',

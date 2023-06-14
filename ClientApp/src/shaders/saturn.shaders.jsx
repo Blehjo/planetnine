@@ -1,43 +1,39 @@
-import { useEffect, useRef } from "react";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useFrame, useLoader } from "@react-three/fiber";
+import { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
 export function Saturn(props) {
-  const planet = useRef();
+  const boxRef = useRef();
 
-  const { nodes, materials } = useGLTF('saturn.glb');
+  const { nodes } = useGLTF('saturn.html');
 
-  useFrame(() => (planet.current.rotation.y += 0.0002));
-
-  useEffect(() => {
-    console.log(nodes.Saturn001);
-    console.log(materials)
+  useFrame(() => {
+    boxRef.current.rotation.y += 0.0001
   });
+
   return (
-    <group rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25} scale={2} dispose={null}>
-      {/* <mesh
+    <group rotation-x={Math.PI * 0.25} rotation-y={Math.PI * 0.25} scale={.0045} dispose={null}>
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.RingsTop.geometry}
         material={nodes.RingsTop.material}
-      /> */}
+      />
       <mesh
-        castShadow
-        receiveShadow
-        ref={planet}
-        visible
-        position={[0, 0, 0]}
-        // Adding data from Saturn001.glb to the geometry and material of the sphere
+        {...props}
+        ref={boxRef}
         geometry={nodes.Saturn001.geometry}
         material={nodes.Saturn001.material}
+        scale={.75}
       />
-      {/* <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.RingsBottom.geometry}
         material={nodes.RingsBottom.material}
-      /> */}
+      />
     </group>
   );
-};
+}
+
+useGLTF.preload('/saturn.html');

@@ -1,66 +1,75 @@
-import { Col, Row, Tabs, Tab } from "react-bootstrap";
 import { Component, Dispatch } from "react";
-import { ConnectedProps, connect } from "react-redux";
+import { Col, Row, Tab, Tabs } from "react-bootstrap";
 import ReactLoading from "react-loading";
+import { ConnectedProps, connect } from "react-redux";
 
-import { ProfileCard } from "../ProfileCard/ProfileCard.component";
-import PostsTab from "../PostsTab/PostsTab.component";
+import { RootState } from "../../store/store";
 import { ChatsTab } from "../ChatsTab/ChatsTab.component";
 import { PlanetsTab } from "../PlanetsTab/PlanetsTab.component";
-import { RootState } from "../../store/store";
+import PostsTab from "../PostsTab/PostsTab.component";
+import { ProfileCard } from "../ProfileCard/ProfileCard.component";
 
-import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
-import { PilotFetchSingleStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
-import { PostCreateStart, PostDeleteStart, PostFetchAllStart, PostFetchSingleStart, PostFetchUserPostsStart, postCreateStart, postDeleteStart, postFetchAllStart, postFetchSingleStart, postFetchUserPostsStart } from "../../store/post/post.action";
+import Authentication from "../../routes/Authentication/Authentication.route";
+import { ChatDeleteStart, ChatFetchSingleStart, ChatFetchUserChatsStart, chatDeleteStart, chatFetchSingleStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
 import { CommentCreateStart, CommentFetchSingleStart, commentCreateStart, commentFetchSingleStart } from "../../store/comment/comment.action";
 import { FavoriteCreateStart, favoriteCreateStart } from "../../store/favorite/favorite.action";
-import { MoonsTab } from "../MoonsTab/MoonsTab.component";
 import { MoonCreateStart, MoonDeleteStart, MoonFetchSingleStart, MoonFetchUserMoonsStart, moonCreateStart, moonDeleteStart, moonFetchSingleStart, moonFetchUserMoonsStart } from "../../store/moon/moon.action";
-import { PlanetCreateStart, PlanetDeleteStart, PlanetFetchSingleStart, PlanetFetchUserPlanetsStart, planetCreateStart, planetDeleteStart, planetFetchSingleStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
-import { ChatDeleteStart, ChatFetchSingleStart, ChatFetchUserChatsStart, chatDeleteStart, chatFetchSingleStart, chatFetchUserChatsStart } from "../../store/chat/chat.action";
-import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
 import { MoonCommentCreateStart, MoonCommentFetchSingleStart, moonCommentCreateStart, moonCommentFetchSingleStart } from "../../store/mooncomment/mooncomment.action";
+import { PilotFetchSingleStart, pilotFetchSingleStart } from "../../store/pilot/pilot.action";
+import { PlanetCreateStart, PlanetDeleteStart, PlanetFetchSingleStart, PlanetFetchUserPlanetsStart, planetCreateStart, planetDeleteStart, planetFetchSingleStart, planetFetchUserPlanetsStart } from "../../store/planet/planet.action";
+import { PlanetCommentCreateStart, PlanetCommentFetchSingleStart, planetcommentCreateStart, planetcommentFetchSingleStart } from "../../store/planetcomment/planetcomment.action";
+import { PostCreateStart, PostDeleteStart, PostFetchAllStart, PostFetchSingleStart, PostFetchUserPostsStart, postCreateStart, postDeleteStart, postFetchAllStart, postFetchSingleStart, postFetchUserPostsStart } from "../../store/post/post.action";
+import { UserprofileFetchSingleStart, userprofileFetchSingleStart } from "../../store/userprofile/userprofile.action";
+import { MoonsTab } from "../MoonsTab/MoonsTab.component";
 
 export type ProfileProps = ConnectedProps<typeof connector>;
 
 export class Profile extends Component<ProfileProps> {
     render() {
-        const { posts, chats, planets, moons, userprofile } = this.props;
+        const { posts, chats, planets, moons, userprofile, currentUser } = this.props;
         return (
-            <Row lg={2}>
+            <>
                 {
-                    userprofile.isLoading  ? 
-                    <div style={{ width: '50%', margin: 'auto' }}>
-                        <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
-                    </div> :
+                    currentUser.currentUser == null ? 
+                    <Authentication/> :
                     <>
-                    <Col style={{ marginBottom: '2rem' }}lg={4}>
-                        <ProfileCard { ...this.props }/>
-                    </Col>
-                    <Col lg={8}>                
-                    <Tabs
-                        defaultActiveKey="posts"
-                        justify
-                        className='mb-5'
-                        variant='pills'
-                        >
-                        <Tab eventKey="posts" title="Posts">
-                            <PostsTab { ...this.props } />
-                        </Tab>
-                        <Tab eventKey="chats" title="Chats">
-                            <ChatsTab { ...this.props } />
-                        </Tab>
-                        <Tab eventKey="planets" title="Planets">
-                            <PlanetsTab { ...this.props } />
-                        </Tab>
-                        <Tab eventKey="moons" title="Moons">
-                            <MoonsTab { ...this.props } />
-                        </Tab>
-                    </Tabs>
-                    </Col>
+                        <Row lg={2}>
+                        {
+                            currentUser.isLoading ? 
+                            <div style={{ width: '50%', margin: 'auto' }}>
+                                <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                            </div> :
+                            <>
+                            <Col style={{ marginBottom: '2rem' }}lg={4}>
+                                <ProfileCard { ...this.props }/>
+                            </Col>
+                            <Col lg={8}>                
+                            <Tabs
+                                defaultActiveKey="posts"
+                                justify
+                                className='mb-5'
+                                variant='pills'
+                                >
+                                <Tab eventKey="posts" title="Posts">
+                                    <PostsTab { ...this.props } />
+                                </Tab>
+                                <Tab eventKey="chats" title="Chats">
+                                    <ChatsTab { ...this.props } />
+                                </Tab>
+                                <Tab eventKey="planets" title="Planets">
+                                    <PlanetsTab { ...this.props } />
+                                </Tab>
+                                <Tab eventKey="moons" title="Moons">
+                                    <MoonsTab { ...this.props } />
+                                </Tab>
+                            </Tabs>
+                            </Col>
+                            </>
+                        }
+                        </Row>
                     </>
                 }
-            </Row>
+            </>
         );
     }
 }

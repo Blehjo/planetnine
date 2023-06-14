@@ -9,6 +9,7 @@ import { Venus } from "../../shaders/venus.shaders";
 import { Jupiter } from "../../shaders/jupiter.shaders";
 import { Neptune } from "../../shaders/neptune.shaders";
 import { Uranus } from "../../shaders/uranus.shaders";
+import { Saturn } from "../../shaders/saturn.shaders";
 
 export class Voyager extends Component{
     state = {
@@ -54,6 +55,8 @@ export class Voyager extends Component{
                         <Jupiter/> 
                     ) : planet === 5 ? (
                         <Neptune/>
+                    ) : planet === 6 ? (
+                        <Saturn/>
                     ) : (
                         <Uranus/> 
                     )
