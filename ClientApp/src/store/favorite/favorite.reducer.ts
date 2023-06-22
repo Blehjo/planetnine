@@ -27,7 +27,7 @@ export type FavoriteState = {
     readonly favoriteId: number | null;
     readonly singleFavorite: Favorite | null;
     readonly userFavorites: Favorite[] | null;
-    readonly favorites: Favorite[] | null;
+    readonly favorites: any[] | null;
     readonly isLoading: boolean;
     readonly error: Error | null;
 };

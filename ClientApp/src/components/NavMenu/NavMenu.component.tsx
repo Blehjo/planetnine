@@ -34,7 +34,6 @@ export class NavMenu extends Component<IProps, ICollapsed> {
   }
 
   render() {
-    console.log("Navigation Props: ", this.props.navigation)
     return (
       <Row key="navbar">
         <Navbar fixed='top' bg='dark' expand="sm">

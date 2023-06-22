@@ -188,7 +188,7 @@ export const favoriteFetchUserFavoritesStart = withMatcher(
 ));
 
 export const favoriteFetchUserFavoritesSuccess = withMatcher(
-    (favorite: Favorite[]): FavoriteFetchUserFavoritesSuccess => 
+    (favorite: any[]): FavoriteFetchUserFavoritesSuccess => 
     createAction(FAVORITE_ACTION_TYPES.FETCH_USER_FAVORITES_SUCCESS, favorite)
 );
 

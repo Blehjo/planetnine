@@ -15,7 +15,7 @@ const headers = {
 
 type Content = Post | Chat | Planet | Moon | Comment | ChatComment;
 
-export async function handleContent(url: string, favoriteId: number): Promise<Content> {
+export async function handleContent(url: string, favoriteId: number): Promise<any> {
     const response = await axios({
         method: 'get',
         url: `${api}/${url}/${favoriteId}`,
@@ -26,7 +26,7 @@ export async function handleContent(url: string, favoriteId: number): Promise<Co
     return result;
 }
 
-export async function getFavorite(favoriteId: number, contentType: string): Promise<Content> {
+export async function getFavorite(favoriteId: number, contentType: string): Promise<any> {
     let url;
     switch(contentType) {
         case 'post': 

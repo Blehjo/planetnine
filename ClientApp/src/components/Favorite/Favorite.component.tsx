@@ -1,8 +1,7 @@
 import { Component, Dispatch, Fragment } from "react";
-import { Card, Col, Image, Modal, Row } from "react-bootstrap";
+import { Badge, Card, Col, Image, Modal, Row } from "react-bootstrap";
 import ReactLoading from "react-loading";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { FavoriteContainer } from "./Favorite.styles";
 
 import { ConnectedProps, connect } from "react-redux";
 import { ChatFetchAllStart, ChatFetchSingleStart, chatFetchAllStart, chatFetchSingleStart } from "../../store/chat/chat.action";
@@ -10,15 +9,16 @@ import { ChatState } from "../../store/chat/chat.reducer";
 import { ChatCommentFetchSingleStart, chatcommentFetchSingleStart } from "../../store/chatcomment/chatcomment.action";
 import { ChatCommentState } from "../../store/chatcomment/chatcomment.reducer";
 import { CommentState } from "../../store/comment/comment.reducer";
-import { FavoriteFetchUserFavoritesStart, favoriteFetchUserFavoritesStart } from "../../store/favorite/favorite.action";
+import { FavoriteCreateStart, FavoriteFetchUserFavoritesStart, favoriteCreateStart, favoriteFetchUserFavoritesStart } from "../../store/favorite/favorite.action";
 import { FavoriteState } from "../../store/favorite/favorite.reducer";
 import { PostState } from "../../store/post/post.reducer";
 import { RootState } from "../../store/store";
 import { User } from "../../store/user/user.types";
 import { utcConverter } from "../../utils/date/date.utils";
-import { getFavorite } from "../../utils/favorites/favorites.utils";
-import { CardContainer, ModalContainer, TextContainer } from "../Post/Post.styles";
+import { CardContainer, ModalContainer, PostContainer, TextContainer } from "../Post/Post.styles";
 import Authentication from "../../routes/Authentication/Authentication.route";
+import { BadgeContainer } from "../Pilots/Pilots.styles";
+import { ArrowsFullscreen, Chat, Rocket } from "react-bootstrap-icons";
 
 export interface IChatComment {
     chatCommentId: number;
@@ -57,13 +57,15 @@ type FavoriteProps = ConnectedProps<typeof connector>;
 
 type Favorites = {
     show: boolean;
-    userFavorites: any[];
 }
 
 export class FavoriteComponent extends Component<FavoriteProps> {
     state: Favorites = {
-        show: false,
-        userFavorites: []
+        show: false
+    }
+
+    handleLike(postId: number, type: string): void {
+        this.props.likePost(postId, type);
     }
 
     handleClose(): void {
@@ -80,25 +82,121 @@ export class FavoriteComponent extends Component<FavoriteProps> {
         });
     }
 
-    componentDidMount(): void {
-        this.props.getFavorites();
-        // this.props.favorites.favorites?.map(({ contentId, contentType }) => 
-        //     getFavorite(contentId, contentType)
-        //     .then((response) => this.setState({ userFavorites: this.state.userFavorites.concat(response) })))
+    postFunction(post: any) {
+        const { postId, postValue, mediaLink, comments, favorites, type, imageSource } = post;
+        console.log("POST: ",post)
+        return (
+            <PostContainer>
+            <Card className="bg-dark" key={postId}>
+                <Card.Img src={mediaLink ? imageSource : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"} />
+                <Card.ImgOverlay>
+                    <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
+                        <BadgeContainer>
+                            <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} onClick={() => this.handleClick(postId)} size={15} /></Badge>
+                        </BadgeContainer>
+                        {
+                            <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
+                                <Chat size={15} />
+                                {` ${comments?.length > 0 ? comments?.length : ""}`}
+                            </Badge>
+                            </BadgeContainer>
+                        }
+                        {
+                            <BadgeContainer>
+                                <Badge style={{ color: 'black' }} bg="light">
+                                    <Rocket style={{ cursor: 'pointer' }} onClick={() => this.handleLike(postId, type)} size={15} />
+                                    {` ${favorites?.length > 0 ? favorites?.length : ""}`}
+                                </Badge>
+                            </BadgeContainer>
+                        }
+                    </div>
+                </Card.ImgOverlay>
+                <Card.Body>
+                    <Card.Text>{postValue}</Card.Text>
+                </Card.Body>
+            </Card>
+            </PostContainer>
+        )
+    } 
+
+    chatFunction(chat: any) {
+        const { chatId, title, type, userId, comments, chatComments, favorites, dateCreated } = chat;
+        return (
+            <PostContainer>
+            <Card className="bg-dark" key={chatId}>
+                <Row>
+                <Card.Img  src={"https://www.artlog.net/sites/default/files/styles/al_colorbox_rules/public/turrell_cregis_golay_federal_studio.jpg?itok=2M4Pyn0A"}/>
+                <Card.ImgOverlay>
+                <div style={{ cursor: "pointer", position: "absolute", left: "0", top: "0" }}>
+                <Col>
+                <BadgeContainer>
+                    <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(chatId)}/></Badge>
+                </BadgeContainer>
+                </Col>
+                <Col>
+                {
+                    <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
+                        <Chat size={15}/>
+                        {` ${chatComments?.length > 0 ? chatComments?.length : ""}`}
+                        </Badge>
+                    </BadgeContainer>
+                }
+                </Col>
+                <Col>
+                {
+                    <BadgeContainer>
+                        <Badge style={{ color: 'black' }} bg="light">
+                        <Rocket style={{ cursor: 'pointer' }} onClick={() => this.handleLike(chatId, type)} size={15}/>
+                        {` ${favorites?.length > 0 ? favorites?.length : ""}`}
+                        </Badge>
+                    </BadgeContainer>
+                }
+                </Col>
+                </div>
+                </Card.ImgOverlay>
+                <Card.Body>
+                    <Card.Text>{title}</Card.Text>
+                    <Card.Text>{utcConverter(dateCreated)}</Card.Text>
+                </Card.Body>
+                </Row>
+            </Card>
+            </PostContainer>
+        )
     }
 
-    componentDidUpdate(prevProps: Readonly<{ chats: ChatState; chatcomments: ChatCommentState; posts: PostState; comments: CommentState; favorites: FavoriteState; currentUser: User | null; } & { getAllChats: () => void; getChat: (chatId: number) => void; getComments: (chatId: number) => void; getFavorites: () => void; }>, prevState: Readonly<{}>, snapshot?: any): void {
+    handleType() {
+        const content: any = [];
+        const { favorites } = this.props;
+
+        if (favorites.favorites != null) {
+            for (let i = 0; i < favorites.favorites?.length!; i++) {
+                if (favorites.favorites[i].type === "post") {
+                    content.push(this.postFunction(favorites.favorites[i]))
+                }
+                if (favorites.favorites[i].type === "chat") {
+                    content.push(this.chatFunction(favorites.favorites[i]))
+                }
+            }
+        }
+
+        return content;
+    }
+
+    componentDidMount(): void {
+        this.props.getFavorites();
+        this.handleType();
+    }
+
+    componentDidUpdate(prevProps: Readonly<{ chats: ChatState; chatcomments: ChatCommentState; posts: PostState; comments: CommentState; favorites: FavoriteState; currentUser: User | null; } & { getAllChats: () => void; getChat: (chatId: number) => void; getComments: (chatId: number) => void; getFavorites: () => void; likePost: (postId: number, contentType: string) => void; }>, prevState: Readonly<{}>, snapshot?: any): void {
         if (this.props.favorites.favorites?.length != prevProps.favorites.favorites?.length) {
-            this.props.favorites.favorites?.map(({ contentId, contentType }) => 
-                getFavorite(contentId, contentType)
-                .then((response) => this.setState({ userFavorites: this.state.userFavorites.concat(response) })))
+            this.props.getFavorites();
+            this.handleType();
         }
     }
     
     render() {
-        const { show, userFavorites } = this.state;
+        const { show } = this.state;
         const { favorites, chats, chatcomments, posts, comments, currentUser } = this.props;
-        console.log(userFavorites);
         return (
             <Fragment>
                 {
@@ -117,43 +215,7 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                         columnsCountBreakPoints={{350: 2, 750: 3, 900: 3, 1050: 4}}
                     >
                         <Masonry>
-                        {userFavorites.map(({ favoriteId, contentId, contentType, dateCreated }, index) => {
-                            return (
-                                <FavoriteContainer key={index}>
-                                    {
-
-                                    }
-                                </FavoriteContainer>
-                            // <FavoriteContainer key={index}>
-                            //     <Card className="bg-dark" key={index}>
-                            //         {/* <Card.Img src={mediaLink}/> */}
-                            //         {/* <Card.ImgOverlay> */}
-                            //             <BadgeContainer>
-                            //                 <Badge style={{ color: 'black' }} bg="light"><ArrowsFullscreen style={{ cursor: 'pointer' }} size={15} onClick={() => this.handleClick(favoriteId)}/></Badge>
-                            //             </BadgeContainer>
-                            //             {
-                            //                 comments > 0 && <BadgeContainer><Badge style={{ color: 'black' }} bg="light">
-                            //                     <Globe size={15}/>
-                            //                     {' '}{comments}
-                            //                     </Badge>
-                            //                 </BadgeContainer>
-                            //             }
-                            //             {
-                            //                 favorites > 0 && <BadgeContainer>
-                            //                     <Badge style={{ color: 'black' }} bg="light">
-                            //                     <Rocket size={15}/>
-                            //                     {' '}{favorites}
-                            //                     </Badge>
-                            //                 </BadgeContainer>
-                            //             }
-                            //         {/* </Card.ImgOverlay> */}
-                            //         <Card.Body>
-                            //             <Card.Text>{postValue}</Card.Text>
-                            //             <Card.Text>{about}</Card.Text>
-                            //         </Card.Body>
-                            //     </Card>
-                            // </FavoriteContainer>
-                        )})}
+                            {this.handleType()}
                         </Masonry>
                     </ResponsiveMasonry>
                     <Modal 
@@ -221,11 +283,12 @@ const mapStateToProps = (state: RootState) => {
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<ChatFetchAllStart | FavoriteFetchUserFavoritesStart | ChatFetchSingleStart | ChatCommentFetchSingleStart>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<ChatFetchAllStart | FavoriteCreateStart | FavoriteFetchUserFavoritesStart | ChatFetchSingleStart | ChatCommentFetchSingleStart>) => ({
 	getAllChats: () => dispatch(chatFetchAllStart()),
     getChat: (chatId: number) => dispatch(chatFetchSingleStart(chatId)),
     getComments: (chatId: number) => dispatch(chatcommentFetchSingleStart(chatId)),
-    getFavorites: () => dispatch(favoriteFetchUserFavoritesStart())
+    getFavorites: () => dispatch(favoriteFetchUserFavoritesStart()),
+    likePost: (postId: number, contentType: string) => dispatch(favoriteCreateStart(postId, contentType))
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
