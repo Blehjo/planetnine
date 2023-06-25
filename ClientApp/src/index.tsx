@@ -1,15 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { createRoot } from 'react-dom/client';
-import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import ReactLoading from "react-loading";
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import { store, persistor } from './store/store';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { persistor, store } from './store/store';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const container = document.getElementById('root');
@@ -21,7 +21,14 @@ function AppRenderer() {
     <Fragment>
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate 
+          loading={
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+              <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
+            </div>
+          }
+          persistor={persistor}
+        >
           <App />
           </PersistGate>
         </Provider>

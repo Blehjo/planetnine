@@ -29,46 +29,40 @@ export class Profile extends Component<ProfileProps> {
         const { posts, chats, planets, moons, userprofile, currentUser } = this.props;
         return (
             <>
+                <Row lg={2}>
                 {
-                    currentUser.currentUser == null ? 
-                    <Authentication/> :
+                    currentUser.isLoading ? 
+                    <div style={{ width: '50%', margin: 'auto' }}>
+                        <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
+                    </div> :
                     <>
-                        <Row lg={2}>
-                        {
-                            currentUser.isLoading ? 
-                            <div style={{ width: '50%', margin: 'auto' }}>
-                                <ReactLoading type="bars" color="lightgrey" height={667} width={375}/>
-                            </div> :
-                            <>
-                            <Col style={{ marginBottom: '2rem' }}lg={4}>
-                                <ProfileCard { ...this.props }/>
-                            </Col>
-                            <Col lg={8}>                
-                            <Tabs
-                                defaultActiveKey="posts"
-                                justify
-                                className='mb-5'
-                                variant='pills'
-                                >
-                                <Tab eventKey="posts" title="Posts">
-                                    <PostsTab { ...this.props } />
-                                </Tab>
-                                <Tab eventKey="chats" title="Chats">
-                                    <ChatsTab { ...this.props } />
-                                </Tab>
-                                <Tab eventKey="planets" title="Planets">
-                                    <PlanetsTab { ...this.props } />
-                                </Tab>
-                                <Tab eventKey="moons" title="Moons">
-                                    <MoonsTab { ...this.props } />
-                                </Tab>
-                            </Tabs>
-                            </Col>
-                            </>
-                        }
-                        </Row>
+                    <Col style={{ marginBottom: '2rem' }}lg={4}>
+                        <ProfileCard { ...this.props }/>
+                    </Col>
+                    <Col lg={8}>                
+                    <Tabs
+                        defaultActiveKey="posts"
+                        justify
+                        className='mb-5'
+                        variant='pills'
+                        >
+                        <Tab eventKey="posts" title="Posts">
+                            <PostsTab { ...this.props } />
+                        </Tab>
+                        <Tab eventKey="chats" title="Chats">
+                            <ChatsTab { ...this.props } />
+                        </Tab>
+                        <Tab eventKey="planets" title="Planets">
+                            <PlanetsTab { ...this.props } />
+                        </Tab>
+                        <Tab eventKey="moons" title="Moons">
+                            <MoonsTab { ...this.props } />
+                        </Tab>
+                    </Tabs>
+                    </Col>
                     </>
                 }
+                </Row>
             </>
         );
     }

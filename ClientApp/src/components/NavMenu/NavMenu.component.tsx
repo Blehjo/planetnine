@@ -15,7 +15,7 @@ interface ICollapsed {
 }
 
 
-export class NavMenu extends Component<IProps, ICollapsed> {
+export class NavMenu extends Component<any, ICollapsed> {
   static displayName = NavMenu.name;
 
   constructor (props: {}) {
