@@ -27,7 +27,7 @@ export const NotificationsContainer = styled.div`
         width: 100%;
         margin-left: 16rem;
         padding-right: 16rem;
-        height: 10%;
+        height: 12%;
         z-index: 5;
         .notifications {
             display: none;

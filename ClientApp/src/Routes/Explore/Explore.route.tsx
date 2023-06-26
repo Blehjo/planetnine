@@ -6,37 +6,37 @@ const contentArray = [
     {
         type: "Planets",
         path: "/planets",
-        media_location_url: "https://i.imgur.com/BEIcwEa.jpg",
+        media_location_url: "/planets-explore.jpeg",
         id: 1
     },
     {
         type: "Crew",
         path: "/crew",
-        media_location_url: "https://i.imgur.com/ijeK4AL.jpg",
+        media_location_url: "/crew-explore.jpeg",
         id: 2
     },
     {
         type: "Profiles",
         path: "/profiles",
-        media_location_url: "https://i.imgur.com/HxNGjRH.jpg",
+        media_location_url: "/profiles-explore.jpeg",
         id: 3
     },
     {
         type: "Posts",
         path: "/posts",
-        media_location_url: "https://i.imgur.com/7Nxg9uE.jpg",
+        media_location_url: "/posts-explore.jpeg",
         id: 4
     },
     {
         type: "Chats",
         path: "/chats",
-        media_location_url: "https://i.imgur.com/WsUbtP6.jpg",
+        media_location_url: "/chats-explore.jpeg",
         id: 5
     },
     {
         type: "News",
         path: "/news",
-        media_location_url: "https://i.imgur.com/ceyA482.jpg",
+        media_location_url: "/news-explore.jpeg",
         id: 6
     }
 ]

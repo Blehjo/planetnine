@@ -84,7 +84,7 @@ export class FavoriteComponent extends Component<FavoriteProps> {
 
     postFunction(post: any) {
         const { postId, postValue, mediaLink, comments, favorites, type, imageSource } = post;
-        console.log("POST: ",post)
+        console.log(favorites)
         return (
             <PostContainer>
             <Card className="bg-dark" key={postId}>
@@ -184,13 +184,13 @@ export class FavoriteComponent extends Component<FavoriteProps> {
 
     componentDidMount(): void {
         this.props.getFavorites();
-        this.handleType();
+        // this.handleType();
     }
 
     componentDidUpdate(prevProps: Readonly<{ chats: ChatState; chatcomments: ChatCommentState; posts: PostState; comments: CommentState; favorites: FavoriteState; currentUser: User | null; } & { getAllChats: () => void; getChat: (chatId: number) => void; getComments: (chatId: number) => void; getFavorites: () => void; likePost: (postId: number, contentType: string) => void; }>, prevState: Readonly<{}>, snapshot?: any): void {
         if (this.props.favorites.favorites?.length != prevProps.favorites.favorites?.length) {
             this.props.getFavorites();
-            this.handleType();
+            // this.handleType();
         }
     }
     
@@ -205,8 +205,8 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                     <>
                     {
                 favorites.isLoading || chats.isLoading || chatcomments.isLoading || posts.isLoading || comments.isLoading ? 
-                <div style={{ width: '50%', margin: 'auto' }}>
-                    <ReactLoading type="bars" color="lightgrey" height={'20%'} width={'20%'}/>
+                <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <ReactLoading type="bars" color="lightgrey" height={375} width={375} />
                 </div> :
                 <>
                 <h1>Favorites</h1>

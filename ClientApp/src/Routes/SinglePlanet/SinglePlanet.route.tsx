@@ -47,13 +47,17 @@ function SinglePlanet() {
                                 <iframe
                                     src={planet?.modelLink}
                                     width="100%" 
-                                    height={window.innerWidth > 900 ? "450px" : "100px"}
+                                    height={window.innerWidth > 900 ? "450px" : "200px"}
 
                                 /> :
                                 <Card.Img src={planet?.imageLink ? planet.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                             }
                         </Card.Body>
-                        <Card.Footer>{planet?.description}</Card.Footer>
+                        <Card.Footer>
+                            <div style={{ height: '5rem', overflowY: 'auto' }}>
+                            {planet?.description}
+                            </div>
+                        </Card.Footer>
                     </Card>
                 </SinglePostContainer>
                 <PlanetCommentComponent planet={planet!} queryId={queryId}/>

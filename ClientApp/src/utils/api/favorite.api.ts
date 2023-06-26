@@ -97,7 +97,7 @@ export async function getUserFavorites(): Promise<any[]> {
 
   for (let i = 0; i < result.length; i++) {
     const { contentType, contentId } = result[i];
-    getFavorite(contentId, contentType)
+    await getFavorite(contentId, contentType)
     .then((response) => {
       content.push(response)
     })

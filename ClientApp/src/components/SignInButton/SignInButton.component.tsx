@@ -55,10 +55,6 @@ export class SignInButton extends Component<IProps, ICollapsed> {
         this.toggleNavbar();
     }
 
-    componentDidMount(): void {
-        this.props.checkUserSession();
-    }
-
     render() {
         const { currentUser } = this.props.user;
         const { collapsed, openModal } = this.state;

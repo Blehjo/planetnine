@@ -170,10 +170,10 @@ export class Messages extends Component<MessagesProps, IDefaultForms> {
                 <MessagebarContainer className="fixed-top">
                     <MessageContainer>
                         <Row xs={2} md={2} lg={1} xl={2}>
-                            <Col xs={12} md={5} lg={7} xl={3}>
+                            <Col xs={12} sm={12} md={7} lg={5} xl={3}>
                                 <CollectionContainer>
                                 <h1>Comms<Plus size={40} style={{ cursor: 'pointer' }} /></h1>
-                                    <input style={{ marginTop: '1rem', marginBottom: '1rem', borderRadius: ".1rem", width: "auto" }} onClick={this.handleClickEvent} placeholder="Search" />
+                                    <input style={{ marginTop: '1rem', marginBottom: '1rem', borderRadius: ".1rem", width: "85%" }} onClick={this.handleClickEvent} placeholder="Search" />
                                     <Modal show={show} onHide={this.handleClickEvent}>
                                         <SearchBox onSearchChange={this.onSearchChange} />
                                         <div>

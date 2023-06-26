@@ -39,7 +39,11 @@ export const CollectionContainer = styled.div`
   text-align: center;
   @media (max-width: 994px) {
     height: 20vh;
+    margin-left: 1.5rem
   }
+  // @media (max-width: 899px) {
+  //   width: 100%;
+  // }
   @media (max-width: 767px) {
     margin-left: 12rem;
     height: 20vh;
@@ -74,16 +78,20 @@ export const FormContainer = styled.div`
   height: 90vh;
   @media (max-width: 994px) {
     height: 65vh;
+    margin-left: 1.5rem;
+  }
+  @media (max-width: 899px) {
+    height: 55vh;
   }
   @media (max-width: 767px) {
     margin-left: 12rem;
     margin-bottom: 15rem;
-    height: 58vh;
+    height: 56vh;
   }
   @media (max-width: 717px) {
     margin-left: .5rem;
     margin-bottom: 15rem;
-    height: 50vh;
+    height: 58vh;
   }
 `;
 
@@ -105,13 +113,16 @@ export const RowContainer = styled.div`
   overflow-y: auto; 
   height: 60vh;
   @media (max-width: 994px) {
-    height: 50vh;
+    height: 38vh;
+  }
+  @media (max-width: 900px) {
+    height: 28vh;
   }
   @media (max-width: 767px) {
     height: 32vh;
   }
   @media (max-width: 717px) {
-    height: 26vh;
+    height: 32vh;
   }
   @media (max-width: 390px) {
     margin: 2rem;

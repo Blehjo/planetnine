@@ -9,6 +9,8 @@ import {
   signOutSuccess,
   signInSuccess,
   setCurrentUser,
+  signUpStart,
+  checkUserSession,
 } from './user.action';
 
 export type UserState = {
@@ -25,10 +27,16 @@ const INITIAL_STATE: UserState = {
 
 export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
   if (
+    signUpStart.match(action) ||
+    checkUserSession.match(action) 
+  ) {
+    return { ...state, isLoading: true };
+  }
+  if (
     signInSuccess.match(action) ||
     setCurrentUser.match(action) 
   ) {
-    return { ...state, currentUser: action.payload };
+    return { ...state, isLoading: false, currentUser: action.payload};
   }
 
   if (signOutSuccess.match(action)) {
@@ -40,7 +48,7 @@ export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
     signUpFailed.match(action) ||
     signOutFailed.match(action)
   ) {
-    return { ...state, error: action.payload };
+    return { ...state, isLoading: false, error: action.payload };
   }
 
   return state;

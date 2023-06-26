@@ -22,10 +22,6 @@ class SidebarMenu extends Component<SidebarMenuProps> {
         this.props.getUser(this.props.user)
     }
 
-    componentDidMount(): void {
-        this.props.getCurrentUser();
-    }
-
     render() {
         return (
             <SideContainer className='mt-5 pb-5 hidden fixed-top bg-dark'>
