@@ -287,9 +287,9 @@ export class MoonsTab extends Component<ProfileProps, IMoonFields> {
             <button className="btn btn-dark" onClick={() => this.handleClose()}>
                 Close
             </button>
-            <button className="btn btn-dark" onClick={() => this.handleClose()}>
+            <a className="btn btn-dark" href={`/singlemoon/${moons.singleMoon?.moonId}`}>
                 Single View
-            </button>
+            </a>
             </Modal.Footer>
             </ModalContainer>
         </Modal>

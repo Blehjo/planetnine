@@ -287,7 +287,7 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                 <button className="btn btn-dark" onClick={() => this.handleClose()}>
                     Close
                 </button>
-                <a href={`/singlechat/${singleChat?.chatId}`} style={{ textDecoration: 'none', color: 'white' }} className="btn btn-dark" onClick={() => this.handleClose()}>
+                <a href={`/singlechat/${singleChat?.chatId}`} style={{ textDecoration: 'none', color: 'white' }} className="btn btn-dark">
                     Single View
                 </a>
                 </Modal.Footer>
@@ -367,7 +367,7 @@ export class FavoriteComponent extends Component<FavoriteProps> {
                 <button className="btn btn-dark" onClick={() => this.handleClose()}>
                     Close
                 </button>
-                <a href={`/singlepost/${singlePost?.postId}`} style={{ textDecoration: 'none', color: 'white' }} className="btn btn-dark" onClick={() => this.handleClose()}>
+                <a href={`/singlepost/${singlePost?.postId}`} style={{ textDecoration: 'none', color: 'white' }} className="btn btn-dark" >
                     Single View
                 </a>
                 </Modal.Footer>

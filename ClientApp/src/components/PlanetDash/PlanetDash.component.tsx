@@ -190,9 +190,9 @@ export class PlanetDash extends Component<PlanetDashProps, ICurrentState> {
                     <button className="btn btn-dark" onClick={() => this.handleClose()}>
                         Close
                     </button>
-                    <button className="btn btn-dark" onClick={() => this.handleClose()}>
+                    <a className="btn btn-dark" href={`/singleplanet/${planets.singlePlanet?.planetId}`}>
                         Single View
-                    </button>
+                    </a>
                     </Modal.Footer>
                     </ModalContainer>
                 </Modal>
