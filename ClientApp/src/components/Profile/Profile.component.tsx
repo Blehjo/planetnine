@@ -1,4 +1,4 @@
-import { Component, Dispatch } from "react";
+import { Component, Dispatch, Fragment } from "react";
 import { Col, Row, Tab, Tabs } from "react-bootstrap";
 import ReactLoading from "react-loading";
 import { ConnectedProps, connect } from "react-redux";
@@ -28,32 +28,40 @@ export class Profile extends Component<ProfileProps> {
     render() {
         const { posts, chats, planets, moons, userprofile, currentUser } = this.props;
         return (
-            <Row lg={2}>
-                <Col style={{ marginBottom: '2rem' }}lg={4}>
-                    <ProfileCard { ...this.props }/>
-                </Col>
-                <Col lg={8}>                
-                <Tabs
-                    defaultActiveKey="posts"
-                    justify
-                    className='mb-5'
-                    variant='pills'
-                    >
-                    <Tab eventKey="posts" title="Posts">
-                        <PostsTab { ...this.props } />
-                    </Tab>
-                    <Tab eventKey="chats" title="Chats">
-                        <ChatsTab { ...this.props } />
-                    </Tab>
-                    <Tab eventKey="planets" title="Planets">
-                        <PlanetsTab { ...this.props } />
-                    </Tab>
-                    <Tab eventKey="moons" title="Moons">
-                        <MoonsTab { ...this.props } />
-                    </Tab>
-                </Tabs>
-                </Col>
-            </Row>
+            <Fragment>
+            {
+                currentUser.currentUser == null ? 
+                <Authentication/> :
+                <>
+                <Row lg={2}>
+                    <Col style={{ marginBottom: '2rem' }}lg={4}>
+                        <ProfileCard { ...this.props }/>
+                    </Col>
+                    <Col lg={8}>                
+                    <Tabs
+                        defaultActiveKey="posts"
+                        justify
+                        className='mb-5'
+                        variant='pills'
+                        >
+                        <Tab eventKey="posts" title="Posts">
+                            <PostsTab { ...this.props } />
+                        </Tab>
+                        <Tab eventKey="chats" title="Chats">
+                            <ChatsTab { ...this.props } />
+                        </Tab>
+                        <Tab eventKey="planets" title="Planets">
+                            <PlanetsTab { ...this.props } />
+                        </Tab>
+                        <Tab eventKey="moons" title="Moons">
+                            <MoonsTab { ...this.props } />
+                        </Tab>
+                    </Tabs>
+                    </Col>
+                </Row>
+                </>
+            }
+            </Fragment>
         );
     }
 }
