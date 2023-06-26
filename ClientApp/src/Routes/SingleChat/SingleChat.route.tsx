@@ -92,6 +92,7 @@ function SingleChat() {
                         <Card.Img src="https://www.artlog.net/sites/default/files/styles/al_colorbox_rules/public/turrell_cregis_golay_federal_studio.jpg?itok=2M4Pyn0A"/>
                     </Card.Body>
                 </Card>
+                <div style={{ height: '12rem', overflowY: 'auto' }}>
                 {
                     comments?.map(({ chatCommentId, chatValue, mediaLink, dateCreated }) => {
                         return <CardContainer>
@@ -104,6 +105,7 @@ function SingleChat() {
                         </CardContainer>
                     })
                 }
+                </div>
             </SingleChatContainer>
             <CommentBarContainer>
                 <CommentContainer>

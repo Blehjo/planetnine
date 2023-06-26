@@ -38,7 +38,11 @@ function SinglePost() {
                     <Card.Body>
                         <Card.Img src={post?.imageSource}/>
                     </Card.Body>
-                    <Card.Footer>{post?.postValue}</Card.Footer>
+                    <Card.Footer>
+                    <div style={{ height: '5rem', overflowY: 'auto' }}>
+                        {post?.postValue}
+                    </div>
+                    </Card.Footer>
                 </Card>
             </SinglePostContainer>
             <CommentComponent post={post!} queryId={queryId}/>

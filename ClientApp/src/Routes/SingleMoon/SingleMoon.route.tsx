@@ -51,13 +51,17 @@ function SingleMoon() {
                                 <iframe
                                     src={moon?.modelLink}
                                     width="100%" 
-                                    height={window.innerWidth > 900 ? "450px" : "100px"}
+                                    height={window.innerWidth > 900 ? "450px" : "200px"}
 
                                 /> :
                                 <Card.Img src={moon?.imageLink ? moon.imageLink : "https://i.pinimg.com/originals/8e/47/2a/8e472a9d5d7d25f4a88281952aed110e.png"}/>
                             }
                         </Card.Body>
-                        <Card.Footer>{moon?.description}</Card.Footer>
+                        <Card.Footer>
+                            <div style={{ height: '5rem', overflowY: 'auto' }}>
+                                {moon?.description}
+                            </div>
+                        </Card.Footer>
                     </Card>
                 </SinglePostContainer>
                 <MoonCommentComponent moon={moon!} queryId={queryId}/>
