@@ -43,7 +43,7 @@ export class MessageList extends Component<ISearchProps> {
                     <Card bg="dark" style={{ margin: ".2rem", position: "relative" }} key={message.messageId} >
                         <Row xs={2}>
                             <Col xs={10}>
-                                <Card.Body>{"message.messageComments"}</Card.Body>
+                                <Card.Body>{message.messageValue}</Card.Body>
                             </Col>
                             <Col xs={2}>
                                 <a href={`/singleplanet/${message.messageId}`} style={{ textDecoration: 'none', color: 'black', position: "absolute", margin: "0", top: "50%", transform: "translateY(-50%)", msTransform: "translateY(-50%)" }} className="btn btn-light">

@@ -39,6 +39,7 @@ export class NavMenu extends Component<any, ICollapsed> {
         <Navbar fixed='top' bg='dark' expand="sm">
           <Nav >
             <Navbar.Brand href="/"
+              className='brandcss'
               style={{ color: 'white', marginLeft: '.2rem' }}
             >
               <img onClick={() => {
@@ -58,13 +59,13 @@ export class NavMenu extends Component<any, ICollapsed> {
             </Col>
             <Row xs={4} style={{ justifyContent: "space-between", textAlign: "center", marginRight: '.5rem' }}>
                 <Col xs={2} key="navigationIcons">
-                    <Nav.Link href="/vitals">Vitals</Nav.Link>
+                    <Nav.Link className='navmenucss' href="/vitals">Vitals</Nav.Link>
                 </Col>
                 <Col xs={2}>
-                    <Nav.Link href="/crew" >Crew</Nav.Link>
+                    <Nav.Link className='navmenucss' href="/crew" >Crew</Nav.Link>
                 </Col>
                 <Col xs={2}>
-                    <Nav.Link href="/planets" >Planets</Nav.Link>
+                    <Nav.Link className='navmenucss' href="/planets" >Planets</Nav.Link>
                 </Col>
                 <Col xs={4}>
                     <SignInButtonComponent/>

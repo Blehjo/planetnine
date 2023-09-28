@@ -63,8 +63,8 @@ export class SignInButton extends Component<IProps, ICollapsed> {
             <Fragment>
                 {
                     currentUser ?
-                    <NavLink><Person onClick={this.toggleNavbar} style={{ cursor: 'pointer' }} color="white" size={20} /></NavLink> : 
-                    <NavLink href="/authentication" style={{ cursor: 'pointer' }}>Sign In</NavLink>
+                    <NavLink><Person className="signoutcss" onClick={this.toggleNavbar} style={{ cursor: 'pointer' }} color="white" size={20} /></NavLink> : 
+                    <NavLink className="signoutcss" href="/authentication" style={{ cursor: 'pointer' }}>Sign In</NavLink>
                 }
                 {
                     !collapsed && 

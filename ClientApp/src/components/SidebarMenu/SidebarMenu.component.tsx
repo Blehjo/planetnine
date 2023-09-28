@@ -28,7 +28,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                 <Row 
                 xs={1} 
                 >
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 mt-3 d-flex align-items-center hovercss">
                         <a href="/voyager">
                         <Airplane className='icons' color="white" />
                         </a>
@@ -36,7 +36,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Voyage
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/fractal">
                         <Hexagon className='icons' color="white" />
                         </a>
@@ -44,7 +44,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Fractals
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/builder">
                         <Lightbulb className='icons' color="white" />
                         </a>
@@ -52,7 +52,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Builder
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/vitals">
                         <Person className='icons' color="white" />
                         </a>
@@ -60,7 +60,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Vitals
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a onClick={this.handleClick} href="/profile">
                         <House className='icons' color="white" />
                         </a>
@@ -68,7 +68,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Profile
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/crew">
                         <Robot className='icons' color="white"  />
                         </a>
@@ -76,7 +76,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Crew
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/messages">
                         <ChatDots className='icons' color="white"  />
                         </a>
@@ -84,7 +84,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Messages
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/explore">
                         <Eye className='icons' color="white" />
                         </a>
@@ -92,7 +92,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Explore
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/planets">
                         <Globe className='icons' color="white"  />
                         </a>
@@ -100,7 +100,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Planets
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/moons">
                         <Moon className='icons' color="white" />
                         </a>
@@ -108,7 +108,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Moons
                         </Nav.Link>
                     </Nav.Item >
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/pilots">
                         <PersonBadge className='icons' color="white" />
                         </a>
@@ -116,7 +116,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Pilots
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/posts">
                         <Collection className='icons' color="white" />
                         </a>
@@ -124,7 +124,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Posts
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/chats">
                         <ChatLeft className='icons' color="white" />
                         </a>
@@ -132,7 +132,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Chats
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center">
+                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
                         <a href="/favorites">
                         <Star className='icons' color="white" />
                         </a>

@@ -1,6 +1,5 @@
 import { Component, Dispatch, Fragment } from "react";
 import { Col, Row, Tab, Tabs } from "react-bootstrap";
-import ReactLoading from "react-loading";
 import { ConnectedProps, connect } from "react-redux";
 
 import { RootState } from "../../store/store";

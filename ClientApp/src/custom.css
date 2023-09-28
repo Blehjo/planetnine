@@ -26,3 +26,49 @@ code {
     padding-left: 4rem;
   }
 }
+
+.hovercss:hover {
+  background:black;
+  color: gray;
+  border-radius: .2rem;
+  width: 83%;
+}
+
+.navmenucss {
+  padding: .1rem .5rem .1rem .5rem;
+  &:hover {
+    background:black;
+    color: gray;
+    border-radius: .2rem;
+    width: fit-content;
+    padding: .1rem .5rem .1rem .5rem;
+  }
+}
+
+.signoutcss {
+  padding: .1rem .5rem .1rem .5rem;
+  &:hover {
+    background:black;
+    color: gray;
+    border-radius: .2rem;
+    /* width: fit-content; */
+    padding: .1rem .5rem .1rem .5rem;
+  }
+}
+
+.brandcss {
+  padding: .1rem .5rem .1rem 0rem;
+  &:hover {
+    background:black;
+    color: gray;
+    border-radius: .2rem;
+    width: fit-content;
+    padding: .1rem .5rem .1rem 0rem;
+  }
+}
+
+.planetcss:hover {
+  color: red;
+  padding: 1rem;
+  background: black;
+}
