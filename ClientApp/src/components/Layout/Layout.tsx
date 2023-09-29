@@ -27,9 +27,13 @@ export class Layout extends Component<Props> {
       <>
       {
         isLoading ?
+        <>
+        <NavMenu { ...this.props } />
+        <Sidebar />
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
           <ReactLoading type="bars" color="lightgrey" height={375} width={375}/>
-        </div> :
+        </div> 
+        </>:
         <div>
           <NavMenu { ...this.props } />
           <Sidebar />

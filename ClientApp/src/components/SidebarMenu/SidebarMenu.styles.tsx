@@ -6,7 +6,7 @@ export const SideContainer = styled.div`
         font-size: 15px;
         width: 16rem;
         color: white; 
-        height: 100vh;
+        height: 100%;
         overflow-y: auto;
         margin-top: 3rem; 
         overflow-x: hidden;
