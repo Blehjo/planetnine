@@ -27,11 +27,16 @@ code {
   }
 }
 
-.hovercss:hover {
-  background:black;
-  color: gray;
-  border-radius: .2rem;
-  width: 83%;
+.hovercss {
+  width: 82%;
+  @media screen and (max-width: 718px) {
+    width: fit-content
+  }
+  &:hover {
+    background:black;
+    color: gray;
+    border-radius: .2rem;
+  }
 }
 
 .navmenucss {
