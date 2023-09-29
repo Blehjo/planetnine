@@ -23,12 +23,14 @@ class SidebarMenu extends Component<SidebarMenuProps> {
     }
 
     render() {
+        const pathname = window.location.pathname;
         return (
             <SideContainer className='mt-5 pb-5 hidden fixed-top bg-dark'>
                 <Row 
                 xs={1} 
+                style={{ paddingBottom: '4rem'}}
                 >
-                    <Nav.Item className="ms-4 mt-3 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/voyager" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 mt-3 d-flex align-items-center hovercss">
                         <a href="/voyager">
                         <Airplane className='icons' color="white" />
                         </a>
@@ -36,7 +38,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Voyage
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/fractal" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/fractal">
                         <Hexagon className='icons' color="white" />
                         </a>
@@ -44,7 +46,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Fractals
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/builder" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/builder">
                         <Lightbulb className='icons' color="white" />
                         </a>
@@ -52,7 +54,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Builder
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/vitals" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/vitals">
                         <Person className='icons' color="white" />
                         </a>
@@ -60,7 +62,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Vitals
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/profile" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a onClick={this.handleClick} href="/profile">
                         <House className='icons' color="white" />
                         </a>
@@ -68,7 +70,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Profile
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/crew" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/crew">
                         <Robot className='icons' color="white"  />
                         </a>
@@ -76,7 +78,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Crew
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/messages" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/messages">
                         <ChatDots className='icons' color="white"  />
                         </a>
@@ -84,7 +86,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Messages
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/explore" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/explore">
                         <Eye className='icons' color="white" />
                         </a>
@@ -92,7 +94,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Explore
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/planets" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/planets">
                         <Globe className='icons' color="white"  />
                         </a>
@@ -100,7 +102,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Planets
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/moons" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/moons">
                         <Moon className='icons' color="white" />
                         </a>
@@ -108,7 +110,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Moons
                         </Nav.Link>
                     </Nav.Item >
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/pilots" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/pilots">
                         <PersonBadge className='icons' color="white" />
                         </a>
@@ -116,7 +118,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Pilots
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/posts" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/posts">
                         <Collection className='icons' color="white" />
                         </a>
@@ -124,7 +126,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Posts
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/chats" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/chats">
                         <ChatLeft className='icons' color="white" />
                         </a>
@@ -132,7 +134,7 @@ class SidebarMenu extends Component<SidebarMenuProps> {
                             Chats
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item className="ms-4 d-flex align-items-center hovercss">
+                    <Nav.Item style={pathname == "/favorites" ? {background: 'black', width: '82%', borderRadius: '.2rem' } : {visibility: 'visible'}} className="ms-4 d-flex align-items-center hovercss">
                         <a href="/favorites">
                         <Star className='icons' color="white" />
                         </a>
